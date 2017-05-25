@@ -4,7 +4,7 @@
 #from ipywidgets import widgets
 from mouseworld import mouseworld
 
-empty_model = mouseworld.Mouseworld(1, 5, 100, 20, 100, 100)
+empty_model = mouseworld.Mouseworld(7, 5, 100, 20, 100, 100)
 #for i in range(5000) :
 counter = 0
 for i in range(1) :

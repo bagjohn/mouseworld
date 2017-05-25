@@ -9,7 +9,23 @@ from mouseworld.input_manager import Input_manager
 import nengo
 
 class Mousebrain(nengo.Network) :
+    
+    def approach(self, x):
+        spd = np.exp(-x[0])
+        turn = -x[1]
+        return spd, turn
 
+    def avoid(self, x) :
+        spd = np.exp(x[0])-1    
+        turn = x[1]        
+        return spd, turn
+
+    def search(self, x) :
+        spd = 1
+        turn = 0
+        return spd, turn
+
+    
     def build(self, input_manager):
 
         #mousebrain  = nengo.Network()
@@ -70,27 +86,13 @@ class Mousebrain(nengo.Network) :
             # Input: x[1] for left-right stimulus (positive when source to the left)
             # Turning is implemented by default to the right
             # When approaching we need high speed when low input and turning towards source
-            def approach(x):
-                spd = np.exp(-x[0])
-                turn = -x[1]
-                return spd, turn
-
-            def avoid(x) :
-                spd = np.exp(x[0])-1    
-                turn = x[1]        
-                return spd, turn
-
-            def search(x) :
-                spd = 1
-                turn = 0
-                return spd, turn
-
+            
             #nengo.Connection(odor2motor, motor_neurons, function=braiten) 
-            conn_approach = nengo.Connection(odor_neurons, approach_neurons, function=approach, 
+            conn_approach = nengo.Connection(odor_neurons, approach_neurons, function=self.approach, 
                         learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
-            conn_avoid = nengo.Connection(odor_neurons, avoid_neurons, function=avoid, 
+            conn_avoid = nengo.Connection(odor_neurons, avoid_neurons, function=self.avoid, 
                         learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
-            conn_search = nengo.Connection(odor_neurons, search_neurons, function=search, 
+            conn_search = nengo.Connection(odor_neurons, search_neurons, function=self.search, 
                         learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
 
             nengo.Connection(errors.ensembles[0], conn_approach.learning_rule, synapse = 0.01)

@@ -87,9 +87,30 @@ class BaseScheduler:
     def get_agent_count(self):
         """ Returns the current number of agents in the queue. """
         return len(self.agents)
-
-
+    
 class RandomActivation(BaseScheduler):
+    """ A scheduler which activates each agent once per step, in random order,
+    with the order reshuffled every step.
+
+    This is equivalent to the NetLogo 'ask agents...' and is generally the
+    default behavior for an ABM.
+
+    Assumes that all agents have a step(model) method.
+
+    """
+    def step(self):
+        """ Executes the step of all agents, one at a time, in
+        random order.
+
+        """
+        random.shuffle(self.agents)
+        
+        for agent in self.agents[:]:
+            agent.step()
+        self.steps += 1
+        self.time += 1
+
+class ParallelRandomActivation(BaseScheduler):
     """ A scheduler which activates each agent once per step, in random order,
     with the order reshuffled every step.
 

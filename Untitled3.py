@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[5]:
+# In[1]:
 
 from mouseworld.mouse import Input_manager
 from mouseworld.mousebrain import Mousebrain
@@ -15,7 +15,11 @@ a.build(b)
 pickle.dump(a, open( "save.p", "wb" ) )
 
 
-# In[ ]:
+# In[2]:
 
+from joblib import Parallel, delayed
+import multiprocessing
 
+num_cores = multiprocessing.cpu_count()
+num_cores
 

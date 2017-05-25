@@ -1,6 +1,6 @@
 
 from mesa import Agent, Model
-from mesa.time import RandomActivation
+#from mesa.time import RandomActivation
 #from mesa.space import ContinuousSpace
 from mesa.datacollection import DataCollector
 
@@ -13,7 +13,7 @@ from scipy.stats import norm
 
 # from mouseworld.myspace import ContinuousSpace
 # from mouseworld.myspace import Value_layer
-#from mouseworld.mytime import *
+from mouseworld.mytime import *
 from mouseworld.myspace import *
 from mouseworld.mouse import Mouse
 from mouseworld.food import Food
@@ -21,9 +21,14 @@ from mouseworld.predator import Predator
 from mouseworld.mydatacollector import MyDataCollector
 #from mouseworld.space_surface import Space_surface
 
+from joblib import Parallel, delayed
+import multiprocessing
 
 class Mouseworld(Model):
     def __init__(self, num_mice, num_genes, num_food, num_predators, width, height):
+        
+        # for parallel processing
+        self.num_cores = multiprocessing.cpu_count()
         
         # define model variables from args
         self.num_mice = num_mice
@@ -220,14 +225,19 @@ class Mouseworld(Model):
     def diffuse_odor_layers(self, layers) :
         for layer in layers :
             layer.diffuse(0.95,0.8) 
-    
+            
+    def diffuse_odor_layers_parallel(self, layers) :
+        
+        Parallel(n_jobs=self.num_cores)(delayed(layer.diffuse)(0.95,0.8) for layer in layers)
+            
     def step(self):
         '''Advance the model by one step.'''
         #self.datacollector.collect(self,self.schedule)
         #self.predator_datacollector.collect(self,self.predator_schedule)
         self.food_schedule.step()
         self.predator_schedule.step()
-        self.diffuse_odor_layers(self.odor_layers)
+        #self.diffuse_odor_layers_parallel(self.odor_layers)
+        self.diffuse_odor_layers_parallel(self.odor_layers)
         self.schedule.step() 
         self.test_datacollector.collect(self, self.schedule)
 

@@ -1,12 +1,17 @@
 
 #from ipywidgets import widgets
 from mouseworld import mouseworld
+import time
 
-empty_model = mouseworld.Mouseworld(100, 5, 100, 20, 100, 100)
+empty_model = mouseworld.Mouseworld(50, 5, 100, 40, 100, 100)
 #for i in range(5000) :
 counter = 0
-for i in range(10) :
-    empty_model.diffuse_odor_layers(empty_model.odor_layers)
+
+#a = time.time()
+for i in range(100) :
+    empty_model.diffuse_odor_layers_parallel(empty_model.odor_layers)
+#b = time.time()
+#print(b-a)
 while empty_model.num_mice > 0 :
 #for i in range(20) :
     counter += 1

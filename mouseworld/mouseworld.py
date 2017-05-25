@@ -115,6 +115,9 @@ class Mouseworld(Model):
             self.place_agent_randomly(predator)
             #self.predator_layers[j].add_agent(predator)
                 
+        self.initial_datacollector = MyDataCollector(
+            model_reporters={"Initial genome distribution": lambda a: a.initialization_genome})
+        
         self.datacollector = MyDataCollector(
             model_reporters={"Alive_mice": lambda a: a.num_mice, 
                              "Unborn_mice": lambda a: a.num_unborn_mice,

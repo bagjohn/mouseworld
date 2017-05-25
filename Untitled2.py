@@ -1,100 +1,6 @@
 
 # coding: utf-8
 
-# In[1]:
-
-import nengo
-
-import matplotlib.pyplot as plt
-
-class InputManager(object):
-    """because we need to contain state, the easier way to do that in
-    Python is to make a class"""
-
-    def __init__(self):
-        self.state = (0)
-
-    def get_input(self, modifyer):
-        """you can modify the state value or over-write it here
-        or you can just modify the state parameter directly"""
-        print("Manage the input here.")
-        self.state += modifyer
-
-    def return_output(self, t):
-        return self.state
-
-im = InputManager()
-def build_model():
-    model = nengo.Network()
-    with model:
-        in_nd = nengo.Node(im.return_output)
-        ens = nengo.Ensemble(n_neurons=500, dimensions=1)
-
-        nengo.Connection(in_nd, ens)
-
-        p_ens = nengo.Probe(ens, synapse=0.01)
-        return model 
-modelB = build_model ()
-sim = nengo.Simulator(modelB)
-with sim:
-    for i in range(2000):
-        sim.step()
-        if i == 300:
-            # modification via function argument
-            im.get_input(0.5)
-        elif i == 1000:
-            # modification by overwriting a property
-            im.state = 0.7
-plt.plot(sim.trange(), sim.data[p_ens])
-plt.show()
-
-
-# In[12]:
-
-import nengo
-
-import matplotlib.pyplot as plt
-
-class InputManager(object):
-    """because we need to contain state, the easier way to do that in
-    Python is to make a class"""
-
-    def __init__(self):
-        self.state = (0,0)
-
-    def get_input(self, modifyer):
-        """you can modify the state value or over-write it here
-        or you can just modify the state parameter directly"""
-        print("Manage the input here.")
-        self.state += modifyer
-
-    def return_output(self, t):
-        return self.state
-
-im = InputManager()
-
-with nengo.Network() as model:
-    in_nd = nengo.Node(im.return_output)
-    ens = nengo.Ensemble(n_neurons=500, dimensions=2)
-
-    nengo.Connection(in_nd, ens)
-
-    p_ens = nengo.Probe(ens, synapse=0.01)
-
-with nengo.Simulator(model) as sim:
-    for i in range(2000):
-        sim.step()
-        if i == 300:
-            # modification via function argument
-            im.state = (0.5, 0.3)
-        elif i == 1000:
-            # modification by overwriting a property
-            im.state = None
-
-plt.plot(sim.trange(), sim.data[p_ens])
-plt.show()
-
-
 # In[145]:
 
 import pandas as pd
@@ -241,22 +147,6 @@ results
 # In[150]:
 
 get_ipython().run_cell_magic('writefile', 'mouseworld/space_surface.py', "\nfrom scipy.stats import multivariate_normal\n#import matplotlib.pyplot as plt\nimport numpy as np\nimport pandas as pd\n\n#from mouseworld.myspace import ContinuousSpace\n\nclass Space_surface :\n    def __init__(self, unique_id): \n        self.unique_id = unique_id\n        #self.space  = space\n        #self.agent_list = []\n        columns = ['weight', 'loc[x]', 'loc[y]', 'scale']\n        #dtype={'weight':float,'loc':(float, float), 'scale':int}\n        self.agent_list = pd.DataFrame(data=np.zeros((0,len(columns))), columns=columns) \n        \n    def add_agent(self, agent) :\n        unique_id = agent.unique_id\n        scale = agent.odor_std\n        weight = agent.odor_strength\n        loc = agent.pos\n        self.agent_list.loc[unique_id] = [weight, loc[0], loc[1], scale]\n        #self.agent_list.append([unique_id, weight, loc, scale])\n        \n    def update_surface(self) :\n        data = self.agent_list.as_matrix()\n        #data = self.agent_list.drop(['unique_id'], axis=1)\n        #data = data.values\n        self.surface = [[0, None]]*len(data)\n        for i in range(len(data)):\n            self.surface[i][0] = data[i,0]\n            pos = [data[i,1], data[i,2]]\n            self.surface[i][1] = multivariate_normal(pos, data[i,3])\n        #print(data)\n        \n    def update_agent_location(self, agent_unique_id, agent_pos) :\n#         temp = self.agent_list\n#         temp.ix[agent_unique_id]['loc'] = agent_pos\n#         ind = temp[:,0] == agent.unique_id\n#         temp[ind][2] = agent_pos\n        self.agent_list.set_value(agent_unique_id,'loc[x]',agent_pos[0])\n        self.agent_list.set_value(agent_unique_id,'loc[y]',agent_pos[1])\n\n        \n    def remove_agent(self, agent) :\n        temp = self.agent_list\n        #self.agent_list = temp[temp[:,0] != agent.unique_id]\n        temp.drop(temp.index[agent.unique_id])\n        self.agent_list = temp\n         \n    def get_value(self, pos) :\n        value = 0\n        for i in self.surface :\n            value += i[0] * i[1].pdf(pos)\n        return value\n    ")
-
-
-# In[136]:
-
-from mouseworld.space_surface import Space_surface
-
-
-a = Space_surface('aaa')
-
-columns = ['weight', 'loc', 'scale']
-#a = pd.DataFrame(data=np.zeros((0,len(columns))), dtype=dtype, columns=columns) 
-a = pd.DataFrame(data=np.zeros((0,len(columns))), columns=columns) 
-#
-c = (8,7)
-b = list(c)
-a.loc['rrr'] = [5,b,4]
 
 
 # In[153]:

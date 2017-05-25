@@ -34,7 +34,6 @@ import multiprocessing
 
      
 
-num_cores = multiprocessing.cpu_count()
 
 class BaseScheduler:
     """ Simplest scheduler; activates agents one at a time, in the order

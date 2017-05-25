@@ -65,6 +65,7 @@ class Mouse(Agent):
         self.antenna_angle = genome[4] * math.pi/2
         
         # Sensor and actor initialization
+        self.brain_iterations_per_step = 10
         self.sensor_num = 2
         self.sensor_vector = [[0] * self.sensor_num] * (self.model.groups_num)
         self.sensor_threshold = 0.0001
@@ -263,10 +264,11 @@ class Mouse(Agent):
             self.input_manager.state = [0,-1,-1]
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
-            self.mousebrain_sim.step()
+            for i in range(self.brain_iterations_per_step) :
+                self.mousebrain_sim.step()
             #print(self.mousebrain_sim.data[self.mousebrain.p_search])
             temp = self.mousebrain_sim.data[self.mousebrain.p_search]
-            self.motor_vector = temp[-1]
+            self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
             #print(self.motor_vector)
         else :
             #motor_vector = [random.uniform(0, 1)]*self.motor_num
@@ -280,9 +282,10 @@ class Mouse(Agent):
             self.input_manager.state = [-1,0,-1]
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
-            self.mousebrain_sim.step()
+            for i in range(self.brain_iterations_per_step) :
+                self.mousebrain_sim.step()
             temp = self.mousebrain_sim.data[self.mousebrain.p_approach]
-            self.motor_vector = temp[-1]
+            self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
         else :
             self.motor_vector = [np.exp(-goal_sense[0]), -goal_sense[1]]
         
@@ -294,9 +297,10 @@ class Mouse(Agent):
             self.input_manager.state = [-1,-1,0]
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
-            self.mousebrain_sim.step()
+            for i in range(self.brain_iterations_per_step) :
+                self.mousebrain_sim.step()
             temp = self.mousebrain_sim.data[self.mousebrain.p_avoid]
-            self.motor_vector = temp[-1]
+            self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
         else :
             self.motor_vector = [np.exp(goal_sense[0])-1, goal_sense[1]]
                 

@@ -1,33 +1,40 @@
 
-#from ipywidgets import widgets
 from mouseworld import mouseworld
 import time
 
-empty_model = mouseworld.Mouseworld(50, 5, 100, 40, 100, 100)
-#for i in range(5000) :
-counter = 0
+# Build the model
+model = mouseworld.Mouseworld(100, 5, 100, 40, 100, 100)
 
-#a = time.time()
+# Gather initial randomly distributed data
+model.initial_datacollector.collect(model,model.schedule)
+initial_model_data = model.initial_datacollector.get_model_vars_dataframe()
+initial_model_data.to_csv('results/initial_model_data.csv', sep='\t')
+
+# Prepare environment by stepping food and predators and diffusing odors
 for i in range(100) :
-    empty_model.diffuse_odor_layers_parallel(empty_model.odor_layers)
-#b = time.time()
-#print(b-a)
-while empty_model.num_mice > 0 :
-#for i in range(20) :
-    counter += 1
-    print('sim step : %i'%counter)
-    #print('num_mice : %i'%empty_model.num_mice)
-    #print('num_unborn_mice : %i'%empty_model.num_unborn_mice)
-    #print('empty_model.schedule.get_agent_count() : %i'%empty_model.schedule.get_agent_count())
-    empty_model.step()
+    model.food_schedule.step()
+    model.predator_schedule.step()
+    model.diffuse_odor_layers_parallel(model.odor_layers)
 
-empty_model.final_datacollector.collect(empty_model,empty_model.schedule)
+# Run for discrete number of timesteps
+# counter = 0
+# for i in range(20) :
+#     counter += 1
+#     print('sim step : %i'%counter)
+#     model.step()
+
+# Run until all mice perish
+# while model.num_mice > 0 :
+#     print('sim step : %i'%counter)
+#     model.step()
     
-gini4 = empty_model.final_datacollector.get_agent_vars_dataframe()
-#gini1 = empty_model.datacollector.get_model_vars_dataframe()
-gini2 = empty_model.test_datacollector.get_agent_vars_dataframe()
-#gini3 = empty_model.predator_datacollector.get_agent_vars_dataframe()
-gini4.to_csv('results2.csv', sep='\t')
-gini2.to_csv('results.csv', sep='\t')
-#gini2
-gini4
+# Gather final model and agent data
+model.final_datacollector.collect(model,model.schedule)
+final_model_data = model.final_datacollector.get_model_vars_dataframe()
+final_model_data.to_csv('results/final_model_data.csv', sep='\t')
+final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
+final_agent_data.to_csv('results/final_agent_data.csv', sep='\t')
+
+# Gather test model and agent data
+test_agent_data = model.test_datacollector.get_agent_vars_dataframe()
+test_agent_data.to_csv('results/test_agent_data.csv', sep='\t')

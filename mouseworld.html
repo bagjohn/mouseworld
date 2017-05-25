@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouseworld.py
@@ -11869,6 +11869,9 @@ class Mouseworld(Model):
             self.place_agent_randomly(predator)
             #self.predator_layers[j].add_agent(predator)
                 
+        self.initial_datacollector = MyDataCollector(
+            model_reporters={&quot;Initial genome distribution&quot;: lambda a: a.initialization_genome})
+        
         self.datacollector = MyDataCollector(
             model_reporters={&quot;Alive_mice&quot;: lambda a: a.num_mice, 
                              &quot;Unborn_mice&quot;: lambda a: a.num_unborn_mice,
@@ -12024,7 +12027,7 @@ class Mouseworld(Model):
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouse.py
@@ -12095,6 +12098,7 @@ class Mouse(Agent):
         self.antenna_angle = genome[4] * math.pi/2
         
         # Sensor and actor initialization
+        self.brain_iterations_per_step = 10
         self.sensor_num = 2
         self.sensor_vector = [[0] * self.sensor_num] * (self.model.groups_num)
         self.sensor_threshold = 0.0001
@@ -12293,10 +12297,11 @@ class Mouse(Agent):
             self.input_manager.state = [0,-1,-1]
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
-            self.mousebrain_sim.step()
+            for i in range(self.brain_iterations_per_step) :
+                self.mousebrain_sim.step()
             #print(self.mousebrain_sim.data[self.mousebrain.p_search])
             temp = self.mousebrain_sim.data[self.mousebrain.p_search]
-            self.motor_vector = temp[-1]
+            self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
             #print(self.motor_vector)
         else :
             #motor_vector = [random.uniform(0, 1)]*self.motor_num
@@ -12310,9 +12315,10 @@ class Mouse(Agent):
             self.input_manager.state = [-1,0,-1]
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
-            self.mousebrain_sim.step()
+            for i in range(self.brain_iterations_per_step) :
+                self.mousebrain_sim.step()
             temp = self.mousebrain_sim.data[self.mousebrain.p_approach]
-            self.motor_vector = temp[-1]
+            self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
         else :
             self.motor_vector = [np.exp(-goal_sense[0]), -goal_sense[1]]
         
@@ -12324,9 +12330,10 @@ class Mouse(Agent):
             self.input_manager.state = [-1,-1,0]
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
-            self.mousebrain_sim.step()
+            for i in range(self.brain_iterations_per_step) :
+                self.mousebrain_sim.step()
             temp = self.mousebrain_sim.data[self.mousebrain.p_avoid]
-            self.motor_vector = temp[-1]
+            self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
         else :
             self.motor_vector = [np.exp(goal_sense[0])-1, goal_sense[1]]
                 
@@ -12461,7 +12468,7 @@ class Mouse(Agent):
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mousebrain.py
@@ -12606,7 +12613,7 @@ class Mousebrain(nengo.Network) :
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/predator.py
@@ -12715,7 +12722,7 @@ class Predator(Agent):
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/food.py
@@ -12792,6 +12799,19 @@ class Food(Agent):
 <h3 id="-"> <a class="anchor-link" href="#-">&#182;</a></h3>
 </div>
 </div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
 </div>
     </div>
   </div>

@@ -1,0 +1,9 @@
+
+from mouseworld.mouse import Input_manager
+from mouseworld.mousebrain import Mousebrain
+
+
+b=Input_manager()
+a=Mousebrain()
+
+

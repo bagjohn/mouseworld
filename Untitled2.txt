@@ -1,0 +1,47 @@
+
+import nengo
+
+import matplotlib.pyplot as plt
+
+class InputManager(object):
+    """because we need to contain state, the easier way to do that in
+    Python is to make a class"""
+
+    def __init__(self):
+        self.state = (0)
+
+    def get_input(self, modifyer):
+        """you can modify the state value or over-write it here
+        or you can just modify the state parameter directly"""
+        print("Manage the input here.")
+        self.state += modifyer
+
+    def return_output(self, t):
+        return self.state
+
+im = InputManager()
+def build_model():
+    model = nengo.Network()
+    with model:
+        in_nd = nengo.Node(im.return_output)
+        ens = nengo.Ensemble(n_neurons=500, dimensions=1)
+
+        nengo.Connection(in_nd, ens)
+
+        p_ens = nengo.Probe(ens, synapse=0.01)
+        return model 
+modelB = build_model ()
+sim = nengo.Simulator(modelB)
+with sim:
+    for i in range(2000):
+        sim.step()
+        if i == 300:
+            # modification via function argument
+            im.get_input(0.5)
+        elif i == 1000:
+            # modification by overwriting a property
+            im.state = 0.7
+plt.plot(sim.trange(), sim.data[p_ens])
+plt.show()
+
+

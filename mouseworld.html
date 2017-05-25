@@ -11748,13 +11748,13 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouseworld.py
 
 from mesa import Agent, Model
-#from mesa.time import RandomActivation
+from mesa.time import RandomActivation
 #from mesa.space import ContinuousSpace
 from mesa.datacollection import DataCollector
 
@@ -11767,7 +11767,7 @@ from scipy.stats import norm
 
 # from mouseworld.myspace import ContinuousSpace
 # from mouseworld.myspace import Value_layer
-from mouseworld.mytime import *
+#from mouseworld.mytime import *
 from mouseworld.myspace import *
 from mouseworld.mouse import Mouse
 from mouseworld.food import Food

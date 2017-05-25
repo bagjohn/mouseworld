@@ -1,6 +1,6 @@
 
 from mesa import Agent, Model
-#from mesa.time import RandomActivation
+from mesa.time import RandomActivation
 #from mesa.space import ContinuousSpace
 from mesa.datacollection import DataCollector
 
@@ -13,7 +13,7 @@ from scipy.stats import norm
 
 # from mouseworld.myspace import ContinuousSpace
 # from mouseworld.myspace import Value_layer
-from mouseworld.mytime import *
+#from mouseworld.mytime import *
 from mouseworld.myspace import *
 from mouseworld.mouse import Mouse
 from mouseworld.food import Food

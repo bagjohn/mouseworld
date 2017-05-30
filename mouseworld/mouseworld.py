@@ -45,30 +45,32 @@ class Mouseworld(Model):
         
         # initialize food parameters
         self.food_amount_range = (20,200)
-        self.food_odor_strength = [0.3,1]
+        self.food_odor_strength = [1] #[0.7,1]
         self.food_odor_std = [8]
-        self.nutritional_value = [-1, 1]
+        self.nutritional_value = [-1, 0.7, 1]
         self.food_params = (self.food_odor_strength, self.nutritional_value, self.food_odor_std)
         self.food_param_combs = list(itertools.product(*self.food_params))
         self.food_groups_num = len(self.food_param_combs)
         self.food_groups = [('Food_group_%i'%i) for i in range(self.food_groups_num)]
         self.food_layers = [Value_layer('Food_odor_%i'%i, width, height, True) for i in range(self.food_groups_num)]
+        self.food_layer_names = [('Food_odor_%i'%i) for i in range(self.food_groups_num)]
 #         for i in range(self.food_groups_num) :
 #             self.food_groups[i] = ('Food_group_%i'%i) 
 #             self.food_layers[i] = ('Food_odor_%i'%i)
         
         # initialize predator parameters
-        self.predator_odor_strength = [0.3,1]
+        self.predator_odor_strength = [1] # [0.7,1]
         self.predator_odor_std = [8]
         self.damage_level = [1] #[0.3,1]
-        self.hunt_rule = [1] #[0,1]
-        self.hunt_radius = [1] #[0.5,1]
+        self.hunt_rule = [0, 1]
+        self.hunt_radius = [0.5, 1] #[0.5,1]
         self.predator_params = (self.predator_odor_strength, self.predator_odor_std, self.damage_level,
                                 self.hunt_rule, self.hunt_radius)
         self.predator_param_combs = list(itertools.product(*self.predator_params))
         self.predator_groups_num = len(self.predator_param_combs)
         self.predator_groups = [('Predator_group_%i'%i) for i in range(self.predator_groups_num)]
         self.predator_layers = [Value_layer('Predator_odor_%i'%i, width, height, True) for i in range(self.predator_groups_num)]
+        self.predator_layer_names = [('Predator_odor_%i'%i) for i in range(self.predator_groups_num)]
 #         for i in range(self.predator_groups_num) :
 #             self.predator_groups[i] = ('Predator_group_%i'%i)
 #             self.predator_layers[i] = ('Predator_odor_%i'%i)
@@ -77,9 +79,11 @@ class Mouseworld(Model):
         self.groups_num = self.food_groups_num + self.predator_groups_num
         self.groups = self.food_groups + self.predator_groups
         self.odor_layers = self.food_layers + self.predator_layers
+        self.odor_layer_names = self.food_layer_names + self.predator_layer_names
 
         # build schedules
         self.schedule = RandomActivation(self)
+        self.all_mice_schedule = RandomActivation(self)
         self.food_schedule = RandomActivation(self)
         self.predator_schedule = RandomActivation(self)
         
@@ -87,15 +91,16 @@ class Mouseworld(Model):
         self.initialize_ids(['Mouse', 'Food', 'Predator'])
         
         #initialize sensor_vector
-        self.sensor_num = 2
-        temp = [np.zeros(self.sensor_num)] * self.groups_num
-        self.zero_sensor_vector = pd.Series(temp, index=self.odor_layers)
+#         self.sensor_num = 2
+#         temp = [np.zeros(self.sensor_num)] * self.groups_num
+#         self.zero_sensor_vector = pd.Series(temp, index=self.odor_layers)
         
         # Create agents
         for i in range(self.num_mice):
             temp_genome = self.initialization_genome[i]
-            mouse = Mouse(self, temp_genome, motor_NN_on = True, appraisal_NN_on = False)
+            mouse = Mouse(self, temp_genome, 0, motor_NN_on = True, appraisal_NN_on = False)
             self.schedule.add(mouse)
+            self.all_mice_schedule.add(mouse)
             self.place_agent_randomly(mouse)
             #print(mouse.unique_id)
             #print(mouse.genome)
@@ -130,17 +135,28 @@ class Mouseworld(Model):
                              "pos": lambda a: a.pos,
                              "Genome": lambda a: a.genome})
         
+        self.mousebrain_datacollector = MyDataCollector(
+            agent_reporters={"odor": lambda a: a.mousebrain_sim.data[a.mousebrain.p_odor],
+                             "state": lambda a: a.mousebrain_sim.data[a.mousebrain.p_state], 
+                             "approach": lambda a: a.mousebrain_sim.data[a.mousebrain.p_approach],
+                             "avoid": lambda a: a.mousebrain_sim.data[a.mousebrain.p_avoid],
+                             "search": lambda a: a.mousebrain_sim.data[a.mousebrain.p_search],
+                             "change": lambda a: a.mousebrain_sim.data[a.mousebrain.p_change],
+                             "errors0": lambda a: a.mousebrain_sim.data[a.mousebrain.p_errors0],
+                             "errors1": lambda a: a.mousebrain_sim.data[a.mousebrain.p_errors1],
+                             "errors2": lambda a: a.mousebrain_sim.data[a.mousebrain.p_errors2]})
+
         self.test_datacollector = MyDataCollector(
-            agent_reporters={"motor_vector": lambda a: a.motor_vector,
-                             "Action": lambda a: a.current_action['Verb'],
-                             "Noun_group": lambda a: a.current_action['Noun_group'],
-                             "Benefit": lambda a: a.current_action['Benefit'],
-                             "duration": lambda a: a.current_action['Duration'],
-                             "food_gained_energy": lambda a: a.food_gained_energy,
-                             "food_lost_energy": lambda a: a.food_lost_energy,
-                             "food_to_energy": lambda a: a.food_to_energy,
-                            "energy_to_predators": lambda a: a.energy_to_predators,
-                            "total_distance": lambda a: a.total_distance})
+            agent_reporters={"sensor_vector": lambda a: a.sensor_vector})       
+#         self.test_datacollector = MyDataCollector(
+#             agent_reporters={"sensor_vector": lambda a: a.sensor_vector,
+#                              "Action": lambda a: a.current_action['Verb'],
+#                              "Noun_group": lambda a: a.current_action['Noun_group'],
+#                              "food_gained_energy": lambda a: a.food_gained_energy,
+#                              "food_lost_energy": lambda a: a.food_lost_energy,
+#                              "metabolism_buffer": lambda a: a.metabolism_buffer,
+#                             "energy_to_predators": lambda a: a.energy_to_predators,
+#                             "total_distance": lambda a: a.total_distance})
         
 #         self.final_datacollector = MyDataCollector(
 #             agent_reporters={"total_distance": lambda a: a.total_distance,
@@ -149,7 +165,19 @@ class Mouseworld(Model):
 #                             "food_gained_energy": lambda a: a.food_gained_energy})
         
         self.final_datacollector = MyDataCollector(
-            agent_reporters={"action_history": lambda a: a.action_history})
+            model_reporters={"Alive_mice": lambda a: a.schedule.get_agent_count(), 
+                             "All_mice": lambda a: a.all_mice_schedule.get_agent_count(), 
+                             "Unborn_mice": lambda a: a.num_unborn_mice},
+            agent_reporters={"age": lambda a: a.age,
+                             "energy": lambda a: a.energy,
+                             "generation": lambda a: a.generation,
+                             "num_offspring": lambda a: a.num_offspring,
+                             "action_history": lambda a: a.action_history,
+                            "possible_actions": lambda a: a.possible_actions,
+                             "primary_values": lambda a: a.primary_values,
+                             "secondary_values": lambda a: a.secondary_values,
+                            "sensor_vector": lambda a: a.sensor_vector,
+                            "sensor_position": lambda a: a.sensor_position})
         
         self.predator_datacollector = MyDataCollector(
             agent_reporters={"Victims_num": lambda a: a.victims_num,
@@ -218,8 +246,8 @@ class Mouseworld(Model):
         x = random.randrange(self.space.width)
         y = random.randrange(self.space.height)
         self.space.place_agent(agent, (x, y))
-        if hasattr(agent, 'sensor_position'):
-            agent.set_sensor_position()
+#         if hasattr(agent, 'sensor_position'):
+#             agent.set_sensor_position()
     
 #     def update_surfaces(self) :
 #         for i in self.odor_layers :
@@ -227,11 +255,11 @@ class Mouseworld(Model):
     
     def diffuse_odor_layers(self, layers) :
         for layer in layers :
-            layer.diffuse(0.95,0.8) 
+            layer.diffuse(0.8,0.7) 
             
     def diffuse_odor_layers_parallel(self, layers) :
         
-        Parallel(n_jobs=self.num_cores)(delayed(layer.diffuse)(0.95,0.8) for layer in layers)
+        Parallel(n_jobs=self.num_cores)(delayed(layer.diffuse)(0.8,0.7) for layer in layers)
             
     def step(self):
         '''Advance the model by one step.'''
@@ -240,7 +268,7 @@ class Mouseworld(Model):
         self.food_schedule.step()
         self.predator_schedule.step()
         #self.diffuse_odor_layers_parallel(self.odor_layers)
-        self.diffuse_odor_layers_parallel(self.odor_layers)
+        self.diffuse_odor_layers(self.odor_layers)
         self.schedule.step() 
         self.test_datacollector.collect(self, self.schedule)
 

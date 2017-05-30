@@ -15,6 +15,7 @@ MultiGrid: extension to Grid where each cell is a set of objects.
 import itertools
 import random
 import math
+import numpy as np
 
 
 def accept_tuple_argument(wrapped_function):
@@ -552,8 +553,63 @@ class ContinuousSpace:
 
     
 # Custom class following the Repast Simphony ValueLayer and ValueLayerDiffuser classes 
+# Value_layer2 : attempt to use the Grid functions. Too slow
+# Value_layer : de novo class, much faster
+class Value_layer (Grid):
+
+    def __init__(self, unique_id, width, height, torus):
+        
+        self.height = height
+        self.width = width
+        self.unique_id =unique_id
+        self.grid = np.zeros(shape=(width,height))
+  
+    def out_of_bounds(self, pos):
+        x, y = pos
+        return x < 0 or x >= self.width or y < 0 or y >= self.height
+      
+    def avg_neighborhood(self, grid, pos):
+        val=0
+        x, y = pos
+        for dy in range(-1, 2):
+            for dx in range(-1, 2):
+                if dx == 0 and dy == 0:
+                    continue
+        
+                px = x + dx 
+                px %= self.width
+                py = y + dy
+                py %= self.height
+
+                # Skip if new coords out of bounds.
+                if(self.out_of_bounds((px, py))):
+                    continue
+
+                val += grid[px][py]
+                
+        return val/8
     
-class Value_layer(Grid) :
+    # It might be called from Continuous Space, so pos must first be set to grid dims through _point_to_cell
+    def get_value(self, pos) :
+        x, y = pos
+        return self.grid[x][y]
+    
+    def set_value(self, pos, value) :
+        x, y = pos
+        self.grid[x][y] = value
+        
+    def add_value(self, pos, value) :
+        x, y = pos
+        self.grid[x][y] += value
+    
+    def diffuse(self, evap_const, diff_const) :
+        old = self.grid
+        for row in range(self.width):
+            for col in range(self.height):
+                self.grid[row][col] = evap_const * (old[row][col] + diff_const * (self.avg_neighborhood(old,(row,col)) - old[row][col]))
+           
+        
+class Value_layer2(Grid) :
 
     def __init__(self, unique_id, width, height, torus):
         

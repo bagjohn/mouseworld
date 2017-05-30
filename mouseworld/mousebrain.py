@@ -16,7 +16,7 @@ class Mousebrain(nengo.Network) :
         return spd, turn
 
     def avoid(self, x) :
-        spd = np.exp(x[0])-1    
+        spd = np.exp(x[0])-0.9    
         turn = x[1]        
         return spd, turn
 
@@ -49,12 +49,12 @@ class Mousebrain(nengo.Network) :
             #nengo.Connection(odor_neurons[0], odor_change, transform = -0.1, synapse=0.1)
 
             #hub = nengo.Node(size_in = 1,size_out=3)
-            errors = nengo.networks.EnsembleArray(n_neurons=50, n_ensembles=3, ens_dimensions=2)
+            errors = nengo.networks.EnsembleArray(n_neurons=100, n_ensembles=3, ens_dimensions=2)
             #nengo.Connection(odor_change, hub)
-            nengo.Connection(odor_change, errors.input, transform = [[1]]*6)
-            nengo.Connection(state[0], errors.ensembles[0].neurons, transform=np.ones((50,1))*1)
-            nengo.Connection(state[1], errors.ensembles[1].neurons, transform=np.ones((50,1))*1)
-            nengo.Connection(state[2], errors.ensembles[2].neurons, transform=np.ones((50,1))*1)
+            nengo.Connection(odor_change, errors.input, transform = [[1]]*6, synapse=0.1)
+            nengo.Connection(state[0], errors.ensembles[0].neurons, transform=np.ones((100,1))*1)
+            nengo.Connection(state[1], errors.ensembles[1].neurons, transform=np.ones((100,1))*1)
+            nengo.Connection(state[2], errors.ensembles[2].neurons, transform=np.ones((100,1))*1)
 
             #nengo.Connection(odor_memory, odor_change[0], transform = -10, synapse=None)
             #nengo.Connection(odor_neurons[0], odor_change[0], transform = 10, synapse=None)
@@ -114,5 +114,11 @@ class Mousebrain(nengo.Network) :
             self.p_approach = nengo.Probe(approach_node)
             self.p_avoid = nengo.Probe(avoid_node)
             self.p_search = nengo.Probe(search_node)
+            self.p_odor = nengo.Probe(odor)
+            self.p_state = nengo.Probe(state)
+            self.p_change = nengo.Probe(odor_change)
+            self.p_errors0 = nengo.Probe(errors.ensembles[0])
+            self.p_errors1 = nengo.Probe(errors.ensembles[1])
+            self.p_errors2 = nengo.Probe(errors.ensembles[2])
             
         #return mousebrain

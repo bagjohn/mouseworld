@@ -1,14 +1,12 @@
 
-import numpy as np
+from mouseworld import mouseworld
+import time
 import matplotlib.pyplot as plt
+import numpy as np
 
-# Fixing random state for reproducibility
-
-
-genome = empty_model.initialization_genome
-#x = genome[:,0]
-# the histogram of the data
-
+# Build the model
+model = mouseworld.Mouseworld(100, 5, 100, 40, 100, 100)
+genome = model.initialization_genome
 fig = plt.figure()
 num_genes = genome[0].size
 for i in range(num_genes) :

@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[145]:
+# In[16]:
 
 import pandas as pd
 import numpy as np
@@ -15,11 +15,11 @@ def search() :
     print('lbbla')
     
 #df = pd.DataFrame(np.nan, index=[1], columns=('Verb','Noun_type','Noun_group','Function'))
-df = pd.DataFrame([['Wait', 3, -1, wait, None], ['Search', 12, 0, search, 12]], columns=('Verb', 'Noun_group', 'Value', 'Function', 'Arg_1'))
+df = pd.DataFrame([['Wait', 3, -0, wait, None], ['Search', 12, 0, search, 12]], columns=('Verb', 'Noun_group', 'Value', 'Function', 'Arg_1'))
 
 cf = pd.DataFrame([['Approach', 'Food_2', -1, wait, np.nan]], columns=('Verb', 'Noun_group', 'Value', 'Function', 'Arg_1'))    
-df.loc[df.index.max() + 1] = ['Approach','Food_1',(3,3),1,1]
-df.loc[df.index.max() + 1] = ['Feed','Food_1',1,1,1]
+df.loc[df.index.max() + 1] = ['Approach','Food_1',0,1,1]
+df.loc[df.index.max() + 1] = ['Feed','Food_1',0,1,1]
 #df.append(['Feed','Food', 5, 'self.feed(food)'])
 #df['Function'][1](df['Arg_1'][1])
 sig = signature(df['Function'][0])
@@ -41,14 +41,130 @@ df.ix[1]
 g = None
 g is not None#a.loc[]
 
-df['Value'][df['Verb'] == 'Search'] = 5
+df['Value'][df['Verb'] == 'Search'] = 0
 # temp = df['Verb'] == 'Wait'
 # temp2 = df['Noun_group'].isnull
 # temp2
 #cf.loc[0]['Noun_group']
-df.loc['fdfd'] = ['Feed','Food_1',1,1,1]
-df.set_value('fdfd','Value',5)
+df.loc['fdfd'] = ['Feed','Food_1',0,1,1]
+df.set_value('fdfd','Value',0)
 df.as_matrix()
+df
+print(df['Value'].idxmax())
+
+
+# In[4]:
+
+import pandas as pd
+
+predator_groups = [('Predator_group_%i'%i) for i in range(10)]
+food_groups = [('Food_group_%i'%i) for i in range(8)]
+groups = food_groups + predator_groups
+
+primary_values = dict(zip(groups, [0.0001]*18))
+primary_values[food_groups[3]] += 8
+primary_values
+#food_groups[3]
+
+trivial_possible_actions = pd.DataFrame([['Wait', None, 0, 'self.wait', None], 
+                                                      ['Search', None, 0.00001, 'self.search_for_odor', None]], 
+                                                     columns=('Verb', 'Noun_group', 'Value', 'Function', 'Arg_1'))
+
+print(trivial_possible_actions)
+actions = trivial_possible_actions
+print(actions)
+actions.loc[actions.index.max() + 1] = ['Approach', 'groups[i]', 'temp[i][0] * self.hunger_status * value', 'self.approach', 'temp[i]']
+print(trivial_possible_actions)
+print(actions)
+
+actions = trivial_possible_actions
+print(trivial_possible_actions)
+print(actions)
+
+
+# In[26]:
+
+import pandas as pd
+import numpy as np
+
+a=pd.DataFrame([[18, 'F'],[50, 'M']],columns = ('Age','Sex'))
+print(a)
+print(type(a))
+b=a
+print(type(b))
+print(b)
+b.loc[b.index.max() + 1] = [30,'M']
+print(b)
+print(a)
+
+e=b.loc[b.index.max()]
+print(e)
+print(type(e))
+b.loc[b.index.max() + 1] = [40,'F']
+print(b)
+print(e)
+
+
+c=np.array([[18,'F'],[50,'M']])
+print(c)
+d=c
+print(d)
+d = np.append(d,[[30,'M']], axis=0)
+print(d)
+print(c)
+
+
+# In[19]:
+
+import pandas as pd
+import numpy as np
+
+a=[[1,2],[3,4]]
+b=pd.DataFrame(a,columns = ('Age','Sex'))
+
+df = pd.DataFrame({"A":[], "B":[]})
+df.loc[0]=[5,6]
+df.index.max() +1
+a = pd.Series([5,6], index=("A", "B"))
+print(a)
+df2=df.add(a)
+df.empty
+df.index[1]
+
+
+# In[24]:
+
+import numpy as np
+
+np.ones((5,1))*4
+
+
+# In[3]:
+
+
+class Sex :
+    def __init__(self) :
+        self.a = 5
+    def add1(self, x) :
+        x=x+1
+        self.a += 3
+        return False
+
+sex = Sex()
+#sex.add1(3)
+if sex.add1(3) :
+    pass
+print(sex.a)
+
+
+# In[10]:
+
+import pandas as pd
+import numpy as np
+
+action_history = pd.DataFrame({"Verb":[], "Noun_group":[], "Duration":[], "Benefit":[], "Termination":[]})
+action_history = pd.DataFrame([], columns=('Verb', 'Noun_group', 'Duration', 'Benefit', 'Closure'))
+action_history
 
 
 # In[81]:
@@ -69,6 +185,11 @@ a = [ 0.18,  0.57,  0.01,  0.91,  0.69]
 a
 len(a)
 mutate_genome(a)
+
+
+# In[8]:
+
+get_ipython().run_cell_magic('writefile', 'mouseworld/check_multiprocessing.py', '\nimport numpy as np\nimport matplotlib.pyplot as plt\n#from mouseworld.myspace import *\nfrom joblib import Parallel, delayed\nimport multiprocessing\n\nclass Value_layer :\n\n    def __init__(self, unique_id, width, height, torus):\n        \n        self.height = height\n        self.width = width\n        self.torus = torus\n        self.unique_id =unique_id\n        \n        self.grid = []\n\n        for x in range(self.width):\n            col = []\n            for y in range(self.height):\n                col.append(0)\n            self.grid.append(col)\n    \n    def torus_adj(self, coord, dim_len):\n        if self.torus:\n            coord %= dim_len\n        return coord\n    \n    def out_of_bounds(self, pos):\n        x, y = pos\n        return x < 0 or x >= self.width or y < 0 or y >= self.height\n    \n    def coord_iter(self):\n        """ An iterator that returns coordinates as well as cell contents. """\n        for row in range(self.width):\n            for col in range(self.height):\n                yield self.grid[row][col], row, col \n    \n    def iter_neighbors(self, pos, moore,\n                       include_center=False, radius=1):\n        neighborhood = self.iter_neighborhood(\n            pos, moore, include_center, radius)\n        return self.iter_cell_list_contents(neighborhood)\n    \n    def iter_cell_list_contents(self, cell_list):\n        return (self.grid[x][y] for x, y in cell_list)\n    \n    def iter_neighborhood(self, pos, moore,\n                          include_center=False, radius=1):\n        x, y = pos\n        coordinates = set()\n        for dy in range(-radius, radius + 1):\n            for dx in range(-radius, radius + 1):\n                if dx == 0 and dy == 0 and not include_center:\n                    continue\n                # Skip diagonals in Von Neumann neighborhood.\n                if not moore and dy != 0 and dx != 0:\n                    continue\n                # Skip diagonals in Moore neighborhood when distance > radius\n                if moore and radius > 1 and (dy ** 2 + dx ** 2) ** .5 > radius:\n                    continue\n                # Skip if not a torus and new coords out of bounds.\n                if not self.torus and (not (0 <= dx + x < self.width) or\n                                       not (0 <= dy + y < self.height)):\n                    continue\n\n                px = self.torus_adj(x + dx, self.width)\n                py = self.torus_adj(y + dy, self.height)\n\n                # Skip if new coords out of bounds.\n                if(self.out_of_bounds((px, py))):\n                    continue\n\n                coords = (px, py)\n                if coords not in coordinates:\n                    coordinates.add(coords)\n                    yield coords\n    \n    def add_value(self, pos, value) :\n        x, y = pos\n        self.grid[x][y] += value\n\n    def neighbor_avg(self,pos) :\n        val = self.iter_neighbors(pos, moore = True, include_center=False, radius=1)\n        return sum(val)/8\n    \n    def diffuse(self, evap_const, diff_const) :\n        old = self\n        for row in range(self.width):\n            for col in range(self.height):\n                self.grid[row][col] = evap_const * (old.grid[row][col] + diff_const * (old.neighbor_avg((row,col)) - old.grid[row][col]))\n            \n\ngrid0 = Value_layer(\'example0\',100,100,True)\ngrid1 = Value_layer(\'example1\',100,100,True)\ngrid2 = Value_layer(\'example2\',100,100,True)\ngrid3 = Value_layer(\'example3\',100,100,True)\n\nnum_cores = multiprocessing.cpu_count()\ndef show(grid) :\n    cell_values = np.zeros((grid.width, grid.height))\n    for cell in grid.coord_iter():\n        cell_value, x, y = cell\n        cell_values[x][y] = cell_value\n    plt.imshow(cell_values, interpolation=\'nearest\')\n    plt.colorbar()\n    plt.show()\n\n    \nfor i in range(10) :\n    grid0.add_value((50,50),1)\n    grid1.add_value((50,50),1)\n    grid2.add_value((50,50),1)\n    grid3.add_value((50,50),1)\n#     Parallel(n_jobs=num_cores)(delayed(layer.diffuse)(0.95,0.8) for layer in [grid0,grid1,grid2,grid3])\n    grid0.diffuse(0.95,0.8)\n    grid1.diffuse(0.95,0.8)\n    grid2.diffuse(0.95,0.8)\n    grid3.diffuse(0.95,0.8)\n    \nshow(grid0)\nshow(grid1)\nshow(grid2)\nshow(grid3)\n\n# print(grid.get_value((50,50)))\n# print(grid.get_value((45,45)))\n# print(grid.get_value((40,40)))\n# print(grid.get_value((35,35)))\n# print(grid.get_value((30,30)))\n# print(grid.get_value((25,25)))\n# print(grid.get_value((20,20)))')
 
 
 # In[11]:
@@ -100,7 +221,7 @@ ex.g
 hbjbhhbj = add1(ex.g)
 
 
-# In[17]:
+# In[13]:
 
 import pandas as pd
 
@@ -115,6 +236,16 @@ b = pd.Series(['Wait', None, 0, 0, False],
                                            index=('Verb', 'Noun_group', 'Duration', 'Benefit', 'Closure'))
 current_action.loc[2] = b
 current_action
+
+# b= None
+b is not None
+
+
+# In[4]:
+
+a=None
+
+a!=None
 
 
 # In[2]:

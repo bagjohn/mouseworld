@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[15]:
+# In[1]:
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -24,30 +24,28 @@ def show(grid) :
     plt.show()
 
 #show(grid)
-for i in range(100) :
-    grid.add_value((50,50),0.3)
-    grid.diffuse(0.95,0.8)
+for i in range(12) :
+    grid.add_value((20,80),1)
+    grid.add_value((i,i),1)
+    grid.add_value((80,20),0.3)
+    grid.add_value((50,i),0.3)
+    grid.diffuse(0.9,0.8)
 show(grid)
-print(grid.get_value((50,50)))
-print(grid.get_value((45,45)))
-print(grid.get_value((40,40)))
-print(grid.get_value((35,35)))
-print(grid.get_value((30,30)))
-print(grid.get_value((25,25)))
-print(grid.get_value((20,20)))
 
+for i in range(10) :
+    print(grid.get_value((i*10+9,i*10+9)))
 
-# In[2]:
+for i in range(10) :
+    print(grid.get_value((50,i*10+9)))
 
-from mouseworld.myspace import *
-
-grid = Value_layer('dada',100,100,True)
-grid.get_value((50,50))
-
-
-# In[14]:
-
-from decimal import *
-getcontext().prec = 7
-getcontext()
+for i in range(10) :
+    print(grid.get_value((20+i,80+i)))
+    
+for i in range(10) :
+    print(grid.get_value((80+i,20+i)))
+# print(grid.get_value((90,90)))
+# print(grid.get_value((96,96)))
+# print(grid.get_value((97,97)))
+# print(grid.get_value((98,98)))
+# print(grid.get_value((99,99)))
 

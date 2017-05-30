@@ -72,7 +72,7 @@ class Mouse(Agent):
         # Sensor and actor initialization
         self.brain_iterations_per_step = 10
         self.sensor_num = 2
-        self.sensor_vector = np.zeros(shape = (groups_num,self.sensor_num))
+        self.sensor_vector = np.zeros(shape = (self.model.groups_num,self.sensor_num))
         self.sensor_threshold = 0.001
         self.sensor_position = [(0,0)] * self.sensor_num
         self.motor_num = 2

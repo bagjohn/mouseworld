@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[3]:
 
 #%%writefile check_action_history.py
 from mouseworld import mouseworld
@@ -9,7 +9,7 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 
-num_mice = 100
+num_mice = 200
 
 # Build the model
 model = mouseworld.Mouseworld(num_mice, 5, 100, 50, 100, 100)

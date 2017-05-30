@@ -11778,21 +11778,21 @@ div#notebook {
 <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="o">-</span><span class="n">a</span><span class="p">)</span>
 <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
 <span class="n">myrange</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">myrange</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">c</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">d</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim step : </span><span class="si">%i</span><span class="s1"> in </span><span class="si">%f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">d</span><span class="o">-</span><span class="n">c</span><span class="p">))</span>
-<span class="c1">#t = np.arange(1, myrange*10 +1, 1)</span>
-<span class="c1">#t = np.arange(1, (myrange-2)*10 +1, 1)</span>
-<span class="c1">#Run until all mice perish</span>
-<span class="c1"># while model.num_mice &gt; 0 :</span>
+<span class="c1"># for i in range(myrange) :</span>
 <span class="c1">#     c=time.time()</span>
 <span class="c1">#     counter += 1</span>
 <span class="c1">#     model.step()</span>
 <span class="c1">#     d=time.time()</span>
 <span class="c1">#     print(&#39;sim step : %i in %f&#39;%(counter, d-c))</span>
+<span class="c1">#t = np.arange(1, myrange*10 +1, 1)</span>
+<span class="c1">#t = np.arange(1, (myrange-2)*10 +1, 1)</span>
+<span class="c1">#Run until all mice perish</span>
+<span class="k">while</span> <span class="n">model</span><span class="o">.</span><span class="n">num_mice</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim step : </span><span class="si">%i</span><span class="s1"> in </span><span class="si">%f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">d</span><span class="o">-</span><span class="n">c</span><span class="p">))</span>
 <span class="c1"># Gather final model and agent data</span>
 <span class="c1">#model.mousebrain_datacollector.collect(model,model.schedule)</span>
 <span class="c1">#mousebrain_data = model.mousebrain_datacollector.get_agent_vars_dataframe()</span>

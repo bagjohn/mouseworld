@@ -3,7 +3,7 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 
-num_mice = 100
+num_mice = 200
 
 # Build the model
 model = mouseworld.Mouseworld(num_mice, 5, 100, 50, 100, 100)
@@ -24,21 +24,21 @@ b=time.time()
 print(b-a)
 counter = 0
 myrange = 1000
-for i in range(myrange) :
-    c=time.time()
-    counter += 1
-    model.step()
-    d=time.time()
-    print('sim step : %i in %f'%(counter, d-c))
-#t = np.arange(1, myrange*10 +1, 1)
-#t = np.arange(1, (myrange-2)*10 +1, 1)
-#Run until all mice perish
-# while model.num_mice > 0 :
+# for i in range(myrange) :
 #     c=time.time()
 #     counter += 1
 #     model.step()
 #     d=time.time()
 #     print('sim step : %i in %f'%(counter, d-c))
+#t = np.arange(1, myrange*10 +1, 1)
+#t = np.arange(1, (myrange-2)*10 +1, 1)
+#Run until all mice perish
+while model.num_mice > 0 :
+    c=time.time()
+    counter += 1
+    model.step()
+    d=time.time()
+    print('sim step : %i in %f'%(counter, d-c))
 # Gather final model and agent data
 #model.mousebrain_datacollector.collect(model,model.schedule)
 #mousebrain_data = model.mousebrain_datacollector.get_agent_vars_dataframe()

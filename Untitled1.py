@@ -111,6 +111,12 @@ print(b==a)
 a
 
 
+# In[97]:
+
+primary_values = dict(zip(['a','b'], [1]*2))
+primary_values['a']
+
+
 # In[95]:
 
 a = [[0,0]] * 3

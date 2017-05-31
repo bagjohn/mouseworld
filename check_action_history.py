@@ -3,10 +3,10 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 
-num_mice = 200
+num_mice = [0, 0, 200]
 
 # Build the model
-model = mouseworld.Mouseworld(num_mice, 5, 100, 50, 100, 100)
+model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
 
 
 # Prepare environment by stepping food and predators and diffusing odors

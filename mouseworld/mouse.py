@@ -22,7 +22,7 @@ import mouseworld.predator
 
 class Mouse(Agent):
     
-    def __init__(self, model, genome, generation, motor_NN_on, appraisal_NN_on):
+    def __init__(self, model, genome, generation, motor_NN_on, learning_on, appraisal_NN_on):
         
         # Initial parameter setting
         self.model = model
@@ -47,11 +47,12 @@ class Mouse(Agent):
         self.energy_change = 0
         self.metabolism_buffer = 0
         self.gastric_content = 0
-        self.hunger_status = 0
+        self.hunger_status = 1
         self.incubation_time = 0   
         self.pregnant = False
         self.unborn = False
         self.header = random.uniform(0, 2*math.pi)
+        #self.header = random.uniform(0, 2*math.pi)
         self.unborn_child = None
         self.num_offspring = 0
         
@@ -70,10 +71,10 @@ class Mouse(Agent):
         self.antenna_angle = genome[4] * math.pi/2
         
         # Sensor and actor initialization
-        self.brain_iterations_per_step = 10
+        self.brain_iterations_per_step = 50
         self.sensor_num = 2
         self.sensor_vector = np.zeros(shape = (self.model.groups_num,self.sensor_num))
-        self.sensor_threshold = 0.001
+        self.sensor_threshold = 0.0001
         self.sensor_position = [(0,0)] * self.sensor_num
         self.motor_num = 2
         self.motor_vector = np.zeros(self.motor_num)
@@ -96,7 +97,7 @@ class Mouse(Agent):
 #                                                      columns=('Verb', 'Noun_group', 'Value'))
         
         #self.primary_values = dict(zip(self.model.groups, [np.zeros(2)]*self.model.groups_num))
-        self.primary_values = dict(zip(self.model.groups, [1]*self.model.groups_num))
+        self.primary_values = dict(zip(self.model.groups, [1 for i in self.model.groups]))
         self.secondary_values = pd.DataFrame([np.zeros(self.model.groups_num)] * self.model.groups_num, 
                                              index = self.model.groups, columns = self.model.odor_layer_names)
         #self.secondary_values = dict(zip(self.model.groups, [np.zeros(self.model.groups_num)] * self.model.groups_num))
@@ -104,6 +105,7 @@ class Mouse(Agent):
         # Mousebrain initialization
         self.motor_NN_on = motor_NN_on
         self.appraisal_NN_on = appraisal_NN_on
+        self.learning_on = learning_on
         
         if appraisal_NN_on:
             pass
@@ -174,8 +176,8 @@ class Mouse(Agent):
         self.unborn_child = None
       
     def set_sensor_position(self, pos, header) :
-        left_antenna_header = (header - self.antenna_angle) % (math.pi*2)
-        right_antenna_header = (header + self.antenna_angle) % (math.pi*2)
+        left_antenna_header = (header + self.antenna_angle) % (math.pi*2)
+        right_antenna_header = (header - self.antenna_angle) % (math.pi*2)
         left_antenna_pos = (pos[0] + math.cos(left_antenna_header) * self.antenna_length, pos[1] + math.sin(left_antenna_header) * self.antenna_length)
         right_antenna_pos = (pos[0] + math.cos(right_antenna_header) * self.antenna_length, pos[1] + math.sin(right_antenna_header) * self.antenna_length)
         sensor_position = [self.model.space.torus_adj(left_antenna_pos), self.model.space.torus_adj(right_antenna_pos)]
@@ -211,9 +213,9 @@ class Mouse(Agent):
                 # The secondary_values (as well as the primary_values) array, is indexed after model.groups_num.
                 # The sensor_vector is also indexed after model.odor_layers, therefore they agree
                 values_for_odor = self.secondary_values[self.model.odor_layer_names[i]]
-                max_stim = values_for_odor.index.max()
+                max_stim = values_for_odor.argmax()
                 max_value = values_for_odor.max()
-                min_stim = values_for_odor.index.min()
+                min_stim = values_for_odor.argmin()
                 min_value = values_for_odor.min()
                 #In the primary and secondary values arrayys, the [0] is reward and the [1] is punishment, both positive
                 if max_value > 0 :
@@ -248,11 +250,17 @@ class Mouse(Agent):
         if verb == 'Approach' :
             a = possible_actions.loc[(possible_actions['Verb'] == 'Feed') & 
                                      (possible_actions['Noun_group'] == noun)]
+            b = possible_actions.loc[(possible_actions['Verb'] == 'Approach') & 
+                                     (possible_actions['Noun_group'] == noun)]
             if not a.empty :
                 self.action_history['Termination'][self.action_history.index.max()] = 'Closure'
                 return (a.loc[a['Value'].idxmax()])
+            elif b.empty :
+                self.action_history['Termination'][self.action_history.index.max()] = 'Failure'
+                return (None)
             else :
                 return (None)
+            
         elif verb == 'Avoid' :
             a = possible_actions.loc[(possible_actions['Verb'] == 'Avoid') & 
                                      (possible_actions['Noun_group'] == noun)]
@@ -339,7 +347,10 @@ class Mouse(Agent):
     def search_for_odor(self) :
         if self.motor_NN_on :
             self.input_manager.value = (0,0)
-            self.input_manager.state = [0,-1,-1]
+            if self.learning_on :
+                self.input_manager.state = [0,-1,-1]
+            else :
+                self.input_manager.state = [-1,-1,-1]
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
             for i in range(self.brain_iterations_per_step) :
@@ -358,7 +369,11 @@ class Mouse(Agent):
         
         if self.motor_NN_on :
             self.input_manager.value = goal_sense
-            self.input_manager.state = [-1,0,-1]
+            if self.learning_on :
+                self.input_manager.state = [-1,0,-1]
+            else :
+                self.input_manager.state = [-1,-1,-1]
+            
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
             for i in range(self.brain_iterations_per_step) :
@@ -373,7 +388,11 @@ class Mouse(Agent):
         
         if self.motor_NN_on :
             self.input_manager.value = goal_sense
-            self.input_manager.state = [-1,-1,0]
+            if self.learning_on :
+                self.input_manager.state = [-1,-1,0]
+            else :
+                self.input_manager.state = [-1,-1,-1]
+            
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
             for i in range(self.brain_iterations_per_step) :

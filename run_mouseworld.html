@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld_run.py
@@ -11757,7 +11757,7 @@ from mouseworld import mouseworld
 import time
 
 # Build the model
-model = mouseworld.Mouseworld(100, 5, 100, 40, 100, 100)
+model = mouseworld.Mouseworld([0, 0, 100], 100, 40, 100, 100)
 
 # Gather initial randomly distributed data
 model.initial_datacollector.collect(model,model.schedule)
@@ -11815,7 +11815,7 @@ test_agent_data.to_csv(&#39;results/test_agent_data.csv&#39;, sep=&#39;\t&#39;)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld_run2.py
@@ -11824,7 +11824,7 @@ from mouseworld import mouseworld
 
 
 # Build the model
-model = mouseworld.Mouseworld(10, 5, 100, 40, 100, 100)
+model = mouseworld.Mouseworld([0, 0, 10], 100, 40, 100, 100)
 
 # Run for discrete number of timesteps
 
@@ -11854,7 +11854,7 @@ for i in range(1) :
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> plot_genome.py
@@ -11865,7 +11865,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Build the model
-model = mouseworld.Mouseworld(100, 5, 100, 40, 100, 100)
+model = mouseworld.Mouseworld([0, 0, 100], 100, 40, 100, 100)
 genome = model.initialization_genome
 fig = plt.figure()
 num_genes = genome[0].size

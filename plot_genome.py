@@ -5,7 +5,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Build the model
-model = mouseworld.Mouseworld(100, 5, 100, 40, 100, 100)
+model = mouseworld.Mouseworld([0, 0, 100], 100, 40, 100, 100)
 genome = model.initialization_genome
 fig = plt.figure()
 num_genes = genome[0].size

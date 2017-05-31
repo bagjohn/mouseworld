@@ -3,7 +3,7 @@ from mouseworld import mouseworld
 import time
 
 # Build the model
-model = mouseworld.Mouseworld(100, 5, 100, 40, 100, 100)
+model = mouseworld.Mouseworld([0, 0, 100], 100, 40, 100, 100)
 
 # Gather initial randomly distributed data
 model.initial_datacollector.collect(model,model.schedule)

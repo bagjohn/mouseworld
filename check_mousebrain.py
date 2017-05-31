@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 # Build the model
-model = mouseworld.Mouseworld(1, 5, 0, 0, 100, 100)
+model = mouseworld.Mouseworld([0, 0, 1], 0, 0, 100, 100)
 
 
 # Prepare environment by stepping food and predators and diffusing odors
@@ -87,6 +87,11 @@ data.append(approach)
 # plt.plot(odor1, color='blue', odor2, color = 'red', approach1, color = 'green', approach2, color = 'black')
 # plt.show()
 #x = np.linspace(0, 1, 10)
+for i in [3]:
+    plt.plot(data[i], label='$data{i}$'.format(i=i))
+plt.legend(loc='best')
+plt.show()
+
 for i in [2,4]:
     plt.plot(data[i], label='$data{i}$'.format(i=i))
 plt.legend(loc='best')
@@ -107,6 +112,9 @@ plt.show()
 
 plt.plot(errors0, 'bs', errors1, 'r--', errors2, 'g^')
 plt.show()
+
+# plt.plot(search1, 'bs', search2, 'r--')
+# plt.show()
 
 plt.plot(approach1, 'bs', approach2, 'r--')
 plt.show()

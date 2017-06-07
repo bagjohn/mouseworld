@@ -11748,52 +11748,124 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mousetest_run_parallel.py
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>
 
-# at terminal : ipcluster start -n 4
+<span class="c1"># header = [0,1,2,3,4,5,6,7]</span>
+<span class="c1"># x = [-5,-4,-3,-2,-1,0,1,2,3,4,5]</span>
+<span class="c1"># y = [-5,-4,-3,-2,-1,0,1,2,3,4,5]</span>
+<span class="c1"># max_speed = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]</span>
+<span class="c1"># antenna_length = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]</span>
+<span class="c1"># antenna_angle = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]</span>
+<span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
+<span class="n">x</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">y</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">]</span>
+<span class="n">max_speed</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">antenna_length</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">antenna_angle</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.2</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.8</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
 
-import ipyparallel
+<span class="n">params</span> <span class="o">=</span> <span class="p">(</span><span class="n">header</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">max_speed</span><span class="p">,</span> <span class="n">antenna_length</span><span class="p">,</span> <span class="n">antenna_angle</span><span class="p">)</span>
+<span class="n">param_combs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">params</span><span class="p">))</span>
+<span class="nb">len</span><span class="p">(</span><span class="n">param_combs</span><span class="p">)</span>
+<span class="c1">#param_combs[111111]</span>
+</pre></div>
 
-clients = ipyparallel.Client()
-dview = clients.direct_view()
+</div>
+</div>
+</div>
 
-with dview.sync_imports():
-    from mouseworld.mousetest import Mousetest
-    import time
-dview.push({&quot;Mousetest&quot;: Mousetest})
+<div class="output_wrapper">
+<div class="output">
 
-def make_model(header):
-    x = 1
-    y = 1
-    antenna_length = 1
-    antenna_angle = 1
-    model = Mousetest([0, 0, 1], [0.5, 0.5, 0.5, antenna_length, antenna_angle], (x,y), header, 10, 1, 0, 100, 100)
-    for i in range(10) :
-        model.food_schedule.step()
-        model.predator_schedule.step()
-        model.diffuse_odor_layers(model.odor_layers)
-    counter = 0
-    myrange = 1
-    for i in range(myrange) :
-        c=time.time()
-        counter += 1
-        model.step()
-        d=time.time()
-    model.final_datacollector.collect(model,model.all_mice_schedule)
-    final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
-    sensor_vector = final_agent_data[&#39;sensor_vector&#39;][0].values[0]
-    sensor_position = final_agent_data[&#39;sensor_position&#39;][0].values[0]
-    motor_vector = final_agent_data[&#39;motor_vector&#39;][0].values[0]
-    first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]
-    first_action = (first_action[&#39;Duration&#39;], first_action[&#39;Termination&#39;])
-    #first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]
-    return (first_action, sensor_vector, sensor_position, motor_vector)
+
+<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>62208</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[14]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#%%writefile mousetest_run_parallel.py</span>
+
+<span class="c1"># at terminal : ipcluster start -n 4</span>
+
+<span class="kn">import</span> <span class="nn">ipyparallel</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="n">clients</span> <span class="o">=</span> <span class="n">ipyparallel</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+<span class="n">dview</span> <span class="o">=</span> <span class="n">clients</span><span class="o">.</span><span class="n">direct_view</span><span class="p">()</span>
+
+
+<span class="c1"># pos =[(0,0), (0,1), (1,0), (1,1)]</span>
+<span class="n">pos</span> <span class="o">=</span><span class="p">[(</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">3</span><span class="p">)]</span>
+<span class="n">header</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">,</span><span class="mi">7</span><span class="p">]</span>
+<span class="c1"># x = [0,1]</span>
+<span class="c1"># y = [0,1]</span>
+<span class="c1"># x = [0,1,2,3,4,5]</span>
+<span class="c1"># y = [0,1,2,3,4,5]</span>
+<span class="n">max_speed</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mf">0.4</span><span class="p">,</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># antenna_length = [0,0.2,0.4,0.6,0.8,1]</span>
+<span class="c1"># antenna_angle = [0,0.2,0.4,0.6,0.8,1]</span>
+<span class="n">antenna_angle</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">]</span>
+
+<span class="c1"># max_speed = [0]</span>
+<span class="n">antenna_length</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">]</span>
+<span class="c1"># antenna_angle = [0]</span>
+
+<span class="n">params</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_speed</span><span class="p">,</span> <span class="n">antenna_length</span><span class="p">,</span> <span class="n">antenna_angle</span><span class="p">,</span> <span class="n">pos</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span>
+<span class="n">param_combs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">params</span><span class="p">))</span>
+
+<span class="k">with</span> <span class="n">dview</span><span class="o">.</span><span class="n">sync_imports</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">mouseworld.mousetest</span> <span class="k">import</span> <span class="n">Mousetest</span>
+    <span class="kn">import</span> <span class="nn">time</span>
+<span class="n">dview</span><span class="o">.</span><span class="n">push</span><span class="p">({</span><span class="s2">&quot;Mousetest&quot;</span><span class="p">:</span> <span class="n">Mousetest</span><span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">make_model</span><span class="p">(</span><span class="n">params</span><span class="p">):</span>
+    <span class="c1">#header = params[0]</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span>
+    <span class="n">header</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span>
+    <span class="n">max_speed</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">antenna_length</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">antenna_angle</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Mousetest</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="n">max_speed</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">antenna_length</span><span class="p">,</span> <span class="n">antenna_angle</span><span class="p">],</span> <span class="n">pos</span><span class="p">,</span> <span class="n">header</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">food_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="c1">#model.predator_schedule.step()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">diffuse_odor_layers</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">odor_layers</span><span class="p">)</span>
+    <span class="c1">#counter = 0</span>
+    <span class="n">myrange</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">myrange</span><span class="p">)</span> <span class="p">:</span>
+        <span class="c1">#c=time.time()</span>
+        <span class="c1">#counter += 1</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="c1">#d=time.time()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">all_mice_schedule</span><span class="p">)</span>
+    <span class="n">final_agent_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">get_agent_vars_dataframe</span><span class="p">()</span>
+    <span class="n">sensor_vector</span> <span class="o">=</span> <span class="n">final_agent_data</span><span class="p">[</span><span class="s1">&#39;sensor_vector&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">sensor_position</span> <span class="o">=</span> <span class="n">final_agent_data</span><span class="p">[</span><span class="s1">&#39;sensor_position&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">motor_vector</span> <span class="o">=</span> <span class="n">final_agent_data</span><span class="p">[</span><span class="s1">&#39;motor_vector&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">first_action</span> <span class="o">=</span> <span class="n">final_agent_data</span><span class="p">[</span><span class="s1">&#39;action_history&#39;</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">first_action</span> <span class="o">=</span> <span class="p">(</span><span class="n">first_action</span><span class="p">[</span><span class="s1">&#39;Duration&#39;</span><span class="p">],</span> <span class="n">first_action</span><span class="p">[</span><span class="s1">&#39;Termination&#39;</span><span class="p">])</span>
+    <span class="c1">#first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">first_action</span><span class="p">)</span>
+<span class="c1">#     return (first_action, sensor_vector, sensor_position, motor_vector)</span>
  
-all_first_actions = dview.map_sync(make_model, [0,1,2,3,4,5,6,7])
-print(all_first_actions)
+<span class="n">all_first_actions</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">map_sync</span><span class="p">(</span><span class="n">make_model</span><span class="p">,</span> <span class="n">param_combs</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">param_combs</span><span class="p">))</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">all_first_actions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
 </pre></div>
 
 </div>
@@ -11806,7 +11878,80 @@ print(all_first_actions)
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Overwriting mousetest_run_parallel.py
+<pre>importing Mousetest from mouseworld.mousetest on engine(s)
+importing time on engine(s)
+((0, 0.4, 0.4, (1, 1), 0), (20.0, None))
+((0, 0.4, 0.4, (1, 1), 1), (20.0, None))
+((0, 0.4, 0.4, (1, 1), 2), (20.0, None))
+((0, 0.4, 0.4, (1, 1), 3), (20.0, None))
+((0, 0.4, 0.4, (1, 1), 4), (16.0, &#39;Closure&#39;))
+((0, 0.4, 0.4, (1, 1), 5), (8.0, &#39;Closure&#39;))
+((0, 0.4, 0.4, (1, 1), 6), (17.0, &#39;Closure&#39;))
+((0, 0.4, 0.4, (1, 1), 7), (6.0, &#39;Closure&#39;))
+((0, 0.4, 0.4, (2, 2), 0), (20.0, None))
+((0, 0.4, 0.4, (2, 2), 1), (14.0, &#39;Failure&#39;))
+((0, 0.4, 0.4, (2, 2), 2), (20.0, None))
+((0, 0.4, 0.4, (2, 2), 3), (20.0, None))
+((0, 0.4, 0.4, (2, 2), 4), (20.0, None))
+((0, 0.4, 0.4, (2, 2), 5), (20.0, None))
+((0, 0.4, 0.4, (2, 2), 6), (20.0, None))
+((0, 0.4, 0.4, (2, 2), 7), (20.0, None))
+((0, 0.4, 0.4, (3, 3), 0), (13.0, &#39;Failure&#39;))
+((0, 0.4, 0.4, (3, 3), 1), (10.0, &#39;Failure&#39;))
+((0, 0.4, 0.4, (3, 3), 2), (13.0, &#39;Failure&#39;))
+((0, 0.4, 0.4, (3, 3), 3), (20.0, None))
+((0, 0.4, 0.4, (3, 3), 4), (20.0, None))
+((0, 0.4, 0.4, (3, 3), 5), (19.0, &#39;Closure&#39;))
+((0, 0.4, 0.4, (3, 3), 6), (16.0, &#39;Closure&#39;))
+((0, 0.4, 0.4, (3, 3), 7), (20.0, None))
+((0.4, 0.4, 0.4, (1, 1), 0), (3.0, &#39;Closure&#39;))
+((0.4, 0.4, 0.4, (1, 1), 1), (7.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (1, 1), 2), (3.0, &#39;Closure&#39;))
+((0.4, 0.4, 0.4, (1, 1), 3), (10.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (1, 1), 4), (8.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (1, 1), 5), (4.0, &#39;Closure&#39;))
+((0.4, 0.4, 0.4, (1, 1), 6), (8.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (1, 1), 7), (9.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (2, 2), 0), (6.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (2, 2), 1), (6.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (2, 2), 2), (7.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (2, 2), 3), (12.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (2, 2), 4), (15.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (2, 2), 5), (3.0, &#39;Closure&#39;))
+((0.4, 0.4, 0.4, (2, 2), 6), (4.0, &#39;Closure&#39;))
+((0.4, 0.4, 0.4, (2, 2), 7), (13.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (3, 3), 0), (5.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (3, 3), 1), (4.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (3, 3), 2), (5.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (3, 3), 3), (9.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (3, 3), 4), (10.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (3, 3), 5), (17.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (3, 3), 6), (13.0, &#39;Failure&#39;))
+((0.4, 0.4, 0.4, (3, 3), 7), (8.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (1, 1), 0), (4.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (1, 1), 1), (4.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (1, 1), 2), (6.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (1, 1), 3), (5.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (1, 1), 4), (5.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (1, 1), 5), (2.0, &#39;Closure&#39;))
+((1, 0.4, 0.4, (1, 1), 6), (5.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (1, 1), 7), (4.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (2, 2), 0), (4.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (2, 2), 1), (3.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (2, 2), 2), (4.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (2, 2), 3), (4.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (2, 2), 4), (6.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (2, 2), 5), (2.0, &#39;Closure&#39;))
+((1, 0.4, 0.4, (2, 2), 6), (6.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (2, 2), 7), (4.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (3, 3), 0), (3.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (3, 3), 1), (2.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (3, 3), 2), (3.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (3, 3), 3), (4.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (3, 3), 4), (6.0, &#39;Failure&#39;))
+((1, 0.4, 0.4, (3, 3), 5), (2.0, &#39;Closure&#39;))
+((1, 0.4, 0.4, (3, 3), 6), (3.0, &#39;Closure&#39;))
+((1, 0.4, 0.4, (3, 3), 7), (4.0, &#39;Failure&#39;))
 </pre>
 </div>
 </div>
@@ -11825,8 +11970,6 @@ print(all_first_actions)
 from mouseworld import mousetest
 import time
 
-
-   
 x = 1
 y = 1
 header = 1 # 0-7
@@ -11913,7 +12056,7 @@ for i in range(len(final_agent_data)) :
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mousetest.py
@@ -11966,7 +12109,7 @@ class Mousetest(Mouseworld):
         self.initialization_genome = self.initialize_genome()
         
         # initialize food parameters
-        self.food_amount_range = (20,200)
+        self.food_amount_range = (40,200)
         self.food_odor_strength = [1] #[0.7,1]
         self.food_odor_std = [8]
         self.nutritional_value = [1]

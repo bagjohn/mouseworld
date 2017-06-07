@@ -86,6 +86,7 @@ class Mouseworld(Model):
         self.all_mice_schedule = RandomActivation(self)
         self.food_schedule = RandomActivation(self)
         self.predator_schedule = RandomActivation(self)
+        self.mouseworld_date = 0
         
         #initialize ids
         self.initialize_ids(['Mouse', 'Food', 'Predator'])
@@ -99,11 +100,11 @@ class Mouseworld(Model):
         for i in range(self.num_mice):
             temp_genome = self.initialization_genome[i]
             if i < num_mice[0] :
-                mouse = Mouse(self, temp_genome, 0, motor_NN_on = False, learning_on = False, appraisal_NN_on = False)
+                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = False, learning_on = False, appraisal_NN_on = False)
             elif i < num_mice[1]:
-                mouse = Mouse(self, temp_genome, 0, motor_NN_on = True, learning_on = False, appraisal_NN_on = False)
+                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = True, learning_on = False, appraisal_NN_on = False)
             else :
-                mouse = Mouse(self, temp_genome, 0, motor_NN_on = True, learning_on = True, appraisal_NN_on = False)
+                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = True, learning_on = True, appraisal_NN_on = False)
             self.schedule.add(mouse)
             self.all_mice_schedule.add(mouse)
             self.place_agent_randomly(mouse)
@@ -183,7 +184,11 @@ class Mouseworld(Model):
                              "secondary_values": lambda a: a.secondary_values,
                             "sensor_vector": lambda a: a.sensor_vector,
                              "motor_vector": lambda a: a.motor_vector,
-                            "sensor_position": lambda a: a.sensor_position})
+                            "sensor_position": lambda a: a.sensor_position,
+                            "parent_ID": lambda a: a.parent_ID,
+                            "offspring": lambda a: a.offspring,
+                            "birth_date": lambda a: a.birth_date,
+                            "death_date": lambda a: a.death_date})
         
         self.predator_datacollector = MyDataCollector(
             agent_reporters={"Victims_num": lambda a: a.victims_num,
@@ -277,6 +282,7 @@ class Mouseworld(Model):
         self.diffuse_odor_layers(self.odor_layers)
         self.schedule.step() 
         self.test_datacollector.collect(self, self.schedule)
+        self.mouseworld_date += 1
 
 # class Agent_group :
     

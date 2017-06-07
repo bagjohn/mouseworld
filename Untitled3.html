@@ -11746,6 +11746,349 @@ div#notebook {
   <div tabindex="-1" id="notebook" class="border-box-sizing">
     <div class="container" id="notebook-container">
 
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+
+<span class="k">def</span> <span class="nf">draw_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">):</span>
+
+    <span class="c1"># extract nodes from graph</span>
+    <span class="n">nodes</span> <span class="o">=</span> <span class="nb">set</span><span class="p">([</span><span class="n">n1</span> <span class="k">for</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">]</span> <span class="o">+</span> <span class="p">[</span><span class="n">n2</span> <span class="k">for</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">])</span>
+    <span class="nb">print</span><span class="p">([</span><span class="n">n2</span> <span class="k">for</span> <span class="n">n1</span><span class="p">,</span> <span class="n">n2</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">])</span>
+    <span class="c1"># create networkx graph</span>
+    <span class="n">G</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">Graph</span><span class="p">()</span>
+
+    <span class="c1"># add nodes</span>
+    <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
+
+    <span class="c1"># add edges</span>
+    <span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">graph</span><span class="p">:</span>
+        <span class="n">G</span><span class="o">.</span><span class="n">add_edge</span><span class="p">(</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+    <span class="c1"># draw graph</span>
+    <span class="n">pos</span> <span class="o">=</span> <span class="n">nx</span><span class="o">.</span><span class="n">shell_layout</span><span class="p">(</span><span class="n">G</span><span class="p">)</span>
+    <span class="n">nx</span><span class="o">.</span><span class="n">draw</span><span class="p">(</span><span class="n">G</span><span class="p">,</span> <span class="n">pos</span><span class="p">)</span>
+
+    <span class="c1"># show graph</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># draw example</span>
+<span class="c1"># graph = [(20, 21),(21, 22),(22, 23), (23, 24),(24, 25), (25, 20)]</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">21</span><span class="p">),(</span><span class="mi">21</span><span class="p">,</span> <span class="mi">22</span><span class="p">),(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">23</span><span class="p">),</span> <span class="p">(</span><span class="mi">23</span><span class="p">,</span> <span class="mi">24</span><span class="p">),(</span><span class="mi">24</span><span class="p">,</span> <span class="mi">25</span><span class="p">),</span> <span class="p">(</span><span class="mi">25</span><span class="p">,</span> <span class="mi">20</span><span class="p">)]</span>
+<span class="n">draw_graph</span><span class="p">(</span><span class="n">graph</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[21, 22, 23, 24, 25, 20]
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/bagjohn/anaconda3/lib/python3.6/site-packages/networkx/drawing/nx_pylab.py:126: MatplotlibDeprecationWarning:
+
+pyplot.hold is deprecated.
+    Future behavior will be consistent with the long-time default:
+    plot commands add elements without first clearing the
+    Axes and/or Figure.
+
+/home/bagjohn/anaconda3/lib/python3.6/site-packages/networkx/drawing/nx_pylab.py:138: MatplotlibDeprecationWarning:
+
+pyplot.hold is deprecated.
+    Future behavior will be consistent with the long-time default:
+    plot commands add elements without first clearing the
+    Axes and/or Figure.
+
+/home/bagjohn/anaconda3/lib/python3.6/site-packages/matplotlib/__init__.py:917: UserWarning:
+
+axes.hold is deprecated. Please remove it from your matplotlibrc and/or style files.
+
+/home/bagjohn/anaconda3/lib/python3.6/site-packages/matplotlib/rcsetup.py:152: UserWarning:
+
+axes.hold is deprecated, will be removed in 3.0
+
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+
+
+<div class="output_png output_subarea ">
+<img src="data:image/png;base64,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
+jMMZABLz/+WlQE8e4NxdAAAAAElFTkSuQmCC
+"
+>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.plotly</span> <span class="k">as</span> <span class="nn">py</span>
+<span class="kn">from</span> <span class="nn">plotly.graph_objs</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+
+<span class="n">G</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">random_geometric_graph</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mf">0.125</span><span class="p">)</span>
+<span class="n">pos</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">get_node_attributes</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="s1">&#39;pos&#39;</span><span class="p">)</span>
+
+<span class="n">dmin</span><span class="o">=</span><span class="mi">1</span>
+<span class="n">ncenter</span><span class="o">=</span><span class="mi">0</span>
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">pos</span><span class="p">:</span>
+    <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="n">pos</span><span class="p">[</span><span class="n">n</span><span class="p">]</span>
+    <span class="n">d</span><span class="o">=</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span><span class="o">+</span><span class="p">(</span><span class="n">y</span><span class="o">-</span><span class="mf">0.5</span><span class="p">)</span><span class="o">**</span><span class="mi">2</span>
+    <span class="k">if</span> <span class="n">d</span><span class="o">&lt;</span><span class="n">dmin</span><span class="p">:</span>
+        <span class="n">ncenter</span><span class="o">=</span><span class="n">n</span>
+        <span class="n">dmin</span><span class="o">=</span><span class="n">d</span>
+
+<span class="n">p</span><span class="o">=</span><span class="n">nx</span><span class="o">.</span><span class="n">single_source_shortest_path_length</span><span class="p">(</span><span class="n">G</span><span class="p">,</span><span class="n">ncenter</span><span class="p">)</span>
+
+<span class="n">edge_trace</span> <span class="o">=</span> <span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">line</span><span class="o">=</span><span class="n">Line</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;#888&#39;</span><span class="p">),</span>
+    <span class="n">hoverinfo</span><span class="o">=</span><span class="s1">&#39;none&#39;</span><span class="p">,</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;lines&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">edge</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">edges</span><span class="p">():</span>
+    <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">0</span><span class="p">]][</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span>
+    <span class="n">x1</span><span class="p">,</span> <span class="n">y1</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="n">edge</span><span class="p">[</span><span class="mi">1</span><span class="p">]][</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span>
+    <span class="n">edge_trace</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">x0</span><span class="p">,</span> <span class="n">x1</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+    <span class="n">edge_trace</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span> <span class="o">+=</span> <span class="p">[</span><span class="n">y0</span><span class="p">,</span> <span class="n">y1</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
+
+<span class="n">node_trace</span> <span class="o">=</span> <span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">y</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">text</span><span class="o">=</span><span class="p">[],</span>
+    <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;markers&#39;</span><span class="p">,</span>
+    <span class="n">hoverinfo</span><span class="o">=</span><span class="s1">&#39;text&#39;</span><span class="p">,</span>
+    <span class="n">marker</span><span class="o">=</span><span class="n">Marker</span><span class="p">(</span>
+        <span class="n">showscale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="c1"># colorscale options</span>
+        <span class="c1"># &#39;Greys&#39; | &#39;Greens&#39; | &#39;Bluered&#39; | &#39;Hot&#39; | &#39;Picnic&#39; | &#39;Portland&#39; |</span>
+        <span class="c1"># Jet&#39; | &#39;RdBu&#39; | &#39;Blackbody&#39; | &#39;Earth&#39; | &#39;Electric&#39; | &#39;YIOrRd&#39; | &#39;YIGnBu&#39;</span>
+        <span class="n">colorscale</span><span class="o">=</span><span class="s1">&#39;YIGnBu&#39;</span><span class="p">,</span>
+        <span class="n">reversescale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">color</span><span class="o">=</span><span class="p">[],</span>
+        <span class="n">size</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+        <span class="n">colorbar</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">thickness</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span>
+            <span class="n">title</span><span class="o">=</span><span class="s1">&#39;Node Connections&#39;</span><span class="p">,</span>
+            <span class="n">xanchor</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">,</span>
+            <span class="n">titleside</span><span class="o">=</span><span class="s1">&#39;right&#39;</span>
+        <span class="p">),</span>
+        <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">)))</span>
+
+<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">G</span><span class="o">.</span><span class="n">nodes</span><span class="p">():</span>
+    <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">G</span><span class="o">.</span><span class="n">node</span><span class="p">[</span><span class="n">node</span><span class="p">][</span><span class="s1">&#39;pos&#39;</span><span class="p">]</span>
+    <span class="n">node_trace</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">node_trace</span><span class="p">[</span><span class="s1">&#39;y&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">node</span><span class="p">,</span> <span class="n">adjacencies</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">G</span><span class="o">.</span><span class="n">adjacency_list</span><span class="p">()):</span>
+    <span class="n">node_trace</span><span class="p">[</span><span class="s1">&#39;marker&#39;</span><span class="p">][</span><span class="s1">&#39;color&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">adjacencies</span><span class="p">))</span>
+    <span class="n">node_info</span> <span class="o">=</span> <span class="s1">&#39;# of connections: &#39;</span><span class="o">+</span><span class="nb">str</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">adjacencies</span><span class="p">))</span>
+    <span class="n">node_trace</span><span class="p">[</span><span class="s1">&#39;text&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node_info</span><span class="p">)</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">Data</span><span class="p">([</span><span class="n">edge_trace</span><span class="p">,</span> <span class="n">node_trace</span><span class="p">]),</span>
+             <span class="n">layout</span><span class="o">=</span><span class="n">Layout</span><span class="p">(</span>
+                <span class="n">title</span><span class="o">=</span><span class="s1">&#39;&lt;br&gt;Network graph made with Python&#39;</span><span class="p">,</span>
+                <span class="n">titlefont</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">),</span>
+                <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                <span class="n">hovermode</span><span class="o">=</span><span class="s1">&#39;closest&#39;</span><span class="p">,</span>
+                <span class="n">margin</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">b</span><span class="o">=</span><span class="mi">20</span><span class="p">,</span><span class="n">l</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">r</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span><span class="n">t</span><span class="o">=</span><span class="mi">40</span><span class="p">),</span>
+                <span class="n">annotations</span><span class="o">=</span><span class="p">[</span> <span class="nb">dict</span><span class="p">(</span>
+                    <span class="n">text</span><span class="o">=</span><span class="s2">&quot;Python code: &lt;a href=&#39;https://plot.ly/ipython-notebooks/network-graphs/&#39;&gt; https://plot.ly/ipython-notebooks/network-graphs/&lt;/a&gt;&quot;</span><span class="p">,</span>
+                    <span class="n">showarrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                    <span class="n">xref</span><span class="o">=</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span> <span class="n">yref</span><span class="o">=</span><span class="s2">&quot;paper&quot;</span><span class="p">,</span>
+                    <span class="n">x</span><span class="o">=</span><span class="mf">0.005</span><span class="p">,</span> <span class="n">y</span><span class="o">=-</span><span class="mf">0.002</span> <span class="p">)</span> <span class="p">],</span>
+                <span class="n">xaxis</span><span class="o">=</span><span class="n">XAxis</span><span class="p">(</span><span class="n">showgrid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">showticklabels</span><span class="o">=</span><span class="kc">False</span><span class="p">),</span>
+                <span class="n">yaxis</span><span class="o">=</span><span class="n">YAxis</span><span class="p">(</span><span class="n">showgrid</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">zeroline</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">showticklabels</span><span class="o">=</span><span class="kc">False</span><span class="p">)))</span>
+
+<span class="n">py</span><span class="o">.</span><span class="n">iplot</span><span class="p">(</span><span class="n">fig</span><span class="p">,</span> <span class="n">filename</span><span class="o">=</span><span class="s1">&#39;networkx&#39;</span><span class="p">)</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Aw, snap! We don&#39;t have an account for &#39;&#39;. Want to try again? You can authenticate with your email address or username. Sign in is not case sensitive.
+
+Don&#39;t have an account? plot.ly
+
+Questions? support@plot.ly
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_text output_error">
+<pre>
+<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
+<span class="ansi-red-fg">PlotlyError</span>                               Traceback (most recent call last)
+<span class="ansi-green-fg">&lt;ipython-input-3-61a8c245c7ec&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
+<span class="ansi-green-intense-fg ansi-bold">     78</span>                 yaxis=YAxis(showgrid=False, zeroline=False, showticklabels=False)))
+<span class="ansi-green-intense-fg ansi-bold">     79</span> 
+<span class="ansi-green-fg">---&gt; 80</span><span class="ansi-red-fg"> </span>py<span class="ansi-blue-fg">.</span>iplot<span class="ansi-blue-fg">(</span>fig<span class="ansi-blue-fg">,</span> filename<span class="ansi-blue-fg">=</span><span class="ansi-blue-fg">&#39;networkx&#39;</span><span class="ansi-blue-fg">)</span>
+
+<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/plotly/plotly/plotly.py</span> in <span class="ansi-cyan-fg">iplot</span><span class="ansi-blue-fg">(figure_or_data, **plot_options)</span>
+<span class="ansi-green-intense-fg ansi-bold">    156</span>         embed_options<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;height&#39;</span><span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> str<span class="ansi-blue-fg">(</span>embed_options<span class="ansi-blue-fg">[</span><span class="ansi-blue-fg">&#39;height&#39;</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">)</span> <span class="ansi-blue-fg">+</span> <span class="ansi-blue-fg">&#39;px&#39;</span>
+<span class="ansi-green-intense-fg ansi-bold">    157</span> 
+<span class="ansi-green-fg">--&gt; 158</span><span class="ansi-red-fg">     </span><span class="ansi-green-fg">return</span> tools<span class="ansi-blue-fg">.</span>embed<span class="ansi-blue-fg">(</span>url<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>embed_options<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    159</span> 
+<span class="ansi-green-intense-fg ansi-bold">    160</span> 
+
+<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/plotly/tools.py</span> in <span class="ansi-cyan-fg">embed</span><span class="ansi-blue-fg">(file_owner_or_url, file_id, width, height)</span>
+<span class="ansi-green-intense-fg ansi-bold">    388</span>         <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    389</span>             url <span class="ansi-blue-fg">=</span> file_owner_or_url
+<span class="ansi-green-fg">--&gt; 390</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> PlotlyDisplay<span class="ansi-blue-fg">(</span>url<span class="ansi-blue-fg">,</span> width<span class="ansi-blue-fg">,</span> height<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    391</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">    392</span>         if (get_config_defaults()[&#39;plotly_domain&#39;]
+
+<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/plotly/tools.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, url, width, height)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1363</span>         <span class="ansi-green-fg">def</span> __init__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> url<span class="ansi-blue-fg">,</span> width<span class="ansi-blue-fg">,</span> height<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
+<span class="ansi-green-intense-fg ansi-bold">   1364</span>             self<span class="ansi-blue-fg">.</span>resource <span class="ansi-blue-fg">=</span> url
+<span class="ansi-green-fg">-&gt; 1365</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>embed_code <span class="ansi-blue-fg">=</span> get_embed<span class="ansi-blue-fg">(</span>url<span class="ansi-blue-fg">,</span> width<span class="ansi-blue-fg">=</span>width<span class="ansi-blue-fg">,</span> height<span class="ansi-blue-fg">=</span>height<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1366</span>             super<span class="ansi-blue-fg">(</span>PlotlyDisplay<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__init__<span class="ansi-blue-fg">(</span>data<span class="ansi-blue-fg">=</span>self<span class="ansi-blue-fg">.</span>embed_code<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">   1367</span> 
+
+<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/plotly/tools.py</span> in <span class="ansi-cyan-fg">get_embed</span><span class="ansi-blue-fg">(file_owner_or_url, file_id, width, height)</span>
+<span class="ansi-green-intense-fg ansi-bold">    293</span>                 <span class="ansi-blue-fg">&#34;&#39;{1}&#39;.&#34;</span>
+<span class="ansi-green-intense-fg ansi-bold">    294</span>                 <span class="ansi-blue-fg">&#34;\nRun help on this function for more information.&#34;</span>
+<span class="ansi-green-fg">--&gt; 295</span><span class="ansi-red-fg">                 &#34;&#34;.format(url, plotly_rest_url))
+</span><span class="ansi-green-intense-fg ansi-bold">    296</span>         urlsplit <span class="ansi-blue-fg">=</span> six<span class="ansi-blue-fg">.</span>moves<span class="ansi-blue-fg">.</span>urllib<span class="ansi-blue-fg">.</span>parse<span class="ansi-blue-fg">.</span>urlparse<span class="ansi-blue-fg">(</span>url<span class="ansi-blue-fg">)</span>
+<span class="ansi-green-intense-fg ansi-bold">    297</span>         file_owner <span class="ansi-blue-fg">=</span> urlsplit<span class="ansi-blue-fg">.</span>path<span class="ansi-blue-fg">.</span>split<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;/&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">.</span>split<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;~&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span>
+
+<span class="ansi-red-fg">PlotlyError</span>: Because you didn&#39;t supply a &#39;file_id&#39; in the call, we&#39;re assuming you&#39;re trying to snag a figure from a url. You supplied the url, &#39;&#39;, we expected it to start with &#39;https://plot.ly&#39;.
+Run help on this function for more information.</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span> 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+</div>
     </div>
   </div>
 </body>

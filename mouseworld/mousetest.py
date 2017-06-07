@@ -47,7 +47,7 @@ class Mousetest(Mouseworld):
         self.initialization_genome = self.initialize_genome()
         
         # initialize food parameters
-        self.food_amount_range = (20,200)
+        self.food_amount_range = (40,200)
         self.food_odor_strength = [1] #[0.7,1]
         self.food_odor_std = [8]
         self.nutritional_value = [1]

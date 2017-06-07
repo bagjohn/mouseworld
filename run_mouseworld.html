@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld_run.py
@@ -11757,7 +11757,7 @@ from mouseworld import mouseworld
 import time
 
 # Build the model
-model = mouseworld.Mouseworld([0, 0, 100], 100, 40, 100, 100)
+model = mouseworld.Mouseworld([100, 0, 0], 100, 40, 100, 100)
 
 # Gather initial randomly distributed data
 model.initial_datacollector.collect(model,model.schedule)
@@ -11765,17 +11765,17 @@ initial_model_data = model.initial_datacollector.get_model_vars_dataframe()
 initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)
 
 # Prepare environment by stepping food and predators and diffusing odors
-for i in range(100) :
+for i in range(10) :
     model.food_schedule.step()
     model.predator_schedule.step()
     model.diffuse_odor_layers_parallel(model.odor_layers)
 
 # Run for discrete number of timesteps
-# counter = 0
-# for i in range(20) :
-#     counter += 1
-#     print(&#39;sim step : %i&#39;%counter)
-#     model.step()
+counter = 0
+for i in range(20) :
+    counter += 1
+    print(&#39;sim step : %i&#39;%counter)
+    model.step()
 
 # Run until all mice perish
 # while model.num_mice &gt; 0 :

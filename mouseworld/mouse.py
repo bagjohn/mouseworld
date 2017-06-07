@@ -22,21 +22,23 @@ import mouseworld.predator
 
 class Mouse(Agent):
     
-    def __init__(self, model, genome, generation, motor_NN_on, learning_on, appraisal_NN_on):
+    def __init__(self, model, parent_ID, genome, generation, motor_NN_on, learning_on, appraisal_NN_on):
         
         # Initial parameter setting
         self.model = model
         self.unique_id = model.give_next_id('Mouse')
         self.generation = generation
+        self.parent_ID = parent_ID
         
         # Constants
         self.max_energy = 1200
         self.max_gastric_content = 200
-        self.energy = 500
-        self.maturity_age = 200        
+        self.energy = 50
+        self.maturity_age = 1        
         self.metabolism_rate = 0.95
         self.primary_learning_rate = 0.1
         self.secondary_learning_rate = 0.01
+        self.conception_date = self.model.mouseworld_date
         
         # Constants per turn, for energy loss to predators and amount of food to consume. 
         self.suffering_amount = 20
@@ -44,6 +46,8 @@ class Mouse(Agent):
         
         # Initialization of variables to be changed throughout life. Not to be retrieved
         self.age = 0
+        self.death_date = None
+        self.birth_date = 0
         self.energy_change = 0
         self.metabolism_buffer = 0
         self.gastric_content = 0
@@ -55,6 +59,7 @@ class Mouse(Agent):
         #self.header = random.uniform(0, 2*math.pi)
         self.unborn_child = None
         self.num_offspring = 0
+        self.offspring = []
         
         # Initialization of cumulative counters. To be retrieved once per mouse        
         self.energy_to_predators = 0
@@ -65,7 +70,8 @@ class Mouse(Agent):
         # Genome to phenotype
         self.genome = genome
         self.max_speed = genome[0] * (5 - 1) + 1
-        self.incubation_period = genome[1] * 200 + 100
+        #self.incubation_period = genome[1] * 200 + 100
+        self.incubation_period = genome[1] * 2 + 1
         self.metabolism_range = genome[2]
         self.antenna_length = genome[3]
         self.antenna_angle = genome[4] * math.pi/2
@@ -125,6 +131,7 @@ class Mouse(Agent):
         self.action_history['Termination'][self.action_history.index.max()] = 'Death'
         self.model.num_mice -= 1
         self.death_age = self.age
+        self.death_date = self.model.mouseworld_date
     
     def mutate_genome(self) :
         genome = self.genome
@@ -144,8 +151,9 @@ class Mouse(Agent):
         child_genome = self.mutate_genome()
         
         # BIO : New unborn mouse creation
-        mouse = Mouse(self.model, child_genome, self.generation + 1, self.motor_NN_on, self.appraisal_NN_on)
+        mouse = Mouse(self.model, self.unique_id, child_genome, self.generation + 1, self.motor_NN_on, self.learning_on, self.appraisal_NN_on)
         mouse.unborn = True
+        self.offspring.append(mouse)
         
         # BIO : Pass primary values to offspring (TEST)
         mouse.primary_values = self.primary_values 
@@ -169,6 +177,7 @@ class Mouse(Agent):
         self.model.num_mice += 1
         self.model.num_unborn_mice -= 1
         self.num_offspring +=1
+        self.unborn_child.birth_date = self.model.mouseworld_date + 1
         
         # BIO : Parent no longer pregnant
         self.pregnant = False
@@ -381,7 +390,7 @@ class Mouse(Agent):
             temp = self.mousebrain_sim.data[self.mousebrain.p_approach]
             self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
         else :
-            self.motor_vector = [np.exp(-goal_sense[0]), -goal_sense[1]]
+            self.motor_vector = [np.exp(-goal_sense[0])-np.exp(-0.5), goal_sense[1]*10]
         
     def avoid(self, goal_sense) :
         #goal_sense = self.sensor_vector[odor_layer]
@@ -400,7 +409,7 @@ class Mouse(Agent):
             temp = self.mousebrain_sim.data[self.mousebrain.p_avoid]
             self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
         else :
-            self.motor_vector = [np.exp(goal_sense[0])-1, goal_sense[1]]
+            self.motor_vector = [np.exp(goal_sense[0])-0.9, -goal_sense[1]*10]
             
     def suffer(self,predator) :
         
@@ -506,7 +515,7 @@ class Mouse(Agent):
         old_energy = self.energy
         
         # BIO : KATABOLISM RATE
-        self.energy += 0.05 * self.metabolism_buffer
+        self.energy += (1 - self.metabolism_rate) * self.metabolism_buffer
         if self.energy >= self.max_energy :
             self.energy = self.max_energy
         self.metabolism_buffer = self.metabolism_rate * self.metabolism_buffer

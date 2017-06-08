@@ -34,7 +34,7 @@ class Mouse(Agent):
         self.max_energy = 1200
         self.max_gastric_content = 200
         self.energy = 1000
-        self.maturity_age = 400       
+        self.maturity_age = 200       
         self.metabolism_rate = 0.95
         self.primary_learning_rate = 0.1
         self.secondary_learning_rate = 0.01

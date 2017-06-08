@@ -102,4 +102,4 @@ for i in range(len(new_tree_data)) :
     plt.legend(bbox_to_anchor=(0, 1), loc='best')
 plt.savefig('%s/family_tree.png'%result_folder, bbox_inches='tight')
 plt.show()
-print('Over and out!!!')
+print('Over!!!')

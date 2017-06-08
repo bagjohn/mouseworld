@@ -12071,7 +12071,7 @@ class Mouseworld(Model):
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouse.py
@@ -12111,7 +12111,7 @@ class Mouse(Agent):
         self.max_energy = 1200
         self.max_gastric_content = 200
         self.energy = 1000
-        self.maturity_age = 0       
+        self.maturity_age = 700       
         self.metabolism_rate = 0.95
         self.primary_learning_rate = 0.1
         self.secondary_learning_rate = 0.01
@@ -12147,8 +12147,8 @@ class Mouse(Agent):
         # Genome to phenotype
         self.genome = genome
         self.max_speed = genome[0] * (5 - 1) + 1
-#         self.incubation_period = genome[1] * 200 + 100
-        self.incubation_period = genome[1] * 2 + 1
+        self.incubation_period = genome[1] * 200 + 100
+#         self.incubation_period = genome[1] * 2 + 1
         self.metabolism_range = genome[2]
         self.antenna_length = genome[3]
         self.antenna_angle = genome[4] * math.pi/2

@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[20]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> check_family_tree.py
@@ -11759,13 +11759,17 @@ import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
 import os
-#import networkx as nx
+import sys
 
-simulation_number = 111
+# Arguments
+# argv[1] TO_DEATH means simulation runs until all mic die. Otherwise it defines the number of time steps
+# argv[2] defines the simulation number therefore the results folder name
+
+simulation_number = int(sys.argv[2])
 result_folder = &#39;results/simulation_%i&#39;%simulation_number
 os.makedirs(result_folder)
 
-num_mice = [100, 0, 0]
+num_mice = [1, 0, 0]
 
 # Build the model
 model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
@@ -11776,35 +11780,39 @@ model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
 #     model.food_schedule.step()
 #     model.predator_schedule.step()
 #     model.diffuse_odor_layers_parallel(model.odor_layers)
-a=time.time()
 for i in range(10) :
     model.food_schedule.step()
     model.predator_schedule.step()
     model.diffuse_odor_layers(model.odor_layers)
-    
+
+counter = 0    
+
 #Run for discrete number of timesteps
-# b=time.time()
-# print(b-a)
-counter = 0
-# myrange = 2
-# for i in range(myrange) :
-#     c=time.time()
-#     counter += 1
-#     model.step()
-#     d=time.time()
-#     print(&#39;sim step : %i in %f&#39;%(counter, d-c))
-# print(&#39;Simulation terminated - Number of time steps reached&#39;)
+if sys.argv[1] == &#39;TO_DEATH&#39; :
+    while model.num_mice &gt; 0 :
+        c=time.time()
+        counter += 1
+        model.step()
+        d=time.time()
+        print(&#39;sim step : %i in %f&#39;%(counter, d-c))
+    print(&#39;Simulation terminated - No alive mice&#39;)
 
 #Run until all mice perish
-while model.num_mice &gt; 0 :
-    c=time.time()
-    counter += 1
-    model.step()
-    d=time.time()
-    print(&#39;sim step : %i in %f&#39;%(counter, d-c))
-print(&#39;Simulation terminated - No alive mice&#39;)
+else :
+    myrange = int(sys.argv[1])
+    for i in range(myrange) :
+        c=time.time()
+        counter += 1
+        model.step()
+        d=time.time()
+        print(&#39;sim step : %i in %f&#39;%(counter, d-c))
+    print(&#39;Simulation terminated - Number of time steps reached&#39;)
+    
+
 # Gather model and data
+
 print(&#39;Gathering model data and ploting number of mice&#39;)
+
 model_data = model.model_datacollector.get_model_vars_dataframe()
 model_data = model_data[[&#39;Alive_mice&#39;, &#39;Unborn_mice&#39;]]
 model_data.to_csv(&#39;%s/num_mice.csv&#39;%result_folder, sep=&#39;\t&#39;)
@@ -11812,19 +11820,17 @@ plt.plot(model_data[&#39;Alive_mice&#39;])
 plt.plot(model_data[&#39;Unborn_mice&#39;])
 plt.savefig(&#39;%s/num_mice.png&#39;%result_folder, bbox_inches=&#39;tight&#39;)
 plt.show()
-#     plt.legend(bbox_to_anchor=(0, 1), loc=&#39;best&#39;)
-# plt.savefig(&#39;results/check_family_tree.png&#39;, bbox_inches=&#39;tight&#39;)
-# plt.show()
 
 # Gather final model and agent data
+
 print(&#39;Gathering agent data and ploting family tree&#39;)
+
 model.final_datacollector.collect(model,model.all_mice_schedule)
 final_model_data = model.final_datacollector.get_model_vars_dataframe()
 final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
 genome_data = final_agent_data[[&#39;Genome&#39;]]
 genome_data = genome_data.reset_index(&#39;Step&#39;, drop = True)
 genome_data.to_csv(&#39;%s/genome_data.csv&#39;%result_folder, sep=&#39;\t&#39;)
-# print(type(genome_data))
 tree_data = final_agent_data[[&#39;parent_ID&#39;, &#39;birth_date&#39;, &#39;age&#39;, &#39;generation&#39;]]
 tree_data = tree_data.reset_index(&#39;AgentID&#39;).values
 
@@ -11843,11 +11849,9 @@ def rearrange_data (tree_data) :
     return new_tree_data
 
 cmap = mpl.cm.Set1
-# print(cmap.N)
 new_tree_data = rearrange_data(tree_data)
 for i in range(len(new_tree_data)) :
     mouse = new_tree_data[i]
-#     plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), &#39;k-&#39;)
     plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), color=cmap(mouse[4]%cmap.N), label=mouse[0])
     plt.legend(bbox_to_anchor=(0, 1), loc=&#39;best&#39;)
 plt.savefig(&#39;%s/family_tree.png&#39;%result_folder, bbox_inches=&#39;tight&#39;)

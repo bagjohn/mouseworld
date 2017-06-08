@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouseworld.py
@@ -11942,7 +11942,8 @@ class Mouseworld(Model):
                             &quot;parent_ID&quot;: lambda a: a.parent_ID,
                             &quot;offspring&quot;: lambda a: a.offspring,
                             &quot;birth_date&quot;: lambda a: a.birth_date,
-                            &quot;death_date&quot;: lambda a: a.death_date})
+                            &quot;death_date&quot;: lambda a: a.death_date,
+                            &quot;Genome&quot;: lambda a: a.genome})
         
         self.predator_datacollector = MyDataCollector(
             agent_reporters={&quot;Victims_num&quot;: lambda a: a.victims_num,
@@ -12067,7 +12068,7 @@ class Mouseworld(Model):
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[3]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouse.py
@@ -12106,8 +12107,8 @@ class Mouse(Agent):
         # Constants
         self.max_energy = 1200
         self.max_gastric_content = 200
-        self.energy = 50
-        self.maturity_age = 1        
+        self.energy = 500
+        self.maturity_age = 300       
         self.metabolism_rate = 0.95
         self.primary_learning_rate = 0.1
         self.secondary_learning_rate = 0.01
@@ -12144,7 +12145,7 @@ class Mouse(Agent):
         self.genome = genome
         self.max_speed = genome[0] * (5 - 1) + 1
         #self.incubation_period = genome[1] * 200 + 100
-        self.incubation_period = genome[1] * 2 + 1
+        self.incubation_period = genome[1] * 20 + 10
         self.metabolism_range = genome[2]
         self.antenna_length = genome[3]
         self.antenna_angle = genome[4] * math.pi/2

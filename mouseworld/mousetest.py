@@ -105,11 +105,11 @@ class Mousetest(Mouseworld):
             #temp_genome = self.initialization_genome[i]
             temp_genome = genome
             if i < num_mice[0] :
-                mouse = Mouse(self, temp_genome, 0, motor_NN_on = False, learning_on = False, appraisal_NN_on = False)
+                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = False, learning_on = False, appraisal_NN_on = False)
             elif i < num_mice[1]:
-                mouse = Mouse(self, temp_genome, 0, motor_NN_on = True, learning_on = False, appraisal_NN_on = False)
+                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = True, learning_on = False, appraisal_NN_on = False)
             else :
-                mouse = Mouse(self, temp_genome, 0, motor_NN_on = True, learning_on = True, appraisal_NN_on = False)
+                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = True, learning_on = True, appraisal_NN_on = False)
             mouse.header = header * math.pi / 4
             mouse.primary_values[self.food_groups[0]] = food_odor_value * 10
             mouse.secondary_values.ix[self.food_groups[0]][self.food_layer_names[0]]= food_odor_value

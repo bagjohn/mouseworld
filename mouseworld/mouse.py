@@ -33,8 +33,8 @@ class Mouse(Agent):
         # Constants
         self.max_energy = 1200
         self.max_gastric_content = 200
-        self.energy = 50
-        self.maturity_age = 1        
+        self.energy = 500
+        self.maturity_age = 300       
         self.metabolism_rate = 0.95
         self.primary_learning_rate = 0.1
         self.secondary_learning_rate = 0.01
@@ -71,7 +71,7 @@ class Mouse(Agent):
         self.genome = genome
         self.max_speed = genome[0] * (5 - 1) + 1
         #self.incubation_period = genome[1] * 200 + 100
-        self.incubation_period = genome[1] * 2 + 1
+        self.incubation_period = genome[1] * 20 + 10
         self.metabolism_range = genome[2]
         self.antenna_length = genome[3]
         self.antenna_angle = genome[4] * math.pi/2

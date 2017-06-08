@@ -188,7 +188,8 @@ class Mouseworld(Model):
                             "parent_ID": lambda a: a.parent_ID,
                             "offspring": lambda a: a.offspring,
                             "birth_date": lambda a: a.birth_date,
-                            "death_date": lambda a: a.death_date})
+                            "death_date": lambda a: a.death_date,
+                            "Genome": lambda a: a.genome})
         
         self.predator_datacollector = MyDataCollector(
             agent_reporters={"Victims_num": lambda a: a.victims_num,

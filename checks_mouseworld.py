@@ -3,7 +3,86 @@
 
 # In[3]:
 
-get_ipython().run_cell_magic('writefile', 'check_family_tree.py', "from mouseworld import mouseworld\nimport time\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport networkx as nx\n\nnum_mice = [10, 0, 0]\n\n# Build the model\nmodel = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)\n\n\n# Prepare environment by stepping food and predators and diffusing odors\n# for i in range(100) :\n#     model.food_schedule.step()\n#     model.predator_schedule.step()\n#     model.diffuse_odor_layers_parallel(model.odor_layers)\na=time.time()\nfor i in range(0) :\n    model.food_schedule.step()\n    model.predator_schedule.step()\n    model.diffuse_odor_layers(model.odor_layers)\n    \n#Run for discrete number of timesteps\nb=time.time()\nprint(b-a)\ncounter = 0\nmyrange = 20\nfor i in range(myrange) :\n    c=time.time()\n    counter += 1\n    model.step()\n    d=time.time()\n    print('sim step : %i in %f'%(counter, d-c))\n\n#Run until all mice perish\n# while model.num_mice > 0 :\n#     c=time.time()\n#     counter += 1\n#     model.step()\n#     d=time.time()\n#     print('sim step : %i in %f'%(counter, d-c))\n\n# Gather final model and agent data\nmodel.final_datacollector.collect(model,model.all_mice_schedule)\nfinal_model_data = model.final_datacollector.get_model_vars_dataframe()\nfinal_agent_data = model.final_datacollector.get_agent_vars_dataframe()\ntree_data = final_agent_data[['parent_ID', 'birth_date', 'age']]\ntree_data = tree_data.reset_index('AgentID').values\n\n\ndef rearrange_data (tree_data) :\n    temp = [mouse for mouse in tree_data if mouse[1] is None]\n    new_tree_data = []\n    while len(temp) != 0 :\n        offspring = [mouse for mouse in tree_data if mouse[1] == temp[0][0]]      \n        new_tree_data.append(temp[0])\n        temp = np.delete(temp, 0, 0)\n        if len(offspring) != 0 :\n            offspring.sort(key=lambda x: -x[2])\n            for x in range(len(offspring)) :\n                temp = np.insert(temp, 0, offspring[x], axis=0)\n    return new_tree_data\n\n\nnew_tree_data = rearrange_data(tree_data)\nfor i in range(len(new_tree_data)) :\n    mouse = new_tree_data[i]\n    plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), 'k-')\nplt.show()")
+#%%writefile check_family_tree.py
+from mouseworld import mouseworld
+import time
+import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+import numpy as np
+import networkx as nx
+
+num_mice = [10, 0, 0]
+
+# Build the model
+model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
+
+
+# Prepare environment by stepping food and predators and diffusing odors
+# for i in range(100) :
+#     model.food_schedule.step()
+#     model.predator_schedule.step()
+#     model.diffuse_odor_layers_parallel(model.odor_layers)
+a=time.time()
+for i in range(0) :
+    model.food_schedule.step()
+    model.predator_schedule.step()
+    model.diffuse_odor_layers(model.odor_layers)
+    
+#Run for discrete number of timesteps
+# b=time.time()
+# print(b-a)
+counter = 0
+myrange = 2
+for i in range(myrange) :
+    c=time.time()
+    counter += 1
+    model.step()
+    d=time.time()
+    print('sim step : %i in %f'%(counter, d-c))
+
+#Run until all mice perish
+# while model.num_mice > 0 :
+#     c=time.time()
+#     counter += 1
+#     model.step()
+#     d=time.time()
+#     print('sim step : %i in %f'%(counter, d-c))
+
+# Gather final model and agent data
+model.final_datacollector.collect(model,model.all_mice_schedule)
+final_model_data = model.final_datacollector.get_model_vars_dataframe()
+final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
+genome_data = final_agent_data[['Genome']]
+genome_data = genome_data.reset_index('Step', drop = True)
+genome_data.to_csv('results/genome_data.csv', sep='\t')
+# print(type(genome_data))
+tree_data = final_agent_data[['parent_ID', 'birth_date', 'age', 'generation']]
+tree_data = tree_data.reset_index('AgentID').values
+
+
+def rearrange_data (tree_data) :
+    temp = [mouse for mouse in tree_data if mouse[1] is None]
+    new_tree_data = []
+    while len(temp) != 0 :
+        offspring = [mouse for mouse in tree_data if mouse[1] == temp[0][0]]      
+        new_tree_data.append(temp[0])
+        temp = np.delete(temp, 0, 0)
+        if len(offspring) != 0 :
+            offspring.sort(key=lambda x: -x[2])
+            for x in range(len(offspring)) :
+                temp = np.insert(temp, 0, offspring[x], axis=0)
+    return new_tree_data
+
+cmap = mpl.cm.Set1
+new_tree_data = rearrange_data(tree_data)
+for i in range(len(new_tree_data)) :
+    mouse = new_tree_data[i]
+#     plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), 'k-')
+    plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), color=cmap(mouse[4]), label=mouse[0])
+    plt.legend(bbox_to_anchor=(0, 1), loc='best')
+plt.savefig('results/check_family_tree.png', bbox_inches='tight')
+plt.show()
 
 
 # In[6]:

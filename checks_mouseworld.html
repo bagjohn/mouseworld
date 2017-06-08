@@ -11748,89 +11748,89 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#%%writefile check_family_tree.py</span>
-<span class="kn">from</span> <span class="nn">mouseworld</span> <span class="k">import</span> <span class="n">mouseworld</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">matplotlib</span> <span class="k">as</span> <span class="nn">mpl</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">networkx</span> <span class="k">as</span> <span class="nn">nx</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> check_family_tree.py
+from mouseworld import mouseworld
+import time
+import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
+import matplotlib as mpl
+import numpy as np
+#import networkx as nx
 
-<span class="n">num_mice</span> <span class="o">=</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span>
+num_mice = [100, 0, 0]
 
-<span class="c1"># Build the model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">mouseworld</span><span class="o">.</span><span class="n">Mouseworld</span><span class="p">(</span><span class="n">num_mice</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+# Build the model
+model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
 
 
-<span class="c1"># Prepare environment by stepping food and predators and diffusing odors</span>
-<span class="c1"># for i in range(100) :</span>
-<span class="c1">#     model.food_schedule.step()</span>
-<span class="c1">#     model.predator_schedule.step()</span>
-<span class="c1">#     model.diffuse_odor_layers_parallel(model.odor_layers)</span>
-<span class="n">a</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">food_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">predator_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">diffuse_odor_layers</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">odor_layers</span><span class="p">)</span>
+# Prepare environment by stepping food and predators and diffusing odors
+# for i in range(100) :
+#     model.food_schedule.step()
+#     model.predator_schedule.step()
+#     model.diffuse_odor_layers_parallel(model.odor_layers)
+a=time.time()
+for i in range(10) :
+    model.food_schedule.step()
+    model.predator_schedule.step()
+    model.diffuse_odor_layers(model.odor_layers)
     
-<span class="c1">#Run for discrete number of timesteps</span>
-<span class="c1"># b=time.time()</span>
-<span class="c1"># print(b-a)</span>
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">myrange</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">myrange</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">c</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">d</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim step : </span><span class="si">%i</span><span class="s1"> in </span><span class="si">%f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">d</span><span class="o">-</span><span class="n">c</span><span class="p">))</span>
+#Run for discrete number of timesteps
+# b=time.time()
+# print(b-a)
+counter = 0
+# myrange = 2
+# for i in range(myrange) :
+#     c=time.time()
+#     counter += 1
+#     model.step()
+#     d=time.time()
+#     print(&#39;sim step : %i in %f&#39;%(counter, d-c))
 
-<span class="c1">#Run until all mice perish</span>
-<span class="c1"># while model.num_mice &gt; 0 :</span>
-<span class="c1">#     c=time.time()</span>
-<span class="c1">#     counter += 1</span>
-<span class="c1">#     model.step()</span>
-<span class="c1">#     d=time.time()</span>
-<span class="c1">#     print(&#39;sim step : %i in %f&#39;%(counter, d-c))</span>
+#Run until all mice perish
+while model.num_mice &gt; 0 :
+    c=time.time()
+    counter += 1
+    model.step()
+    d=time.time()
+    print(&#39;sim step : %i in %f&#39;%(counter, d-c))
 
-<span class="c1"># Gather final model and agent data</span>
-<span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">all_mice_schedule</span><span class="p">)</span>
-<span class="n">final_model_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">get_model_vars_dataframe</span><span class="p">()</span>
-<span class="n">final_agent_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">get_agent_vars_dataframe</span><span class="p">()</span>
-<span class="n">genome_data</span> <span class="o">=</span> <span class="n">final_agent_data</span><span class="p">[[</span><span class="s1">&#39;Genome&#39;</span><span class="p">]]</span>
-<span class="n">genome_data</span> <span class="o">=</span> <span class="n">genome_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="s1">&#39;Step&#39;</span><span class="p">,</span> <span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">genome_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;results/genome_data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="c1"># print(type(genome_data))</span>
-<span class="n">tree_data</span> <span class="o">=</span> <span class="n">final_agent_data</span><span class="p">[[</span><span class="s1">&#39;parent_ID&#39;</span><span class="p">,</span> <span class="s1">&#39;birth_date&#39;</span><span class="p">,</span> <span class="s1">&#39;age&#39;</span><span class="p">,</span> <span class="s1">&#39;generation&#39;</span><span class="p">]]</span>
-<span class="n">tree_data</span> <span class="o">=</span> <span class="n">tree_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="s1">&#39;AgentID&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">values</span>
+# Gather final model and agent data
+model.final_datacollector.collect(model,model.all_mice_schedule)
+final_model_data = model.final_datacollector.get_model_vars_dataframe()
+final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
+genome_data = final_agent_data[[&#39;Genome&#39;]]
+genome_data = genome_data.reset_index(&#39;Step&#39;, drop = True)
+genome_data.to_csv(&#39;results/genome_data.csv&#39;, sep=&#39;\t&#39;)
+# print(type(genome_data))
+tree_data = final_agent_data[[&#39;parent_ID&#39;, &#39;birth_date&#39;, &#39;age&#39;, &#39;generation&#39;]]
+tree_data = tree_data.reset_index(&#39;AgentID&#39;).values
 
 
-<span class="k">def</span> <span class="nf">rearrange_data</span> <span class="p">(</span><span class="n">tree_data</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">temp</span> <span class="o">=</span> <span class="p">[</span><span class="n">mouse</span> <span class="k">for</span> <span class="n">mouse</span> <span class="ow">in</span> <span class="n">tree_data</span> <span class="k">if</span> <span class="n">mouse</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span>
-    <span class="n">new_tree_data</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">temp</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">:</span>
-        <span class="n">offspring</span> <span class="o">=</span> <span class="p">[</span><span class="n">mouse</span> <span class="k">for</span> <span class="n">mouse</span> <span class="ow">in</span> <span class="n">tree_data</span> <span class="k">if</span> <span class="n">mouse</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>      
-        <span class="n">new_tree_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">temp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-        <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">delete</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">offspring</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">:</span>
-            <span class="n">offspring</span><span class="o">.</span><span class="n">sort</span><span class="p">(</span><span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="o">-</span><span class="n">x</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-            <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">offspring</span><span class="p">))</span> <span class="p">:</span>
-                <span class="n">temp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="n">temp</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">offspring</span><span class="p">[</span><span class="n">x</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-    <span class="k">return</span> <span class="n">new_tree_data</span>
+def rearrange_data (tree_data) :
+    temp = [mouse for mouse in tree_data if mouse[1] is None]
+    new_tree_data = []
+    while len(temp) != 0 :
+        offspring = [mouse for mouse in tree_data if mouse[1] == temp[0][0]]      
+        new_tree_data.append(temp[0])
+        temp = np.delete(temp, 0, 0)
+        if len(offspring) != 0 :
+            offspring.sort(key=lambda x: -x[2])
+            for x in range(len(offspring)) :
+                temp = np.insert(temp, 0, offspring[x], axis=0)
+    return new_tree_data
 
-<span class="n">cmap</span> <span class="o">=</span> <span class="n">mpl</span><span class="o">.</span><span class="n">cm</span><span class="o">.</span><span class="n">Set1</span>
-<span class="n">new_tree_data</span> <span class="o">=</span> <span class="n">rearrange_data</span><span class="p">(</span><span class="n">tree_data</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">new_tree_data</span><span class="p">))</span> <span class="p">:</span>
-    <span class="n">mouse</span> <span class="o">=</span> <span class="n">new_tree_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<span class="c1">#     plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), &#39;k-&#39;)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">((</span><span class="n">mouse</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="n">mouse</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">mouse</span><span class="p">[</span><span class="mi">3</span><span class="p">]),</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">i</span><span class="p">),</span> <span class="n">color</span><span class="o">=</span><span class="n">cmap</span><span class="p">(</span><span class="n">mouse</span><span class="p">[</span><span class="mi">4</span><span class="p">]),</span> <span class="n">label</span><span class="o">=</span><span class="n">mouse</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">legend</span><span class="p">(</span><span class="n">bbox_to_anchor</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="n">loc</span><span class="o">=</span><span class="s1">&#39;best&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">savefig</span><span class="p">(</span><span class="s1">&#39;results/check_family_tree.png&#39;</span><span class="p">,</span> <span class="n">bbox_inches</span><span class="o">=</span><span class="s1">&#39;tight&#39;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+cmap = mpl.cm.Set1
+new_tree_data = rearrange_data(tree_data)
+for i in range(len(new_tree_data)) :
+    mouse = new_tree_data[i]
+#     plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), &#39;k-&#39;)
+    plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), color=cmap(mouse[4]), label=mouse[0])
+    plt.legend(bbox_to_anchor=(0, 1), loc=&#39;best&#39;)
+plt.savefig(&#39;results/check_family_tree.png&#39;, bbox_inches=&#39;tight&#39;)
+plt.show()
 </pre></div>
 
 </div>
@@ -11842,190 +11842,10 @@ div#notebook {
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:458: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Benefit&#39;][self.action_history.index.max()] += gain
-/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:506: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Distance&#39;][self.action_history.index.max()] += distance
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 1 in 2.454856
+<pre>Overwriting check_family_tree.py
 </pre>
 </div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:338: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  action_history[&#39;Duration&#39;][action_history.index.max()] += 1
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 2 in 2.881225
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-
-
-<div class="output_png output_subarea ">
-<img src="data:image/png;base64,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
-KeHrCnRdByM7AymlliqljiiljtTX1xtdDgBYFiM7/dSISGKXnxM6n/uKpmkbRWSjiMjUqVO1ga5I
-7zMiAPB1jOz0c1hExiilRiqlAkTkByLynsE1AcCgxMhOJ5qmOZVSK0TkAxHxE5EtmqbxxRoAGIBm
-pyNN0/aIyB6j6wCAwY5pTACA5dHsAACWR7MDAFgezQ4AYHk0OwCA5SlNG/DfMsODlFL1IlJ9Bx8x
-XEQueqgcT6Ku/qGu/qGu/rFiXcmapkX1thDNziKUUkc0TZtqdB23oq7+oa7+oa7+Gcx1MY0JALA8
-mh0AwPJodtax0egCukFd/UNd/UNd/TNo6+I7OwCA5TGyAwBYHs3O5JRSs5VSpUqpCqXUv9/mdaWU
-2tD5+nGl1OS+vlfnuhZ21nNCKXVIKZXV5bVTnc8XKqWOeLmubyulrnSuu1Apld/X9+pc11NdavpC
-KdWulIrsfE3P/bVFKXVBKfVFN68bdXz1VpdRx1dvdRl1fPVWl9ePL6VUolJqv1KqWClVpJRadZtl
-vHd8aZrGP5P+k45ooEoRGSUiASJyTEQyblnmARH5TxFRIvK/ROTTvr5X57q+ISIRnY/vd9fV+fMp
-ERlu0P76tojsGsh79azrluUfFpH/0nt/dX72t0Rksoh80c3rXj+++liX14+vPtbl9eOrL3UZcXyJ
-SJyITO587BCRMiN/fzGyM7dpIlKhaVqVpmmtIvKWiMy9ZZm5IvKa1uG/RSRcKRXXx/fqVpemaYc0
-Tbvc+eN/S0dSu97uZJsN3V+3+DcRedND6+6Rpml/F5GGHhYx4vjqtS6Djq++7K/uGLq/buGV40vT
-tPOapn3e+fiqiJSISPwti3nt+KLZmVu8iJzp8vNZ+frB0t0yfXmvnnV1tVg6zt7cNBHZp5Q6qpRa
-6qGa+lPXNzqnTP5TKZXZz/fqWZcopUJEZLaI7OjytF77qy+MOL76y1vHV195+/jqM6OOL6VUiohM
-EpFPb3nJa8cX4a3QlVJqpnT8Mrqny9P3aJpWo5SKFpG/KaVOdp6ZesPnIpKkado1pdQDIvIfIjLG
-S+vui4dF5B+apnU9Szdyf5kax1e/ef34UkqFSkdzfVLTtCZPfW5/MbIztxoRSezyc0Lnc31Zpi/v
-1bMuUUpNEJHNIjJX07RL7uc1Tavp/O8FEXlXOqYsvFKXpmlNmqZd63y8R0TsSqnhfXmvnnV18QO5
-ZYpJx/3VF0YcX31iwPHVK4OOr/7w6vGllLJLR6PbqmnaO7dZxHvHl6e/lOSfR7/g9ReRKhEZKf/6
-kjbzlmUelP/5Be9nfX2vznUliUiFiHzjlueHiIijy+NDIjLbi3XFyr/+vnSaiJzu3HeG7q/O5YZK
-x/cuQ7yxv7qsI0W6v+DC68dXH+vy+vHVx7q8fnz1pS4jjq/O7X5NRP5vD8t47fhiGtPENE1zKqVW
-iMgH0nF10hZN04qUUss6X/+ziOyRjiuaKkSkWUQe7+m9XqwrX0SGiciflFIiIk6t40avMSLybudz
-/iLyhqZpe71Y13wRyVFKOUXkhoj8QOv4v8vo/SUi8j0R+VDTtOtd3q7b/hIRUUq9KR1XEA5XSp0V
-kbUiYu9Sl9ePrz7W5fXjq491ef346mNdIt4/vr4pIotE5IRSqrDzuV9Ix4mK148v7qACALA8vrMD
-AFgezQ4AYHk0OwCA5dHsAACWR7MDAFgezQ4AYHk0OwCA5dHsAACW9/8BYLyoLbLuvPQAAAAASUVO
-RK5CYII=
-"
->
-</div>
-
 </div>
 
 </div>

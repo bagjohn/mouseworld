@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
-import networkx as nx
+#import networkx as nx
 
 num_mice = [100, 0, 0]
 

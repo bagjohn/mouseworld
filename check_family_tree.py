@@ -65,7 +65,7 @@ model_data.to_csv('%s/num_mice.csv'%result_folder, sep='\t')
 plt.plot(model_data['Alive_mice'])
 plt.plot(model_data['Unborn_mice'])
 plt.savefig('%s/num_mice.png'%result_folder, bbox_inches='tight')
-plt.show()
+#plt.show()
 
 # Gather final model and agent data
 
@@ -101,5 +101,5 @@ for i in range(len(new_tree_data)) :
     plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), color=cmap(mouse[4]%cmap.N), label=mouse[0])
     plt.legend(bbox_to_anchor=(0, 1), loc='best')
 plt.savefig('%s/family_tree.png'%result_folder, bbox_inches='tight')
-plt.show()
+#plt.show()
 print('Over!!!')

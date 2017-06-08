@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> check_family_tree.py
@@ -11819,7 +11819,7 @@ model_data.to_csv(&#39;%s/num_mice.csv&#39;%result_folder, sep=&#39;\t&#39;)
 plt.plot(model_data[&#39;Alive_mice&#39;])
 plt.plot(model_data[&#39;Unborn_mice&#39;])
 plt.savefig(&#39;%s/num_mice.png&#39;%result_folder, bbox_inches=&#39;tight&#39;)
-plt.show()
+#plt.show()
 
 # Gather final model and agent data
 
@@ -11855,7 +11855,7 @@ for i in range(len(new_tree_data)) :
     plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), color=cmap(mouse[4]%cmap.N), label=mouse[0])
     plt.legend(bbox_to_anchor=(0, 1), loc=&#39;best&#39;)
 plt.savefig(&#39;%s/family_tree.png&#39;%result_folder, bbox_inches=&#39;tight&#39;)
-plt.show()
+#plt.show()
 print(&#39;Over!!!&#39;)
 </pre></div>
 

@@ -129,17 +129,20 @@ class Mouseworld(Model):
         self.initial_datacollector = MyDataCollector(
             model_reporters={"Initial genome distribution": lambda a: a.initialization_genome})
         
-        self.datacollector = MyDataCollector(
+#         self.datacollector = MyDataCollector(
+#             model_reporters={"Alive_mice": lambda a: a.num_mice, 
+#                              "Unborn_mice": lambda a: a.num_unborn_mice}
+#             agent_reporters={"Header": lambda a: a.header,
+#                              "Age": lambda a: a.age, 
+#                              "Energy": lambda a: a.energy,
+#                              "max_speed": lambda a: a.max_speed,
+#                              "incubation_period": lambda a: a.incubation_period,
+#                              "pos": lambda a: a.pos,
+#                              "Genome": lambda a: a.genome})
+        
+        self.model_datacollector = MyDataCollector(
             model_reporters={"Alive_mice": lambda a: a.num_mice, 
-                             "Unborn_mice": lambda a: a.num_unborn_mice,
-                             "Food_groups_num": lambda a: a.food_groups_num},
-            agent_reporters={"Header": lambda a: a.header,
-                             "Age": lambda a: a.age, 
-                             "Energy": lambda a: a.energy,
-                             "max_speed": lambda a: a.max_speed,
-                             "incubation_period": lambda a: a.incubation_period,
-                             "pos": lambda a: a.pos,
-                             "Genome": lambda a: a.genome})
+                             "Unborn_mice": lambda a: a.num_unborn_mice})
         
         self.mousebrain_datacollector = MyDataCollector(
             agent_reporters={"odor": lambda a: a.mousebrain_sim.data[a.mousebrain.p_odor],
@@ -275,7 +278,6 @@ class Mouseworld(Model):
             
     def step(self):
         '''Advance the model by one step.'''
-        #self.datacollector.collect(self,self.schedule)
         #self.predator_datacollector.collect(self,self.predator_schedule)
         self.food_schedule.step()
         self.predator_schedule.step()
@@ -283,6 +285,7 @@ class Mouseworld(Model):
         self.diffuse_odor_layers(self.odor_layers)
         self.schedule.step() 
         self.test_datacollector.collect(self, self.schedule)
+        self.model_datacollector.collect(self, self.schedule)
         self.mouseworld_date += 1
 
 # class Agent_group :

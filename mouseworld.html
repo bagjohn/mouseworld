@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouseworld.py
@@ -11883,17 +11883,20 @@ class Mouseworld(Model):
         self.initial_datacollector = MyDataCollector(
             model_reporters={&quot;Initial genome distribution&quot;: lambda a: a.initialization_genome})
         
-        self.datacollector = MyDataCollector(
+#         self.datacollector = MyDataCollector(
+#             model_reporters={&quot;Alive_mice&quot;: lambda a: a.num_mice, 
+#                              &quot;Unborn_mice&quot;: lambda a: a.num_unborn_mice}
+#             agent_reporters={&quot;Header&quot;: lambda a: a.header,
+#                              &quot;Age&quot;: lambda a: a.age, 
+#                              &quot;Energy&quot;: lambda a: a.energy,
+#                              &quot;max_speed&quot;: lambda a: a.max_speed,
+#                              &quot;incubation_period&quot;: lambda a: a.incubation_period,
+#                              &quot;pos&quot;: lambda a: a.pos,
+#                              &quot;Genome&quot;: lambda a: a.genome})
+        
+        self.model_datacollector = MyDataCollector(
             model_reporters={&quot;Alive_mice&quot;: lambda a: a.num_mice, 
-                             &quot;Unborn_mice&quot;: lambda a: a.num_unborn_mice,
-                             &quot;Food_groups_num&quot;: lambda a: a.food_groups_num},
-            agent_reporters={&quot;Header&quot;: lambda a: a.header,
-                             &quot;Age&quot;: lambda a: a.age, 
-                             &quot;Energy&quot;: lambda a: a.energy,
-                             &quot;max_speed&quot;: lambda a: a.max_speed,
-                             &quot;incubation_period&quot;: lambda a: a.incubation_period,
-                             &quot;pos&quot;: lambda a: a.pos,
-                             &quot;Genome&quot;: lambda a: a.genome})
+                             &quot;Unborn_mice&quot;: lambda a: a.num_unborn_mice})
         
         self.mousebrain_datacollector = MyDataCollector(
             agent_reporters={&quot;odor&quot;: lambda a: a.mousebrain_sim.data[a.mousebrain.p_odor],
@@ -12029,7 +12032,6 @@ class Mouseworld(Model):
             
     def step(self):
         &#39;&#39;&#39;Advance the model by one step.&#39;&#39;&#39;
-        #self.datacollector.collect(self,self.schedule)
         #self.predator_datacollector.collect(self,self.predator_schedule)
         self.food_schedule.step()
         self.predator_schedule.step()
@@ -12037,6 +12039,7 @@ class Mouseworld(Model):
         self.diffuse_odor_layers(self.odor_layers)
         self.schedule.step() 
         self.test_datacollector.collect(self, self.schedule)
+        self.model_datacollector.collect(self, self.schedule)
         self.mouseworld_date += 1
 
 # class Agent_group :
@@ -12107,8 +12110,8 @@ class Mouse(Agent):
         # Constants
         self.max_energy = 1200
         self.max_gastric_content = 200
-        self.energy = 500
-        self.maturity_age = 300       
+        self.energy = 1000
+        self.maturity_age = 800       
         self.metabolism_rate = 0.95
         self.primary_learning_rate = 0.1
         self.secondary_learning_rate = 0.01
@@ -12144,8 +12147,8 @@ class Mouse(Agent):
         # Genome to phenotype
         self.genome = genome
         self.max_speed = genome[0] * (5 - 1) + 1
-        #self.incubation_period = genome[1] * 200 + 100
-        self.incubation_period = genome[1] * 20 + 10
+        self.incubation_period = genome[1] * 200 + 100
+#         self.incubation_period = genome[1] * 20 + 10
         self.metabolism_range = genome[2]
         self.antenna_length = genome[3]
         self.antenna_angle = genome[4] * math.pi/2

@@ -4,7 +4,12 @@ import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
+import os
 #import networkx as nx
+
+simulation_number = 111
+result_folder = 'results/simulation_%i'%simulation_number
+os.makedirs(result_folder)
 
 num_mice = [100, 0, 0]
 
@@ -43,13 +48,25 @@ while model.num_mice > 0 :
     d=time.time()
     print('sim step : %i in %f'%(counter, d-c))
 
+# Gather model and data
+model_data = model.model_datacollector.get_model_vars_dataframe()
+model_data = model_data[['Alive_mice', 'Unborn_mice']]
+model_data.to_csv('%s/num_mice.csv'%result_folder, sep='\t')
+plt.plot(model_data['Alive_mice'])
+plt.plot(model_data['Unborn_mice'])
+plt.savefig('%s/num_mice.png'%result_folder, bbox_inches='tight')
+plt.show()
+#     plt.legend(bbox_to_anchor=(0, 1), loc='best')
+# plt.savefig('results/check_family_tree.png', bbox_inches='tight')
+# plt.show()
+
 # Gather final model and agent data
 model.final_datacollector.collect(model,model.all_mice_schedule)
 final_model_data = model.final_datacollector.get_model_vars_dataframe()
 final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
 genome_data = final_agent_data[['Genome']]
 genome_data = genome_data.reset_index('Step', drop = True)
-genome_data.to_csv('results/genome_data.csv', sep='\t')
+genome_data.to_csv('%s/genome_data.csv'%result_folder, sep='\t')
 # print(type(genome_data))
 tree_data = final_agent_data[['parent_ID', 'birth_date', 'age', 'generation']]
 tree_data = tree_data.reset_index('AgentID').values
@@ -69,11 +86,12 @@ def rearrange_data (tree_data) :
     return new_tree_data
 
 cmap = mpl.cm.Set1
+# print(cmap.N)
 new_tree_data = rearrange_data(tree_data)
 for i in range(len(new_tree_data)) :
     mouse = new_tree_data[i]
 #     plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), 'k-')
-    plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), color=cmap(mouse[4]), label=mouse[0])
+    plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), color=cmap(mouse[4]%cmap.N), label=mouse[0])
     plt.legend(bbox_to_anchor=(0, 1), loc='best')
-plt.savefig('results/check_family_tree.png', bbox_inches='tight')
+plt.savefig('%s/family_tree.png'%result_folder, bbox_inches='tight')
 plt.show()

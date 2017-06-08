@@ -1,0 +1,23 @@
+08/06/2017
+
+Progress
+
+1. 	Set up a 'check_family_tree' script for running a simulation with a given simulation_number, gathering information and storing to a 'results/simulation_%simulation_number' folder
+	The information includes :
+	1. Per time step number of alive and unborn mice (data nad plot)
+	2. Genome of each mice ever lived (data)
+	3. Family tree depicting lifespan (line length), generation (color) and descendance (position in tree) of every mouse (plot)
+2.	Run a test simulation on cluster with termination condition TO DEATH (Until all mice perish)
+	It seems that with the current parameters mice multiply from soe point forward because simulation steps take more and more time.
+	Awaiting to see simulation results
+	
+Decisions
+
+1.	Parallel processing will be used only for multiple simulations and not within simulations (until help to achieve that is reached and only if necessary)
+	Parallel processing framework has been set up and working for testing multiple initial conditions (position from food, header, genome) 
+	in a world with a single mouse and desired food to test approaching interaction. Results discouraging which is expected as the approaching algorithm is arbitrary. 
+	
+To be done (with Pavlos help)
+
+1.	Analyze 'mouseworld_cprof to see where code can be optimized
+2.	Conceptual decisions on what kind of simulations to run

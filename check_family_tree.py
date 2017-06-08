@@ -39,6 +39,7 @@ counter = 0
 #     model.step()
 #     d=time.time()
 #     print('sim step : %i in %f'%(counter, d-c))
+# print('Simulation terminated - Number of time steps reached')
 
 #Run until all mice perish
 while model.num_mice > 0 :
@@ -47,8 +48,9 @@ while model.num_mice > 0 :
     model.step()
     d=time.time()
     print('sim step : %i in %f'%(counter, d-c))
-
+print('Simulation terminated - No alive mice')
 # Gather model and data
+print('Gathering model data and ploting number of mice')
 model_data = model.model_datacollector.get_model_vars_dataframe()
 model_data = model_data[['Alive_mice', 'Unborn_mice']]
 model_data.to_csv('%s/num_mice.csv'%result_folder, sep='\t')
@@ -61,6 +63,7 @@ plt.show()
 # plt.show()
 
 # Gather final model and agent data
+print('Gathering agent data and ploting family tree')
 model.final_datacollector.collect(model,model.all_mice_schedule)
 final_model_data = model.final_datacollector.get_model_vars_dataframe()
 final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
@@ -95,3 +98,4 @@ for i in range(len(new_tree_data)) :
     plt.legend(bbox_to_anchor=(0, 1), loc='best')
 plt.savefig('%s/family_tree.png'%result_folder, bbox_inches='tight')
 plt.show()
+print('Over!!!')

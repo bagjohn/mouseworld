@@ -7,7 +7,7 @@ import numpy as np
 import os
 #import networkx as nx
 
-simulation_number = 111
+simulation_number = 112
 result_folder = 'results/simulation_%i'%simulation_number
 os.makedirs(result_folder)
 

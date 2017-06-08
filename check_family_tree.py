@@ -15,7 +15,7 @@ simulation_number = int(sys.argv[2])
 result_folder = 'results/simulation_%i'%simulation_number
 os.makedirs(result_folder)
 
-num_mice = [1, 0, 0]
+num_mice = [100, 0, 0]
 
 # Build the model
 model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)

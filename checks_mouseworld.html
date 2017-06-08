@@ -11748,13 +11748,12 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[23]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> check_family_tree.py
 from mouseworld import mouseworld
 import time
-import matplotlib.pyplot as plt
 import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
@@ -11769,7 +11768,7 @@ simulation_number = int(sys.argv[2])
 result_folder = &#39;results/simulation_%i&#39;%simulation_number
 os.makedirs(result_folder)
 
-num_mice = [1, 0, 0]
+num_mice = [100, 0, 0]
 
 # Build the model
 model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)

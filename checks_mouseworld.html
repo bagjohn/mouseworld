@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> check_family_tree.py
@@ -11769,9 +11769,10 @@ simulation_number = int(sys.argv[2])
 result_folder = &#39;results/simulation_%i&#39;%simulation_number
 os.makedirs(result_folder)
 
-num_mice = [100, 0, 0]
+num_mice = [200, 0, 0]
 
 # Build the model
+print(&#39;Building mouseworld&#39;)
 model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
 
 
@@ -11780,6 +11781,7 @@ model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
 #     model.food_schedule.step()
 #     model.predator_schedule.step()
 #     model.diffuse_odor_layers_parallel(model.odor_layers)
+print(&#39;Preparing odor layers&#39;)
 for i in range(10) :
     model.food_schedule.step()
     model.predator_schedule.step()
@@ -11852,7 +11854,7 @@ def rearrange_data (tree_data) :
 cmap = mpl.cm.Set1
 new_tree_data = rearrange_data(tree_data)
 all_mice = len(new_tree_data)
-plt.figure(figsize=(40, 30))
+plt.figure(figsize=(40, 25))
 for i in range(all_mice) :
     mouse = new_tree_data[i]
     plt.plot((mouse[2], mouse[2] + mouse[3]), (all_mice - i, all_mice - i), color=cmap(mouse[4]%cmap.N), label=mouse[0])

@@ -15,9 +15,10 @@ simulation_number = int(sys.argv[2])
 result_folder = 'results/simulation_%i'%simulation_number
 os.makedirs(result_folder)
 
-num_mice = [100, 0, 0]
+num_mice = [200, 0, 0]
 
 # Build the model
+print('Building mouseworld')
 model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
 
 
@@ -26,6 +27,7 @@ model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
 #     model.food_schedule.step()
 #     model.predator_schedule.step()
 #     model.diffuse_odor_layers_parallel(model.odor_layers)
+print('Preparing odor layers')
 for i in range(10) :
     model.food_schedule.step()
     model.predator_schedule.step()

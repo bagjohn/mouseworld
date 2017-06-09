@@ -1,0 +1,837 @@
+AgentID	Genome	motor_NN_on	learning_on
+Mouse_1	[ 0.44  0.65  0.12  0.28  0.63]	False	False
+Mouse_10	[ 0.92  0.95  0.73  0.88  0.67]	False	False
+Mouse_100	[ 0.02  0.06  0.01  0.99  0.49]	False	False
+Mouse_1004	[ 0.15  0.03  0.82  0.26  0.7 ]	False	False
+Mouse_1007	[ 0.82  0.    0.3   0.2   0.94]	True	True
+Mouse_1009	[ 0.08  0.11  0.89  0.82  0.42]	True	True
+Mouse_101	[ 0.23  0.27  0.21  0.97  0.24]	False	False
+Mouse_1010	[ 0.92  0.02  0.29  0.1   0.18]	True	True
+Mouse_1014	[ 0.06  0.03  0.29  0.26  0.77]	False	False
+Mouse_1016	[ 0.76  0.04  1.    0.99  0.31]	True	True
+Mouse_1018	[ 0.06  0.04  0.03  0.47  0.71]	True	True
+Mouse_102	[ 0.2   0.59  0.22  0.71  0.95]	False	False
+Mouse_1022	[ 0.7   0.17  0.66  0.03  0.12]	False	False
+Mouse_103	[ 0.47  0.96  0.21  0.14  0.23]	False	False
+Mouse_1030	[ 0.    0.14  0.16  0.53  0.89]	True	True
+Mouse_1034	[ 0.6   0.17  0.33  0.54  0.2 ]	True	True
+Mouse_1035	[ 0.28  0.17  0.87  0.27  0.83]	True	True
+Mouse_104	[ 0.9   0.49  0.11  0.53  0.66]	False	False
+Mouse_1044	[ 0.28  0.3   0.83  0.11  0.08]	True	True
+Mouse_1045	[ 0.13  0.21  0.36  0.47  0.68]	True	True
+Mouse_105	[ 0.14  0.1   0.83  0.68  0.41]	False	False
+Mouse_1051	[ 0.25  0.24  0.79  0.81  0.9 ]	True	True
+Mouse_1053	[ 0.6   0.14  0.24  0.56  0.12]	True	True
+Mouse_1058	[ 0.17  0.28  0.29  0.61  0.83]	True	True
+Mouse_106	[ 0.44  0.84  0.66  0.07  0.56]	False	False
+Mouse_1064	[ 0.28  0.39  0.01  0.18  0.2 ]	True	True
+Mouse_1065	[ 0.    0.29  0.99  0.19  0.45]	False	False
+Mouse_107	[ 0.34  0.44  0.47  0.56  0.78]	False	False
+Mouse_1074	[ 0.49  0.44  0.22  0.77  0.75]	True	True
+Mouse_108	[ 0.78  0.58  0.21  0.87  0.4 ]	False	False
+Mouse_1081	[ 0.46  0.42  0.39  0.69  0.86]	False	False
+Mouse_1082	[ 0.08  0.01  0.79  0.82  0.52]	True	True
+Mouse_109	[ 0.5   0.56  0.7   0.09  0.16]	False	False
+Mouse_11	[ 0.79  0.79  0.13  0.28  0.02]	False	False
+Mouse_110	[ 0.74  0.08  0.21  0.09  0.84]	False	False
+Mouse_1101	[ 0.04  0.65  0.01  0.35  0.95]	False	False
+Mouse_111	[ 0.46  0.7   0.63  0.3   0.51]	False	False
+Mouse_1113	[ 0.06  0.83  0.72  0.4   0.92]	True	True
+Mouse_1117	[ 0.28  0.17  0.77  0.27  0.83]	True	True
+Mouse_1119	[ 0.73  0.85  0.52  0.63  0.77]	False	False
+Mouse_112	[ 0.59  0.52  0.02  0.91  0.34]	False	False
+Mouse_113	[ 0.07  1.    0.85  0.22  0.83]	False	False
+Mouse_1130	[ 0.72  0.    0.3   0.1   0.94]	True	True
+Mouse_1133	[ 0.56  0.02  0.93  0.22  0.04]	True	True
+Mouse_1134	[ 0.97  0.03  0.    0.07  0.46]	True	True
+Mouse_1136	[ 0.13  0.03  0.43  0.36  0.41]	False	False
+Mouse_1137	[ 0.53  0.04  0.52  0.05  0.52]	True	True
+Mouse_114	[ 0.82  0.84  0.21  0.75  0.64]	False	False
+Mouse_1140	[ 0.97  0.04  0.95  0.81  0.08]	False	False
+Mouse_1141	[ 0.33  0.    0.69  0.46  0.85]	True	True
+Mouse_1143	[ 0.17  0.48  0.29  0.41  0.83]	True	True
+Mouse_1144	[ 0.7   0.07  0.66  0.    0.12]	False	False
+Mouse_1146	[ 0.17  0.09  0.68  0.4   0.64]	True	True
+Mouse_1147	[ 0.18  0.1   0.34  0.48  0.53]	True	True
+Mouse_1148	[ 0.48  0.12  0.24  0.23  0.81]	False	False
+Mouse_115	[ 0.32  0.23  0.17  0.75  0.6 ]	False	False
+Mouse_1150	[ 0.59  0.15  0.59  1.    0.77]	True	True
+Mouse_1151	[ 0.48  0.15  0.05  0.84  0.65]	True	True
+Mouse_1152	[ 0.18  0.27  0.77  0.27  0.83]	True	True
+Mouse_1154	[ 0.6   0.07  0.13  0.54  0.2 ]	True	True
+Mouse_1156	[ 0.42  0.38  0.05  0.59  0.46]	True	True
+Mouse_1157	[ 0.1   0.18  0.34  0.97  0.34]	True	True
+Mouse_1159	[ 0.28  0.18  0.65  0.86  0.19]	True	True
+Mouse_116	[ 0.25  0.97  0.92  0.57  0.61]	False	False
+Mouse_1160	[ 0.73  0.29  0.96  0.39  0.41]	False	False
+Mouse_1161	[ 0.18  0.1   0.83  0.11  0.08]	True	True
+Mouse_1162	[ 0.23  0.11  0.36  0.37  0.68]	True	True
+Mouse_1163	[ 0.37  0.22  0.1   0.53  0.8 ]	True	True
+Mouse_1164	[ 0.21  0.22  0.44  1.    0.75]	True	True
+Mouse_1165	[ 0.46  0.23  0.07  0.14  0.46]	True	True
+Mouse_1166	[ 0.25  0.23  0.44  0.23  0.7 ]	True	True
+Mouse_1167	[ 0.6   0.23  0.21  0.81  0.16]	True	True
+Mouse_1168	[ 0.83  0.24  0.79  0.63  0.72]	False	False
+Mouse_1169	[ 0.6   0.24  0.34  0.46  0.22]	True	True
+Mouse_117	[ 0.83  0.24  0.79  0.63  0.72]	False	False
+Mouse_1170	[ 0.25  0.24  0.79  0.81  0.9 ]	True	True
+Mouse_1172	[ 0.49  0.26  0.88  0.85  0.08]	True	True
+Mouse_1173	[ 0.    0.27  0.85  0.3   0.94]	True	True
+Mouse_1175	[ 0.17  0.28  0.29  0.51  0.83]	True	True
+Mouse_1177	[ 0.67  0.27  0.66  0.14  0.  ]	True	True
+Mouse_1178	[ 0.23  0.38  0.57  0.91  0.81]	False	False
+Mouse_1179	[ 0.49  0.44  0.22  0.77  0.75]	True	True
+Mouse_118	[ 0.32  0.04  0.42  0.25  0.24]	False	False
+Mouse_1180	[ 0.38  0.38  0.53  0.77  0.13]	True	True
+Mouse_1181	[ 0.18  0.29  0.01  0.18  0.  ]	True	True
+Mouse_1182	[ 0.53  0.5   0.64  0.45  0.01]	False	False
+Mouse_1183	[ 0.46  0.4   0.02  0.59  0.21]	True	True
+Mouse_1185	[ 0.17  0.43  0.23  0.51  0.24]	True	True
+Mouse_1186	[ 1.    0.44  0.9   0.06  0.83]	False	False
+Mouse_1188	[ 0.61  0.44  0.03  0.1   0.73]	False	False
+Mouse_119	[ 0.45  0.65  0.4   0.41  0.  ]	False	False
+Mouse_1190	[ 0.76  0.49  0.7   0.8   0.28]	True	True
+Mouse_1191	[ 0.72  0.    0.3   0.    0.94]	True	True
+Mouse_1192	[ 0.33  0.5   0.57  0.1   0.78]	True	True
+Mouse_1194	[ 0.18  0.11  0.69  0.82  0.42]	True	True
+Mouse_1198	[ 0.46  0.42  0.49  0.69  0.86]	False	False
+Mouse_12	[ 0.46  0.84  0.96  0.62  0.02]	False	False
+Mouse_120	[ 0.33  0.91  0.16  0.2   0.3 ]	False	False
+Mouse_1200	[ 0.56  0.    1.    0.22  0.04]	True	True
+Mouse_1201	[ 0.82  0.02  0.29  0.1   0.18]	True	True
+Mouse_1202	[ 0.06  0.55  0.95  0.68  0.23]	True	True
+Mouse_1203	[ 0.33  0.    0.69  0.36  0.85]	True	True
+Mouse_1204	[ 0.2   0.55  0.66  0.86  0.62]	True	True
+Mouse_1205	[ 0.13  0.03  0.43  0.26  0.41]	False	False
+Mouse_1207	[ 0.06  0.57  0.6   0.41  0.08]	True	True
+Mouse_1208	[ 0.63  0.04  0.52  0.05  0.42]	True	True
+Mouse_121	[ 0.7   0.05  0.38  0.25  0.25]	False	False
+Mouse_1210	[ 0.06  0.04  0.03  0.47  0.71]	True	True
+Mouse_1212	[ 0.74  0.59  0.51  0.06  0.11]	True	True
+Mouse_1219	[ 0.17  0.09  0.68  0.4   0.64]	True	True
+Mouse_122	[ 0.21  0.15  0.08  0.56  0.93]	False	False
+Mouse_1220	[ 0.88  0.68  0.21  0.26  0.97]	False	False
+Mouse_1224	[ 0.06  0.74  0.37  0.47  0.71]	True	True
+Mouse_1225	[ 0.    0.14  0.16  0.53  0.79]	True	True
+Mouse_1227	[ 0.59  0.15  0.59  1.    0.77]	True	True
+Mouse_123	[ 0.75  0.37  0.31  0.4   0.27]	False	False
+Mouse_1231	[ 0.68  0.83  0.79  0.66  0.  ]	False	False
+Mouse_1234	[ 0.28  0.17  0.87  0.27  0.83]	True	True
+Mouse_1239	[ 0.63  0.85  0.62  0.63  0.67]	False	False
+Mouse_124	[ 0.94  0.54  0.84  0.76  0.74]	False	False
+Mouse_1242	[ 0.1   0.18  0.34  0.97  0.34]	True	True
+Mouse_1244	[ 0.18  0.2   0.83  0.11  0.08]	True	True
+Mouse_1247	[ 0.13  0.21  0.36  0.47  0.68]	True	True
+Mouse_1248	[ 0.41  0.93  0.66  0.68  0.9 ]	True	True
+Mouse_125	[ 0.47  0.25  0.2   0.97  0.32]	False	False
+Mouse_1251	[ 0.21  0.22  0.34  1.    0.75]	True	True
+Mouse_1252	[ 0.15  0.94  0.34  0.27  0.77]	True	True
+Mouse_1256	[ 0.5   0.23  0.21  0.81  0.16]	True	True
+Mouse_1258	[ 0.6   0.24  0.14  0.46  0.22]	True	True
+Mouse_126	[ 0.5   0.92  0.38  0.74  0.05]	False	False
+Mouse_1265	[ 0.18  0.11  0.79  0.82  0.42]	True	True
+Mouse_1268	[ 0.33  0.    0.69  0.46  0.85]	True	True
+Mouse_127	[ 0.62  0.9   0.91  0.25  0.92]	False	False
+Mouse_1270	[ 0.17  0.28  0.29  0.51  0.83]	True	True
+Mouse_1271	[ 0.82  0.02  0.29  0.1   0.18]	True	True
+Mouse_1272	[ 0.17  0.28  0.29  0.51  0.83]	True	True
+Mouse_1275	[ 0.06  0.04  0.03  0.47  0.71]	True	True
+Mouse_128	[ 0.59  0.83  0.81  0.49  0.34]	False	False
+Mouse_1280	[ 0.38  0.38  0.63  0.77  0.13]	True	True
+Mouse_1281	[ 0.17  0.19  0.78  0.4   0.74]	True	True
+Mouse_1283	[ 0.18  0.39  0.01  0.18  0.2 ]	True	True
+Mouse_1284	[ 0.43  0.5   0.64  0.45  0.01]	False	False
+Mouse_1288	[ 1.    0.44  0.9   0.06  0.83]	False	False
+Mouse_1289	[ 0.61  0.44  0.03  0.    0.73]	False	False
+Mouse_129	[ 0.28  0.61  0.03  1.    0.52]	False	False
+Mouse_1290	[ 0.    0.14  0.16  0.53  0.79]	True	True
+Mouse_1293	[ 0.72  0.    0.3   0.1   0.94]	True	True
+Mouse_1297	[ 0.18  0.11  0.79  0.82  0.42]	True	True
+Mouse_1299	[ 0.33  0.    0.69  0.46  0.85]	True	True
+Mouse_13	[ 0.28  0.57  0.44  0.33  0.49]	False	False
+Mouse_130	[ 0.44  0.93  0.78  0.11  0.44]	False	False
+Mouse_1302	[ 0.97  0.03  0.    0.07  0.46]	True	True
+Mouse_1303	[ 0.97  0.04  0.95  0.81  0.08]	False	False
+Mouse_1304	[ 0.53  0.04  0.52  0.05  0.42]	True	True
+Mouse_1309	[ 0.13  0.21  0.36  0.47  0.68]	True	True
+Mouse_131	[ 0.54  0.35  0.74  0.9   0.29]	False	False
+Mouse_1311	[ 0.7   0.07  0.66  0.    0.12]	False	False
+Mouse_1316	[ 0.18  0.1   0.34  0.48  0.53]	True	True
+Mouse_1318	[ 0.48  0.12  0.24  0.23  0.71]	False	False
+Mouse_132	[ 0.32  0.72  0.56  0.38  0.8 ]	False	False
+Mouse_1320	[ 0.48  0.15  0.05  0.84  0.75]	True	True
+Mouse_1329	[ 0.17  0.19  0.78  0.4   0.74]	True	True
+Mouse_133	[ 0.46  0.42  0.49  0.69  0.86]	False	False
+Mouse_1338	[ 0.72  0.    0.3   0.    0.94]	True	True
+Mouse_1339	[ 0.72  0.    0.3   0.1   0.94]	True	True
+Mouse_134	[ 0.65  0.47  0.22  0.42  0.31]	False	False
+Mouse_135	[ 0.06  0.03  0.29  0.26  0.77]	False	False
+Mouse_136	[ 0.88  0.68  0.21  0.26  0.97]	False	False
+Mouse_137	[ 0.3   0.29  0.73  0.77  0.36]	False	False
+Mouse_138	[ 0.57  0.87  0.43  0.34  0.25]	False	False
+Mouse_139	[ 0.72  0.32  0.52  0.33  0.42]	False	False
+Mouse_14	[ 0.01  0.5   0.68  0.5   0.72]	False	False
+Mouse_140	[ 0.68  0.46  0.64  0.98  0.97]	False	False
+Mouse_141	[ 0.31  0.75  0.64  0.7   0.52]	False	False
+Mouse_142	[ 0.33  0.8   0.33  0.54  0.77]	False	False
+Mouse_143	[ 0.48  0.76  0.88  0.78  0.84]	False	False
+Mouse_144	[ 0.25  0.67  0.85  0.76  0.03]	False	False
+Mouse_145	[ 0.34  0.96  0.52  0.6   0.9 ]	False	False
+Mouse_146	[ 0.46  0.45  0.9   0.95  0.7 ]	False	False
+Mouse_147	[ 0.09  0.92  0.94  0.06  0.26]	False	False
+Mouse_148	[ 0.77  0.3   0.76  0.27  0.02]	False	False
+Mouse_149	[ 0.66  0.47  0.45  0.81  0.63]	False	False
+Mouse_15	[ 0.22  0.75  0.43  0.55  0.07]	False	False
+Mouse_150	[ 0.58  0.27  0.09  0.47  0.57]	False	False
+Mouse_151	[ 0.9   0.67  0.38  0.72  0.03]	False	False
+Mouse_152	[ 0.33  0.21  0.81  0.12  0.23]	False	False
+Mouse_153	[ 0.68  0.94  0.22  0.05  0.45]	False	False
+Mouse_154	[ 0.25  0.18  0.3   0.92  0.41]	False	False
+Mouse_155	[ 0.61  0.84  0.62  0.99  0.48]	False	False
+Mouse_156	[ 0.88  0.87  0.75  0.05  0.89]	False	False
+Mouse_157	[ 0.43  0.    0.42  0.59  1.  ]	False	False
+Mouse_158	[ 0.52  0.56  0.33  0.62  0.27]	False	False
+Mouse_159	[ 0.58  0.53  0.44  0.48  0.71]	False	False
+Mouse_16	[ 0.97  1.    0.45  0.16  0.43]	False	False
+Mouse_160	[ 0.5   0.86  0.55  0.13  0.32]	False	False
+Mouse_161	[ 0.53  0.68  0.75  0.76  0.66]	False	False
+Mouse_162	[ 0.    0.29  0.99  0.19  0.45]	False	False
+Mouse_163	[ 0.25  0.95  0.28  0.11  0.52]	False	False
+Mouse_164	[ 0.98  0.42  0.52  0.75  0.73]	False	False
+Mouse_165	[ 0.63  0.58  0.7   0.83  0.94]	False	False
+Mouse_166	[ 0.56  0.88  0.01  0.31  0.09]	False	False
+Mouse_167	[ 0.48  1.    0.2   0.95  0.55]	False	False
+Mouse_168	[ 0.99  0.19  0.03  0.87  0.58]	False	False
+Mouse_169	[ 0.67  0.42  0.39  0.92  0.53]	False	False
+Mouse_17	[ 0.3   0.18  0.75  0.03  0.37]	False	False
+Mouse_170	[ 0.62  0.8   0.92  0.12  0.15]	False	False
+Mouse_171	[ 0.31  0.45  0.7   0.47  0.52]	False	False
+Mouse_172	[ 0.2   0.92  0.78  0.61  0.95]	False	False
+Mouse_173	[ 0.21  0.26  0.4   0.12  0.63]	False	False
+Mouse_174	[ 0.25  0.11  0.17  0.26  0.16]	False	False
+Mouse_175	[ 0.52  0.14  0.16  0.16  0.77]	False	False
+Mouse_176	[ 0.6   0.13  0.59  0.03  0.45]	False	False
+Mouse_177	[ 0.32  0.98  0.37  0.02  0.01]	False	False
+Mouse_178	[ 0.26  0.89  0.26  0.73  0.81]	False	False
+Mouse_179	[ 0.62  0.82  0.95  0.86  0.75]	False	False
+Mouse_18	[ 0.33  0.17  0.02  0.16  0.49]	False	False
+Mouse_180	[ 0.87  0.26  0.91  0.18  0.69]	False	False
+Mouse_181	[ 0.89  0.04  0.01  0.14  0.98]	False	False
+Mouse_182	[ 0.48  0.83  0.95  0.38  0.08]	False	False
+Mouse_183	[ 0.09  0.82  0.56  0.11  0.49]	False	False
+Mouse_184	[ 0.02  0.46  0.96  0.39  0.7 ]	False	False
+Mouse_185	[ 0.94  0.91  0.01  0.89  0.72]	False	False
+Mouse_186	[ 0.7   0.87  0.31  0.79  0.47]	False	False
+Mouse_187	[ 0.44  0.34  0.25  0.52  0.42]	False	False
+Mouse_188	[ 0.85  0.4   0.42  0.3   0.91]	False	False
+Mouse_189	[ 0.11  0.6   0.92  0.76  0.68]	False	False
+Mouse_19	[ 0.48  0.12  0.24  0.23  0.71]	False	False
+Mouse_190	[ 0.12  0.77  0.36  0.93  0.82]	False	False
+Mouse_191	[ 0.68  0.83  0.69  0.66  0.  ]	False	False
+Mouse_192	[ 0.08  0.87  0.07  0.9   0.2 ]	False	False
+Mouse_193	[ 0.42  0.82  0.65  0.82  0.17]	False	False
+Mouse_194	[ 0.8   0.99  0.04  0.76  0.3 ]	False	False
+Mouse_195	[ 0.4   0.51  0.04  0.85  0.8 ]	False	False
+Mouse_196	[ 0.4   0.55  0.69  0.32  0.48]	False	False
+Mouse_197	[ 0.09  0.76  0.99  0.71  0.74]	False	False
+Mouse_198	[ 0.19  0.04  0.93  0.46  0.24]	False	False
+Mouse_199	[ 0.77  0.38  0.12  0.07  0.95]	False	False
+Mouse_2	[ 0.54  0.61  0.9   0.01  0.76]	False	False
+Mouse_20	[ 0.77  0.34  0.76  0.92  0.53]	False	False
+Mouse_200	[ 0.98  0.31  0.87  0.36  0.42]	False	False
+Mouse_201	[ 0.15  0.46  0.01  0.51  0.26]	True	True
+Mouse_202	[ 0.85  0.53  0.66  0.96  0.31]	True	True
+Mouse_203	[ 0.06  0.19  0.42  0.97  0.71]	True	True
+Mouse_204	[ 0.    0.64  0.72  0.32  0.86]	True	True
+Mouse_205	[ 0.28  0.17  0.77  0.27  0.83]	True	True
+Mouse_206	[ 0.95  0.65  0.34  0.23  0.16]	True	True
+Mouse_207	[ 0.13  0.08  0.1   0.27  0.01]	True	True
+Mouse_208	[ 0.04  1.    0.7   0.87  0.71]	True	True
+Mouse_209	[ 0.71  0.09  0.39  0.64  0.28]	True	True
+Mouse_21	[ 0.75  0.82  0.62  0.84  0.15]	False	False
+Mouse_210	[ 0.15  0.6   0.74  0.77  0.85]	True	True
+Mouse_211	[ 0.02  0.7   0.61  0.22  0.28]	True	True
+Mouse_212	[ 0.17  0.49  0.93  0.27  0.13]	True	True
+Mouse_213	[ 0.35  0.23  0.44  0.23  0.7 ]	True	True
+Mouse_214	[ 0.62  0.85  0.66  0.44  0.64]	True	True
+Mouse_215	[ 0.72  0.52  0.36  0.44  0.65]	True	True
+Mouse_216	[ 0.74  0.28  0.78  0.55  0.75]	True	True
+Mouse_217	[ 0.06  0.64  0.47  0.37  0.71]	True	True
+Mouse_218	[ 0.04  0.75  0.74  0.03  0.39]	True	True
+Mouse_219	[ 0.53  0.93  0.17  0.44  0.32]	True	True
+Mouse_22	[ 0.33  0.87  0.17  0.55  0.35]	False	False
+Mouse_220	[ 0.57  0.3   0.92  0.5   0.52]	True	True
+Mouse_221	[ 0.89  0.39  0.01  0.52  0.83]	True	True
+Mouse_222	[ 0.49  0.54  0.22  0.87  0.75]	True	True
+Mouse_223	[ 0.54  0.63  0.58  0.3   0.27]	True	True
+Mouse_224	[ 0.4   0.18  0.6   0.49  0.91]	True	True
+Mouse_225	[ 0.48  0.8   0.39  0.01  0.44]	True	True
+Mouse_226	[ 0.05  0.78  0.49  0.63  0.55]	True	True
+Mouse_227	[ 0.99  0.78  0.72  0.34  0.57]	True	True
+Mouse_228	[ 0.22  0.96  0.02  0.55  0.85]	True	True
+Mouse_229	[ 0.81  0.93  0.67  0.31  0.71]	True	True
+Mouse_23	[ 0.37  0.8   0.63  0.62  0.79]	False	False
+Mouse_230	[ 0.76  0.54  0.11  0.4   0.11]	True	True
+Mouse_231	[ 0.12  0.63  0.85  0.07  0.66]	True	True
+Mouse_232	[ 0.78  0.12  0.1   0.51  0.26]	True	True
+Mouse_233	[ 0.61  0.48  0.21  0.31  0.58]	True	True
+Mouse_234	[ 0.85  0.08  0.54  0.41  0.99]	True	True
+Mouse_235	[ 0.02  0.79  0.5   0.82  0.63]	True	True
+Mouse_236	[ 0.83  0.47  0.91  0.37  0.75]	True	True
+Mouse_237	[ 0.78  0.71  0.83  0.97  0.36]	True	True
+Mouse_238	[ 0.17  0.98  0.19  0.54  0.38]	True	True
+Mouse_239	[ 0.86  0.49  0.8   0.8   0.38]	True	True
+Mouse_24	[ 0.91  0.97  0.77  0.82  0.44]	False	False
+Mouse_240	[ 0.38  0.14  0.94  0.87  0.18]	True	True
+Mouse_241	[ 0.39  0.26  0.88  0.85  0.08]	True	True
+Mouse_242	[ 0.1   0.18  0.34  0.97  0.34]	True	True
+Mouse_243	[ 0.27  0.84  0.96  0.17  0.08]	True	True
+Mouse_244	[ 1.    0.33  0.41  0.03  0.12]	True	True
+Mouse_245	[ 0.95  0.2   0.04  0.75  0.26]	True	True
+Mouse_246	[ 0.42  0.69  0.57  0.45  0.9 ]	True	True
+Mouse_247	[ 0.47  0.58  0.63  0.4   0.77]	True	True
+Mouse_248	[ 0.77  0.01  0.11  0.49  0.47]	True	True
+Mouse_249	[ 0.1   0.27  0.82  0.84  0.2 ]	True	True
+Mouse_25	[ 0.97  0.88  0.64  0.19  0.89]	False	False
+Mouse_250	[ 0.93  0.17  0.27  0.9   0.04]	True	True
+Mouse_251	[ 0.32  0.63  0.27  0.33  0.89]	True	True
+Mouse_252	[ 0.53  0.61  0.52  0.3   0.88]	True	True
+Mouse_253	[ 0.89  0.36  0.76  0.28  0.28]	True	True
+Mouse_254	[ 0.38  0.84  0.93  0.32  0.07]	True	True
+Mouse_255	[ 0.76  0.04  1.    0.99  0.31]	True	True
+Mouse_256	[ 0.6   0.66  0.15  0.77  0.67]	True	True
+Mouse_257	[ 0.84  0.16  0.83  0.55  0.68]	True	True
+Mouse_258	[ 0.8   0.64  0.02  0.88  0.2 ]	True	True
+Mouse_259	[ 0.05  0.27  0.85  0.3   0.94]	True	True
+Mouse_26	[ 0.28  0.48  0.12  0.6   0.63]	False	False
+Mouse_260	[ 0.5   0.16  0.92  0.63  0.2 ]	True	True
+Mouse_261	[ 0.79  0.69  0.86  0.43  0.19]	True	True
+Mouse_262	[ 0.92  0.73  0.16  0.78  0.75]	True	True
+Mouse_263	[ 0.33  0.6   0.57  0.1   0.78]	True	True
+Mouse_264	[ 0.48  0.57  0.58  0.09  0.61]	True	True
+Mouse_265	[ 0.43  0.31  0.23  0.25  0.08]	True	True
+Mouse_266	[ 0.45  0.64  0.14  0.9   0.15]	True	True
+Mouse_267	[ 0.64  0.67  0.23  0.31  0.46]	True	True
+Mouse_268	[ 0.76  0.61  0.35  0.23  0.55]	True	True
+Mouse_269	[ 0.76  0.63  0.62  0.05  0.18]	True	True
+Mouse_27	[ 0.47  0.92  0.85  0.28  0.03]	False	False
+Mouse_270	[ 0.31  0.98  0.72  0.17  0.66]	True	True
+Mouse_271	[ 0.07  0.71  0.58  0.8   0.61]	True	True
+Mouse_272	[ 0.48  0.9   0.17  0.14  0.64]	True	True
+Mouse_273	[ 0.57  0.37  0.91  1.    0.41]	True	True
+Mouse_274	[ 0.59  0.17  0.04  0.65  0.16]	True	True
+Mouse_275	[ 0.29  0.72  0.97  0.65  0.86]	True	True
+Mouse_276	[ 0.79  0.38  0.04  1.    0.28]	True	True
+Mouse_277	[ 0.48  0.31  0.63  0.88  0.48]	True	True
+Mouse_278	[ 0.68  0.95  0.82  0.74  0.46]	True	True
+Mouse_279	[ 0.04  0.36  0.78  0.51  0.82]	True	True
+Mouse_28	[ 0.4   0.47  0.9   0.31  0.33]	False	False
+Mouse_280	[ 0.89  0.79  0.69  0.7   0.03]	True	True
+Mouse_281	[ 0.46  0.23  0.07  0.    0.46]	True	True
+Mouse_282	[ 0.5   0.47  0.73  0.17  0.68]	True	True
+Mouse_283	[ 0.86  0.39  0.99  0.38  0.07]	True	True
+Mouse_284	[ 0.36  0.5   0.22  0.07  0.73]	True	True
+Mouse_285	[ 0.28  0.18  0.65  0.86  0.19]	True	True
+Mouse_286	[ 0.97  0.39  0.05  0.47  0.11]	True	True
+Mouse_287	[ 0.    0.14  0.16  0.53  0.79]	True	True
+Mouse_288	[ 0.03  0.86  0.96  0.    0.57]	True	True
+Mouse_289	[ 0.1   0.37  0.56  0.82  0.87]	True	True
+Mouse_29	[ 0.92  0.64  0.46  0.32  0.35]	False	False
+Mouse_290	[ 0.08  0.01  0.79  0.82  0.52]	True	True
+Mouse_291	[ 0.4   0.63  0.97  0.97  0.5 ]	True	True
+Mouse_292	[ 0.08  0.63  0.98  0.69  0.45]	True	True
+Mouse_293	[ 0.38  0.07  0.51  0.03  0.06]	True	True
+Mouse_294	[ 0.9   0.88  0.29  0.6   0.81]	True	True
+Mouse_295	[ 0.2   0.62  0.15  0.52  0.68]	True	True
+Mouse_296	[ 0.8   0.34  0.73  0.31  0.38]	True	True
+Mouse_297	[ 1.    0.54  0.18  0.    0.22]	True	True
+Mouse_298	[ 0.5   0.33  0.89  0.83  0.79]	True	True
+Mouse_299	[ 0.21  0.34  0.53  0.14  0.73]	True	True
+Mouse_3	[ 0.05  0.54  0.62  0.29  0.89]	False	False
+Mouse_30	[ 0.78  0.84  0.57  0.27  0.65]	False	False
+Mouse_300	[ 0.86  0.61  0.87  0.68  0.86]	True	True
+Mouse_301	[ 0.85  0.15  0.2   0.52  0.3 ]	True	True
+Mouse_302	[ 0.1   0.57  0.98  0.55  0.02]	True	True
+Mouse_303	[ 0.78  0.39  0.83  0.51  0.41]	True	True
+Mouse_304	[ 0.92  0.67  0.52  0.12  0.76]	True	True
+Mouse_305	[ 0.93  0.2   0.3   0.44  0.66]	True	True
+Mouse_306	[ 0.66  0.67  0.89  0.06  0.46]	True	True
+Mouse_307	[ 0.9   0.85  0.79  0.17  0.23]	True	True
+Mouse_308	[ 0.16  0.55  0.95  0.68  0.23]	True	True
+Mouse_309	[ 0.18  0.93  0.67  0.36  0.28]	True	True
+Mouse_31	[ 0.65  0.11  0.34  0.13  0.98]	False	False
+Mouse_310	[ 0.38  0.38  0.53  0.77  0.13]	True	True
+Mouse_311	[ 0.16  0.39  0.76  0.38  0.34]	True	True
+Mouse_312	[ 0.74  0.59  0.51  0.06  0.11]	True	True
+Mouse_313	[ 0.93  0.73  0.72  0.58  0.36]	True	True
+Mouse_314	[ 0.67  0.27  0.66  0.14  0.08]	True	True
+Mouse_315	[ 0.4   0.38  0.    0.56  0.68]	True	True
+Mouse_316	[ 0.54  0.3   0.99  0.58  0.42]	True	True
+Mouse_317	[ 1.    0.68  0.87  0.81  0.89]	True	True
+Mouse_318	[ 0.64  0.89  0.51  0.03  0.41]	True	True
+Mouse_319	[ 0.88  0.7   0.13  0.62  0.59]	True	True
+Mouse_32	[ 0.13  0.26  0.5   0.75  0.9 ]	False	False
+Mouse_320	[ 0.42  0.53  0.71  0.93  0.96]	True	True
+Mouse_321	[ 0.87  0.8   0.2   0.51  0.9 ]	True	True
+Mouse_322	[ 0.42  0.28  0.05  0.69  0.46]	True	True
+Mouse_323	[ 0.66  0.51  0.16  0.43  0.61]	True	True
+Mouse_324	[ 0.28  0.1   0.34  0.48  0.53]	True	True
+Mouse_325	[ 0.52  0.41  0.36  0.86  0.11]	True	True
+Mouse_326	[ 0.18  0.39  0.01  0.18  0.1 ]	True	True
+Mouse_327	[ 0.09  0.17  0.79  0.21  0.29]	True	True
+Mouse_328	[ 0.22  0.82  0.05  0.74  0.  ]	True	True
+Mouse_329	[ 0.25  0.12  0.71  0.4   0.48]	True	True
+Mouse_33	[ 0.44  0.38  0.73  0.04  0.27]	False	False
+Mouse_330	[ 0.53  0.78  0.41  0.22  0.11]	True	True
+Mouse_331	[ 0.46  0.54  0.61  0.12  0.61]	True	True
+Mouse_332	[ 0.48  0.02  0.72  0.26  0.96]	True	True
+Mouse_333	[ 0.21  0.64  0.89  0.49  0.11]	True	True
+Mouse_334	[ 0.61  0.13  0.27  0.11  0.36]	True	True
+Mouse_335	[ 0.61  0.89  0.18  0.59  0.26]	True	True
+Mouse_336	[ 0.36  0.69  0.31  0.39  0.26]	True	True
+Mouse_337	[ 0.34  0.3   0.36  0.67  0.25]	True	True
+Mouse_338	[ 0.99  0.51  0.7   0.74  0.38]	True	True
+Mouse_339	[ 0.47  0.2   0.73  0.8   0.94]	True	True
+Mouse_34	[ 0.24  0.22  0.91  0.68  0.57]	False	False
+Mouse_340	[ 0.55  0.73  0.48  0.96  0.8 ]	True	True
+Mouse_341	[ 0.32  0.02  0.9   0.2   0.78]	True	True
+Mouse_342	[ 0.47  0.77  0.12  0.46  0.77]	True	True
+Mouse_343	[ 0.78  0.22  0.41  0.98  0.21]	True	True
+Mouse_344	[ 0.07  0.26  0.75  0.98  0.02]	True	True
+Mouse_345	[ 0.87  0.91  0.32  0.69  0.9 ]	True	True
+Mouse_346	[ 0.66  0.49  0.42  0.1   0.6 ]	True	True
+Mouse_347	[ 0.4   0.36  0.64  0.08  0.09]	True	True
+Mouse_348	[ 0.52  0.9   0.47  0.06  0.91]	True	True
+Mouse_349	[ 0.38  0.52  0.77  0.75  0.43]	True	True
+Mouse_35	[ 0.52  0.17  0.22  0.41  0.79]	False	False
+Mouse_350	[ 0.97  0.68  0.07  0.99  0.13]	True	True
+Mouse_351	[ 0.52  0.8   0.56  0.63  0.62]	True	True
+Mouse_352	[ 0.64  0.55  0.44  0.09  0.28]	True	True
+Mouse_353	[ 0.69  0.67  0.39  0.12  0.66]	True	True
+Mouse_354	[ 0.75  0.74  0.06  0.97  0.75]	True	True
+Mouse_355	[ 0.37  0.14  0.27  0.15  0.45]	True	True
+Mouse_356	[ 0.01  0.57  0.32  0.36  0.87]	True	True
+Mouse_357	[ 0.56  0.02  0.93  0.22  0.  ]	True	True
+Mouse_358	[ 0.31  0.01  0.71  0.34  0.47]	True	True
+Mouse_359	[ 0.69  0.63  0.21  0.87  0.41]	True	True
+Mouse_36	[ 0.3   0.47  0.03  0.12  0.4 ]	False	False
+Mouse_360	[ 0.82  0.51  0.82  0.89  0.79]	True	True
+Mouse_361	[ 0.86  0.32  0.36  0.58  0.2 ]	True	True
+Mouse_362	[ 0.97  0.03  0.11  0.07  0.56]	True	True
+Mouse_363	[ 0.33  0.98  0.49  0.76  0.66]	True	True
+Mouse_364	[ 0.19  0.66  0.89  0.91  0.32]	True	True
+Mouse_365	[ 0.22  0.02  0.28  0.86  0.14]	True	True
+Mouse_366	[ 0.01  0.87  0.2   0.    0.61]	True	True
+Mouse_367	[ 0.23  1.    0.04  0.64  0.17]	True	True
+Mouse_368	[ 0.05  0.65  0.67  0.96  0.08]	True	True
+Mouse_369	[ 0.46  0.64  0.42  0.81  0.05]	True	True
+Mouse_37	[ 0.86  0.93  0.83  0.86  0.38]	False	False
+Mouse_370	[ 0.63  0.13  0.76  0.17  0.48]	True	True
+Mouse_371	[ 0.37  0.44  0.94  0.21  0.07]	True	True
+Mouse_372	[ 0.23  0.81  0.79  0.85  0.74]	True	True
+Mouse_373	[ 0.53  0.86  0.12  0.16  0.19]	True	True
+Mouse_374	[ 0.6   0.81  0.89  0.1   0.49]	True	True
+Mouse_375	[ 0.33  0.35  0.93  0.59  0.45]	True	True
+Mouse_376	[ 0.29  0.56  0.22  0.86  0.73]	True	True
+Mouse_377	[ 0.97  0.5   0.94  0.05  0.95]	True	True
+Mouse_378	[ 0.2   0.42  0.52  0.07  0.4 ]	True	True
+Mouse_379	[ 0.76  0.31  0.79  0.77  0.16]	True	True
+Mouse_38	[ 0.95  0.25  0.16  0.08  0.32]	False	False
+Mouse_380	[ 0.15  0.94  0.34  0.27  0.87]	True	True
+Mouse_381	[ 0.43  0.97  0.71  0.06  0.56]	True	True
+Mouse_382	[ 0.33  0.    0.69  0.46  0.85]	True	True
+Mouse_383	[ 0.68  0.25  0.16  0.25  1.  ]	True	True
+Mouse_384	[ 0.46  0.27  0.47  0.92  0.32]	True	True
+Mouse_385	[ 0.61  0.11  0.56  0.05  0.39]	True	True
+Mouse_386	[ 0.17  0.09  0.68  0.4   0.64]	True	True
+Mouse_387	[ 0.89  0.62  0.61  0.46  0.75]	True	True
+Mouse_388	[ 0.19  0.79  0.41  0.43  0.17]	True	True
+Mouse_389	[ 0.99  0.47  0.28  0.12  0.95]	True	True
+Mouse_39	[ 0.01  0.64  0.92  0.8   0.4 ]	False	False
+Mouse_390	[ 0.82  0.02  0.29  0.1   0.18]	True	True
+Mouse_391	[ 0.32  0.92  0.04  0.6   0.46]	True	True
+Mouse_392	[ 0.72  0.59  0.59  0.52  0.9 ]	True	True
+Mouse_393	[ 0.99  0.48  0.85  0.71  0.62]	True	True
+Mouse_394	[ 0.06  0.64  0.22  0.31  0.18]	True	True
+Mouse_395	[ 0.6   0.06  0.49  0.47  0.94]	True	True
+Mouse_396	[ 0.09  0.86  0.8   0.01  0.24]	True	True
+Mouse_397	[ 0.17  0.88  0.04  0.77  0.11]	True	True
+Mouse_398	[ 0.22  0.07  0.62  0.32  0.47]	True	True
+Mouse_399	[ 0.06  0.83  0.72  0.4   0.92]	True	True
+Mouse_4	[ 0.07  0.73  0.13  0.44  0.81]	False	False
+Mouse_40	[ 0.25  0.8   0.21  0.99  0.16]	False	False
+Mouse_400	[ 0.05  0.68  0.09  0.    0.57]	True	True
+Mouse_401	[ 0.97  0.67  0.04  0.82  0.16]	True	True
+Mouse_402	[ 0.48  0.64  0.98  0.54  0.83]	True	True
+Mouse_403	[ 0.56  0.07  0.5   0.52  0.29]	True	True
+Mouse_404	[ 0.75  0.37  0.55  0.98  0.38]	True	True
+Mouse_405	[ 0.8   0.89  0.17  0.98  0.02]	True	True
+Mouse_406	[ 0.27  0.05  0.99  0.11  0.44]	True	True
+Mouse_407	[ 0.72  0.85  0.1   0.64  0.53]	True	True
+Mouse_408	[ 0.96  0.86  0.3   0.9   0.55]	True	True
+Mouse_409	[ 0.05  0.45  0.04  0.28  0.  ]	True	True
+Mouse_41	[ 0.98  0.4   0.    0.2   0.22]	False	False
+Mouse_410	[ 0.75  0.14  0.36  0.89  0.39]	True	True
+Mouse_411	[ 0.75  0.62  0.96  0.72  0.7 ]	True	True
+Mouse_412	[ 0.35  0.68  1.    0.83  0.35]	True	True
+Mouse_413	[ 0.56  0.04  0.76  0.09  0.12]	True	True
+Mouse_414	[ 0.55  0.03  0.46  0.87  0.64]	True	True
+Mouse_415	[ 0.98  0.77  0.56  0.31  0.58]	True	True
+Mouse_416	[ 0.6   0.17  0.33  0.54  0.2 ]	True	True
+Mouse_417	[ 0.    0.04  0.24  0.12  0.82]	True	True
+Mouse_418	[ 0.92  0.82  0.95  0.02  0.04]	True	True
+Mouse_419	[ 0.97  0.84  0.66  0.71  0.39]	True	True
+Mouse_42	[ 0.78  0.65  0.84  0.17  0.48]	False	False
+Mouse_420	[ 0.66  0.04  0.78  0.23  0.4 ]	True	True
+Mouse_421	[ 0.44  1.    0.87  0.8   0.15]	True	True
+Mouse_422	[ 0.74  0.89  0.12  0.43  0.04]	True	True
+Mouse_423	[ 0.72  0.1   0.29  0.14  0.03]	True	True
+Mouse_424	[ 0.19  0.84  0.51  0.48  0.05]	True	True
+Mouse_425	[ 1.    0.69  0.66  0.7   0.52]	True	True
+Mouse_426	[ 0.19  0.91  0.21  0.46  0.96]	True	True
+Mouse_427	[ 0.39  0.59  0.74  0.68  0.96]	True	True
+Mouse_428	[ 0.28  0.26  0.71  0.33  0.22]	True	True
+Mouse_429	[ 0.07  0.27  0.16  0.29  0.37]	True	True
+Mouse_43	[ 0.02  0.88  0.57  0.22  0.55]	False	False
+Mouse_430	[ 0.38  0.3   0.6   0.61  0.46]	True	True
+Mouse_431	[ 0.47  0.38  0.33  0.83  0.51]	True	True
+Mouse_432	[ 0.61  0.01  0.94  0.37  0.41]	True	True
+Mouse_433	[ 0.5   0.46  0.12  0.8   0.26]	True	True
+Mouse_434	[ 0.43  0.93  0.31  0.95  0.13]	True	True
+Mouse_435	[ 0.52  0.36  0.18  0.88  0.71]	True	True
+Mouse_436	[ 0.35  0.15  0.8   0.66  0.99]	True	True
+Mouse_437	[ 0.05  0.95  0.32  0.2   0.69]	True	True
+Mouse_438	[ 0.25  0.24  0.79  0.81  0.9 ]	True	True
+Mouse_439	[ 0.67  0.52  0.97  0.47  0.39]	True	True
+Mouse_44	[ 0.68  0.21  0.88  0.58  0.66]	False	False
+Mouse_440	[ 0.04  0.45  0.04  0.03  0.06]	True	True
+Mouse_441	[ 0.3   0.34  0.3   0.62  0.64]	True	True
+Mouse_442	[ 0.54  0.49  0.41  0.51  0.35]	True	True
+Mouse_443	[ 0.69  0.51  0.9   0.76  0.93]	True	True
+Mouse_444	[ 0.56  0.6   0.13  0.14  0.68]	True	True
+Mouse_445	[ 0.43  0.5   0.26  0.33  0.2 ]	True	True
+Mouse_446	[ 0.64  0.16  0.06  0.83  0.27]	True	True
+Mouse_447	[ 0.32  0.43  0.48  0.16  0.84]	True	True
+Mouse_448	[ 0.59  0.15  0.69  1.    0.77]	True	True
+Mouse_449	[ 0.79  0.22  0.9   0.6   0.38]	True	True
+Mouse_45	[ 0.19  0.99  0.92  0.06  0.54]	False	False
+Mouse_450	[ 0.66  0.75  0.88  0.27  0.75]	True	True
+Mouse_451	[ 0.53  0.13  0.99  0.56  0.33]	True	True
+Mouse_452	[ 0.38  0.59  0.61  0.19  0.94]	True	True
+Mouse_453	[ 0.38  0.72  0.55  0.5   0.91]	True	True
+Mouse_454	[ 0.86  0.13  0.5   0.32  0.89]	True	True
+Mouse_455	[ 0.09  0.16  0.86  0.68  0.13]	True	True
+Mouse_456	[ 0.96  0.28  0.61  0.6   0.65]	True	True
+Mouse_457	[ 0.62  0.09  0.38  0.55  0.23]	True	True
+Mouse_458	[ 0.03  0.16  0.74  0.71  0.33]	True	True
+Mouse_459	[ 0.26  0.36  0.65  0.68  0.67]	True	True
+Mouse_46	[ 0.4   0.66  0.51  0.58  0.52]	False	False
+Mouse_460	[ 0.83  0.59  0.36  0.65  0.53]	True	True
+Mouse_461	[ 0.41  0.93  0.66  0.68  0.9 ]	True	True
+Mouse_462	[ 0.17  0.38  0.29  0.41  0.83]	True	True
+Mouse_463	[ 0.56  0.44  0.01  0.69  0.91]	True	True
+Mouse_464	[ 0.08  0.87  0.52  0.33  0.02]	True	True
+Mouse_465	[ 0.72  0.86  0.37  0.58  1.  ]	True	True
+Mouse_466	[ 0.07  0.46  0.37  0.9   0.7 ]	True	True
+Mouse_467	[ 0.14  0.1   0.25  0.19  0.66]	True	True
+Mouse_468	[ 0.76  0.22  0.17  0.48  0.23]	True	True
+Mouse_469	[ 0.97  0.46  0.57  0.24  0.92]	True	True
+Mouse_47	[ 0.48  0.36  0.31  0.08  0.45]	False	False
+Mouse_470	[ 0.59  0.7   0.47  0.    0.66]	True	True
+Mouse_471	[ 0.82  0.84  0.55  0.45  0.17]	True	True
+Mouse_472	[ 0.46  0.68  0.66  0.33  0.  ]	True	True
+Mouse_473	[ 0.94  0.42  0.47  0.27  0.7 ]	True	True
+Mouse_474	[ 0.09  0.5   0.55  0.54  0.38]	True	True
+Mouse_475	[ 0.87  0.07  0.27  0.81  0.81]	True	True
+Mouse_476	[ 0.02  0.96  0.34  0.49  0.93]	True	True
+Mouse_477	[ 0.    0.81  0.28  0.24  0.05]	True	True
+Mouse_478	[ 0.53  0.04  0.52  0.05  0.42]	True	True
+Mouse_479	[ 0.7   0.64  0.68  0.02  0.49]	True	True
+Mouse_48	[ 0.92  0.37  0.65  0.92  0.58]	False	False
+Mouse_480	[ 0.36  0.95  0.56  0.79  0.39]	True	True
+Mouse_481	[ 0.33  0.31  0.71  0.45  0.76]	True	True
+Mouse_482	[ 0.94  0.75  0.73  0.45  0.27]	True	True
+Mouse_483	[ 0.27  0.39  0.86  0.15  0.02]	True	True
+Mouse_484	[ 0.18  0.39  0.18  0.93  0.59]	True	True
+Mouse_485	[ 0.53  0.68  0.52  0.55  0.21]	True	True
+Mouse_486	[ 0.61  0.76  0.09  0.95  0.36]	True	True
+Mouse_487	[ 0.24  0.42  0.75  0.82  0.8 ]	True	True
+Mouse_488	[ 0.79  0.91  0.44  0.71  0.15]	True	True
+Mouse_489	[ 0.54  0.54  0.05  0.88  0.05]	True	True
+Mouse_49	[ 0.19  0.95  0.64  0.17  0.59]	False	False
+Mouse_490	[ 0.89  0.79  0.54  0.47  0.9 ]	True	True
+Mouse_491	[ 0.44  0.24  0.81  0.88  0.44]	True	True
+Mouse_492	[ 0.11  0.76  0.91  0.08  0.45]	True	True
+Mouse_493	[ 0.25  0.59  0.37  0.22  0.54]	True	True
+Mouse_494	[ 0.4   0.35  0.84  0.52  0.56]	True	True
+Mouse_495	[ 0.53  0.58  0.78  0.18  0.33]	True	True
+Mouse_496	[ 0.15  0.2   0.02  0.85  0.82]	True	True
+Mouse_497	[ 0.6   0.39  0.8   0.81  0.88]	True	True
+Mouse_498	[ 0.2   0.99  0.88  0.81  0.87]	True	True
+Mouse_499	[ 0.9   0.94  0.9   0.11  0.58]	True	True
+Mouse_5	[ 0.51  0.48  0.4   0.53  0.99]	False	False
+Mouse_50	[ 0.26  0.15  0.47  0.2   0.16]	False	False
+Mouse_500	[ 0.24  0.67  0.46  0.07  0.08]	True	True
+Mouse_501	[ 0.8   0.3   0.15  0.18  0.36]	True	True
+Mouse_502	[ 0.04  0.92  0.26  0.85  0.69]	True	True
+Mouse_503	[ 0.18  0.71  0.21  0.13  0.97]	True	True
+Mouse_504	[ 0.87  0.28  0.29  0.76  0.93]	True	True
+Mouse_505	[ 0.06  0.57  0.6   0.51  0.28]	True	True
+Mouse_506	[ 0.2   0.72  0.23  0.08  0.93]	True	True
+Mouse_507	[ 0.91  0.66  0.08  0.24  0.45]	True	True
+Mouse_508	[ 0.15  0.49  0.29  0.44  0.76]	True	True
+Mouse_509	[ 0.11  0.9   0.92  0.93  0.08]	True	True
+Mouse_51	[ 0.94  0.41  0.21  0.86  0.55]	False	False
+Mouse_510	[ 0.51  0.07  0.    0.93  0.55]	True	True
+Mouse_511	[ 0.22  0.18  0.47  0.83  0.84]	True	True
+Mouse_512	[ 0.99  0.87  0.16  0.58  0.65]	True	True
+Mouse_513	[ 0.77  0.66  0.43  0.63  0.77]	True	True
+Mouse_514	[ 0.4   0.31  0.71  0.03  0.4 ]	True	True
+Mouse_515	[ 0.48  0.15  0.05  0.84  0.75]	True	True
+Mouse_516	[ 0.82  0.62  0.52  0.74  0.84]	True	True
+Mouse_517	[ 0.9   0.27  0.73  0.55  0.92]	True	True
+Mouse_518	[ 0.9   0.42  0.3   0.96  0.77]	True	True
+Mouse_519	[ 0.18  0.3   0.83  0.11  0.08]	True	True
+Mouse_52	[ 0.27  0.36  0.98  0.12  0.96]	False	False
+Mouse_520	[ 0.7   0.23  0.21  0.81  0.26]	True	True
+Mouse_521	[ 0.91  0.94  0.11  0.79  0.9 ]	True	True
+Mouse_522	[ 0.98  0.    0.5   0.2   0.14]	True	True
+Mouse_523	[ 0.55  0.98  0.05  0.58  0.88]	True	True
+Mouse_524	[ 0.18  0.28  0.44  0.95  0.06]	True	True
+Mouse_525	[ 0.17  0.43  0.23  0.51  0.34]	True	True
+Mouse_526	[ 0.62  0.83  0.36  0.65  0.57]	True	True
+Mouse_527	[ 0.01  0.24  0.85  0.88  0.18]	True	True
+Mouse_528	[ 0.2   0.22  0.01  1.    0.51]	True	True
+Mouse_529	[ 0.66  0.67  0.97  0.43  0.8 ]	True	True
+Mouse_53	[ 1.    0.53  0.25  0.54  0.67]	False	False
+Mouse_530	[ 0.38  0.87  0.49  0.61  0.06]	True	True
+Mouse_531	[ 0.37  0.22  0.1   0.53  0.8 ]	True	True
+Mouse_532	[ 0.21  0.15  0.62  0.55  0.16]	True	True
+Mouse_533	[ 0.22  0.95  0.27  0.71  0.64]	True	True
+Mouse_534	[ 0.43  0.    0.67  0.32  0.04]	True	True
+Mouse_535	[ 0.77  0.19  0.28  0.94  0.85]	True	True
+Mouse_536	[ 0.52  0.73  0.58  0.03  0.02]	True	True
+Mouse_537	[ 0.07  0.4   0.58  0.42  0.46]	True	True
+Mouse_538	[ 0.6   0.14  0.24  0.56  0.12]	True	True
+Mouse_539	[ 0.82  0.    0.3   0.2   0.94]	True	True
+Mouse_54	[ 0.69  0.02  0.93  0.99  0.49]	False	False
+Mouse_540	[ 0.62  0.15  0.96  0.    0.43]	True	True
+Mouse_541	[ 0.9   0.91  0.42  0.29  0.76]	True	True
+Mouse_542	[ 0.85  0.    0.39  0.45  0.09]	True	True
+Mouse_543	[ 0.82  0.06  0.7   0.24  0.04]	True	True
+Mouse_544	[ 0.55  0.95  0.91  0.39  0.54]	True	True
+Mouse_545	[ 0.26  0.69  0.13  0.93  0.77]	True	True
+Mouse_546	[ 0.98  0.16  0.27  0.11  0.44]	True	True
+Mouse_547	[ 0.4   0.37  0.1   0.05  0.27]	True	True
+Mouse_548	[ 0.58  0.65  0.23  0.12  0.27]	True	True
+Mouse_549	[ 0.85  0.35  0.11  0.85  0.3 ]	True	True
+Mouse_55	[ 0.73  0.29  0.96  0.49  0.41]	False	False
+Mouse_550	[ 0.1   0.55  0.56  0.86  0.62]	True	True
+Mouse_551	[ 0.76  0.43  0.53  0.14  0.88]	True	True
+Mouse_552	[ 0.21  0.22  0.44  1.    0.65]	True	True
+Mouse_553	[ 0.67  0.16  0.26  0.37  0.35]	True	True
+Mouse_554	[ 0.69  0.45  0.69  0.05  0.69]	True	True
+Mouse_555	[ 0.86  0.79  0.9   0.02  0.63]	True	True
+Mouse_556	[ 0.97  0.39  0.34  0.89  0.63]	True	True
+Mouse_557	[ 0.23  0.52  0.76  0.26  0.83]	True	True
+Mouse_558	[ 0.06  0.04  0.03  0.47  0.71]	True	True
+Mouse_559	[ 0.53  0.16  0.37  0.29  0.74]	True	True
+Mouse_56	[ 0.45  0.02  0.64  0.24  0.98]	False	False
+Mouse_560	[ 0.8   0.08  0.6   0.14  0.11]	True	True
+Mouse_561	[ 0.48  0.51  0.51  0.79  0.  ]	True	True
+Mouse_562	[ 0.64  0.81  0.68  0.44  0.12]	True	True
+Mouse_563	[ 0.37  0.26  0.53  0.02  0.55]	True	True
+Mouse_564	[ 0.65  0.36  0.9   0.31  0.76]	True	True
+Mouse_565	[ 0.91  0.24  0.28  0.82  0.49]	True	True
+Mouse_566	[ 0.28  0.89  0.31  0.    0.36]	True	True
+Mouse_567	[ 0.66  0.61  0.66  0.57  0.48]	True	True
+Mouse_568	[ 0.98  0.58  0.9   0.81  0.06]	True	True
+Mouse_569	[ 0.35  0.69  0.42  0.46  0.95]	True	True
+Mouse_57	[ 0.16  0.75  0.05  0.09  0.79]	False	False
+Mouse_570	[ 0.97  0.99  0.61  0.07  0.05]	True	True
+Mouse_571	[ 0.54  0.95  0.83  0.68  0.36]	True	True
+Mouse_572	[ 0.4   0.45  0.13  0.42  0.79]	True	True
+Mouse_573	[ 0.34  0.22  0.63  0.53  0.48]	True	True
+Mouse_574	[ 0.32  0.22  0.66  1.    0.13]	True	True
+Mouse_575	[ 0.73  0.23  0.99  0.74  0.76]	True	True
+Mouse_576	[ 0.58  0.    0.67  0.35  0.29]	True	True
+Mouse_577	[ 0.5   0.94  0.55  0.78  0.2 ]	True	True
+Mouse_578	[ 0.45  0.68  0.74  0.11  0.99]	True	True
+Mouse_579	[ 1.    0.96  0.63  0.46  0.83]	True	True
+Mouse_58	[ 0.94  0.68  0.4   0.26  0.94]	False	False
+Mouse_580	[ 0.45  0.38  0.55  0.75  0.42]	True	True
+Mouse_581	[ 0.46  0.63  0.15  0.61  0.86]	True	True
+Mouse_582	[ 0.21  0.53  0.96  0.03  0.6 ]	True	True
+Mouse_583	[ 0.    0.36  0.66  0.11  0.75]	True	True
+Mouse_584	[ 0.46  0.49  0.47  0.85  0.52]	True	True
+Mouse_585	[ 0.32  0.91  0.73  0.99  0.73]	True	True
+Mouse_586	[ 0.46  0.4   0.02  0.59  0.21]	True	True
+Mouse_587	[ 0.07  0.56  0.57  0.25  0.74]	True	True
+Mouse_588	[ 0.8   0.24  0.23  0.73  0.42]	True	True
+Mouse_589	[ 0.45  0.55  0.65  0.21  0.02]	True	True
+Mouse_59	[ 0.88  0.73  0.72  0.15  0.11]	False	False
+Mouse_590	[ 0.44  0.58  0.25  0.96  0.41]	True	True
+Mouse_591	[ 0.13  0.21  0.36  0.47  0.68]	True	True
+Mouse_592	[ 0.6   0.1   0.79  0.75  0.2 ]	True	True
+Mouse_593	[ 0.39  0.64  0.79  0.72  0.78]	True	True
+Mouse_594	[ 0.65  0.95  0.51  0.16  0.  ]	True	True
+Mouse_595	[ 0.57  0.64  0.23  0.38  1.  ]	True	True
+Mouse_596	[ 0.87  0.42  0.48  0.29  0.05]	True	True
+Mouse_597	[ 0.75  0.24  0.61  0.88  0.3 ]	True	True
+Mouse_598	[ 0.37  0.79  0.11  0.81  0.55]	True	True
+Mouse_599	[ 0.75  0.38  0.8   0.53  0.03]	True	True
+Mouse_6	[ 0.55  0.18  0.52  0.16  0.91]	False	False
+Mouse_60	[ 0.13  0.03  0.43  0.36  0.41]	False	False
+Mouse_600	[ 0.11  0.81  0.06  0.06  0.66]	True	True
+Mouse_602	[ 0.85  0.53  0.66  0.96  0.31]	True	True
+Mouse_604	[ 0.45  0.55  0.65  0.21  0.02]	True	True
+Mouse_61	[ 0.6   0.81  0.09  0.69  0.68]	False	False
+Mouse_611	[ 0.48  0.15  0.05  0.84  0.75]	True	True
+Mouse_612	[ 0.06  0.73  0.72  0.4   0.92]	True	True
+Mouse_614	[ 0.4   0.57  0.9   0.31  0.33]	False	False
+Mouse_615	[ 0.05  0.95  0.32  0.2   0.69]	True	True
+Mouse_619	[ 0.42  0.28  0.05  0.59  0.46]	True	True
+Mouse_62	[ 0.32  0.71  0.45  1.    0.53]	False	False
+Mouse_63	[ 0.04  0.55  0.    0.35  0.95]	False	False
+Mouse_630	[ 0.05  0.94  0.34  0.27  0.77]	True	True
+Mouse_634	[ 0.55  0.18  0.52  0.16  0.91]	False	False
+Mouse_636	[ 0.23  0.38  0.57  0.91  0.81]	False	False
+Mouse_637	[ 0.17  0.98  0.19  0.64  0.38]	True	True
+Mouse_638	[ 0.89  0.62  0.61  0.46  0.75]	True	True
+Mouse_64	[ 0.63  0.85  0.62  0.63  0.77]	False	False
+Mouse_640	[ 0.38  0.38  0.63  0.77  0.13]	True	True
+Mouse_641	[ 0.46  0.4   0.02  0.59  0.21]	True	True
+Mouse_644	[ 0.18  0.39  0.18  0.93  0.59]	True	True
+Mouse_647	[ 0.37  0.8   0.73  0.62  0.79]	False	False
+Mouse_648	[ 0.6   0.17  0.13  0.54  0.2 ]	True	True
+Mouse_65	[ 0.7   0.17  0.66  0.03  0.12]	False	False
+Mouse_651	[ 0.65  0.62  0.96  0.72  0.7 ]	True	True
+Mouse_653	[ 0.21  0.53  0.86  0.03  0.6 ]	True	True
+Mouse_656	[ 0.04  0.65  0.64  0.03  0.39]	True	True
+Mouse_659	[ 0.55  0.26  0.9   0.31  0.76]	True	True
+Mouse_66	[ 0.42  0.43  0.73  0.88  0.54]	False	False
+Mouse_660	[ 0.06  0.04  0.03  0.47  0.71]	True	True
+Mouse_665	[ 0.95  0.25  0.16  0.08  0.32]	False	False
+Mouse_667	[ 0.21  0.22  0.34  1.    0.75]	True	True
+Mouse_67	[ 0.05  0.33  0.59  0.7   0.9 ]	False	False
+Mouse_672	[ 0.18  0.1   0.34  0.48  0.43]	True	True
+Mouse_68	[ 0.36  0.16  0.31  0.8   0.47]	False	False
+Mouse_683	[ 0.46  0.32  0.29  0.69  0.86]	False	False
+Mouse_684	[ 0.04  0.65  0.01  0.35  0.95]	False	False
+Mouse_687	[ 0.94  0.41  0.21  0.86  0.45]	False	False
+Mouse_689	[ 0.91  0.94  0.11  0.79  0.9 ]	True	True
+Mouse_69	[ 0.02  0.18  0.56  0.32  0.3 ]	False	False
+Mouse_690	[ 0.98  0.31  0.87  0.46  0.42]	False	False
+Mouse_691	[ 0.6   0.24  0.04  0.46  0.22]	True	True
+Mouse_693	[ 0.43  0.5   0.57  0.1   0.78]	True	True
+Mouse_695	[ 0.06  0.74  0.37  0.47  0.71]	True	True
+Mouse_696	[ 0.38  0.12  0.24  0.23  0.71]	False	False
+Mouse_7	[ 0.01  0.23  0.25  0.54  0.24]	False	False
+Mouse_70	[ 0.59  0.06  0.96  0.    0.07]	False	False
+Mouse_702	[ 0.97  0.03  0.    0.07  0.46]	True	True
+Mouse_704	[ 0.82  0.02  0.29  0.1   0.18]	True	True
+Mouse_708	[ 0.46  0.84  0.86  0.62  0.02]	False	False
+Mouse_709	[ 0.72  0.    0.3   0.    1.  ]	True	True
+Mouse_71	[ 0.53  0.42  0.16  0.31  0.86]	False	False
+Mouse_710	[ 0.01  0.37  0.32  0.36  0.87]	True	True
+Mouse_718	[ 0.07  0.14  0.16  0.53  0.79]	True	True
+Mouse_719	[ 0.43  0.06  0.57  0.32  0.04]	True	True
+Mouse_72	[ 0.18  0.38  0.69  0.73  0.9 ]	False	False
+Mouse_721	[ 0.61  0.44  0.03  0.    0.73]	False	False
+Mouse_724	[ 0.17  0.28  0.29  0.61  0.83]	True	True
+Mouse_73	[ 0.39  0.42  0.06  0.59  0.32]	False	False
+Mouse_732	[ 0.7   0.07  0.66  0.03  0.12]	False	False
+Mouse_734	[ 0.49  0.44  0.22  0.77  0.75]	True	True
+Mouse_735	[ 0.06  0.55  0.95  0.78  0.23]	True	True
+Mouse_736	[ 0.25  0.24  0.79  0.81  0.9 ]	True	True
+Mouse_737	[ 0.46  0.23  0.07  0.14  0.46]	True	True
+Mouse_739	[ 0.97  0.04  0.95  0.81  0.18]	False	False
+Mouse_74	[ 1.    0.44  0.9   0.06  0.83]	False	False
+Mouse_742	[ 0.33  0.31  0.71  0.45  0.76]	True	True
+Mouse_745	[ 0.82  0.06  0.7   0.24  0.14]	True	True
+Mouse_746	[ 0.68  0.83  0.79  0.66  0.  ]	False	False
+Mouse_75	[ 0.82  0.81  0.62  0.18  0.08]	False	False
+Mouse_750	[ 0.06  0.03  0.29  0.26  0.77]	False	False
+Mouse_76	[ 0.88  0.52  0.99  0.76  0.72]	False	False
+Mouse_77	[ 0.14  0.04  0.93  0.57  0.34]	False	False
+Mouse_772	[ 0.89  0.39  0.01  0.52  0.83]	True	True
+Mouse_774	[ 0.83  0.24  0.79  0.63  0.72]	False	False
+Mouse_777	[ 0.28  0.18  0.65  0.86  0.19]	True	True
+Mouse_78	[ 0.07  0.91  0.75  0.46  0.19]	False	False
+Mouse_781	[ 0.33  0.    0.69  0.46  0.85]	True	True
+Mouse_782	[ 0.56  0.    1.    0.22  0.04]	True	True
+Mouse_784	[ 0.77  0.11  0.21  0.49  0.57]	True	True
+Mouse_79	[ 0.9   0.2   0.08  0.04  0.8 ]	False	False
+Mouse_790	[ 0.63  0.85  0.52  0.63  0.67]	False	False
+Mouse_793	[ 0.25  0.23  0.44  0.23  0.8 ]	True	True
+Mouse_8	[ 0.18  0.63  0.25  0.56  0.45]	False	False
+Mouse_80	[ 1.    0.04  0.95  0.81  0.08]	False	False
+Mouse_802	[ 0.52  0.73  0.58  0.03  0.02]	True	True
+Mouse_804	[ 0.48  0.02  0.72  0.26  0.96]	True	True
+Mouse_81	[ 0.53  0.4   0.64  0.35  0.01]	False	False
+Mouse_810	[ 0.25  0.95  0.28  0.21  0.52]	False	False
+Mouse_813	[ 0.02  0.64  0.72  0.32  0.86]	True	True
+Mouse_814	[ 0.53  0.04  0.52  0.05  0.42]	True	True
+Mouse_815	[ 0.59  0.05  0.69  1.    0.77]	True	True
+Mouse_818	[ 0.49  0.26  0.88  0.85  0.08]	True	True
+Mouse_82	[ 0.66  0.79  0.37  0.58  0.54]	False	False
+Mouse_825	[ 0.06  0.57  0.6   0.41  0.08]	True	True
+Mouse_827	[ 0.41  0.93  0.66  0.68  0.9 ]	True	True
+Mouse_828	[ 0.76  0.79  0.9   0.02  0.63]	True	True
+Mouse_83	[ 0.53  0.53  0.03  0.77  0.26]	False	False
+Mouse_830	[ 0.99  0.19  0.03  0.87  0.58]	False	False
+Mouse_834	[ 0.51  0.84  0.62  0.99  0.48]	False	False
+Mouse_838	[ 0.56  0.07  0.5   0.52  0.19]	True	True
+Mouse_84	[ 0.74  0.26  0.27  0.99  0.94]	False	False
+Mouse_840	[ 0.    0.39  0.99  0.19  0.45]	False	False
+Mouse_846	[ 0.28  0.27  0.77  0.27  0.83]	True	True
+Mouse_847	[ 0.2   0.55  0.66  0.86  0.62]	True	True
+Mouse_849	[ 0.36  0.69  0.31  0.39  0.26]	True	True
+Mouse_85	[ 0.83  0.44  0.12  0.11  0.3 ]	False	False
+Mouse_850	[ 0.18  0.29  0.01  0.18  0.  ]	True	True
+Mouse_86	[ 0.01  0.41  0.84  0.59  0.78]	False	False
+Mouse_861	[ 0.08  0.73  0.98  0.69  0.45]	True	True
+Mouse_866	[ 0.53  0.61  0.52  0.3   0.88]	True	True
+Mouse_87	[ 0.15  0.03  0.82  0.26  0.7 ]	False	False
+Mouse_870	[ 0.67  0.42  0.39  0.92  0.63]	False	False
+Mouse_872	[ 0.74  0.59  0.61  0.06  0.11]	True	True
+Mouse_88	[ 0.23  0.38  0.57  0.81  0.71]	False	False
+Mouse_885	[ 0.    0.17  0.85  0.4   0.94]	True	True
+Mouse_887	[ 0.18  0.1   0.83  0.11  0.08]	True	True
+Mouse_888	[ 1.    0.44  0.9   0.06  0.83]	False	False
+Mouse_889	[ 0.6   0.23  0.21  0.81  0.16]	True	True
+Mouse_89	[ 0.    0.57  0.44  0.72  0.9 ]	False	False
+Mouse_892	[ 0.25  0.08  0.3   0.92  0.51]	False	False
+Mouse_895	[ 0.9   0.53  0.25  0.54  0.67]	False	False
+Mouse_9	[ 0.97  0.88  0.08  0.75  0.09]	False	False
+Mouse_90	[ 0.79  0.88  0.78  0.37  0.91]	False	False
+Mouse_906	[ 0.67  0.37  0.66  0.14  0.  ]	True	True
+Mouse_91	[ 0.88  0.43  0.6   0.79  0.48]	False	False
+Mouse_912	[ 0.59  0.17  0.04  0.65  0.16]	True	True
+Mouse_92	[ 0.27  0.82  0.86  0.27  0.93]	False	False
+Mouse_921	[ 0.86  0.49  0.7   0.8   0.28]	True	True
+Mouse_922	[ 0.91  0.66  0.08  0.24  0.45]	True	True
+Mouse_926	[ 0.17  0.43  0.23  0.51  0.34]	True	True
+Mouse_928	[ 0.19  0.79  0.41  0.43  0.17]	True	True
+Mouse_93	[ 0.37  0.71  0.34  0.78  0.76]	False	False
+Mouse_931	[ 0.13  0.13  0.43  0.26  0.41]	False	False
+Mouse_937	[ 0.78  0.68  0.21  0.26  0.97]	False	False
+Mouse_94	[ 0.76  0.41  0.96  0.46  0.08]	False	False
+Mouse_943	[ 0.1   0.18  0.34  0.97  0.34]	True	True
+Mouse_948	[ 0.76  0.04  1.    0.99  0.31]	True	True
+Mouse_949	[ 0.17  0.19  0.78  0.4   0.74]	True	True
+Mouse_95	[ 0.19  0.36  1.    0.65  0.85]	False	False
+Mouse_958	[ 0.43  0.5   0.64  0.45  0.01]	False	False
+Mouse_959	[ 0.73  0.29  0.96  0.39  0.41]	False	False
+Mouse_96	[ 0.77  0.81  0.99  0.8   0.39]	False	False
+Mouse_964	[ 0.32  0.12  0.66  1.    0.23]	True	True
+Mouse_97	[ 0.95  0.7   0.41  0.6   0.3 ]	False	False
+Mouse_970	[ 0.37  0.22  0.1   0.53  0.8 ]	True	True
+Mouse_971	[ 0.23  0.11  0.36  0.37  0.68]	True	True
+Mouse_973	[ 0.18  0.01  0.79  0.82  0.42]	True	True
+Mouse_978	[ 1.    0.54  0.18  0.    0.22]	True	True
+Mouse_98	[ 0.71  0.44  0.03  0.1   0.73]	False	False
+Mouse_980	[ 0.09  0.16  0.86  0.68  0.23]	True	True
+Mouse_981	[ 0.2   0.42  0.52  0.07  0.4 ]	True	True
+Mouse_99	[ 0.74  0.79  0.57  0.72  0.4 ]	False	False
+Mouse_997	[ 0.57  0.77  0.43  0.34  0.25]	False	False

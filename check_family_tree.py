@@ -15,11 +15,11 @@ simulation_number = int(sys.argv[2])
 result_folder = 'results/simulation_%i'%simulation_number
 os.makedirs(result_folder)
 
-num_mice = [200, 0, 0]
+num_mice = [200, 200, 200]
 
 # Build the model
 print('Building mouseworld')
-model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
+model = mouseworld.Mouseworld(num_mice, 200, 100, 100, 100)
 
 
 # Prepare environment by stepping food and predators and diffusing odors
@@ -77,10 +77,10 @@ print('Gathering agent data and ploting family tree')
 model.final_datacollector.collect(model,model.all_mice_schedule)
 final_model_data = model.final_datacollector.get_model_vars_dataframe()
 final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
-genome_data = final_agent_data[['Genome']]
+genome_data = final_agent_data[['Genome', 'motor_NN_on', 'learning_on']]
 genome_data = genome_data.reset_index('Step', drop = True)
 genome_data.to_csv('%s/genome_data.csv'%result_folder, sep='\t')
-tree_data = final_agent_data[['parent_ID', 'birth_date', 'age', 'generation']]
+tree_data = final_agent_data[['parent_ID', 'birth_date', 'age', 'generation', 'motor_NN_on', 'learning_on']]
 tree_data = tree_data.reset_index('AgentID').values
 
 
@@ -97,12 +97,20 @@ def rearrange_data (tree_data) :
                 temp = np.insert(temp, 0, offspring[x], axis=0)
     return new_tree_data
 
-cmap = mpl.cm.Set1
+cmap1 = mpl.cm.Set1
+cmap2 = mpl.cm.Dark2
+cmap3 = mpl.cm.tab10
 new_tree_data = rearrange_data(tree_data)
 all_mice = len(new_tree_data)
 plt.figure(figsize=(40, 25))
 for i in range(all_mice) :
     mouse = new_tree_data[i]
+    if not mouse[5] :
+        cmap = cmap1
+    elif not mouse[6] :
+        cmap = cmap2
+    else :
+        cmap = cmap3
     plt.plot((mouse[2], mouse[2] + mouse[3]), (all_mice - i, all_mice - i), color=cmap(mouse[4]%cmap.N), label=mouse[0])
     plt.legend(bbox_to_anchor=(0, 1), loc='best')
 plt.savefig('%s/family_tree.png'%result_folder, bbox_inches='tight')

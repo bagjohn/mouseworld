@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouseworld.py
@@ -11941,7 +11941,10 @@ class Mouseworld(Model):
                              &quot;secondary_values&quot;: lambda a: a.secondary_values,
                             &quot;sensor_vector&quot;: lambda a: a.sensor_vector,
                              &quot;motor_vector&quot;: lambda a: a.motor_vector,
-                            &quot;sensor_position&quot;: lambda a: a.sensor_position,
+                             &quot;sensor_position&quot;: lambda a: a.sensor_position,
+                            &quot;motor_NN_on&quot;: lambda a: a.motor_NN_on,
+                             &quot;learning_on&quot;: lambda a: a.learning_on,
+                             &quot;appraisal_NN_on&quot;: lambda a: a.appraisal_NN_on,
                             &quot;parent_ID&quot;: lambda a: a.parent_ID,
                             &quot;offspring&quot;: lambda a: a.offspring,
                             &quot;birth_date&quot;: lambda a: a.birth_date,
@@ -12071,7 +12074,7 @@ class Mouseworld(Model):
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouse.py
@@ -12232,7 +12235,7 @@ class Mouse(Agent):
         mouse.unborn = True
         self.offspring.append(mouse)
         
-        # BIO : Pass primary and values to offspring (TEST)
+        # BIO : Pass primary and secondary values to offspring (TEST)
         mouse.primary_values = self.primary_values 
         mouse.secondary_values = self.secondary_values
         

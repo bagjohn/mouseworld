@@ -155,8 +155,9 @@ class Mouse(Agent):
         mouse.unborn = True
         self.offspring.append(mouse)
         
-        # BIO : Pass primary values to offspring (TEST)
+        # BIO : Pass primary and secondary values to offspring (TEST)
         mouse.primary_values = self.primary_values 
+        mouse.secondary_values = self.secondary_values
         
         # BIO : Parent mouse pregnant
         self.pregnant = True

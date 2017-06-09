@@ -8,7 +8,7 @@ import os
 import sys
 
 # Arguments
-# argv[1] TO_DEATH means simulation runs until all mic die. Otherwise it defines the number of time steps
+# argv[1] TO_DEATH means simulation runs until all mice die. Otherwise it defines the number of time steps
 # argv[2] defines the simulation number therefore the results folder name
 
 simulation_number = int(sys.argv[2])
@@ -62,6 +62,7 @@ print('Gathering model data and ploting number of mice')
 model_data = model.model_datacollector.get_model_vars_dataframe()
 model_data = model_data[['Alive_mice', 'Unborn_mice']]
 model_data.to_csv('%s/num_mice.csv'%result_folder, sep='\t')
+plt.figure(1)
 plt.plot(model_data['Alive_mice'])
 plt.plot(model_data['Unborn_mice'])
 plt.savefig('%s/num_mice.png'%result_folder, bbox_inches='tight')
@@ -96,9 +97,11 @@ def rearrange_data (tree_data) :
 
 cmap = mpl.cm.Set1
 new_tree_data = rearrange_data(tree_data)
-for i in range(len(new_tree_data)) :
+all_mice = len(new_tree_data)
+plt.figure(figsize=(40, 25))
+for i in range(all_mice) :
     mouse = new_tree_data[i]
-    plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), color=cmap(mouse[4]%cmap.N), label=mouse[0])
+    plt.plot((mouse[2], mouse[2] + mouse[3]), (all_mice - i, all_mice - i), color=cmap(mouse[4]%cmap.N), label=mouse[0])
     plt.legend(bbox_to_anchor=(0, 1), loc='best')
 plt.savefig('%s/family_tree.png'%result_folder, bbox_inches='tight')
 #plt.show()

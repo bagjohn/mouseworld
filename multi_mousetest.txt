@@ -1,9 +1,151 @@
 
-# This is a testing ground for a single mouse. Initiate with num_mice e.g. [0,0,1].
-# A food is placed at (50,50) and we define the initial placement of the mouse by the pos argument (it will be (50+x,50+y)).
-# We define the genome the mouse will have and its initial header
-# We define the secondary value for the food as positive so that the mouse will immediately "approach"
-# or as negative so that the mouse will immediately "avoid"
+import pandas as pd
+import numpy as np
+
+a=np.ndarray([2,5],dtype = float)
+df_old=pd.DataFrame([[a[0],'m'], [a[1],'f']], index = [0,1], columns = ('Genome','Sex'))
+df_old.to_csv('df.csv', sep='\t')
+df_new = pd.read_csv('df.csv', sep='\t')
+
+print(df_old['Genome'][0])
+print(df_new['Genome'][0])
+print(type(df_old['Genome'][0]))
+print(type(df_new['Genome'][0]))
+
+
+import pandas as pd
+import numpy as np
+import ast
+df = pd.read_csv('results/simulation_139/genome_data.csv', sep='\t')
+
+#print(df)
+# df = df['Genome', 'motor_NN_on', 'learning_on','mousebrain_sim'].values
+# df = df['Genome'].values
+c=df['Genome']
+# d=c.to_array()
+# print(a.dtypes)
+# b= a.values
+# print(type(b))
+# print(b)
+# d=a.as_matrix()
+# print(type(d))
+# print(d)
+# a[0].as_matrix
+# b=pd.to_numeric(a)
+# df['Genome'] = df['Genome'].astype([float]) 
+# a=df['Genome']
+b=c.values.tolist()
+d=b[1].strip()
+print(d)
+e=np.fromstring(d, dtype=float, sep=' ')
+print(e)
+print(type(e))
+
+
+import itertools
+
+mouse_list=[[[[0.2,0.4,0.6,0.4,0.2], True, True, [None, None, None]]]]
+pos =[3,2]
+header = [0]
+params = (pos, header, mouse_list)
+param_combs = list(itertools.product(*params))
+
+param_combs
+
+# %%writefile multi_mousetest_run_parallel.py
+
+# at terminal : ipcluster start -n 4
+
+import ipyparallel
+import itertools
+
+
+
+clients = ipyparallel.Client()
+dview = clients.direct_view()
+
+# mouse_list_file = sys.argv[1]
+mouse_list=[([[0.2,0.4,0.6,0.4,0.2], True, True, None]),
+            ([[0.2,0.4,0.6,0.4,0.2], True, False, None]),([[0.2,0.4,0.6,0.4,0.2], False, False, None])]
+# pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
+# # pos =[(1,1), (2,2), (3,3)]
+# header = [0,1,2,3,4,5,6,7]
+# # header = [0]
+
+# params = (pos, header, mouse_list)
+# param_combs = list(itertools.product(*params))
+
+with dview.sync_imports():
+    from mouseworld.multi_mousetest import Multi_Mousetest
+    import time
+dview.push({"Multi_Mousetest": Multi_Mousetest})
+
+def make_model(mouse_data):
+    #header = params[0]
+#     pos = params[0]
+#     header = params[1]
+#     mouse_list = params[2]
+    model = Multi_Mousetest(mouse_data, 10, 1, 0, 100, 100)
+    for i in range(10) :
+        model.food_schedule.step()
+        #model.predator_schedule.step()
+        model.diffuse_odor_layers(model.odor_layers)
+    #counter = 0
+    myrange = 20
+    for i in range(myrange) :
+        #c=time.time()
+        #counter += 1
+        model.step()
+        #d=time.time()
+    model.final_datacollector.collect(model,model.all_mice_schedule)
+    final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
+    mouse_statistics = final_agent_data[['first_action_duration', 'first_action_termination']]
+    mouse_statistics = mouse_statistics.reset_index('Step', drop = True)
+    #mouse_statistics = mouse_statistics.reset_index('AgentID', drop = True)
+    succesful_trials = mouse_statistics.loc[(mouse_statistics['first_action_termination'] == 'Closure')]
+    num_trials = len(mouse_statistics.index)
+    num_succesful_trials = len(succesful_trials.index)
+    performance = num_succesful_trials / num_trials
+    mean_time = succesful_trials['first_action_duration'].mean()
+#     sensor_vector = final_agent_data['sensor_vector'][0].values[0]
+#     sensor_position = final_agent_data['sensor_position'][0].values[0]
+#     motor_vector = final_agent_data['motor_vector'][0].values[0]
+#     first_action = final_agent_data['action_history'][0].values[0].loc[0]
+#     first_action = mousetest_data
+#     first_action = (mousetest_data['Duration'], mousetest_data['Termination'])
+    #first_action = final_agent_data['action_history'][0].values[0].loc[0]
+    return (performance,  mean_time)
+#     return (params, mousetest_data.loc['Mouse_1'])
+
+#     return (first_action, sensor_vector, sensor_position, motor_vector)
+ 
+all_first_actions = dview.map_sync(make_model, mouse_list)
+for i in range(len(mouse_list)) :
+    print(all_first_actions[i])
+
+%%writefile mouseworld/multi_mousetest.py
+
+# Testing ground for multiple mice
+# Use :
+# Test approach or avoid efficiency of mouse relative to same genome mice. 
+# If mouse has mousebrain check also whether it learns
+# Data from mose needed :
+# 1. genome
+# 2. motor_NN_on, learning_on
+# 3. mousebrain_sim
+# Arguments :
+# 1. Mouse_list to be tested. For every mouse create 1 mouse of each type
+# ((motor_NN_on, learning_on) = [(False,False), (True,False), (True,True)] 
+# with same genome plus a mouse with the given mousebrain if it has one.
+# It includes the fields :
+# 1.a. Genome 
+# 1.b. motor_NN_on
+# 1.c. learning_on
+# 1.d. mousebrain_weights  ([None, None, None] where there is no mousebrain)
+# World parameters
+# 2. position relative to food/predator
+# 3. header
+# 4. value of food/predator. If positive check approach, else check avoid
 
 from mesa import Agent, Model
 #from mesa.time import RandomActivation
@@ -27,27 +169,32 @@ from mouseworld.mydatacollector import MyDataCollector
 from joblib import Parallel, delayed
 import multiprocessing
 
-class Mousetest(Mouseworld):
-    def __init__(self, num_mice, genome, pos, header, food_odor_value, num_food, num_predators, width, height, mousebrain_inheritance = False):
-        
+class Multi_Mousetest(Mouseworld):
+#     def __init__(self, mouse_list, pos, header, food_odor_value, num_food, num_predators, width, height, mousebrain_inheritance = False):
+    def __init__(self, mouse_data, food_odor_value, num_food, num_predators, width, height, mousebrain_inheritance = False):
+    
         # for parallel processing
         self.num_cores = multiprocessing.cpu_count()
         
+        self.genome = mouse_data[0]
+        self.motor_NN_on = mouse_data[1]
+        self.learning_on = mouse_data[2]
+        self.mousebrain_weights = mouse_data[3]
+        
         # define model variables from args
-        self.num_mice = sum(num_mice)
+#         self.num_genomes = len(mouse_list)
+#         self.num_mice = 4 * self.num_genomes
         self.num_unborn_mice = 0
         self.num_genes = 5
         self.num_food = num_food
         self.num_predators = num_predators
+        self.mousebrain_inheritance = mousebrain_inheritance
         # build model continuous space
         self.space = ContinuousSpace(width, height, True, x_min=0, y_min=0,
             grid_width=width, grid_height=height)
         
-        # initialize genome
-        self.initialization_genome = self.initialize_genome()
-        
         # initialize food parameters
-        self.food_amount_range = (40,200)
+        self.food_amount_range = (10000,10000)
         self.food_odor_strength = [1] #[0.7,1]
         self.food_odor_std = [8]
         self.nutritional_value = [1]
@@ -89,6 +236,7 @@ class Mousetest(Mouseworld):
         self.all_mice_schedule = RandomActivation(self)
         self.food_schedule = RandomActivation(self)
         self.predator_schedule = RandomActivation(self)
+        self.mouseworld_date = 0
         
         #initialize ids
         self.initialize_ids(['Mouse', 'Food', 'Predator'])
@@ -98,18 +246,22 @@ class Mousetest(Mouseworld):
 #         temp = [np.zeros(self.sensor_num)] * self.groups_num
 #         self.zero_sensor_vector = pd.Series(temp, index=self.odor_layers)
         
-        x, y = pos
-            
-        # Create agents
-        for i in range(self.num_mice):
-            #temp_genome = self.initialization_genome[i]
-            temp_genome = genome
-            if i < num_mice[0] :
-                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = False, learning_on = False, appraisal_NN_on = False)
-            elif i < num_mice[1]:
-                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = True, learning_on = False, appraisal_NN_on = False)
-            else :
-                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = True, learning_on = True, appraisal_NN_on = False)
+        pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
+#         pos =[(1,1)]
+        header = [0,1,2,3,4,5,6,7]
+        params = (pos, header)
+        param_combs = list(itertools.product(*params))    
+        
+        self.num_mice = len(param_combs)
+        
+        # Create agents (Version : One agent for each point and header)
+        for params in param_combs:
+            header = params[1]
+            x, y = params[0]
+
+            mouse = Mouse(self, None, self.genome, 0, motor_NN_on = self.motor_NN_on, learning_on = self.learning_on,
+                           appraisal_NN_on = False, initial_mousebrain_weights = self.mousebrain_weights)
+
             mouse.header = header * math.pi / 4
             mouse.primary_values[self.food_groups[0]] = food_odor_value * 10
             mouse.secondary_values.ix[self.food_groups[0]][self.food_layer_names[0]]= food_odor_value
@@ -119,6 +271,27 @@ class Mousetest(Mouseworld):
             #self.place_agent_randomly(mouse)
             #print(mouse.unique_id)
             #print(mouse.genome)
+        
+        # Create agents (Version : 4 agents for each genome)
+#         for i in range(self.num_genomes):
+#             #temp_genome = self.initialization_genome[i]
+#             temp_genome = mouse_list[i][0]
+#             temp_mousebrain = mouse_list[i][3]
+#             mouse0 = Mouse(self, None, temp_genome, 0, motor_NN_on = mouse_list[i][1], learning_on = mouse_list[i][2],
+#                            appraisal_NN_on = False, initial_mousebrain_weights = temp_mousebrain)
+#             mouse1 = Mouse(self, None, temp_genome, 0, motor_NN_on = False, learning_on = False, appraisal_NN_on = False)
+#             mouse2 = Mouse(self, None, temp_genome, 0, motor_NN_on = True, learning_on = False, appraisal_NN_on = False)
+#             mouse3 = Mouse(self, None, temp_genome, 0, motor_NN_on = True, learning_on = True, appraisal_NN_on = False)
+#             for mouse in [mouse0, mouse1, mouse2, mouse3] :
+#                 mouse.header = header * math.pi / 4
+#                 mouse.primary_values[self.food_groups[0]] = food_odor_value * 10
+#                 mouse.secondary_values.ix[self.food_groups[0]][self.food_layer_names[0]]= food_odor_value
+#                 self.schedule.add(mouse)
+#                 self.all_mice_schedule.add(mouse)
+#                 self.space.place_agent(mouse, (50 + x, 50 + y))
+#             #self.place_agent_randomly(mouse)
+#             #print(mouse.unique_id)
+#             #print(mouse.genome)
             
         
         for i in range(self.num_food):
@@ -138,6 +311,10 @@ class Mousetest(Mouseworld):
                 
         self.initial_datacollector = MyDataCollector(
             model_reporters={"Initial genome distribution": lambda a: a.initialization_genome})
+        
+        self.model_datacollector = MyDataCollector(
+            model_reporters={"Alive_mice": lambda a: a.num_mice, 
+                             "Unborn_mice": lambda a: a.num_unborn_mice})
         
         self.datacollector = MyDataCollector(
             model_reporters={"Alive_mice": lambda a: a.num_mice, 
@@ -191,19 +368,15 @@ class Mousetest(Mouseworld):
                              "num_offspring": lambda a: a.num_offspring,
                              "hunger_status": lambda a: a.hunger_status,
                              "action_history": lambda a: a.action_history,
+                             "first_action_duration": lambda a: a.action_history['Duration'][0],
+                             "first_action_termination": lambda a: a.action_history['Termination'][0],
                             "possible_actions": lambda a: a.possible_actions,
                              "primary_values": lambda a: a.primary_values,
                              "secondary_values": lambda a: a.secondary_values,
                             "sensor_vector": lambda a: a.sensor_vector,
                              "motor_vector": lambda a: a.motor_vector,
                             "sensor_position": lambda a: a.sensor_position})
-        
-        self.predator_datacollector = MyDataCollector(
-            agent_reporters={"Victims_num": lambda a: a.victims_num,
-                             "odor_strength": lambda a: a.odor_strength,
-                             "hunt_rule": lambda a: a.hunt_rule,
-                             "odor_std": lambda a: a.odor_std,
-                             "Damage_level": lambda a: a.damage_level})
-        
-        self.food_datacollector = MyDataCollector(
-            agent_reporters={"Pos": lambda a: a.pos})
+
+
+
+

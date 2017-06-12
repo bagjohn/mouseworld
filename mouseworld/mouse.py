@@ -22,7 +22,7 @@ import mouseworld.predator
 
 class Mouse(Agent):
     
-    def __init__(self, model, parent_ID, genome, generation, motor_NN_on, learning_on, appraisal_NN_on):
+    def __init__(self, model, parent_ID, genome, generation, motor_NN_on, learning_on, appraisal_NN_on, initial_mousebrain_weights = None):
         
         # Initial parameter setting
         self.model = model
@@ -72,12 +72,12 @@ class Mouse(Agent):
         self.max_speed = genome[0] * (5 - 1) + 1
         self.incubation_period = genome[1] * 200 + 100
 #         self.incubation_period = genome[1] * 2 + 1
+#         self.incubation_period = 0
         self.metabolism_range = genome[2]
         self.antenna_length = genome[3]
         self.antenna_angle = genome[4] * math.pi/2
         
         # Sensor and actor initialization
-        self.brain_iterations_per_step = 50
         self.sensor_num = 2
         self.sensor_vector = np.zeros(shape = (self.model.groups_num,self.sensor_num))
         self.sensor_threshold = 0.0001
@@ -109,6 +109,10 @@ class Mouse(Agent):
         #self.secondary_values = dict(zip(self.model.groups, [np.zeros(self.model.groups_num)] * self.model.groups_num))
         
         # Mousebrain initialization
+        self.initial_mousebrain_weights = initial_mousebrain_weights
+#         self.current_mousebrain_weights = initial_mousebrain_weights
+        self.final_mousebrain_weights = None
+        self.brain_iterations_per_step = 10
         self.motor_NN_on = motor_NN_on
         self.appraisal_NN_on = appraisal_NN_on
         self.learning_on = learning_on
@@ -119,13 +123,33 @@ class Mouse(Agent):
         if motor_NN_on :
             self.input_manager = Input_manager()
             self.mousebrain = Mousebrain()
-            self.mousebrain.build(self.input_manager)
+            self.mousebrain.build(self.input_manager, self.initial_mousebrain_weights)
             self.mousebrain_sim = nengo.Simulator(self.mousebrain, dt=0.001)
-        
+            self.mousebrain_steps = [0, 0, 0]
+        else : 
+            self.mousebrain = None
+            self.mousebrain_sim = None
+            self.mousebrain_steps = [None, None, None]
+    
+    def get_mousebrain_weights(self) :
+        if self.mousebrain_steps != [0, 0, 0] :
+            temp0 = self.mousebrain_sim.data[self.mousebrain.p_approach_weights][-1]
+            temp1 = self.mousebrain_sim.data[self.mousebrain.p_avoid_weights][-1]
+            temp2 = self.mousebrain_sim.data[self.mousebrain.p_search_weights][-1]
+            return [temp0, temp1, temp2]
+        else :
+            return self.initial_mousebrain_weights
+    
     def die(self):
         if (self.pregnant) :
             #self.unborn_child.die()
             self.model.num_unborn_mice -= 1
+        if self.motor_NN_on :
+#             self.mousebrain.approach_ws.save(self.mousebrain_sim)
+#             self.mousebrain.avoid_ws.save(self.mousebrain_sim)
+#             self.mousebrain.search_ws.save(self.mousebrain_sim)
+            self.final_mousebrain_weights = self.get_mousebrain_weights()
+            self.mousebrain_sim.close()
         self.model.space.remove_agent(self)
         self.model.schedule.remove(self)
         self.action_history['Termination'][self.action_history.index.max()] = 'Death'
@@ -151,7 +175,13 @@ class Mouse(Agent):
         child_genome = self.mutate_genome()
         
         # BIO : New unborn mouse creation
-        mouse = Mouse(self.model, self.unique_id, child_genome, self.generation + 1, self.motor_NN_on, self.learning_on, self.appraisal_NN_on)
+        if self.model.mousebrain_inheritance :
+             # BIO : Child inherits parent knowledge (TEST)
+            mouse = Mouse(self.model, self.unique_id, child_genome, self.generation + 1, self.motor_NN_on, 
+                          self.learning_on, self.appraisal_NN_on, initial_mousebrain_weights = self.get_mousebrain_weights())
+        else :
+            mouse = Mouse(self.model, self.unique_id, child_genome, self.generation + 1, self.motor_NN_on, 
+                          self.learning_on, self.appraisal_NN_on, initial_mousebrain_weights = None)
         mouse.unborn = True
         self.offspring.append(mouse)
         
@@ -350,6 +380,8 @@ class Mouse(Agent):
         elif num_args == 1 :
             arg = action['Arg_1']
             function(arg)
+#         if self.motor_NN_on :
+#                 self.current_mousebrain_weights = self.get_mousebrain_weights()
             
     def wait(self) :
         self.motor_vector = np.zeros(self.motor_num)
@@ -363,10 +395,13 @@ class Mouse(Agent):
                 self.input_manager.state = [-1,-1,-1]
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
-            for i in range(self.brain_iterations_per_step) :
-                self.mousebrain_sim.step()
+#             for i in range(self.brain_iterations_per_step) :
+#                 self.mousebrain_sim.step()
+            self.mousebrain_sim.run_steps(self.brain_iterations_per_step, progress_bar=False)
+            self.mousebrain_steps[0] += 1
             #print(self.mousebrain_sim.data[self.mousebrain.p_search])
             temp = self.mousebrain_sim.data[self.mousebrain.p_search]
+#             self.current_mousebrain_weights = self.get_mousebrain_weights()
             self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
             #print(self.motor_vector)
         else :
@@ -386,9 +421,12 @@ class Mouse(Agent):
             
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
-            for i in range(self.brain_iterations_per_step) :
-                self.mousebrain_sim.step()
+#             for i in range(self.brain_iterations_per_step) :
+#                 self.mousebrain_sim.step()
+            self.mousebrain_sim.run_steps(self.brain_iterations_per_step, progress_bar=False)
+            self.mousebrain_steps[1] += 1
             temp = self.mousebrain_sim.data[self.mousebrain.p_approach]
+#             self.current_mousebrain_weights = self.get_mousebrain_weights()
             self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
         else :
             self.motor_vector = [np.exp(-goal_sense[0])-np.exp(-0.5), goal_sense[1]*10]
@@ -405,9 +443,12 @@ class Mouse(Agent):
             
 #             with self.mousebrain_sim :
 #                 self.mousebrain_sim.step()
-            for i in range(self.brain_iterations_per_step) :
-                self.mousebrain_sim.step()
+#             for i in range(self.brain_iterations_per_step) :
+#                 self.mousebrain_sim.step()
+            self.mousebrain_sim.run_steps(self.brain_iterations_per_step, progress_bar=False)
+            self.mousebrain_steps[2] += 1
             temp = self.mousebrain_sim.data[self.mousebrain.p_avoid]
+#             self.current_mousebrain_weights = self.get_mousebrain_weights()
             self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
         else :
             self.motor_vector = [np.exp(goal_sense[0])-0.9, -goal_sense[1]*10]
@@ -551,4 +592,5 @@ class Mouse(Agent):
             distance = self.move(self.motor_vector)
             self.pay_metabolic_cost (self.pregnant, distance)
             self.age += 1
+            
             

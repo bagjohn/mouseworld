@@ -4,7 +4,8 @@ import matplotlib.pyplot as plt
 
 #import mouseworld.mouse
 from mouseworld.input_manager import Input_manager
-
+from mouseworld.weight_saver import WeightSaver
+from mouseworld.weight_saver import LoadFrom
 #from mouseworld.mouse import Input_manager
 import nengo
 
@@ -26,7 +27,7 @@ class Mousebrain(nengo.Network) :
         return spd, turn
 
     
-    def build(self, input_manager):
+    def build(self, input_manager, mousebrain_weights):
 
         #mousebrain  = nengo.Network()
         with self:
@@ -88,22 +89,39 @@ class Mousebrain(nengo.Network) :
             # When approaching we need high speed when low input and turning towards source
             
             #nengo.Connection(odor2motor, motor_neurons, function=braiten) 
-            conn_approach = nengo.Connection(odor_neurons, approach_neurons, function=self.approach, 
-                        learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
-            conn_avoid = nengo.Connection(odor_neurons, avoid_neurons, function=self.avoid, 
-                        learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
-            conn_search = nengo.Connection(odor_neurons, search_neurons, function=self.search, 
-                        learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
+            if mousebrain_weights is None :
+                conn_approach = nengo.Connection(odor_neurons, approach_neurons, function=self.approach, 
+                                                learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
+                conn_avoid = nengo.Connection(odor_neurons, avoid_neurons, function=self.avoid, 
+                                                learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
+                conn_search = nengo.Connection(odor_neurons, search_neurons, function=self.search, 
+                                                learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
+           
+            else :
+                conn_approach = nengo.Connection(odor_neurons.neurons, approach_neurons, transform = mousebrain_weights[0], 
+                                                 learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
+                conn_avoid = nengo.Connection(odor_neurons.neurons, avoid_neurons, transform = mousebrain_weights[1], 
+                                                learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
+                conn_search = nengo.Connection(odor_neurons.neurons, search_neurons, transform = mousebrain_weights[2], 
+                                                learning_rule_type=nengo.PES(learning_rate=1e-4, pre_tau=0.1))
 
             nengo.Connection(errors.ensembles[0], conn_approach.learning_rule, synapse = 0.01)
             nengo.Connection(errors.ensembles[1], conn_avoid.learning_rule, synapse = 0.01)
             nengo.Connection(errors.ensembles[2], conn_search.learning_rule, synapse = 0.01)
 
 
-
             nengo.Connection(approach_neurons, approach_node) 
             nengo.Connection(avoid_neurons, avoid_node) 
             nengo.Connection(search_neurons, search_node) 
+            
+#             approach_weights = nengo.Node(size_in=200)
+#             avoid_weights = nengo.Node(size_in=200)
+#             search_weights = nengo.Node(size_in=200)
+            
+#             nengo.Connection(approach_neurons.neurons, approach_weights, transform=decoders)
+#             nengo.Connection(avoid_neurons.neurons, avoid_weights, transform=decoders)
+#             nengo.Connection(search_neurons.neurons, search_weights, transform=decoders)
+            
             #learning = nengo.Node(size_out = 2, output = [-1,-1])
             #nengo.Connection(learning, conn.learning_rule, synapse=None)  
 
@@ -120,5 +138,16 @@ class Mousebrain(nengo.Network) :
             self.p_errors0 = nengo.Probe(errors.ensembles[0])
             self.p_errors1 = nengo.Probe(errors.ensembles[1])
             self.p_errors2 = nengo.Probe(errors.ensembles[2])
+            
+            self.p_approach_weights = nengo.Probe(conn_approach, 'weights')
+            self.p_avoid_weights = nengo.Probe(conn_avoid, 'weights')
+            self.p_search_weights = nengo.Probe(conn_search, 'weights')
+            
+#             self.approach_ws = WeightSaver(conn_approach, 'approach_weights')
+#             self.avoid_ws = WeightSaver(conn_avoid, 'avoid_weights')
+#             self.search_ws = WeightSaver(conn_search, 'search_weights')
+#             self.p_approach_weights = nengo.Probe(approach_weights)
+#             self.p_avoid_weights = nengo.Probe(avoid_weights)
+#             self.p_search_weights = nengo.Probe(search_weights)
             
         #return mousebrain

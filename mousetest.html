@@ -12090,7 +12090,7 @@ from joblib import Parallel, delayed
 import multiprocessing
 
 class Mousetest(Mouseworld):
-    def __init__(self, num_mice, genome, pos, header, food_odor_value, num_food, num_predators, width, height):
+    def __init__(self, num_mice, genome, pos, header, food_odor_value, num_food, num_predators, width, height, mousebrain_inheritance = False):
         
         # for parallel processing
         self.num_cores = multiprocessing.cpu_count()

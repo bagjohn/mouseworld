@@ -1,1 +1,1 @@
-__all__ = ["mouseworld", "mouse", "predator", "food", "mydatacollector", "mousebrain", "myspace", "mytime", "input_manager", "space_surface"]
+__all__ = ["mouseworld", "mouse", "predator", "food", "mydatacollector", "mousebrain", "myspace", "mytime", "input_manager", "weight_saver", "space_surface"]

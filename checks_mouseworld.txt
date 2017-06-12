@@ -1,18 +1,69 @@
 
-#%%writefile check_family_tree.py
+#%%writefile check_mousebrain_learning.py
+
+from mouseworld import mouseworld
+import time
+
+# Build the modelprint('Building mouseworld')
+print('Building mouseworld')
+model = mouseworld.Mouseworld([0, 0, 1], 100, 40, 100, 100, mousebrain_inheritance = True)
+
+print('Preparing odor layers')
+for i in range(0) :
+    model.food_schedule.step()
+    model.predator_schedule.step()
+    model.diffuse_odor_layers(model.odor_layers)
+
+counter = 0  
+# Run for discrete number of timesteps
+for i in range(10) :
+    counter += 1
+    print(model.num_mice)
+    print('sim step : %i'%counter)
+    model.step()
+    
+# while model.num_mice > 0 :
+#         c=time.time()
+#         counter += 1
+#         model.step()
+#         d=time.time()
+#         print('sim step : %i in %f'%(counter, d-c))
+# print('Simulation terminated - No alive mice')
+
+print('Gathering agent mousebrain data')
+model.final_datacollector.collect(model,model.all_mice_schedule)
+final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
+mousebrain_data = final_agent_data[['generation', 'initial_mousebrain_weights', 'current_mousebrain_weights','final_mousebrain_weights']]
+
+print(mousebrain_data['generation'])
+print(mousebrain_data['initial_mousebrain_weights'])
+print(mousebrain_data['current_mousebrain_weights'])
+print(mousebrain_data['final_mousebrain_weights'])
+print(mousebrain_data['final_mousebrain_weights'][0].values)
+
+%%writefile check_family_tree.py
+
 from mouseworld import mouseworld
 import time
 import matplotlib.pyplot as plt
-import matplotlib.pyplot as plt
 import matplotlib as mpl
 import numpy as np
-#import networkx as nx
+import os
+import sys
 
-simulation_number = 000
-num_mice = [100, 0, 0]
+# Arguments
+# argv[1] TO_DEATH means simulation runs until all mice die. Otherwise it defines the number of time steps
+# argv[2] defines the simulation number therefore the results folder name
+
+simulation_number = int(sys.argv[2])
+result_folder = 'results/simulation_%i'%simulation_number
+os.makedirs(result_folder)
+
+num_mice = [2, 2, 2]
 
 # Build the model
-model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
+print('Building mouseworld')
+model = mouseworld.Mouseworld(num_mice, 200, 100, 100, 100)
 
 
 # Prepare environment by stepping food and predators and diffusing odors
@@ -20,53 +71,60 @@ model = mouseworld.Mouseworld(num_mice, 100, 50, 100, 100)
 #     model.food_schedule.step()
 #     model.predator_schedule.step()
 #     model.diffuse_odor_layers_parallel(model.odor_layers)
-a=time.time()
+print('Preparing odor layers')
 for i in range(10) :
     model.food_schedule.step()
     model.predator_schedule.step()
     model.diffuse_odor_layers(model.odor_layers)
-    
+
+counter = 0    
+
 #Run for discrete number of timesteps
-# b=time.time()
-# print(b-a)
-counter = 0
-# myrange = 2
-# for i in range(myrange) :
-#     c=time.time()
-#     counter += 1
-#     model.step()
-#     d=time.time()
-#     print('sim step : %i in %f'%(counter, d-c))
+if sys.argv[1] == 'TO_DEATH' :
+    while model.num_mice > 0 :
+        c=time.time()
+        counter += 1
+        model.step()
+        d=time.time()
+        print('sim step : %i in %f'%(counter, d-c))
+    print('Simulation terminated - No alive mice')
 
 #Run until all mice perish
-while model.num_mice > 0 :
-    c=time.time()
-    counter += 1
-    model.step()
-    d=time.time()
-    print('sim step : %i in %f'%(counter, d-c))
+else :
+    myrange = int(sys.argv[1])
+    for i in range(myrange) :
+        c=time.time()
+        counter += 1
+        model.step()
+        d=time.time()
+        print('sim step : %i in %f'%(counter, d-c))
+    print('Simulation terminated - Number of time steps reached')
+    
 
 # Gather model and data
+
+print('Gathering model data and ploting number of mice')
+
 model_data = model.model_datacollector.get_model_vars_dataframe()
 model_data = model_data[['Alive_mice', 'Unborn_mice']]
-model_data.to_csv('results/simulation_%i/num_mice.csv'%simulation_number, sep='\t')
+model_data.to_csv('%s/num_mice.csv'%result_folder, sep='\t')
+plt.figure(1)
 plt.plot(model_data['Alive_mice'])
 plt.plot(model_data['Unborn_mice'])
-plt.savefig('results/simulation_%i/num_mice.png'%simulation_number, bbox_inches='tight')
-plt.show()
-#     plt.legend(bbox_to_anchor=(0, 1), loc='best')
-# plt.savefig('results/check_family_tree.png', bbox_inches='tight')
-# plt.show()
+plt.savefig('%s/num_mice.png'%result_folder, bbox_inches='tight')
+#plt.show()
 
 # Gather final model and agent data
+
+print('Gathering agent data and ploting family tree')
+
 model.final_datacollector.collect(model,model.all_mice_schedule)
 final_model_data = model.final_datacollector.get_model_vars_dataframe()
 final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
-genome_data = final_agent_data[['Genome']]
+genome_data = final_agent_data[['Genome', 'motor_NN_on', 'learning_on', 'mousebrain_sim']]
 genome_data = genome_data.reset_index('Step', drop = True)
-genome_data.to_csv('results/simulation_%i/genome_data.csv'%simulation_number, sep='\t')
-# print(type(genome_data))
-tree_data = final_agent_data[['parent_ID', 'birth_date', 'age', 'generation']]
+genome_data.to_csv('%s/genome_data.csv'%result_folder, sep='\t')
+tree_data = final_agent_data[['parent_ID', 'birth_date', 'age', 'generation', 'motor_NN_on', 'learning_on']]
 tree_data = tree_data.reset_index('AgentID').values
 
 
@@ -83,16 +141,25 @@ def rearrange_data (tree_data) :
                 temp = np.insert(temp, 0, offspring[x], axis=0)
     return new_tree_data
 
-cmap = mpl.cm.Set1
-# print(cmap.N)
+cmap1 = mpl.cm.Set1
+cmap2 = mpl.cm.Dark2
+cmap3 = mpl.cm.Set3
 new_tree_data = rearrange_data(tree_data)
-for i in range(len(new_tree_data)) :
+all_mice = len(new_tree_data)
+plt.figure(figsize=(40, 25))
+for i in range(all_mice) :
     mouse = new_tree_data[i]
-#     plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), 'k-')
-    plt.plot((mouse[2], mouse[2] + mouse[3]), (i, i), color=cmap(mouse[4]%cmap.N), label=mouse[0])
+    if not mouse[5] :
+        cmap = cmap1
+    elif not mouse[6] :
+        cmap = cmap2
+    else :
+        cmap = cmap3
+    plt.plot((mouse[2], mouse[2] + mouse[3]), (all_mice - i, all_mice - i), color=cmap(mouse[4]%cmap.N), label=mouse[0])
     plt.legend(bbox_to_anchor=(0, 1), loc='best')
-plt.savefig('results/simulation_%i/family_tree.png'%simulation_number, bbox_inches='tight')
-plt.show()
+plt.savefig('%s/family_tree.png'%result_folder, bbox_inches='tight')
+#plt.show()
+print('Over!!!')
 
 
 %%writefile check_action_history.py

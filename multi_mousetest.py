@@ -86,97 +86,9 @@ for i in range(len(mouse_list)) :
 file.close() 
 
 
-# In[2]:
+# In[8]:
 
-#%%writefile multi_mousetest_run_parallel.py
-
-# at terminal : ipcluster start -n 4
-
-import ipyparallel
-import itertools
-import mouseworld
-
-
-clients = ipyparallel.Client()
-dview = clients.direct_view()
-
-# mouse_list_file = sys.argv[1]
-mouse_list= []
-# max_speed = [0, 0.2, 0.4, 0.6, 0.8, 1]
-# antenna_length = [0, 0.2, 0.4, 0.6, 0.8, 1]
-# antenna_angle = [0, 0.2, 0.4, 0.6, 0.8, 1]
-max_speed = [0.2]
-antenna_length = [0.4]
-antenna_angle = [0.2]
-params = (max_speed, antenna_length, antenna_angle)
-param_combs = list(itertools.product(*params))
-for params in param_combs :
-    genome = [params[0], 0, 0, params[1], params[2]]
-    mouse_list.append(tuple([genome, True, True, None]))
-    mouse_list.append(tuple([genome, True, False, None]))
-    mouse_list.append(tuple([genome, False, False, None]))
-# mouse_list=[([[0.2,0.4,0.6,0.4,0.2], True, True, None]),
-#             ([[0.2,0.4,0.6,0.4,0.2], True, False, None]),([[0.2,0.4,0.6,0.4,0.2], False, False, None])]
-# pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
-# # pos =[(1,1), (2,2), (3,3)]
-# header = [0,1,2,3,4,5,6,7]
-# # header = [0]
-
-# params = (pos, header, mouse_list)
-# param_combs = list(itertools.product(*params))
-
-with dview.sync_imports():
-    from mouseworld.multi_mousetest import Multi_Mousetest
-    import time
-dview.push({"Multi_Mousetest": Multi_Mousetest})
-
-def make_model(mouse_data):
-    #header = params[0]
-#     pos = params[0]
-#     header = params[1]
-#     mouse_list = params[2]
-    model = Multi_Mousetest(mouse_data, -10, 1, 0, 100, 100)
-    for i in range(10) :
-        model.food_schedule.step()
-        #model.predator_schedule.step()
-        model.diffuse_odor_layers(model.odor_layers)
-    #counter = 0
-    myrange = 40
-    for i in range(myrange) :
-        #c=time.time()
-        #counter += 1
-        model.step()
-        #d=time.time()
-    model.final_datacollector.collect(model,model.all_mice_schedule)
-    final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
-    mouse_statistics = final_agent_data[['first_action_duration', 'first_action_termination']]
-    mouse_statistics = mouse_statistics.reset_index('Step', drop = True)
-    #mouse_statistics = mouse_statistics.reset_index('AgentID', drop = True)
-    succesful_trials = mouse_statistics.loc[(mouse_statistics['first_action_termination'] == 'Closure')]
-    num_trials = len(mouse_statistics.index)
-    num_succesful_trials = len(succesful_trials.index)
-    performance = num_succesful_trials / num_trials
-    mean_time = succesful_trials['first_action_duration'].mean()
-#     sensor_vector = final_agent_data['sensor_vector'][0].values[0]
-#     sensor_position = final_agent_data['sensor_position'][0].values[0]
-#     motor_vector = final_agent_data['motor_vector'][0].values[0]
-#     first_action = final_agent_data['action_history'][0].values[0].loc[0]
-#     first_action = mousetest_data
-#     first_action = (mousetest_data['Duration'], mousetest_data['Termination'])
-    #first_action = final_agent_data['action_history'][0].values[0].loc[0]
-    return (performance,  mean_time)
-#     return (params, mousetest_data.loc['Mouse_1'])
-
-#     return (first_action, sensor_vector, sensor_position, motor_vector)
- 
-all_first_actions = dview.map_sync(make_model, mouse_list)
-file = open('results/stats.txt','w') 
-for i in range(len(mouse_list)) :
-    if i%3 == 0 :
-        file.write('')
-    file.write(str(mouse_list[i]) + '\n')
-    file.write(str(all_first_actions[i]) + '\n')
-file.close() 
+get_ipython().run_cell_magic('writefile', 'multi_mousetest_run_parallel.py', '\n# at terminal : ipcluster start -n 4\n\nimport ipyparallel\nimport itertools\nimport mouseworld\n\n\nclients = ipyparallel.Client()\ndview = clients.direct_view()\n\n# mouse_list_file = sys.argv[1]\nmouse_list= []\nmax_speed = [0, 0.2, 0.4, 0.6, 0.8, 1]\nantenna_length = [0, 0.2, 0.4, 0.6, 0.8, 1]\nantenna_angle = [0, 0.2, 0.4, 0.6, 0.8, 1]\n# max_speed = [0.2]\n# antenna_length = [0.4]\n# antenna_angle = [0.2]\nparams = (max_speed, antenna_length, antenna_angle)\nparam_combs = list(itertools.product(*params))\nfor params in param_combs :\n    genome = [params[0], 0, 0, params[1], params[2]]\n    mouse_list.append(tuple([genome, True, True, None]))\n    mouse_list.append(tuple([genome, True, False, None]))\n    mouse_list.append(tuple([genome, False, False, None]))\n# mouse_list=[([[0.2,0.4,0.6,0.4,0.2], True, True, None]),\n#             ([[0.2,0.4,0.6,0.4,0.2], True, False, None]),([[0.2,0.4,0.6,0.4,0.2], False, False, None])]\n# pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]\n# # pos =[(1,1), (2,2), (3,3)]\n# header = [0,1,2,3,4,5,6,7]\n# # header = [0]\n\n# params = (pos, header, mouse_list)\n# param_combs = list(itertools.product(*params))\n\nwith dview.sync_imports():\n    from mouseworld.multi_mousetest import Multi_Mousetest\n    import time\ndview.push({"Multi_Mousetest": Multi_Mousetest})\n\ndef make_model(mouse_data):\n    #header = params[0]\n#     pos = params[0]\n#     header = params[1]\n#     mouse_list = params[2]\n    model = Multi_Mousetest(mouse_data, -10, 1, 0, 100, 100)\n    for i in range(10) :\n        model.food_schedule.step()\n        #model.predator_schedule.step()\n        model.diffuse_odor_layers(model.odor_layers)\n    #counter = 0\n    myrange = 40\n    for i in range(myrange) :\n        #c=time.time()\n        #counter += 1\n        model.step()\n        #d=time.time()\n    model.final_datacollector.collect(model,model.all_mice_schedule)\n    final_agent_data = model.final_datacollector.get_agent_vars_dataframe()\n    mouse_statistics = final_agent_data[[\'first_action_duration\', \'first_action_termination\']]\n    mouse_statistics = mouse_statistics.reset_index(\'Step\', drop = True)\n    #mouse_statistics = mouse_statistics.reset_index(\'AgentID\', drop = True)\n    succesful_trials = mouse_statistics.loc[(mouse_statistics[\'first_action_termination\'] == \'Closure\')]\n    num_trials = len(mouse_statistics.index)\n    num_succesful_trials = len(succesful_trials.index)\n    performance = num_succesful_trials / num_trials\n    mean_time = succesful_trials[\'first_action_duration\'].mean()\n#     sensor_vector = final_agent_data[\'sensor_vector\'][0].values[0]\n#     sensor_position = final_agent_data[\'sensor_position\'][0].values[0]\n#     motor_vector = final_agent_data[\'motor_vector\'][0].values[0]\n#     first_action = final_agent_data[\'action_history\'][0].values[0].loc[0]\n#     first_action = mousetest_data\n#     first_action = (mousetest_data[\'Duration\'], mousetest_data[\'Termination\'])\n    #first_action = final_agent_data[\'action_history\'][0].values[0].loc[0]\n    return (performance,  mean_time)\n#     return (params, mousetest_data.loc[\'Mouse_1\'])\n\n#     return (first_action, sensor_vector, sensor_position, motor_vector)\n \nall_first_actions = dview.map_sync(make_model, mouse_list)\nfile = open(\'results/stats.txt\',\'w\') \nfor i in range(len(mouse_list)) :\n    if i%3 == 0 :\n        file.write(\'------------------NEW GENOME------------------\\n\')\n    file.write(str(mouse_list[i]) + \'\\n\')\n    file.write(str(all_first_actions[i]) + \'\\n\')\nfile.close() ')
 
 
 # In[1]:

@@ -44,13 +44,13 @@ def make_model(mouse_data):
 #     pos = params[0]
 #     header = params[1]
 #     mouse_list = params[2]
-    model = Multi_Mousetest(mouse_data, -10, 1, 0, 100, 100)
+    model = Multi_Mousetest(mouse_data, 10, 1, 0, 100, 100)
     for i in range(10) :
         model.food_schedule.step()
         #model.predator_schedule.step()
         model.diffuse_odor_layers(model.odor_layers)
     #counter = 0
-    myrange = 40
+    myrange = 60
     for i in range(myrange) :
         #c=time.time()
         #counter += 1

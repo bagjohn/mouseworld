@@ -14,6 +14,9 @@ mouse_list= []
 max_speed = [0, 0.2, 0.4, 0.6, 0.8, 1]
 antenna_length = [0, 0.2, 0.4, 0.6, 0.8, 1]
 antenna_angle = [0, 0.2, 0.4, 0.6, 0.8, 1]
+# max_speed = [0.2]
+# antenna_length = [0.4]
+# antenna_angle = [0.2]
 params = (max_speed, antenna_length, antenna_angle)
 param_combs = list(itertools.product(*params))
 for params in param_combs :
@@ -41,7 +44,7 @@ def make_model(mouse_data):
 #     pos = params[0]
 #     header = params[1]
 #     mouse_list = params[2]
-    model = Multi_Mousetest(mouse_data, 10, 1, 0, 100, 100)
+    model = Multi_Mousetest(mouse_data, -10, 1, 0, 100, 100)
     for i in range(10) :
         model.food_schedule.step()
         #model.predator_schedule.step()
@@ -78,6 +81,8 @@ def make_model(mouse_data):
 all_first_actions = dview.map_sync(make_model, mouse_list)
 file = open('results/stats.txt','w') 
 for i in range(len(mouse_list)) :
-    file.write(str(mouse_list[i]))
-    file.write(str(all_first_actions[i]))
+    if i%3 == 0 :
+        file.write('------------------NEW GENOME------------------\n')
+    file.write(str(mouse_list[i]) + '\n')
+    file.write(str(all_first_actions[i]) + '\n')
 file.close() 

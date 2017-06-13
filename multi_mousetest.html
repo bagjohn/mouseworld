@@ -11919,42 +11919,27 @@ importing time on engine(s)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="p">[[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-<span class="p">(</span><span class="mf">0.23214285714285715</span><span class="p">,</span> <span class="mf">17.576923076923077</span><span class="p">)</span>
-<span class="p">[[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-<span class="p">(</span><span class="mf">0.25</span><span class="p">,</span> <span class="mf">16.857142857142858</span><span class="p">)</span>
-<span class="p">[[</span><span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">],</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">]</span>
-<span class="p">(</span><span class="mf">0.125</span><span class="p">,</span> <span class="mf">8.214285714285714</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">mouse_list</span> <span class="o">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">,</span><span class="mi">4</span><span class="p">,</span><span class="mi">3</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">6</span><span class="p">]</span>
+
+<span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;results/stats2.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> 
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mouse_list</span><span class="p">))</span> <span class="p">:</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="k">3</span> == 0:
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">mouse_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1">#     file.write(str(all_first_actions[i]))</span>
+<span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> 
 </pre></div>
 
 </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt output_prompt">Out[4]:</div>
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>[(3, 0, [[[0.2, 0.4, 0.6, 0.4, 0.2], True, True, [None, None, None]]]),
- (2, 0, [[[0.2, 0.4, 0.6, 0.4, 0.2], True, True, [None, None, None]]])]</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#%%writefile multi_mousetest_run_parallel.py</span>
@@ -11971,9 +11956,12 @@ importing time on engine(s)
 
 <span class="c1"># mouse_list_file = sys.argv[1]</span>
 <span class="n">mouse_list</span><span class="o">=</span> <span class="p">[]</span>
-<span class="n">max_speed</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">antenna_length</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-<span class="n">antenna_angle</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.6</span><span class="p">,</span> <span class="mf">0.8</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
+<span class="c1"># max_speed = [0, 0.2, 0.4, 0.6, 0.8, 1]</span>
+<span class="c1"># antenna_length = [0, 0.2, 0.4, 0.6, 0.8, 1]</span>
+<span class="c1"># antenna_angle = [0, 0.2, 0.4, 0.6, 0.8, 1]</span>
+<span class="n">max_speed</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">]</span>
+<span class="n">antenna_length</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">]</span>
+<span class="n">antenna_angle</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">]</span>
 <span class="n">params</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_speed</span><span class="p">,</span> <span class="n">antenna_length</span><span class="p">,</span> <span class="n">antenna_angle</span><span class="p">)</span>
 <span class="n">param_combs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">params</span><span class="p">))</span>
 <span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">param_combs</span> <span class="p">:</span>
@@ -12001,7 +11989,7 @@ importing time on engine(s)
 <span class="c1">#     pos = params[0]</span>
 <span class="c1">#     header = params[1]</span>
 <span class="c1">#     mouse_list = params[2]</span>
-    <span class="n">model</span> <span class="o">=</span> <span class="n">Multi_Mousetest</span><span class="p">(</span><span class="n">mouse_data</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Multi_Mousetest</span><span class="p">(</span><span class="n">mouse_data</span><span class="p">,</span> <span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">:</span>
         <span class="n">model</span><span class="o">.</span><span class="n">food_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
         <span class="c1">#model.predator_schedule.step()</span>
@@ -12038,8 +12026,10 @@ importing time on engine(s)
 <span class="n">all_first_actions</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">map_sync</span><span class="p">(</span><span class="n">make_model</span><span class="p">,</span> <span class="n">mouse_list</span><span class="p">)</span>
 <span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;results/stats.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">mouse_list</span><span class="p">))</span> <span class="p">:</span>
-    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">mouse_list</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
-    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">all_first_actions</span><span class="p">[</span><span class="n">i</span><span class="p">]))</span>
+    <span class="k">if</span> <span class="n">i</span><span class="o">%</span><span class="k">3</span> == 0 :
+        <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">mouse_list</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">all_first_actions</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> 
 </pre></div>
 
@@ -12053,7 +12043,8 @@ importing time on engine(s)
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Overwriting multi_mousetest_run_parallel.py
+<pre>importing Multi_Mousetest from mouseworld.multi_mousetest on engine(s)
+importing time on engine(s)
 </pre>
 </div>
 </div>
@@ -12064,7 +12055,7 @@ importing time on engine(s)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/multi_mousetest.py
@@ -12207,7 +12198,7 @@ class Multi_Mousetest(Mouseworld):
                            appraisal_NN_on = False, initial_mousebrain_weights = self.mousebrain_weights)
 
             mouse.header = header * math.pi / 4
-            mouse.primary_values[self.food_groups[0]] = food_odor_value * 10
+            mouse.primary_values[self.food_groups[0]] = 100
             mouse.secondary_values.ix[self.food_groups[0]][self.food_layer_names[0]]= food_odor_value
             self.schedule.add(mouse)
             self.all_mice_schedule.add(mouse)

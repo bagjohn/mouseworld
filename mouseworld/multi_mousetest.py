@@ -137,7 +137,7 @@ class Multi_Mousetest(Mouseworld):
                            appraisal_NN_on = False, initial_mousebrain_weights = self.mousebrain_weights)
 
             mouse.header = header * math.pi / 4
-            mouse.primary_values[self.food_groups[0]] = food_odor_value * 10
+            mouse.primary_values[self.food_groups[0]] = 100
             mouse.secondary_values.ix[self.food_groups[0]][self.food_layer_names[0]]= food_odor_value
             self.schedule.add(mouse)
             self.all_mice_schedule.add(mouse)

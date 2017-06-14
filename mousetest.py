@@ -1,27 +1,29 @@
 
 # coding: utf-8
 
-# In[4]:
+# In[13]:
+
+import numpy as np
+num_mice = 3
+genome_range = [(0,1), (0,1), (0,1), (0,1), (0,1)]
+# for low, high in genome_range :
+#     print(low)
+#     print(high)
+len(genome_range)
+genome = [[np.random.uniform(low=low, high=high) for (low, high) in genome_range] for i in range(num_mice)]
+genome = np.around(genome, decimals = 2)
+genome
+len(genome_range)
+
+
+# In[27]:
 
 import itertools
-
-# header = [0,1,2,3,4,5,6,7]
-# x = [-5,-4,-3,-2,-1,0,1,2,3,4,5]
-# y = [-5,-4,-3,-2,-1,0,1,2,3,4,5]
-# max_speed = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
-# antenna_length = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
-# antenna_angle = [0,0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9,1]
-header = [0,1,2,3,4,5,6,7]
-x = [0,1,2,3,4,5]
-y = [0,1,2,3,4,5]
-max_speed = [0,0.2,0.4,0.6,0.8,1]
-antenna_length = [0,0.2,0.4,0.6,0.8,1]
-antenna_angle = [0,0.2,0.4,0.6,0.8,1]
-
-params = (header, x, y, max_speed, antenna_length, antenna_angle)
-param_combs = list(itertools.product(*params))
-len(param_combs)
-#param_combs[111111]
+import random
+import math
+pos = [(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
+pos =[(3,3) for i in range(5)]
+pos
 
 
 # In[14]:

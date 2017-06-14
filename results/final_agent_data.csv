@@ -1,6 +1,1715 @@
-Step	AgentID	age	energy	generation	num_offspring	action_history	possible_actions	primary_values	secondary_values	sensor_vector	motor_vector	sensor_position	motor_NN_on	learning_on	appraisal_NN_on	parent_ID	offspring	birth_date	death_date	Genome	mousebrain_sim	initial_mousebrain_weights	final_mousebrain_weights
-0	Mouse_1	5	-0.13730875836233958	0	0	"     Verb Noun_group  Duration  Benefit Termination  Distance
-0  Search       None       5.0      0.0       Death  5.137309"	"     Verb Noun_group    Value  \
+Step	AgentID	age	energy	generation	num_offspring	action_history	possible_actions	primary_values	secondary_values	sensor_vector	motor_vector	sensor_position	motor_NN_on	learning_on	appraisal_NN_on	parent_ID	offspring	birth_date	death_date	Genome	mousebrain_sim	initial_mousebrain_weights	final_mousebrain_weights	first_action_duration	first_action_termination
+0	Mouse_1	2	1002.8361952056777	0	0	"       Verb    Noun_group  Duration  Benefit Termination  Distance
+0      Feed  Food_group_2       1.0     20.0        None  0.000000
+1  Approach  Food_group_2       1.0      0.0        None -2.886195"	"         Verb    Noun_group     Value  \
+0        Wait          None  0.000000   
+1      Search          None  0.000010   
+2    Approach  Food_group_2  2.950441   
+3    Approach  Food_group_2  2.779438   
+4    Approach  Food_group_2  2.779438   
+5        Feed  Food_group_2  2.624500   
+6        Feed  Food_group_0  0.905000   
+7        Feed  Food_group_1  0.905000   
+8        Feed  Food_group_1  0.905000   
+9        Feed  Food_group_2  2.624500   
+10       Feed  Food_group_1  0.905000   
+11       Feed  Food_group_2  2.624500   
+12       Feed  Food_group_0  0.905000   
+13       Feed  Food_group_1  0.905000   
+14       Feed  Food_group_2  2.624500   
+15       Feed  Food_group_0  0.905000   
+16       Feed  Food_group_1  0.905000   
+17       Feed  Food_group_2  2.624500   
+18       Feed  Food_group_2  2.624500   
+19       Feed  Food_group_0  0.905000   
+20       Feed  Food_group_0  0.905000   
+21       Feed  Food_group_2  2.624500   
+22       Feed  Food_group_1  0.905000   
+23       Feed  Food_group_0  0.905000   
+24       Feed  Food_group_2  2.624500   
+25       Feed  Food_group_2  2.624500   
+26       Feed  Food_group_0  0.905000   
+27       Feed  Food_group_0  0.905000   
+28       Feed  Food_group_2  2.624500   
+29       Feed  Food_group_1  0.905000   
+..        ...           ...       ...   
+75       Feed  Food_group_1  0.905000   
+76       Feed  Food_group_2  2.624500   
+77       Feed  Food_group_2  2.624500   
+78       Feed  Food_group_0  0.905000   
+79       Feed  Food_group_1  0.905000   
+80       Feed  Food_group_0  0.905000   
+81       Feed  Food_group_2  2.624500   
+82       Feed  Food_group_0  0.905000   
+83       Feed  Food_group_0  0.905000   
+84       Feed  Food_group_1  0.905000   
+85       Feed  Food_group_2  2.624500   
+86       Feed  Food_group_2  2.624500   
+87       Feed  Food_group_0  0.905000   
+88       Feed  Food_group_1  0.905000   
+89       Feed  Food_group_2  2.624500   
+90       Feed  Food_group_0  0.905000   
+91       Feed  Food_group_0  0.905000   
+92       Feed  Food_group_1  0.905000   
+93       Feed  Food_group_1  0.905000   
+94       Feed  Food_group_1  0.905000   
+95       Feed  Food_group_2  2.624500   
+96       Feed  Food_group_1  0.905000   
+97       Feed  Food_group_0  0.905000   
+98       Feed  Food_group_1  0.905000   
+99       Feed  Food_group_2  2.624500   
+100      Feed  Food_group_2  2.624500   
+101      Feed  Food_group_0  0.905000   
+102      Feed  Food_group_1  0.905000   
+103      Feed  Food_group_2  2.624500   
+104      Feed  Food_group_0  0.905000   
+
+                                              Function  \
+0    <bound method Mouse.wait of <mouseworld.mouse....   
+1    <bound method Mouse.search_for_odor of <mousew...   
+2    <bound method Mouse.approach of <mouseworld.mo...   
+3    <bound method Mouse.approach of <mouseworld.mo...   
+4    <bound method Mouse.approach of <mouseworld.mo...   
+5    <bound method Mouse.feed of <mouseworld.mouse....   
+6    <bound method Mouse.feed of <mouseworld.mouse....   
+7    <bound method Mouse.feed of <mouseworld.mouse....   
+8    <bound method Mouse.feed of <mouseworld.mouse....   
+9    <bound method Mouse.feed of <mouseworld.mouse....   
+10   <bound method Mouse.feed of <mouseworld.mouse....   
+11   <bound method Mouse.feed of <mouseworld.mouse....   
+12   <bound method Mouse.feed of <mouseworld.mouse....   
+13   <bound method Mouse.feed of <mouseworld.mouse....   
+14   <bound method Mouse.feed of <mouseworld.mouse....   
+15   <bound method Mouse.feed of <mouseworld.mouse....   
+16   <bound method Mouse.feed of <mouseworld.mouse....   
+17   <bound method Mouse.feed of <mouseworld.mouse....   
+18   <bound method Mouse.feed of <mouseworld.mouse....   
+19   <bound method Mouse.feed of <mouseworld.mouse....   
+20   <bound method Mouse.feed of <mouseworld.mouse....   
+21   <bound method Mouse.feed of <mouseworld.mouse....   
+22   <bound method Mouse.feed of <mouseworld.mouse....   
+23   <bound method Mouse.feed of <mouseworld.mouse....   
+24   <bound method Mouse.feed of <mouseworld.mouse....   
+25   <bound method Mouse.feed of <mouseworld.mouse....   
+26   <bound method Mouse.feed of <mouseworld.mouse....   
+27   <bound method Mouse.feed of <mouseworld.mouse....   
+28   <bound method Mouse.feed of <mouseworld.mouse....   
+29   <bound method Mouse.feed of <mouseworld.mouse....   
+..                                                 ...   
+75   <bound method Mouse.feed of <mouseworld.mouse....   
+76   <bound method Mouse.feed of <mouseworld.mouse....   
+77   <bound method Mouse.feed of <mouseworld.mouse....   
+78   <bound method Mouse.feed of <mouseworld.mouse....   
+79   <bound method Mouse.feed of <mouseworld.mouse....   
+80   <bound method Mouse.feed of <mouseworld.mouse....   
+81   <bound method Mouse.feed of <mouseworld.mouse....   
+82   <bound method Mouse.feed of <mouseworld.mouse....   
+83   <bound method Mouse.feed of <mouseworld.mouse....   
+84   <bound method Mouse.feed of <mouseworld.mouse....   
+85   <bound method Mouse.feed of <mouseworld.mouse....   
+86   <bound method Mouse.feed of <mouseworld.mouse....   
+87   <bound method Mouse.feed of <mouseworld.mouse....   
+88   <bound method Mouse.feed of <mouseworld.mouse....   
+89   <bound method Mouse.feed of <mouseworld.mouse....   
+90   <bound method Mouse.feed of <mouseworld.mouse....   
+91   <bound method Mouse.feed of <mouseworld.mouse....   
+92   <bound method Mouse.feed of <mouseworld.mouse....   
+93   <bound method Mouse.feed of <mouseworld.mouse....   
+94   <bound method Mouse.feed of <mouseworld.mouse....   
+95   <bound method Mouse.feed of <mouseworld.mouse....   
+96   <bound method Mouse.feed of <mouseworld.mouse....   
+97   <bound method Mouse.feed of <mouseworld.mouse....   
+98   <bound method Mouse.feed of <mouseworld.mouse....   
+99   <bound method Mouse.feed of <mouseworld.mouse....   
+100  <bound method Mouse.feed of <mouseworld.mouse....   
+101  <bound method Mouse.feed of <mouseworld.mouse....   
+102  <bound method Mouse.feed of <mouseworld.mouse....   
+103  <bound method Mouse.feed of <mouseworld.mouse....   
+104  <bound method Mouse.feed of <mouseworld.mouse....   
+
+                                               Arg_1  
+0                                               None  
+1                                               None  
+2                    [8.58371176176, -13.0378341917]  
+3                    [8.33124965112, -12.6543684802]  
+4                    [8.33124965112, -12.6543684802]  
+5    <mouseworld.food.Food object at 0x7f7fafeda048>  
+6    <mouseworld.food.Food object at 0x7f7fafb30080>  
+7    <mouseworld.food.Food object at 0x7f7fafeda0f0>  
+8    <mouseworld.food.Food object at 0x7f7fafb300f0>  
+9    <mouseworld.food.Food object at 0x7f7fafeda128>  
+10   <mouseworld.food.Food object at 0x7f7fafeda160>  
+11   <mouseworld.food.Food object at 0x7f7fafb30160>  
+12   <mouseworld.food.Food object at 0x7f7fafb301d0>  
+13   <mouseworld.food.Food object at 0x7f7fafb30240>  
+14   <mouseworld.food.Food object at 0x7f7fafb302b0>  
+15   <mouseworld.food.Food object at 0x7f7fafb30320>  
+16   <mouseworld.food.Food object at 0x7f7fafb30390>  
+17   <mouseworld.food.Food object at 0x7f7fafeda400>  
+18   <mouseworld.food.Food object at 0x7f7fafb30400>  
+19   <mouseworld.food.Food object at 0x7f7fafeda470>  
+20   <mouseworld.food.Food object at 0x7f7fafb30470>  
+21   <mouseworld.food.Food object at 0x7f7fafeda4e0>  
+22   <mouseworld.food.Food object at 0x7f7fafb304e0>  
+23   <mouseworld.food.Food object at 0x7f7fafeda518>  
+24   <mouseworld.food.Food object at 0x7f7fafb30550>  
+25   <mouseworld.food.Food object at 0x7f7fafeda5c0>  
+26   <mouseworld.food.Food object at 0x7f7fafb305c0>  
+27   <mouseworld.food.Food object at 0x7f7fafeda5f8>  
+28   <mouseworld.food.Food object at 0x7f7fafeda630>  
+29   <mouseworld.food.Food object at 0x7f7fafb30630>  
+..                                               ...  
+75   <mouseworld.food.Food object at 0x7f7fafb31630>  
+76   <mouseworld.food.Food object at 0x7f7fafb316a0>  
+77   <mouseworld.food.Food object at 0x7f7fafdfb710>  
+78   <mouseworld.food.Food object at 0x7f7fafb31710>  
+79   <mouseworld.food.Food object at 0x7f7fafb31780>  
+80   <mouseworld.food.Food object at 0x7f7fafdfb7b8>  
+81   <mouseworld.food.Food object at 0x7f7fafb317f0>  
+82   <mouseworld.food.Food object at 0x7f7fafdfb828>  
+83   <mouseworld.food.Food object at 0x7f7fafb31860>  
+84   <mouseworld.food.Food object at 0x7f7fafb318d0>  
+85   <mouseworld.food.Food object at 0x7f7fafb31940>  
+86   <mouseworld.food.Food object at 0x7f7fafdfb978>  
+87   <mouseworld.food.Food object at 0x7f7fafb319b0>  
+88   <mouseworld.food.Food object at 0x7f7fafb31a20>  
+89   <mouseworld.food.Food object at 0x7f7fafb31a90>  
+90   <mouseworld.food.Food object at 0x7f7fafdfbac8>  
+91   <mouseworld.food.Food object at 0x7f7fafb31b00>  
+92   <mouseworld.food.Food object at 0x7f7fafdfbb70>  
+93   <mouseworld.food.Food object at 0x7f7fafb31b70>  
+94   <mouseworld.food.Food object at 0x7f7fafdfbbe0>  
+95   <mouseworld.food.Food object at 0x7f7fafb31be0>  
+96   <mouseworld.food.Food object at 0x7f7fafdfbc50>  
+97   <mouseworld.food.Food object at 0x7f7fafb31c50>  
+98   <mouseworld.food.Food object at 0x7f7fafb31cc0>  
+99   <mouseworld.food.Food object at 0x7f7fafb31d30>  
+100  <mouseworld.food.Food object at 0x7f7fafdfbda0>  
+101  <mouseworld.food.Food object at 0x7f7fafb31da0>  
+102  <mouseworld.food.Food object at 0x7f7fafb31e10>  
+103  <mouseworld.food.Food object at 0x7f7fafb31e80>  
+104  <mouseworld.food.Food object at 0x7f7fafb31ef0>  
+
+[105 rows x 5 columns]"	{'Food_group_0': 1, 'Food_group_1': 1, 'Food_group_2': 2.9000000000000004, 'Predator_group_0': 1, 'Predator_group_1': 1, 'Predator_group_2': 1, 'Predator_group_3': 1}	"                  Food_odor_0  Food_odor_1  Food_odor_2  Predator_odor_0  \
+Food_group_0         0.000000     0.000000     0.000000              0.0   
+Food_group_1         0.000000     0.000000     0.000000              0.0   
+Food_group_2         0.379807     0.368636     0.368636              0.0   
+Predator_group_0     0.000000     0.000000     0.000000              0.0   
+Predator_group_1     0.000000     0.000000     0.000000              0.0   
+Predator_group_2     0.000000     0.000000     0.000000              0.0   
+Predator_group_3     0.000000     0.000000     0.000000              0.0   
+
+                  Predator_odor_1  Predator_odor_2  Predator_odor_3  
+Food_group_0                  0.0              0.0              0.0  
+Food_group_1                  0.0              0.0              0.0  
+Food_group_2                  0.0              0.0              0.0  
+Predator_group_0              0.0              0.0              0.0  
+Predator_group_1              0.0              0.0              0.0  
+Predator_group_2              0.0              0.0              0.0  
+Predator_group_3              0.0              0.0              0.0  "	"[[  8.58371176 -13.03783419]
+ [  8.33124965 -12.65436848]
+ [  8.33124965 -12.65436848]
+ [  0.           0.        ]
+ [  0.           0.        ]
+ [  0.           0.        ]
+ [  0.           0.        ]]"	[-0.60634353060454627, -130.37834191680003]	[(0, 1), (0, 0)]	False	False	False		[]	0		[ 0.94  0.62  0.37  0.91  0.69]				1.0	
+0	Mouse_2	2	1002.375328203957	0	0	"       Verb    Noun_group  Duration  Benefit Termination  Distance
+0      Feed  Food_group_2       1.0     20.0        None  0.000000
+1  Approach  Food_group_2       1.0      0.0        None -2.425328"	"         Verb    Noun_group     Value  \
+0        Wait          None  0.000000   
+1      Search          None  0.000010   
+2    Approach  Food_group_2  2.959629   
+3    Approach  Food_group_2  2.788093   
+4    Approach  Food_group_2  2.788093   
+5        Feed  Food_group_2  2.624500   
+6        Feed  Food_group_0  0.905000   
+7        Feed  Food_group_1  0.905000   
+8        Feed  Food_group_1  0.905000   
+9        Feed  Food_group_2  2.624500   
+10       Feed  Food_group_1  0.905000   
+11       Feed  Food_group_2  2.624500   
+12       Feed  Food_group_0  0.905000   
+13       Feed  Food_group_1  0.905000   
+14       Feed  Food_group_2  2.624500   
+15       Feed  Food_group_0  0.905000   
+16       Feed  Food_group_1  0.905000   
+17       Feed  Food_group_2  2.624500   
+18       Feed  Food_group_2  2.624500   
+19       Feed  Food_group_0  0.905000   
+20       Feed  Food_group_0  0.905000   
+21       Feed  Food_group_2  2.624500   
+22       Feed  Food_group_1  0.905000   
+23       Feed  Food_group_0  0.905000   
+24       Feed  Food_group_2  2.624500   
+25       Feed  Food_group_2  2.624500   
+26       Feed  Food_group_0  0.905000   
+27       Feed  Food_group_0  0.905000   
+28       Feed  Food_group_2  2.624500   
+29       Feed  Food_group_1  0.905000   
+..        ...           ...       ...   
+75       Feed  Food_group_1  0.905000   
+76       Feed  Food_group_2  2.624500   
+77       Feed  Food_group_2  2.624500   
+78       Feed  Food_group_0  0.905000   
+79       Feed  Food_group_1  0.905000   
+80       Feed  Food_group_0  0.905000   
+81       Feed  Food_group_2  2.624500   
+82       Feed  Food_group_0  0.905000   
+83       Feed  Food_group_0  0.905000   
+84       Feed  Food_group_1  0.905000   
+85       Feed  Food_group_2  2.624500   
+86       Feed  Food_group_2  2.624500   
+87       Feed  Food_group_0  0.905000   
+88       Feed  Food_group_1  0.905000   
+89       Feed  Food_group_2  2.624500   
+90       Feed  Food_group_0  0.905000   
+91       Feed  Food_group_0  0.905000   
+92       Feed  Food_group_1  0.905000   
+93       Feed  Food_group_1  0.905000   
+94       Feed  Food_group_1  0.905000   
+95       Feed  Food_group_2  2.624500   
+96       Feed  Food_group_1  0.905000   
+97       Feed  Food_group_0  0.905000   
+98       Feed  Food_group_1  0.905000   
+99       Feed  Food_group_2  2.624500   
+100      Feed  Food_group_2  2.624500   
+101      Feed  Food_group_0  0.905000   
+102      Feed  Food_group_1  0.905000   
+103      Feed  Food_group_2  2.624500   
+104      Feed  Food_group_0  0.905000   
+
+                                              Function  \
+0    <bound method Mouse.wait of <mouseworld.mouse....   
+1    <bound method Mouse.search_for_odor of <mousew...   
+2    <bound method Mouse.approach of <mouseworld.mo...   
+3    <bound method Mouse.approach of <mouseworld.mo...   
+4    <bound method Mouse.approach of <mouseworld.mo...   
+5    <bound method Mouse.feed of <mouseworld.mouse....   
+6    <bound method Mouse.feed of <mouseworld.mouse....   
+7    <bound method Mouse.feed of <mouseworld.mouse....   
+8    <bound method Mouse.feed of <mouseworld.mouse....   
+9    <bound method Mouse.feed of <mouseworld.mouse....   
+10   <bound method Mouse.feed of <mouseworld.mouse....   
+11   <bound method Mouse.feed of <mouseworld.mouse....   
+12   <bound method Mouse.feed of <mouseworld.mouse....   
+13   <bound method Mouse.feed of <mouseworld.mouse....   
+14   <bound method Mouse.feed of <mouseworld.mouse....   
+15   <bound method Mouse.feed of <mouseworld.mouse....   
+16   <bound method Mouse.feed of <mouseworld.mouse....   
+17   <bound method Mouse.feed of <mouseworld.mouse....   
+18   <bound method Mouse.feed of <mouseworld.mouse....   
+19   <bound method Mouse.feed of <mouseworld.mouse....   
+20   <bound method Mouse.feed of <mouseworld.mouse....   
+21   <bound method Mouse.feed of <mouseworld.mouse....   
+22   <bound method Mouse.feed of <mouseworld.mouse....   
+23   <bound method Mouse.feed of <mouseworld.mouse....   
+24   <bound method Mouse.feed of <mouseworld.mouse....   
+25   <bound method Mouse.feed of <mouseworld.mouse....   
+26   <bound method Mouse.feed of <mouseworld.mouse....   
+27   <bound method Mouse.feed of <mouseworld.mouse....   
+28   <bound method Mouse.feed of <mouseworld.mouse....   
+29   <bound method Mouse.feed of <mouseworld.mouse....   
+..                                                 ...   
+75   <bound method Mouse.feed of <mouseworld.mouse....   
+76   <bound method Mouse.feed of <mouseworld.mouse....   
+77   <bound method Mouse.feed of <mouseworld.mouse....   
+78   <bound method Mouse.feed of <mouseworld.mouse....   
+79   <bound method Mouse.feed of <mouseworld.mouse....   
+80   <bound method Mouse.feed of <mouseworld.mouse....   
+81   <bound method Mouse.feed of <mouseworld.mouse....   
+82   <bound method Mouse.feed of <mouseworld.mouse....   
+83   <bound method Mouse.feed of <mouseworld.mouse....   
+84   <bound method Mouse.feed of <mouseworld.mouse....   
+85   <bound method Mouse.feed of <mouseworld.mouse....   
+86   <bound method Mouse.feed of <mouseworld.mouse....   
+87   <bound method Mouse.feed of <mouseworld.mouse....   
+88   <bound method Mouse.feed of <mouseworld.mouse....   
+89   <bound method Mouse.feed of <mouseworld.mouse....   
+90   <bound method Mouse.feed of <mouseworld.mouse....   
+91   <bound method Mouse.feed of <mouseworld.mouse....   
+92   <bound method Mouse.feed of <mouseworld.mouse....   
+93   <bound method Mouse.feed of <mouseworld.mouse....   
+94   <bound method Mouse.feed of <mouseworld.mouse....   
+95   <bound method Mouse.feed of <mouseworld.mouse....   
+96   <bound method Mouse.feed of <mouseworld.mouse....   
+97   <bound method Mouse.feed of <mouseworld.mouse....   
+98   <bound method Mouse.feed of <mouseworld.mouse....   
+99   <bound method Mouse.feed of <mouseworld.mouse....   
+100  <bound method Mouse.feed of <mouseworld.mouse....   
+101  <bound method Mouse.feed of <mouseworld.mouse....   
+102  <bound method Mouse.feed of <mouseworld.mouse....   
+103  <bound method Mouse.feed of <mouseworld.mouse....   
+104  <bound method Mouse.feed of <mouseworld.mouse....   
+
+                                               Arg_1  
+0                                               None  
+1                                               None  
+2                    [8.52417388285, -13.1569099495]  
+3                     [8.2734628863, -12.7699420098]  
+4                     [8.2734628863, -12.7699420098]  
+5    <mouseworld.food.Food object at 0x7f7fafeda048>  
+6    <mouseworld.food.Food object at 0x7f7fafb30080>  
+7    <mouseworld.food.Food object at 0x7f7fafeda0f0>  
+8    <mouseworld.food.Food object at 0x7f7fafb300f0>  
+9    <mouseworld.food.Food object at 0x7f7fafeda128>  
+10   <mouseworld.food.Food object at 0x7f7fafeda160>  
+11   <mouseworld.food.Food object at 0x7f7fafb30160>  
+12   <mouseworld.food.Food object at 0x7f7fafb301d0>  
+13   <mouseworld.food.Food object at 0x7f7fafb30240>  
+14   <mouseworld.food.Food object at 0x7f7fafb302b0>  
+15   <mouseworld.food.Food object at 0x7f7fafb30320>  
+16   <mouseworld.food.Food object at 0x7f7fafb30390>  
+17   <mouseworld.food.Food object at 0x7f7fafeda400>  
+18   <mouseworld.food.Food object at 0x7f7fafb30400>  
+19   <mouseworld.food.Food object at 0x7f7fafeda470>  
+20   <mouseworld.food.Food object at 0x7f7fafb30470>  
+21   <mouseworld.food.Food object at 0x7f7fafeda4e0>  
+22   <mouseworld.food.Food object at 0x7f7fafb304e0>  
+23   <mouseworld.food.Food object at 0x7f7fafeda518>  
+24   <mouseworld.food.Food object at 0x7f7fafb30550>  
+25   <mouseworld.food.Food object at 0x7f7fafeda5c0>  
+26   <mouseworld.food.Food object at 0x7f7fafb305c0>  
+27   <mouseworld.food.Food object at 0x7f7fafeda5f8>  
+28   <mouseworld.food.Food object at 0x7f7fafeda630>  
+29   <mouseworld.food.Food object at 0x7f7fafb30630>  
+..                                               ...  
+75   <mouseworld.food.Food object at 0x7f7fafb31630>  
+76   <mouseworld.food.Food object at 0x7f7fafb316a0>  
+77   <mouseworld.food.Food object at 0x7f7fafdfb710>  
+78   <mouseworld.food.Food object at 0x7f7fafb31710>  
+79   <mouseworld.food.Food object at 0x7f7fafb31780>  
+80   <mouseworld.food.Food object at 0x7f7fafdfb7b8>  
+81   <mouseworld.food.Food object at 0x7f7fafb317f0>  
+82   <mouseworld.food.Food object at 0x7f7fafdfb828>  
+83   <mouseworld.food.Food object at 0x7f7fafb31860>  
+84   <mouseworld.food.Food object at 0x7f7fafb318d0>  
+85   <mouseworld.food.Food object at 0x7f7fafb31940>  
+86   <mouseworld.food.Food object at 0x7f7fafdfb978>  
+87   <mouseworld.food.Food object at 0x7f7fafb319b0>  
+88   <mouseworld.food.Food object at 0x7f7fafb31a20>  
+89   <mouseworld.food.Food object at 0x7f7fafb31a90>  
+90   <mouseworld.food.Food object at 0x7f7fafdfbac8>  
+91   <mouseworld.food.Food object at 0x7f7fafb31b00>  
+92   <mouseworld.food.Food object at 0x7f7fafdfbb70>  
+93   <mouseworld.food.Food object at 0x7f7fafb31b70>  
+94   <mouseworld.food.Food object at 0x7f7fafdfbbe0>  
+95   <mouseworld.food.Food object at 0x7f7fafb31be0>  
+96   <mouseworld.food.Food object at 0x7f7fafdfbc50>  
+97   <mouseworld.food.Food object at 0x7f7fafb31c50>  
+98   <mouseworld.food.Food object at 0x7f7fafb31cc0>  
+99   <mouseworld.food.Food object at 0x7f7fafb31d30>  
+100  <mouseworld.food.Food object at 0x7f7fafdfbda0>  
+101  <mouseworld.food.Food object at 0x7f7fafb31da0>  
+102  <mouseworld.food.Food object at 0x7f7fafb31e10>  
+103  <mouseworld.food.Food object at 0x7f7fafb31e80>  
+104  <mouseworld.food.Food object at 0x7f7fafb31ef0>  
+
+[105 rows x 5 columns]"	{'Food_group_0': 1, 'Food_group_1': 1, 'Food_group_2': 2.9000000000000004, 'Predator_group_0': 1, 'Predator_group_1': 1, 'Predator_group_2': 1, 'Predator_group_3': 1}	"                  Food_odor_0  Food_odor_1  Food_odor_2  Predator_odor_0  \
+Food_group_0         0.000000     0.000000     0.000000              0.0   
+Food_group_1         0.000000     0.000000     0.000000              0.0   
+Food_group_2         0.383651     0.372367     0.372367              0.0   
+Predator_group_0     0.000000     0.000000     0.000000              0.0   
+Predator_group_1     0.000000     0.000000     0.000000              0.0   
+Predator_group_2     0.000000     0.000000     0.000000              0.0   
+Predator_group_3     0.000000     0.000000     0.000000              0.0   
+
+                  Predator_odor_1  Predator_odor_2  Predator_odor_3  
+Food_group_0                  0.0              0.0              0.0  
+Food_group_1                  0.0              0.0              0.0  
+Food_group_2                  0.0              0.0              0.0  
+Predator_group_0              0.0              0.0              0.0  
+Predator_group_1              0.0              0.0              0.0  
+Predator_group_2              0.0              0.0              0.0  
+Predator_group_3              0.0              0.0              0.0  "	"[[  8.52417388 -13.15690995]
+ [  8.27346289 -12.76994201]
+ [  8.27346289 -12.76994201]
+ [  0.           0.        ]
+ [  0.           0.        ]
+ [  0.           0.        ]
+ [  0.           0.        ]]"	[-0.60633205098923437, -131.56909949497131]	[(99, 1), (0, 0)]	False	False	False		[]	0		[ 0.75  0.41  0.92  0.54  0.76]				1.0	
+0	Mouse_3	2	1000.95	0	0	"   Verb    Noun_group  Duration  Benefit Termination  Distance
+0  Feed  Food_group_2       2.0     40.0        None       0.0"	"         Verb    Noun_group     Value  \
+0        Wait          None  0.000000   
+1      Search          None  0.000010   
+2    Approach  Food_group_2  0.097159   
+3    Approach  Food_group_2  0.091528   
+4    Approach  Food_group_2  0.091528   
+5        Feed  Food_group_2  2.624500   
+6        Feed  Food_group_0  0.905000   
+7        Feed  Food_group_1  0.905000   
+8        Feed  Food_group_1  0.905000   
+9        Feed  Food_group_2  2.624500   
+10       Feed  Food_group_1  0.905000   
+11       Feed  Food_group_2  2.624500   
+12       Feed  Food_group_0  0.905000   
+13       Feed  Food_group_1  0.905000   
+14       Feed  Food_group_2  2.624500   
+15       Feed  Food_group_0  0.905000   
+16       Feed  Food_group_1  0.905000   
+17       Feed  Food_group_2  2.624500   
+18       Feed  Food_group_2  2.624500   
+19       Feed  Food_group_0  0.905000   
+20       Feed  Food_group_0  0.905000   
+21       Feed  Food_group_2  2.624500   
+22       Feed  Food_group_1  0.905000   
+23       Feed  Food_group_0  0.905000   
+24       Feed  Food_group_2  2.624500   
+25       Feed  Food_group_2  2.624500   
+26       Feed  Food_group_0  0.905000   
+27       Feed  Food_group_0  0.905000   
+28       Feed  Food_group_2  2.624500   
+29       Feed  Food_group_1  0.905000   
+..        ...           ...       ...   
+75       Feed  Food_group_1  0.905000   
+76       Feed  Food_group_2  2.624500   
+77       Feed  Food_group_2  2.624500   
+78       Feed  Food_group_0  0.905000   
+79       Feed  Food_group_1  0.905000   
+80       Feed  Food_group_0  0.905000   
+81       Feed  Food_group_2  2.624500   
+82       Feed  Food_group_0  0.905000   
+83       Feed  Food_group_0  0.905000   
+84       Feed  Food_group_1  0.905000   
+85       Feed  Food_group_2  2.624500   
+86       Feed  Food_group_2  2.624500   
+87       Feed  Food_group_0  0.905000   
+88       Feed  Food_group_1  0.905000   
+89       Feed  Food_group_2  2.624500   
+90       Feed  Food_group_0  0.905000   
+91       Feed  Food_group_0  0.905000   
+92       Feed  Food_group_1  0.905000   
+93       Feed  Food_group_1  0.905000   
+94       Feed  Food_group_1  0.905000   
+95       Feed  Food_group_2  2.624500   
+96       Feed  Food_group_1  0.905000   
+97       Feed  Food_group_0  0.905000   
+98       Feed  Food_group_1  0.905000   
+99       Feed  Food_group_2  2.624500   
+100      Feed  Food_group_2  2.624500   
+101      Feed  Food_group_0  0.905000   
+102      Feed  Food_group_1  0.905000   
+103      Feed  Food_group_2  2.624500   
+104      Feed  Food_group_0  0.905000   
+
+                                              Function  \
+0    <bound method Mouse.wait of <mouseworld.mouse....   
+1    <bound method Mouse.search_for_odor of <mousew...   
+2    <bound method Mouse.approach of <mouseworld.mo...   
+3    <bound method Mouse.approach of <mouseworld.mo...   
+4    <bound method Mouse.approach of <mouseworld.mo...   
+5    <bound method Mouse.feed of <mouseworld.mouse....   
+6    <bound method Mouse.feed of <mouseworld.mouse....   
+7    <bound method Mouse.feed of <mouseworld.mouse....   
+8    <bound method Mouse.feed of <mouseworld.mouse....   
+9    <bound method Mouse.feed of <mouseworld.mouse....   
+10   <bound method Mouse.feed of <mouseworld.mouse....   
+11   <bound method Mouse.feed of <mouseworld.mouse....   
+12   <bound method Mouse.feed of <mouseworld.mouse....   
+13   <bound method Mouse.feed of <mouseworld.mouse....   
+14   <bound method Mouse.feed of <mouseworld.mouse....   
+15   <bound method Mouse.feed of <mouseworld.mouse....   
+16   <bound method Mouse.feed of <mouseworld.mouse....   
+17   <bound method Mouse.feed of <mouseworld.mouse....   
+18   <bound method Mouse.feed of <mouseworld.mouse....   
+19   <bound method Mouse.feed of <mouseworld.mouse....   
+20   <bound method Mouse.feed of <mouseworld.mouse....   
+21   <bound method Mouse.feed of <mouseworld.mouse....   
+22   <bound method Mouse.feed of <mouseworld.mouse....   
+23   <bound method Mouse.feed of <mouseworld.mouse....   
+24   <bound method Mouse.feed of <mouseworld.mouse....   
+25   <bound method Mouse.feed of <mouseworld.mouse....   
+26   <bound method Mouse.feed of <mouseworld.mouse....   
+27   <bound method Mouse.feed of <mouseworld.mouse....   
+28   <bound method Mouse.feed of <mouseworld.mouse....   
+29   <bound method Mouse.feed of <mouseworld.mouse....   
+..                                                 ...   
+75   <bound method Mouse.feed of <mouseworld.mouse....   
+76   <bound method Mouse.feed of <mouseworld.mouse....   
+77   <bound method Mouse.feed of <mouseworld.mouse....   
+78   <bound method Mouse.feed of <mouseworld.mouse....   
+79   <bound method Mouse.feed of <mouseworld.mouse....   
+80   <bound method Mouse.feed of <mouseworld.mouse....   
+81   <bound method Mouse.feed of <mouseworld.mouse....   
+82   <bound method Mouse.feed of <mouseworld.mouse....   
+83   <bound method Mouse.feed of <mouseworld.mouse....   
+84   <bound method Mouse.feed of <mouseworld.mouse....   
+85   <bound method Mouse.feed of <mouseworld.mouse....   
+86   <bound method Mouse.feed of <mouseworld.mouse....   
+87   <bound method Mouse.feed of <mouseworld.mouse....   
+88   <bound method Mouse.feed of <mouseworld.mouse....   
+89   <bound method Mouse.feed of <mouseworld.mouse....   
+90   <bound method Mouse.feed of <mouseworld.mouse....   
+91   <bound method Mouse.feed of <mouseworld.mouse....   
+92   <bound method Mouse.feed of <mouseworld.mouse....   
+93   <bound method Mouse.feed of <mouseworld.mouse....   
+94   <bound method Mouse.feed of <mouseworld.mouse....   
+95   <bound method Mouse.feed of <mouseworld.mouse....   
+96   <bound method Mouse.feed of <mouseworld.mouse....   
+97   <bound method Mouse.feed of <mouseworld.mouse....   
+98   <bound method Mouse.feed of <mouseworld.mouse....   
+99   <bound method Mouse.feed of <mouseworld.mouse....   
+100  <bound method Mouse.feed of <mouseworld.mouse....   
+101  <bound method Mouse.feed of <mouseworld.mouse....   
+102  <bound method Mouse.feed of <mouseworld.mouse....   
+103  <bound method Mouse.feed of <mouseworld.mouse....   
+104  <bound method Mouse.feed of <mouseworld.mouse....   
+
+                                               Arg_1  
+0                                               None  
+1                                               None  
+2                   [2.00525678701, -0.119075757817]  
+3                   [1.94627864622, -0.115573529646]  
+4                   [1.94627864622, -0.115573529646]  
+5    <mouseworld.food.Food object at 0x7f7fafeda048>  
+6    <mouseworld.food.Food object at 0x7f7fafb30080>  
+7    <mouseworld.food.Food object at 0x7f7fafeda0f0>  
+8    <mouseworld.food.Food object at 0x7f7fafb300f0>  
+9    <mouseworld.food.Food object at 0x7f7fafeda128>  
+10   <mouseworld.food.Food object at 0x7f7fafeda160>  
+11   <mouseworld.food.Food object at 0x7f7fafb30160>  
+12   <mouseworld.food.Food object at 0x7f7fafb301d0>  
+13   <mouseworld.food.Food object at 0x7f7fafb30240>  
+14   <mouseworld.food.Food object at 0x7f7fafb302b0>  
+15   <mouseworld.food.Food object at 0x7f7fafb30320>  
+16   <mouseworld.food.Food object at 0x7f7fafb30390>  
+17   <mouseworld.food.Food object at 0x7f7fafeda400>  
+18   <mouseworld.food.Food object at 0x7f7fafb30400>  
+19   <mouseworld.food.Food object at 0x7f7fafeda470>  
+20   <mouseworld.food.Food object at 0x7f7fafb30470>  
+21   <mouseworld.food.Food object at 0x7f7fafeda4e0>  
+22   <mouseworld.food.Food object at 0x7f7fafb304e0>  
+23   <mouseworld.food.Food object at 0x7f7fafeda518>  
+24   <mouseworld.food.Food object at 0x7f7fafb30550>  
+25   <mouseworld.food.Food object at 0x7f7fafeda5c0>  
+26   <mouseworld.food.Food object at 0x7f7fafb305c0>  
+27   <mouseworld.food.Food object at 0x7f7fafeda5f8>  
+28   <mouseworld.food.Food object at 0x7f7fafeda630>  
+29   <mouseworld.food.Food object at 0x7f7fafb30630>  
+..                                               ...  
+75   <mouseworld.food.Food object at 0x7f7fafb31630>  
+76   <mouseworld.food.Food object at 0x7f7fafb316a0>  
+77   <mouseworld.food.Food object at 0x7f7fafdfb710>  
+78   <mouseworld.food.Food object at 0x7f7fafb31710>  
+79   <mouseworld.food.Food object at 0x7f7fafb31780>  
+80   <mouseworld.food.Food object at 0x7f7fafdfb7b8>  
+81   <mouseworld.food.Food object at 0x7f7fafb317f0>  
+82   <mouseworld.food.Food object at 0x7f7fafdfb828>  
+83   <mouseworld.food.Food object at 0x7f7fafb31860>  
+84   <mouseworld.food.Food object at 0x7f7fafb318d0>  
+85   <mouseworld.food.Food object at 0x7f7fafb31940>  
+86   <mouseworld.food.Food object at 0x7f7fafdfb978>  
+87   <mouseworld.food.Food object at 0x7f7fafb319b0>  
+88   <mouseworld.food.Food object at 0x7f7fafb31a20>  
+89   <mouseworld.food.Food object at 0x7f7fafb31a90>  
+90   <mouseworld.food.Food object at 0x7f7fafdfbac8>  
+91   <mouseworld.food.Food object at 0x7f7fafb31b00>  
+92   <mouseworld.food.Food object at 0x7f7fafdfbb70>  
+93   <mouseworld.food.Food object at 0x7f7fafb31b70>  
+94   <mouseworld.food.Food object at 0x7f7fafdfbbe0>  
+95   <mouseworld.food.Food object at 0x7f7fafb31be0>  
+96   <mouseworld.food.Food object at 0x7f7fafdfbc50>  
+97   <mouseworld.food.Food object at 0x7f7fafb31c50>  
+98   <mouseworld.food.Food object at 0x7f7fafb31cc0>  
+99   <mouseworld.food.Food object at 0x7f7fafb31d30>  
+100  <mouseworld.food.Food object at 0x7f7fafdfbda0>  
+101  <mouseworld.food.Food object at 0x7f7fafb31da0>  
+102  <mouseworld.food.Food object at 0x7f7fafb31e10>  
+103  <mouseworld.food.Food object at 0x7f7fafb31e80>  
+104  <mouseworld.food.Food object at 0x7f7fafb31ef0>  
+
+[105 rows x 5 columns]"	{'Food_group_0': 1, 'Food_group_1': 1, 'Food_group_2': 4.61, 'Predator_group_0': 1, 'Predator_group_1': 1, 'Predator_group_2': 1, 'Predator_group_3': 1}	"                  Food_odor_0  Food_odor_1  Food_odor_2  Predator_odor_0  \
+Food_group_0         0.000000     0.000000     0.000000              0.0   
+Food_group_1         0.000000     0.000000     0.000000              0.0   
+Food_group_2         0.142823     0.138622     0.138622              0.0   
+Predator_group_0     0.000000     0.000000     0.000000              0.0   
+Predator_group_1     0.000000     0.000000     0.000000              0.0   
+Predator_group_2     0.000000     0.000000     0.000000              0.0   
+Predator_group_3     0.000000     0.000000     0.000000              0.0   
+
+                  Predator_odor_1  Predator_odor_2  Predator_odor_3  
+Food_group_0                  0.0              0.0              0.0  
+Food_group_1                  0.0              0.0              0.0  
+Food_group_2                  0.0              0.0              0.0  
+Predator_group_0              0.0              0.0              0.0  
+Predator_group_1              0.0              0.0              0.0  
+Predator_group_2              0.0              0.0              0.0  
+Predator_group_3              0.0              0.0              0.0  "	"[[ 2.00525679 -0.11907576]
+ [ 1.94627865 -0.11557353]
+ [ 1.94627865 -0.11557353]
+ [ 0.          0.        ]
+ [ 0.          0.        ]
+ [ 0.          0.        ]
+ [ 0.          0.        ]]"	[ 0.  0.]	[(99, 1), (0, 1)]	False	False	False		[]	0		[ 0.78  0.67  0.1   0.76  0.7 ]				2.0	
+0	Mouse_4	2	1000.95	0	0	"   Verb    Noun_group  Duration  Benefit Termination  Distance
+0  Feed  Food_group_2       2.0     40.0        None       0.0"	"         Verb    Noun_group     Value  \
+0        Wait          None  0.000000   
+1      Search          None  0.000010   
+2    Approach  Food_group_2  0.106090   
+3    Approach  Food_group_2  0.099941   
+4    Approach  Food_group_2  0.099941   
+5        Feed  Food_group_2  2.624500   
+6        Feed  Food_group_0  0.905000   
+7        Feed  Food_group_1  0.905000   
+8        Feed  Food_group_1  0.905000   
+9        Feed  Food_group_2  2.624500   
+10       Feed  Food_group_1  0.905000   
+11       Feed  Food_group_2  2.624500   
+12       Feed  Food_group_0  0.905000   
+13       Feed  Food_group_1  0.905000   
+14       Feed  Food_group_2  2.624500   
+15       Feed  Food_group_0  0.905000   
+16       Feed  Food_group_1  0.905000   
+17       Feed  Food_group_2  2.624500   
+18       Feed  Food_group_2  2.624500   
+19       Feed  Food_group_0  0.905000   
+20       Feed  Food_group_0  0.905000   
+21       Feed  Food_group_2  2.624500   
+22       Feed  Food_group_1  0.905000   
+23       Feed  Food_group_0  0.905000   
+24       Feed  Food_group_2  2.624500   
+25       Feed  Food_group_2  2.624500   
+26       Feed  Food_group_0  0.905000   
+27       Feed  Food_group_0  0.905000   
+28       Feed  Food_group_2  2.624500   
+29       Feed  Food_group_1  0.905000   
+..        ...           ...       ...   
+75       Feed  Food_group_1  0.905000   
+76       Feed  Food_group_2  2.624500   
+77       Feed  Food_group_2  2.624500   
+78       Feed  Food_group_0  0.905000   
+79       Feed  Food_group_1  0.905000   
+80       Feed  Food_group_0  0.905000   
+81       Feed  Food_group_2  2.624500   
+82       Feed  Food_group_0  0.905000   
+83       Feed  Food_group_0  0.905000   
+84       Feed  Food_group_1  0.905000   
+85       Feed  Food_group_2  2.624500   
+86       Feed  Food_group_2  2.624500   
+87       Feed  Food_group_0  0.905000   
+88       Feed  Food_group_1  0.905000   
+89       Feed  Food_group_2  2.624500   
+90       Feed  Food_group_0  0.905000   
+91       Feed  Food_group_0  0.905000   
+92       Feed  Food_group_1  0.905000   
+93       Feed  Food_group_1  0.905000   
+94       Feed  Food_group_1  0.905000   
+95       Feed  Food_group_2  2.624500   
+96       Feed  Food_group_1  0.905000   
+97       Feed  Food_group_0  0.905000   
+98       Feed  Food_group_1  0.905000   
+99       Feed  Food_group_2  2.624500   
+100      Feed  Food_group_2  2.624500   
+101      Feed  Food_group_0  0.905000   
+102      Feed  Food_group_1  0.905000   
+103      Feed  Food_group_2  2.624500   
+104      Feed  Food_group_0  0.905000   
+
+                                              Function  \
+0    <bound method Mouse.wait of <mouseworld.mouse....   
+1    <bound method Mouse.search_for_odor of <mousew...   
+2    <bound method Mouse.approach of <mouseworld.mo...   
+3    <bound method Mouse.approach of <mouseworld.mo...   
+4    <bound method Mouse.approach of <mouseworld.mo...   
+5    <bound method Mouse.feed of <mouseworld.mouse....   
+6    <bound method Mouse.feed of <mouseworld.mouse....   
+7    <bound method Mouse.feed of <mouseworld.mouse....   
+8    <bound method Mouse.feed of <mouseworld.mouse....   
+9    <bound method Mouse.feed of <mouseworld.mouse....   
+10   <bound method Mouse.feed of <mouseworld.mouse....   
+11   <bound method Mouse.feed of <mouseworld.mouse....   
+12   <bound method Mouse.feed of <mouseworld.mouse....   
+13   <bound method Mouse.feed of <mouseworld.mouse....   
+14   <bound method Mouse.feed of <mouseworld.mouse....   
+15   <bound method Mouse.feed of <mouseworld.mouse....   
+16   <bound method Mouse.feed of <mouseworld.mouse....   
+17   <bound method Mouse.feed of <mouseworld.mouse....   
+18   <bound method Mouse.feed of <mouseworld.mouse....   
+19   <bound method Mouse.feed of <mouseworld.mouse....   
+20   <bound method Mouse.feed of <mouseworld.mouse....   
+21   <bound method Mouse.feed of <mouseworld.mouse....   
+22   <bound method Mouse.feed of <mouseworld.mouse....   
+23   <bound method Mouse.feed of <mouseworld.mouse....   
+24   <bound method Mouse.feed of <mouseworld.mouse....   
+25   <bound method Mouse.feed of <mouseworld.mouse....   
+26   <bound method Mouse.feed of <mouseworld.mouse....   
+27   <bound method Mouse.feed of <mouseworld.mouse....   
+28   <bound method Mouse.feed of <mouseworld.mouse....   
+29   <bound method Mouse.feed of <mouseworld.mouse....   
+..                                                 ...   
+75   <bound method Mouse.feed of <mouseworld.mouse....   
+76   <bound method Mouse.feed of <mouseworld.mouse....   
+77   <bound method Mouse.feed of <mouseworld.mouse....   
+78   <bound method Mouse.feed of <mouseworld.mouse....   
+79   <bound method Mouse.feed of <mouseworld.mouse....   
+80   <bound method Mouse.feed of <mouseworld.mouse....   
+81   <bound method Mouse.feed of <mouseworld.mouse....   
+82   <bound method Mouse.feed of <mouseworld.mouse....   
+83   <bound method Mouse.feed of <mouseworld.mouse....   
+84   <bound method Mouse.feed of <mouseworld.mouse....   
+85   <bound method Mouse.feed of <mouseworld.mouse....   
+86   <bound method Mouse.feed of <mouseworld.mouse....   
+87   <bound method Mouse.feed of <mouseworld.mouse....   
+88   <bound method Mouse.feed of <mouseworld.mouse....   
+89   <bound method Mouse.feed of <mouseworld.mouse....   
+90   <bound method Mouse.feed of <mouseworld.mouse....   
+91   <bound method Mouse.feed of <mouseworld.mouse....   
+92   <bound method Mouse.feed of <mouseworld.mouse....   
+93   <bound method Mouse.feed of <mouseworld.mouse....   
+94   <bound method Mouse.feed of <mouseworld.mouse....   
+95   <bound method Mouse.feed of <mouseworld.mouse....   
+96   <bound method Mouse.feed of <mouseworld.mouse....   
+97   <bound method Mouse.feed of <mouseworld.mouse....   
+98   <bound method Mouse.feed of <mouseworld.mouse....   
+99   <bound method Mouse.feed of <mouseworld.mouse....   
+100  <bound method Mouse.feed of <mouseworld.mouse....   
+101  <bound method Mouse.feed of <mouseworld.mouse....   
+102  <bound method Mouse.feed of <mouseworld.mouse....   
+103  <bound method Mouse.feed of <mouseworld.mouse....   
+104  <bound method Mouse.feed of <mouseworld.mouse....   
+
+                                               Arg_1  
+0                                               None  
+1                                               None  
+2                     [2.0560035162, 0.220569216188]  
+3                      [1.99553282454, 0.2140818863]  
+4                      [1.99553282454, 0.2140818863]  
+5    <mouseworld.food.Food object at 0x7f7fafeda048>  
+6    <mouseworld.food.Food object at 0x7f7fafb30080>  
+7    <mouseworld.food.Food object at 0x7f7fafeda0f0>  
+8    <mouseworld.food.Food object at 0x7f7fafb300f0>  
+9    <mouseworld.food.Food object at 0x7f7fafeda128>  
+10   <mouseworld.food.Food object at 0x7f7fafeda160>  
+11   <mouseworld.food.Food object at 0x7f7fafb30160>  
+12   <mouseworld.food.Food object at 0x7f7fafb301d0>  
+13   <mouseworld.food.Food object at 0x7f7fafb30240>  
+14   <mouseworld.food.Food object at 0x7f7fafb302b0>  
+15   <mouseworld.food.Food object at 0x7f7fafb30320>  
+16   <mouseworld.food.Food object at 0x7f7fafb30390>  
+17   <mouseworld.food.Food object at 0x7f7fafeda400>  
+18   <mouseworld.food.Food object at 0x7f7fafb30400>  
+19   <mouseworld.food.Food object at 0x7f7fafeda470>  
+20   <mouseworld.food.Food object at 0x7f7fafb30470>  
+21   <mouseworld.food.Food object at 0x7f7fafeda4e0>  
+22   <mouseworld.food.Food object at 0x7f7fafb304e0>  
+23   <mouseworld.food.Food object at 0x7f7fafeda518>  
+24   <mouseworld.food.Food object at 0x7f7fafb30550>  
+25   <mouseworld.food.Food object at 0x7f7fafeda5c0>  
+26   <mouseworld.food.Food object at 0x7f7fafb305c0>  
+27   <mouseworld.food.Food object at 0x7f7fafeda5f8>  
+28   <mouseworld.food.Food object at 0x7f7fafeda630>  
+29   <mouseworld.food.Food object at 0x7f7fafb30630>  
+..                                               ...  
+75   <mouseworld.food.Food object at 0x7f7fafb31630>  
+76   <mouseworld.food.Food object at 0x7f7fafb316a0>  
+77   <mouseworld.food.Food object at 0x7f7fafdfb710>  
+78   <mouseworld.food.Food object at 0x7f7fafb31710>  
+79   <mouseworld.food.Food object at 0x7f7fafb31780>  
+80   <mouseworld.food.Food object at 0x7f7fafdfb7b8>  
+81   <mouseworld.food.Food object at 0x7f7fafb317f0>  
+82   <mouseworld.food.Food object at 0x7f7fafdfb828>  
+83   <mouseworld.food.Food object at 0x7f7fafb31860>  
+84   <mouseworld.food.Food object at 0x7f7fafb318d0>  
+85   <mouseworld.food.Food object at 0x7f7fafb31940>  
+86   <mouseworld.food.Food object at 0x7f7fafdfb978>  
+87   <mouseworld.food.Food object at 0x7f7fafb319b0>  
+88   <mouseworld.food.Food object at 0x7f7fafb31a20>  
+89   <mouseworld.food.Food object at 0x7f7fafb31a90>  
+90   <mouseworld.food.Food object at 0x7f7fafdfbac8>  
+91   <mouseworld.food.Food object at 0x7f7fafb31b00>  
+92   <mouseworld.food.Food object at 0x7f7fafdfbb70>  
+93   <mouseworld.food.Food object at 0x7f7fafb31b70>  
+94   <mouseworld.food.Food object at 0x7f7fafdfbbe0>  
+95   <mouseworld.food.Food object at 0x7f7fafb31be0>  
+96   <mouseworld.food.Food object at 0x7f7fafdfbc50>  
+97   <mouseworld.food.Food object at 0x7f7fafb31c50>  
+98   <mouseworld.food.Food object at 0x7f7fafb31cc0>  
+99   <mouseworld.food.Food object at 0x7f7fafb31d30>  
+100  <mouseworld.food.Food object at 0x7f7fafdfbda0>  
+101  <mouseworld.food.Food object at 0x7f7fafb31da0>  
+102  <mouseworld.food.Food object at 0x7f7fafb31e10>  
+103  <mouseworld.food.Food object at 0x7f7fafb31e80>  
+104  <mouseworld.food.Food object at 0x7f7fafb31ef0>  
+
+[105 rows x 5 columns]"	{'Food_group_0': 1, 'Food_group_1': 1, 'Food_group_2': 4.61, 'Predator_group_0': 1, 'Predator_group_1': 1, 'Predator_group_2': 1, 'Predator_group_3': 1}	"                  Food_odor_0  Food_odor_1  Food_odor_2  Predator_odor_0  \
+Food_group_0         0.000000     0.000000     0.000000              0.0   
+Food_group_1         0.000000     0.000000     0.000000              0.0   
+Food_group_2         0.148351     0.143988     0.143988              0.0   
+Predator_group_0     0.000000     0.000000     0.000000              0.0   
+Predator_group_1     0.000000     0.000000     0.000000              0.0   
+Predator_group_2     0.000000     0.000000     0.000000              0.0   
+Predator_group_3     0.000000     0.000000     0.000000              0.0   
+
+                  Predator_odor_1  Predator_odor_2  Predator_odor_3  
+Food_group_0                  0.0              0.0              0.0  
+Food_group_1                  0.0              0.0              0.0  
+Food_group_2                  0.0              0.0              0.0  
+Predator_group_0              0.0              0.0              0.0  
+Predator_group_1              0.0              0.0              0.0  
+Predator_group_2              0.0              0.0              0.0  
+Predator_group_3              0.0              0.0              0.0  "	"[[ 2.05600352  0.22056922]
+ [ 1.99553282  0.21408189]
+ [ 1.99553282  0.21408189]
+ [ 0.          0.        ]
+ [ 0.          0.        ]
+ [ 0.          0.        ]
+ [ 0.          0.        ]]"	[ 0.  0.]	[(99, 0), (99, 1)]	True	False	False		[]	0		[ 0.78  0.35  0.67  0.19  0.46]	<nengo.simulator.Simulator object at 0x7f7fafadfa58>			2.0	
+0	Mouse_5	2	999.8493811928626	0	0	"       Verb    Noun_group  Duration  Benefit Termination  Distance
+0      Feed  Food_group_2       1.0     20.0        None  0.000000
+1  Approach  Food_group_2       1.0      0.0        None  0.100619"	"         Verb    Noun_group     Value  \
+0        Wait          None  0.000000   
+1      Search          None  0.000010   
+2    Approach  Food_group_2  2.959629   
+3    Approach  Food_group_2  2.788093   
+4    Approach  Food_group_2  2.788093   
+5        Feed  Food_group_2  2.624500   
+6        Feed  Food_group_0  0.905000   
+7        Feed  Food_group_1  0.905000   
+8        Feed  Food_group_1  0.905000   
+9        Feed  Food_group_2  2.624500   
+10       Feed  Food_group_1  0.905000   
+11       Feed  Food_group_2  2.624500   
+12       Feed  Food_group_0  0.905000   
+13       Feed  Food_group_1  0.905000   
+14       Feed  Food_group_2  2.624500   
+15       Feed  Food_group_0  0.905000   
+16       Feed  Food_group_1  0.905000   
+17       Feed  Food_group_2  2.624500   
+18       Feed  Food_group_2  2.624500   
+19       Feed  Food_group_0  0.905000   
+20       Feed  Food_group_0  0.905000   
+21       Feed  Food_group_2  2.624500   
+22       Feed  Food_group_1  0.905000   
+23       Feed  Food_group_0  0.905000   
+24       Feed  Food_group_2  2.624500   
+25       Feed  Food_group_2  2.624500   
+26       Feed  Food_group_0  0.905000   
+27       Feed  Food_group_0  0.905000   
+28       Feed  Food_group_2  2.624500   
+29       Feed  Food_group_1  0.905000   
+..        ...           ...       ...   
+75       Feed  Food_group_1  0.905000   
+76       Feed  Food_group_2  2.624500   
+77       Feed  Food_group_2  2.624500   
+78       Feed  Food_group_0  0.905000   
+79       Feed  Food_group_1  0.905000   
+80       Feed  Food_group_0  0.905000   
+81       Feed  Food_group_2  2.624500   
+82       Feed  Food_group_0  0.905000   
+83       Feed  Food_group_0  0.905000   
+84       Feed  Food_group_1  0.905000   
+85       Feed  Food_group_2  2.624500   
+86       Feed  Food_group_2  2.624500   
+87       Feed  Food_group_0  0.905000   
+88       Feed  Food_group_1  0.905000   
+89       Feed  Food_group_2  2.624500   
+90       Feed  Food_group_0  0.905000   
+91       Feed  Food_group_0  0.905000   
+92       Feed  Food_group_1  0.905000   
+93       Feed  Food_group_1  0.905000   
+94       Feed  Food_group_1  0.905000   
+95       Feed  Food_group_2  2.624500   
+96       Feed  Food_group_1  0.905000   
+97       Feed  Food_group_0  0.905000   
+98       Feed  Food_group_1  0.905000   
+99       Feed  Food_group_2  2.624500   
+100      Feed  Food_group_2  2.624500   
+101      Feed  Food_group_0  0.905000   
+102      Feed  Food_group_1  0.905000   
+103      Feed  Food_group_2  2.624500   
+104      Feed  Food_group_0  0.905000   
+
+                                              Function  \
+0    <bound method Mouse.wait of <mouseworld.mouse....   
+1    <bound method Mouse.search_for_odor of <mousew...   
+2    <bound method Mouse.approach of <mouseworld.mo...   
+3    <bound method Mouse.approach of <mouseworld.mo...   
+4    <bound method Mouse.approach of <mouseworld.mo...   
+5    <bound method Mouse.feed of <mouseworld.mouse....   
+6    <bound method Mouse.feed of <mouseworld.mouse....   
+7    <bound method Mouse.feed of <mouseworld.mouse....   
+8    <bound method Mouse.feed of <mouseworld.mouse....   
+9    <bound method Mouse.feed of <mouseworld.mouse....   
+10   <bound method Mouse.feed of <mouseworld.mouse....   
+11   <bound method Mouse.feed of <mouseworld.mouse....   
+12   <bound method Mouse.feed of <mouseworld.mouse....   
+13   <bound method Mouse.feed of <mouseworld.mouse....   
+14   <bound method Mouse.feed of <mouseworld.mouse....   
+15   <bound method Mouse.feed of <mouseworld.mouse....   
+16   <bound method Mouse.feed of <mouseworld.mouse....   
+17   <bound method Mouse.feed of <mouseworld.mouse....   
+18   <bound method Mouse.feed of <mouseworld.mouse....   
+19   <bound method Mouse.feed of <mouseworld.mouse....   
+20   <bound method Mouse.feed of <mouseworld.mouse....   
+21   <bound method Mouse.feed of <mouseworld.mouse....   
+22   <bound method Mouse.feed of <mouseworld.mouse....   
+23   <bound method Mouse.feed of <mouseworld.mouse....   
+24   <bound method Mouse.feed of <mouseworld.mouse....   
+25   <bound method Mouse.feed of <mouseworld.mouse....   
+26   <bound method Mouse.feed of <mouseworld.mouse....   
+27   <bound method Mouse.feed of <mouseworld.mouse....   
+28   <bound method Mouse.feed of <mouseworld.mouse....   
+29   <bound method Mouse.feed of <mouseworld.mouse....   
+..                                                 ...   
+75   <bound method Mouse.feed of <mouseworld.mouse....   
+76   <bound method Mouse.feed of <mouseworld.mouse....   
+77   <bound method Mouse.feed of <mouseworld.mouse....   
+78   <bound method Mouse.feed of <mouseworld.mouse....   
+79   <bound method Mouse.feed of <mouseworld.mouse....   
+80   <bound method Mouse.feed of <mouseworld.mouse....   
+81   <bound method Mouse.feed of <mouseworld.mouse....   
+82   <bound method Mouse.feed of <mouseworld.mouse....   
+83   <bound method Mouse.feed of <mouseworld.mouse....   
+84   <bound method Mouse.feed of <mouseworld.mouse....   
+85   <bound method Mouse.feed of <mouseworld.mouse....   
+86   <bound method Mouse.feed of <mouseworld.mouse....   
+87   <bound method Mouse.feed of <mouseworld.mouse....   
+88   <bound method Mouse.feed of <mouseworld.mouse....   
+89   <bound method Mouse.feed of <mouseworld.mouse....   
+90   <bound method Mouse.feed of <mouseworld.mouse....   
+91   <bound method Mouse.feed of <mouseworld.mouse....   
+92   <bound method Mouse.feed of <mouseworld.mouse....   
+93   <bound method Mouse.feed of <mouseworld.mouse....   
+94   <bound method Mouse.feed of <mouseworld.mouse....   
+95   <bound method Mouse.feed of <mouseworld.mouse....   
+96   <bound method Mouse.feed of <mouseworld.mouse....   
+97   <bound method Mouse.feed of <mouseworld.mouse....   
+98   <bound method Mouse.feed of <mouseworld.mouse....   
+99   <bound method Mouse.feed of <mouseworld.mouse....   
+100  <bound method Mouse.feed of <mouseworld.mouse....   
+101  <bound method Mouse.feed of <mouseworld.mouse....   
+102  <bound method Mouse.feed of <mouseworld.mouse....   
+103  <bound method Mouse.feed of <mouseworld.mouse....   
+104  <bound method Mouse.feed of <mouseworld.mouse....   
+
+                                               Arg_1  
+0                                               None  
+1                                               None  
+2                     [8.52417388285, 13.1569099495]  
+3                      [8.2734628863, 12.7699420098]  
+4                      [8.2734628863, 12.7699420098]  
+5    <mouseworld.food.Food object at 0x7f7fafeda048>  
+6    <mouseworld.food.Food object at 0x7f7fafb30080>  
+7    <mouseworld.food.Food object at 0x7f7fafeda0f0>  
+8    <mouseworld.food.Food object at 0x7f7fafb300f0>  
+9    <mouseworld.food.Food object at 0x7f7fafeda128>  
+10   <mouseworld.food.Food object at 0x7f7fafeda160>  
+11   <mouseworld.food.Food object at 0x7f7fafb30160>  
+12   <mouseworld.food.Food object at 0x7f7fafb301d0>  
+13   <mouseworld.food.Food object at 0x7f7fafb30240>  
+14   <mouseworld.food.Food object at 0x7f7fafb302b0>  
+15   <mouseworld.food.Food object at 0x7f7fafb30320>  
+16   <mouseworld.food.Food object at 0x7f7fafb30390>  
+17   <mouseworld.food.Food object at 0x7f7fafeda400>  
+18   <mouseworld.food.Food object at 0x7f7fafb30400>  
+19   <mouseworld.food.Food object at 0x7f7fafeda470>  
+20   <mouseworld.food.Food object at 0x7f7fafb30470>  
+21   <mouseworld.food.Food object at 0x7f7fafeda4e0>  
+22   <mouseworld.food.Food object at 0x7f7fafb304e0>  
+23   <mouseworld.food.Food object at 0x7f7fafeda518>  
+24   <mouseworld.food.Food object at 0x7f7fafb30550>  
+25   <mouseworld.food.Food object at 0x7f7fafeda5c0>  
+26   <mouseworld.food.Food object at 0x7f7fafb305c0>  
+27   <mouseworld.food.Food object at 0x7f7fafeda5f8>  
+28   <mouseworld.food.Food object at 0x7f7fafeda630>  
+29   <mouseworld.food.Food object at 0x7f7fafb30630>  
+..                                               ...  
+75   <mouseworld.food.Food object at 0x7f7fafb31630>  
+76   <mouseworld.food.Food object at 0x7f7fafb316a0>  
+77   <mouseworld.food.Food object at 0x7f7fafdfb710>  
+78   <mouseworld.food.Food object at 0x7f7fafb31710>  
+79   <mouseworld.food.Food object at 0x7f7fafb31780>  
+80   <mouseworld.food.Food object at 0x7f7fafdfb7b8>  
+81   <mouseworld.food.Food object at 0x7f7fafb317f0>  
+82   <mouseworld.food.Food object at 0x7f7fafdfb828>  
+83   <mouseworld.food.Food object at 0x7f7fafb31860>  
+84   <mouseworld.food.Food object at 0x7f7fafb318d0>  
+85   <mouseworld.food.Food object at 0x7f7fafb31940>  
+86   <mouseworld.food.Food object at 0x7f7fafdfb978>  
+87   <mouseworld.food.Food object at 0x7f7fafb319b0>  
+88   <mouseworld.food.Food object at 0x7f7fafb31a20>  
+89   <mouseworld.food.Food object at 0x7f7fafb31a90>  
+90   <mouseworld.food.Food object at 0x7f7fafdfbac8>  
+91   <mouseworld.food.Food object at 0x7f7fafb31b00>  
+92   <mouseworld.food.Food object at 0x7f7fafdfbb70>  
+93   <mouseworld.food.Food object at 0x7f7fafb31b70>  
+94   <mouseworld.food.Food object at 0x7f7fafdfbbe0>  
+95   <mouseworld.food.Food object at 0x7f7fafb31be0>  
+96   <mouseworld.food.Food object at 0x7f7fafdfbc50>  
+97   <mouseworld.food.Food object at 0x7f7fafb31c50>  
+98   <mouseworld.food.Food object at 0x7f7fafb31cc0>  
+99   <mouseworld.food.Food object at 0x7f7fafb31d30>  
+100  <mouseworld.food.Food object at 0x7f7fafdfbda0>  
+101  <mouseworld.food.Food object at 0x7f7fafb31da0>  
+102  <mouseworld.food.Food object at 0x7f7fafb31e10>  
+103  <mouseworld.food.Food object at 0x7f7fafb31e80>  
+104  <mouseworld.food.Food object at 0x7f7fafb31ef0>  
+
+[105 rows x 5 columns]"	{'Food_group_0': 1, 'Food_group_1': 1, 'Food_group_2': 2.9000000000000004, 'Predator_group_0': 1, 'Predator_group_1': 1, 'Predator_group_2': 1, 'Predator_group_3': 1}	"                  Food_odor_0  Food_odor_1  Food_odor_2  Predator_odor_0  \
+Food_group_0         0.000000     0.000000     0.000000              0.0   
+Food_group_1         0.000000     0.000000     0.000000              0.0   
+Food_group_2         0.383651     0.372367     0.372367              0.0   
+Predator_group_0     0.000000     0.000000     0.000000              0.0   
+Predator_group_1     0.000000     0.000000     0.000000              0.0   
+Predator_group_2     0.000000     0.000000     0.000000              0.0   
+Predator_group_3     0.000000     0.000000     0.000000              0.0   
+
+                  Predator_odor_1  Predator_odor_2  Predator_odor_3  
+Food_group_0                  0.0              0.0              0.0  
+Food_group_1                  0.0              0.0              0.0  
+Food_group_2                  0.0              0.0              0.0  
+Predator_group_0              0.0              0.0              0.0  
+Predator_group_1              0.0              0.0              0.0  
+Predator_group_2              0.0              0.0              0.0  
+Predator_group_3              0.0              0.0              0.0  "	"[[  8.52417388  13.15690995]
+ [  8.27346289  12.76994201]
+ [  8.27346289  12.76994201]
+ [  0.           0.        ]
+ [  0.           0.        ]
+ [  0.           0.        ]
+ [  0.           0.        ]]"	[ 0.02566806  0.88445267]	[(0, 0), (99, 1)]	True	False	False		[]	0		[ 0.73  0.64  0.18  0.41  0.71]	<nengo.simulator.Simulator object at 0x7f7faf9d32b0>			1.0	
+0	Mouse_6	2	999.7254906748203	0	0	"       Verb    Noun_group  Duration  Benefit Termination  Distance
+0      Feed  Food_group_2       1.0     20.0        None  0.000000
+1  Approach  Food_group_2       1.0      0.0        None  0.224509"	"         Verb    Noun_group     Value  \
+0        Wait          None  0.000000   
+1      Search          None  0.000010   
+2    Approach  Food_group_2  2.995066   
+3    Approach  Food_group_2  2.821477   
+4    Approach  Food_group_2  2.821477   
+5        Feed  Food_group_2  2.624500   
+6        Feed  Food_group_0  0.905000   
+7        Feed  Food_group_1  0.905000   
+8        Feed  Food_group_1  0.905000   
+9        Feed  Food_group_2  2.624500   
+10       Feed  Food_group_1  0.905000   
+11       Feed  Food_group_2  2.624500   
+12       Feed  Food_group_0  0.905000   
+13       Feed  Food_group_1  0.905000   
+14       Feed  Food_group_2  2.624500   
+15       Feed  Food_group_0  0.905000   
+16       Feed  Food_group_1  0.905000   
+17       Feed  Food_group_2  2.624500   
+18       Feed  Food_group_2  2.624500   
+19       Feed  Food_group_0  0.905000   
+20       Feed  Food_group_0  0.905000   
+21       Feed  Food_group_2  2.624500   
+22       Feed  Food_group_1  0.905000   
+23       Feed  Food_group_0  0.905000   
+24       Feed  Food_group_2  2.624500   
+25       Feed  Food_group_2  2.624500   
+26       Feed  Food_group_0  0.905000   
+27       Feed  Food_group_0  0.905000   
+28       Feed  Food_group_2  2.624500   
+29       Feed  Food_group_1  0.905000   
+..        ...           ...       ...   
+75       Feed  Food_group_1  0.905000   
+76       Feed  Food_group_2  2.624500   
+77       Feed  Food_group_2  2.624500   
+78       Feed  Food_group_0  0.905000   
+79       Feed  Food_group_1  0.905000   
+80       Feed  Food_group_0  0.905000   
+81       Feed  Food_group_2  2.624500   
+82       Feed  Food_group_0  0.905000   
+83       Feed  Food_group_0  0.905000   
+84       Feed  Food_group_1  0.905000   
+85       Feed  Food_group_2  2.624500   
+86       Feed  Food_group_2  2.624500   
+87       Feed  Food_group_0  0.905000   
+88       Feed  Food_group_1  0.905000   
+89       Feed  Food_group_2  2.624500   
+90       Feed  Food_group_0  0.905000   
+91       Feed  Food_group_0  0.905000   
+92       Feed  Food_group_1  0.905000   
+93       Feed  Food_group_1  0.905000   
+94       Feed  Food_group_1  0.905000   
+95       Feed  Food_group_2  2.624500   
+96       Feed  Food_group_1  0.905000   
+97       Feed  Food_group_0  0.905000   
+98       Feed  Food_group_1  0.905000   
+99       Feed  Food_group_2  2.624500   
+100      Feed  Food_group_2  2.624500   
+101      Feed  Food_group_0  0.905000   
+102      Feed  Food_group_1  0.905000   
+103      Feed  Food_group_2  2.624500   
+104      Feed  Food_group_0  0.905000   
+
+                                              Function  \
+0    <bound method Mouse.wait of <mouseworld.mouse....   
+1    <bound method Mouse.search_for_odor of <mousew...   
+2    <bound method Mouse.approach of <mouseworld.mo...   
+3    <bound method Mouse.approach of <mouseworld.mo...   
+4    <bound method Mouse.approach of <mouseworld.mo...   
+5    <bound method Mouse.feed of <mouseworld.mouse....   
+6    <bound method Mouse.feed of <mouseworld.mouse....   
+7    <bound method Mouse.feed of <mouseworld.mouse....   
+8    <bound method Mouse.feed of <mouseworld.mouse....   
+9    <bound method Mouse.feed of <mouseworld.mouse....   
+10   <bound method Mouse.feed of <mouseworld.mouse....   
+11   <bound method Mouse.feed of <mouseworld.mouse....   
+12   <bound method Mouse.feed of <mouseworld.mouse....   
+13   <bound method Mouse.feed of <mouseworld.mouse....   
+14   <bound method Mouse.feed of <mouseworld.mouse....   
+15   <bound method Mouse.feed of <mouseworld.mouse....   
+16   <bound method Mouse.feed of <mouseworld.mouse....   
+17   <bound method Mouse.feed of <mouseworld.mouse....   
+18   <bound method Mouse.feed of <mouseworld.mouse....   
+19   <bound method Mouse.feed of <mouseworld.mouse....   
+20   <bound method Mouse.feed of <mouseworld.mouse....   
+21   <bound method Mouse.feed of <mouseworld.mouse....   
+22   <bound method Mouse.feed of <mouseworld.mouse....   
+23   <bound method Mouse.feed of <mouseworld.mouse....   
+24   <bound method Mouse.feed of <mouseworld.mouse....   
+25   <bound method Mouse.feed of <mouseworld.mouse....   
+26   <bound method Mouse.feed of <mouseworld.mouse....   
+27   <bound method Mouse.feed of <mouseworld.mouse....   
+28   <bound method Mouse.feed of <mouseworld.mouse....   
+29   <bound method Mouse.feed of <mouseworld.mouse....   
+..                                                 ...   
+75   <bound method Mouse.feed of <mouseworld.mouse....   
+76   <bound method Mouse.feed of <mouseworld.mouse....   
+77   <bound method Mouse.feed of <mouseworld.mouse....   
+78   <bound method Mouse.feed of <mouseworld.mouse....   
+79   <bound method Mouse.feed of <mouseworld.mouse....   
+80   <bound method Mouse.feed of <mouseworld.mouse....   
+81   <bound method Mouse.feed of <mouseworld.mouse....   
+82   <bound method Mouse.feed of <mouseworld.mouse....   
+83   <bound method Mouse.feed of <mouseworld.mouse....   
+84   <bound method Mouse.feed of <mouseworld.mouse....   
+85   <bound method Mouse.feed of <mouseworld.mouse....   
+86   <bound method Mouse.feed of <mouseworld.mouse....   
+87   <bound method Mouse.feed of <mouseworld.mouse....   
+88   <bound method Mouse.feed of <mouseworld.mouse....   
+89   <bound method Mouse.feed of <mouseworld.mouse....   
+90   <bound method Mouse.feed of <mouseworld.mouse....   
+91   <bound method Mouse.feed of <mouseworld.mouse....   
+92   <bound method Mouse.feed of <mouseworld.mouse....   
+93   <bound method Mouse.feed of <mouseworld.mouse....   
+94   <bound method Mouse.feed of <mouseworld.mouse....   
+95   <bound method Mouse.feed of <mouseworld.mouse....   
+96   <bound method Mouse.feed of <mouseworld.mouse....   
+97   <bound method Mouse.feed of <mouseworld.mouse....   
+98   <bound method Mouse.feed of <mouseworld.mouse....   
+99   <bound method Mouse.feed of <mouseworld.mouse....   
+100  <bound method Mouse.feed of <mouseworld.mouse....   
+101  <bound method Mouse.feed of <mouseworld.mouse....   
+102  <bound method Mouse.feed of <mouseworld.mouse....   
+103  <bound method Mouse.feed of <mouseworld.mouse....   
+104  <bound method Mouse.feed of <mouseworld.mouse....   
+
+                                               Arg_1  
+0                                               None  
+1                                               None  
+2                     [8.63445849095, 12.9363407333]  
+3                     [8.38050382945, 12.5558601235]  
+4                     [8.38050382945, 12.5558601235]  
+5    <mouseworld.food.Food object at 0x7f7fafeda048>  
+6    <mouseworld.food.Food object at 0x7f7fafb30080>  
+7    <mouseworld.food.Food object at 0x7f7fafeda0f0>  
+8    <mouseworld.food.Food object at 0x7f7fafb300f0>  
+9    <mouseworld.food.Food object at 0x7f7fafeda128>  
+10   <mouseworld.food.Food object at 0x7f7fafeda160>  
+11   <mouseworld.food.Food object at 0x7f7fafb30160>  
+12   <mouseworld.food.Food object at 0x7f7fafb301d0>  
+13   <mouseworld.food.Food object at 0x7f7fafb30240>  
+14   <mouseworld.food.Food object at 0x7f7fafb302b0>  
+15   <mouseworld.food.Food object at 0x7f7fafb30320>  
+16   <mouseworld.food.Food object at 0x7f7fafb30390>  
+17   <mouseworld.food.Food object at 0x7f7fafeda400>  
+18   <mouseworld.food.Food object at 0x7f7fafb30400>  
+19   <mouseworld.food.Food object at 0x7f7fafeda470>  
+20   <mouseworld.food.Food object at 0x7f7fafb30470>  
+21   <mouseworld.food.Food object at 0x7f7fafeda4e0>  
+22   <mouseworld.food.Food object at 0x7f7fafb304e0>  
+23   <mouseworld.food.Food object at 0x7f7fafeda518>  
+24   <mouseworld.food.Food object at 0x7f7fafb30550>  
+25   <mouseworld.food.Food object at 0x7f7fafeda5c0>  
+26   <mouseworld.food.Food object at 0x7f7fafb305c0>  
+27   <mouseworld.food.Food object at 0x7f7fafeda5f8>  
+28   <mouseworld.food.Food object at 0x7f7fafeda630>  
+29   <mouseworld.food.Food object at 0x7f7fafb30630>  
+..                                               ...  
+75   <mouseworld.food.Food object at 0x7f7fafb31630>  
+76   <mouseworld.food.Food object at 0x7f7fafb316a0>  
+77   <mouseworld.food.Food object at 0x7f7fafdfb710>  
+78   <mouseworld.food.Food object at 0x7f7fafb31710>  
+79   <mouseworld.food.Food object at 0x7f7fafb31780>  
+80   <mouseworld.food.Food object at 0x7f7fafdfb7b8>  
+81   <mouseworld.food.Food object at 0x7f7fafb317f0>  
+82   <mouseworld.food.Food object at 0x7f7fafdfb828>  
+83   <mouseworld.food.Food object at 0x7f7fafb31860>  
+84   <mouseworld.food.Food object at 0x7f7fafb318d0>  
+85   <mouseworld.food.Food object at 0x7f7fafb31940>  
+86   <mouseworld.food.Food object at 0x7f7fafdfb978>  
+87   <mouseworld.food.Food object at 0x7f7fafb319b0>  
+88   <mouseworld.food.Food object at 0x7f7fafb31a20>  
+89   <mouseworld.food.Food object at 0x7f7fafb31a90>  
+90   <mouseworld.food.Food object at 0x7f7fafdfbac8>  
+91   <mouseworld.food.Food object at 0x7f7fafb31b00>  
+92   <mouseworld.food.Food object at 0x7f7fafdfbb70>  
+93   <mouseworld.food.Food object at 0x7f7fafb31b70>  
+94   <mouseworld.food.Food object at 0x7f7fafdfbbe0>  
+95   <mouseworld.food.Food object at 0x7f7fafb31be0>  
+96   <mouseworld.food.Food object at 0x7f7fafdfbc50>  
+97   <mouseworld.food.Food object at 0x7f7fafb31c50>  
+98   <mouseworld.food.Food object at 0x7f7fafb31cc0>  
+99   <mouseworld.food.Food object at 0x7f7fafb31d30>  
+100  <mouseworld.food.Food object at 0x7f7fafdfbda0>  
+101  <mouseworld.food.Food object at 0x7f7fafb31da0>  
+102  <mouseworld.food.Food object at 0x7f7fafb31e10>  
+103  <mouseworld.food.Food object at 0x7f7fafb31e80>  
+104  <mouseworld.food.Food object at 0x7f7fafb31ef0>  
+
+[105 rows x 5 columns]"	{'Food_group_0': 1, 'Food_group_1': 1, 'Food_group_2': 2.9000000000000004, 'Predator_group_0': 1, 'Predator_group_1': 1, 'Predator_group_2': 1, 'Predator_group_3': 1}	"                  Food_odor_0  Food_odor_1  Food_odor_2  Predator_odor_0  \
+Food_group_0         0.000000     0.000000     0.000000              0.0   
+Food_group_1         0.000000     0.000000     0.000000              0.0   
+Food_group_2         0.383286     0.372013     0.372013              0.0   
+Predator_group_0     0.000000     0.000000     0.000000              0.0   
+Predator_group_1     0.000000     0.000000     0.000000              0.0   
+Predator_group_2     0.000000     0.000000     0.000000              0.0   
+Predator_group_3     0.000000     0.000000     0.000000              0.0   
+
+                  Predator_odor_1  Predator_odor_2  Predator_odor_3  
+Food_group_0                  0.0              0.0              0.0  
+Food_group_1                  0.0              0.0              0.0  
+Food_group_2                  0.0              0.0              0.0  
+Predator_group_0              0.0              0.0              0.0  
+Predator_group_1              0.0              0.0              0.0  
+Predator_group_2              0.0              0.0              0.0  
+Predator_group_3              0.0              0.0              0.0  "	"[[  8.63445849  12.93634073]
+ [  8.38050383  12.55586012]
+ [  8.38050383  12.55586012]
+ [  0.           0.        ]
+ [  0.           0.        ]
+ [  0.           0.        ]
+ [  0.           0.        ]]"	[ 0.06762329  0.90687779]	[(0, 0), (99, 0)]	True	False	False		[]	0		[ 0.58  0.67  0.46  0.57  0.76]	<nengo.simulator.Simulator object at 0x7f7faf82fcf8>			1.0	
+0	Mouse_7	2	999.9587173965713	0	0	"       Verb    Noun_group  Duration  Benefit Termination  Distance
+0      Feed  Food_group_2       1.0     20.0        None  0.000000
+1  Approach  Food_group_2       1.0      0.0        None -0.008717"	"         Verb    Noun_group     Value  \
+0        Wait          None  0.000000   
+1      Search          None  0.000010   
+2    Approach  Food_group_2  2.950441   
+3    Approach  Food_group_2  2.779438   
+4    Approach  Food_group_2  2.779438   
+5        Feed  Food_group_2  2.624500   
+6        Feed  Food_group_0  0.905000   
+7        Feed  Food_group_1  0.905000   
+8        Feed  Food_group_1  0.905000   
+9        Feed  Food_group_2  2.624500   
+10       Feed  Food_group_1  0.905000   
+11       Feed  Food_group_2  2.624500   
+12       Feed  Food_group_0  0.905000   
+13       Feed  Food_group_1  0.905000   
+14       Feed  Food_group_2  2.624500   
+15       Feed  Food_group_0  0.905000   
+16       Feed  Food_group_1  0.905000   
+17       Feed  Food_group_2  2.624500   
+18       Feed  Food_group_2  2.624500   
+19       Feed  Food_group_0  0.905000   
+20       Feed  Food_group_0  0.905000   
+21       Feed  Food_group_2  2.624500   
+22       Feed  Food_group_1  0.905000   
+23       Feed  Food_group_0  0.905000   
+24       Feed  Food_group_2  2.624500   
+25       Feed  Food_group_2  2.624500   
+26       Feed  Food_group_0  0.905000   
+27       Feed  Food_group_0  0.905000   
+28       Feed  Food_group_2  2.624500   
+29       Feed  Food_group_1  0.905000   
+..        ...           ...       ...   
+75       Feed  Food_group_1  0.905000   
+76       Feed  Food_group_2  2.624500   
+77       Feed  Food_group_2  2.624500   
+78       Feed  Food_group_0  0.905000   
+79       Feed  Food_group_1  0.905000   
+80       Feed  Food_group_0  0.905000   
+81       Feed  Food_group_2  2.624500   
+82       Feed  Food_group_0  0.905000   
+83       Feed  Food_group_0  0.905000   
+84       Feed  Food_group_1  0.905000   
+85       Feed  Food_group_2  2.624500   
+86       Feed  Food_group_2  2.624500   
+87       Feed  Food_group_0  0.905000   
+88       Feed  Food_group_1  0.905000   
+89       Feed  Food_group_2  2.624500   
+90       Feed  Food_group_0  0.905000   
+91       Feed  Food_group_0  0.905000   
+92       Feed  Food_group_1  0.905000   
+93       Feed  Food_group_1  0.905000   
+94       Feed  Food_group_1  0.905000   
+95       Feed  Food_group_2  2.624500   
+96       Feed  Food_group_1  0.905000   
+97       Feed  Food_group_0  0.905000   
+98       Feed  Food_group_1  0.905000   
+99       Feed  Food_group_2  2.624500   
+100      Feed  Food_group_2  2.624500   
+101      Feed  Food_group_0  0.905000   
+102      Feed  Food_group_1  0.905000   
+103      Feed  Food_group_2  2.624500   
+104      Feed  Food_group_0  0.905000   
+
+                                              Function  \
+0    <bound method Mouse.wait of <mouseworld.mouse....   
+1    <bound method Mouse.search_for_odor of <mousew...   
+2    <bound method Mouse.approach of <mouseworld.mo...   
+3    <bound method Mouse.approach of <mouseworld.mo...   
+4    <bound method Mouse.approach of <mouseworld.mo...   
+5    <bound method Mouse.feed of <mouseworld.mouse....   
+6    <bound method Mouse.feed of <mouseworld.mouse....   
+7    <bound method Mouse.feed of <mouseworld.mouse....   
+8    <bound method Mouse.feed of <mouseworld.mouse....   
+9    <bound method Mouse.feed of <mouseworld.mouse....   
+10   <bound method Mouse.feed of <mouseworld.mouse....   
+11   <bound method Mouse.feed of <mouseworld.mouse....   
+12   <bound method Mouse.feed of <mouseworld.mouse....   
+13   <bound method Mouse.feed of <mouseworld.mouse....   
+14   <bound method Mouse.feed of <mouseworld.mouse....   
+15   <bound method Mouse.feed of <mouseworld.mouse....   
+16   <bound method Mouse.feed of <mouseworld.mouse....   
+17   <bound method Mouse.feed of <mouseworld.mouse....   
+18   <bound method Mouse.feed of <mouseworld.mouse....   
+19   <bound method Mouse.feed of <mouseworld.mouse....   
+20   <bound method Mouse.feed of <mouseworld.mouse....   
+21   <bound method Mouse.feed of <mouseworld.mouse....   
+22   <bound method Mouse.feed of <mouseworld.mouse....   
+23   <bound method Mouse.feed of <mouseworld.mouse....   
+24   <bound method Mouse.feed of <mouseworld.mouse....   
+25   <bound method Mouse.feed of <mouseworld.mouse....   
+26   <bound method Mouse.feed of <mouseworld.mouse....   
+27   <bound method Mouse.feed of <mouseworld.mouse....   
+28   <bound method Mouse.feed of <mouseworld.mouse....   
+29   <bound method Mouse.feed of <mouseworld.mouse....   
+..                                                 ...   
+75   <bound method Mouse.feed of <mouseworld.mouse....   
+76   <bound method Mouse.feed of <mouseworld.mouse....   
+77   <bound method Mouse.feed of <mouseworld.mouse....   
+78   <bound method Mouse.feed of <mouseworld.mouse....   
+79   <bound method Mouse.feed of <mouseworld.mouse....   
+80   <bound method Mouse.feed of <mouseworld.mouse....   
+81   <bound method Mouse.feed of <mouseworld.mouse....   
+82   <bound method Mouse.feed of <mouseworld.mouse....   
+83   <bound method Mouse.feed of <mouseworld.mouse....   
+84   <bound method Mouse.feed of <mouseworld.mouse....   
+85   <bound method Mouse.feed of <mouseworld.mouse....   
+86   <bound method Mouse.feed of <mouseworld.mouse....   
+87   <bound method Mouse.feed of <mouseworld.mouse....   
+88   <bound method Mouse.feed of <mouseworld.mouse....   
+89   <bound method Mouse.feed of <mouseworld.mouse....   
+90   <bound method Mouse.feed of <mouseworld.mouse....   
+91   <bound method Mouse.feed of <mouseworld.mouse....   
+92   <bound method Mouse.feed of <mouseworld.mouse....   
+93   <bound method Mouse.feed of <mouseworld.mouse....   
+94   <bound method Mouse.feed of <mouseworld.mouse....   
+95   <bound method Mouse.feed of <mouseworld.mouse....   
+96   <bound method Mouse.feed of <mouseworld.mouse....   
+97   <bound method Mouse.feed of <mouseworld.mouse....   
+98   <bound method Mouse.feed of <mouseworld.mouse....   
+99   <bound method Mouse.feed of <mouseworld.mouse....   
+100  <bound method Mouse.feed of <mouseworld.mouse....   
+101  <bound method Mouse.feed of <mouseworld.mouse....   
+102  <bound method Mouse.feed of <mouseworld.mouse....   
+103  <bound method Mouse.feed of <mouseworld.mouse....   
+104  <bound method Mouse.feed of <mouseworld.mouse....   
+
+                                               Arg_1  
+0                                               None  
+1                                               None  
+2                    [8.58371176176, -13.0378341917]  
+3                    [8.33124965112, -12.6543684802]  
+4                    [8.33124965112, -12.6543684802]  
+5    <mouseworld.food.Food object at 0x7f7fafeda048>  
+6    <mouseworld.food.Food object at 0x7f7fafb30080>  
+7    <mouseworld.food.Food object at 0x7f7fafeda0f0>  
+8    <mouseworld.food.Food object at 0x7f7fafb300f0>  
+9    <mouseworld.food.Food object at 0x7f7fafeda128>  
+10   <mouseworld.food.Food object at 0x7f7fafeda160>  
+11   <mouseworld.food.Food object at 0x7f7fafb30160>  
+12   <mouseworld.food.Food object at 0x7f7fafb301d0>  
+13   <mouseworld.food.Food object at 0x7f7fafb30240>  
+14   <mouseworld.food.Food object at 0x7f7fafb302b0>  
+15   <mouseworld.food.Food object at 0x7f7fafb30320>  
+16   <mouseworld.food.Food object at 0x7f7fafb30390>  
+17   <mouseworld.food.Food object at 0x7f7fafeda400>  
+18   <mouseworld.food.Food object at 0x7f7fafb30400>  
+19   <mouseworld.food.Food object at 0x7f7fafeda470>  
+20   <mouseworld.food.Food object at 0x7f7fafb30470>  
+21   <mouseworld.food.Food object at 0x7f7fafeda4e0>  
+22   <mouseworld.food.Food object at 0x7f7fafb304e0>  
+23   <mouseworld.food.Food object at 0x7f7fafeda518>  
+24   <mouseworld.food.Food object at 0x7f7fafb30550>  
+25   <mouseworld.food.Food object at 0x7f7fafeda5c0>  
+26   <mouseworld.food.Food object at 0x7f7fafb305c0>  
+27   <mouseworld.food.Food object at 0x7f7fafeda5f8>  
+28   <mouseworld.food.Food object at 0x7f7fafeda630>  
+29   <mouseworld.food.Food object at 0x7f7fafb30630>  
+..                                               ...  
+75   <mouseworld.food.Food object at 0x7f7fafb31630>  
+76   <mouseworld.food.Food object at 0x7f7fafb316a0>  
+77   <mouseworld.food.Food object at 0x7f7fafdfb710>  
+78   <mouseworld.food.Food object at 0x7f7fafb31710>  
+79   <mouseworld.food.Food object at 0x7f7fafb31780>  
+80   <mouseworld.food.Food object at 0x7f7fafdfb7b8>  
+81   <mouseworld.food.Food object at 0x7f7fafb317f0>  
+82   <mouseworld.food.Food object at 0x7f7fafdfb828>  
+83   <mouseworld.food.Food object at 0x7f7fafb31860>  
+84   <mouseworld.food.Food object at 0x7f7fafb318d0>  
+85   <mouseworld.food.Food object at 0x7f7fafb31940>  
+86   <mouseworld.food.Food object at 0x7f7fafdfb978>  
+87   <mouseworld.food.Food object at 0x7f7fafb319b0>  
+88   <mouseworld.food.Food object at 0x7f7fafb31a20>  
+89   <mouseworld.food.Food object at 0x7f7fafb31a90>  
+90   <mouseworld.food.Food object at 0x7f7fafdfbac8>  
+91   <mouseworld.food.Food object at 0x7f7fafb31b00>  
+92   <mouseworld.food.Food object at 0x7f7fafdfbb70>  
+93   <mouseworld.food.Food object at 0x7f7fafb31b70>  
+94   <mouseworld.food.Food object at 0x7f7fafdfbbe0>  
+95   <mouseworld.food.Food object at 0x7f7fafb31be0>  
+96   <mouseworld.food.Food object at 0x7f7fafdfbc50>  
+97   <mouseworld.food.Food object at 0x7f7fafb31c50>  
+98   <mouseworld.food.Food object at 0x7f7fafb31cc0>  
+99   <mouseworld.food.Food object at 0x7f7fafb31d30>  
+100  <mouseworld.food.Food object at 0x7f7fafdfbda0>  
+101  <mouseworld.food.Food object at 0x7f7fafb31da0>  
+102  <mouseworld.food.Food object at 0x7f7fafb31e10>  
+103  <mouseworld.food.Food object at 0x7f7fafb31e80>  
+104  <mouseworld.food.Food object at 0x7f7fafb31ef0>  
+
+[105 rows x 5 columns]"	{'Food_group_0': 1, 'Food_group_1': 1, 'Food_group_2': 2.9000000000000004, 'Predator_group_0': 1, 'Predator_group_1': 1, 'Predator_group_2': 1, 'Predator_group_3': 1}	"                  Food_odor_0  Food_odor_1  Food_odor_2  Predator_odor_0  \
+Food_group_0         0.000000     0.000000     0.000000              0.0   
+Food_group_1         0.000000     0.000000     0.000000              0.0   
+Food_group_2         0.379807     0.368636     0.368636              0.0   
+Predator_group_0     0.000000     0.000000     0.000000              0.0   
+Predator_group_1     0.000000     0.000000     0.000000              0.0   
+Predator_group_2     0.000000     0.000000     0.000000              0.0   
+Predator_group_3     0.000000     0.000000     0.000000              0.0   
+
+                  Predator_odor_1  Predator_odor_2  Predator_odor_3  
+Food_group_0                  0.0              0.0              0.0  
+Food_group_1                  0.0              0.0              0.0  
+Food_group_2                  0.0              0.0              0.0  
+Predator_group_0              0.0              0.0              0.0  
+Predator_group_1              0.0              0.0              0.0  
+Predator_group_2              0.0              0.0              0.0  
+Predator_group_3              0.0              0.0              0.0  "	"[[  8.58371176 -13.03783419]
+ [  8.33124965 -12.65436848]
+ [  8.33124965 -12.65436848]
+ [  0.           0.        ]
+ [  0.           0.        ]
+ [  0.           0.        ]
+ [  0.           0.        ]]"	[-0.0019994  -0.85548308]	[(0, 1), (0, 0)]	True	False	False		[]	0		[ 0.84  0.44  0.43  0.11  0.62]	<nengo.simulator.Simulator object at 0x7f7faf72e780>			1.0	
+0	Mouse_8	2	1000.95	0	0	"   Verb    Noun_group  Duration  Benefit Termination  Distance
+0  Feed  Food_group_2       2.0     40.0        None       0.0"	"         Verb    Noun_group     Value  \
+0        Wait          None  0.000000   
+1      Search          None  0.000010   
+2    Approach  Food_group_2  0.092861   
+3    Approach  Food_group_2  0.087479   
+4    Approach  Food_group_2  0.087479   
+5        Feed  Food_group_2  2.624500   
+6        Feed  Food_group_0  0.905000   
+7        Feed  Food_group_1  0.905000   
+8        Feed  Food_group_1  0.905000   
+9        Feed  Food_group_2  2.624500   
+10       Feed  Food_group_1  0.905000   
+11       Feed  Food_group_2  2.624500   
+12       Feed  Food_group_0  0.905000   
+13       Feed  Food_group_1  0.905000   
+14       Feed  Food_group_2  2.624500   
+15       Feed  Food_group_0  0.905000   
+16       Feed  Food_group_1  0.905000   
+17       Feed  Food_group_2  2.624500   
+18       Feed  Food_group_2  2.624500   
+19       Feed  Food_group_0  0.905000   
+20       Feed  Food_group_0  0.905000   
+21       Feed  Food_group_2  2.624500   
+22       Feed  Food_group_1  0.905000   
+23       Feed  Food_group_0  0.905000   
+24       Feed  Food_group_2  2.624500   
+25       Feed  Food_group_2  2.624500   
+26       Feed  Food_group_0  0.905000   
+27       Feed  Food_group_0  0.905000   
+28       Feed  Food_group_2  2.624500   
+29       Feed  Food_group_1  0.905000   
+..        ...           ...       ...   
+75       Feed  Food_group_1  0.905000   
+76       Feed  Food_group_2  2.624500   
+77       Feed  Food_group_2  2.624500   
+78       Feed  Food_group_0  0.905000   
+79       Feed  Food_group_1  0.905000   
+80       Feed  Food_group_0  0.905000   
+81       Feed  Food_group_2  2.624500   
+82       Feed  Food_group_0  0.905000   
+83       Feed  Food_group_0  0.905000   
+84       Feed  Food_group_1  0.905000   
+85       Feed  Food_group_2  2.624500   
+86       Feed  Food_group_2  2.624500   
+87       Feed  Food_group_0  0.905000   
+88       Feed  Food_group_1  0.905000   
+89       Feed  Food_group_2  2.624500   
+90       Feed  Food_group_0  0.905000   
+91       Feed  Food_group_0  0.905000   
+92       Feed  Food_group_1  0.905000   
+93       Feed  Food_group_1  0.905000   
+94       Feed  Food_group_1  0.905000   
+95       Feed  Food_group_2  2.624500   
+96       Feed  Food_group_1  0.905000   
+97       Feed  Food_group_0  0.905000   
+98       Feed  Food_group_1  0.905000   
+99       Feed  Food_group_2  2.624500   
+100      Feed  Food_group_2  2.624500   
+101      Feed  Food_group_0  0.905000   
+102      Feed  Food_group_1  0.905000   
+103      Feed  Food_group_2  2.624500   
+104      Feed  Food_group_0  0.905000   
+
+                                              Function  \
+0    <bound method Mouse.wait of <mouseworld.mouse....   
+1    <bound method Mouse.search_for_odor of <mousew...   
+2    <bound method Mouse.approach of <mouseworld.mo...   
+3    <bound method Mouse.approach of <mouseworld.mo...   
+4    <bound method Mouse.approach of <mouseworld.mo...   
+5    <bound method Mouse.feed of <mouseworld.mouse....   
+6    <bound method Mouse.feed of <mouseworld.mouse....   
+7    <bound method Mouse.feed of <mouseworld.mouse....   
+8    <bound method Mouse.feed of <mouseworld.mouse....   
+9    <bound method Mouse.feed of <mouseworld.mouse....   
+10   <bound method Mouse.feed of <mouseworld.mouse....   
+11   <bound method Mouse.feed of <mouseworld.mouse....   
+12   <bound method Mouse.feed of <mouseworld.mouse....   
+13   <bound method Mouse.feed of <mouseworld.mouse....   
+14   <bound method Mouse.feed of <mouseworld.mouse....   
+15   <bound method Mouse.feed of <mouseworld.mouse....   
+16   <bound method Mouse.feed of <mouseworld.mouse....   
+17   <bound method Mouse.feed of <mouseworld.mouse....   
+18   <bound method Mouse.feed of <mouseworld.mouse....   
+19   <bound method Mouse.feed of <mouseworld.mouse....   
+20   <bound method Mouse.feed of <mouseworld.mouse....   
+21   <bound method Mouse.feed of <mouseworld.mouse....   
+22   <bound method Mouse.feed of <mouseworld.mouse....   
+23   <bound method Mouse.feed of <mouseworld.mouse....   
+24   <bound method Mouse.feed of <mouseworld.mouse....   
+25   <bound method Mouse.feed of <mouseworld.mouse....   
+26   <bound method Mouse.feed of <mouseworld.mouse....   
+27   <bound method Mouse.feed of <mouseworld.mouse....   
+28   <bound method Mouse.feed of <mouseworld.mouse....   
+29   <bound method Mouse.feed of <mouseworld.mouse....   
+..                                                 ...   
+75   <bound method Mouse.feed of <mouseworld.mouse....   
+76   <bound method Mouse.feed of <mouseworld.mouse....   
+77   <bound method Mouse.feed of <mouseworld.mouse....   
+78   <bound method Mouse.feed of <mouseworld.mouse....   
+79   <bound method Mouse.feed of <mouseworld.mouse....   
+80   <bound method Mouse.feed of <mouseworld.mouse....   
+81   <bound method Mouse.feed of <mouseworld.mouse....   
+82   <bound method Mouse.feed of <mouseworld.mouse....   
+83   <bound method Mouse.feed of <mouseworld.mouse....   
+84   <bound method Mouse.feed of <mouseworld.mouse....   
+85   <bound method Mouse.feed of <mouseworld.mouse....   
+86   <bound method Mouse.feed of <mouseworld.mouse....   
+87   <bound method Mouse.feed of <mouseworld.mouse....   
+88   <bound method Mouse.feed of <mouseworld.mouse....   
+89   <bound method Mouse.feed of <mouseworld.mouse....   
+90   <bound method Mouse.feed of <mouseworld.mouse....   
+91   <bound method Mouse.feed of <mouseworld.mouse....   
+92   <bound method Mouse.feed of <mouseworld.mouse....   
+93   <bound method Mouse.feed of <mouseworld.mouse....   
+94   <bound method Mouse.feed of <mouseworld.mouse....   
+95   <bound method Mouse.feed of <mouseworld.mouse....   
+96   <bound method Mouse.feed of <mouseworld.mouse....   
+97   <bound method Mouse.feed of <mouseworld.mouse....   
+98   <bound method Mouse.feed of <mouseworld.mouse....   
+99   <bound method Mouse.feed of <mouseworld.mouse....   
+100  <bound method Mouse.feed of <mouseworld.mouse....   
+101  <bound method Mouse.feed of <mouseworld.mouse....   
+102  <bound method Mouse.feed of <mouseworld.mouse....   
+103  <bound method Mouse.feed of <mouseworld.mouse....   
+104  <bound method Mouse.feed of <mouseworld.mouse....   
+
+                                               Arg_1  
+0                                               None  
+1                                               None  
+2                               [2.06479466592, 0.0]  
+3                               [2.00406541104, 0.0]  
+4                               [2.00406541104, 0.0]  
+5    <mouseworld.food.Food object at 0x7f7fafeda048>  
+6    <mouseworld.food.Food object at 0x7f7fafb30080>  
+7    <mouseworld.food.Food object at 0x7f7fafeda0f0>  
+8    <mouseworld.food.Food object at 0x7f7fafb300f0>  
+9    <mouseworld.food.Food object at 0x7f7fafeda128>  
+10   <mouseworld.food.Food object at 0x7f7fafeda160>  
+11   <mouseworld.food.Food object at 0x7f7fafb30160>  
+12   <mouseworld.food.Food object at 0x7f7fafb301d0>  
+13   <mouseworld.food.Food object at 0x7f7fafb30240>  
+14   <mouseworld.food.Food object at 0x7f7fafb302b0>  
+15   <mouseworld.food.Food object at 0x7f7fafb30320>  
+16   <mouseworld.food.Food object at 0x7f7fafb30390>  
+17   <mouseworld.food.Food object at 0x7f7fafeda400>  
+18   <mouseworld.food.Food object at 0x7f7fafb30400>  
+19   <mouseworld.food.Food object at 0x7f7fafeda470>  
+20   <mouseworld.food.Food object at 0x7f7fafb30470>  
+21   <mouseworld.food.Food object at 0x7f7fafeda4e0>  
+22   <mouseworld.food.Food object at 0x7f7fafb304e0>  
+23   <mouseworld.food.Food object at 0x7f7fafeda518>  
+24   <mouseworld.food.Food object at 0x7f7fafb30550>  
+25   <mouseworld.food.Food object at 0x7f7fafeda5c0>  
+26   <mouseworld.food.Food object at 0x7f7fafb305c0>  
+27   <mouseworld.food.Food object at 0x7f7fafeda5f8>  
+28   <mouseworld.food.Food object at 0x7f7fafeda630>  
+29   <mouseworld.food.Food object at 0x7f7fafb30630>  
+..                                               ...  
+75   <mouseworld.food.Food object at 0x7f7fafb31630>  
+76   <mouseworld.food.Food object at 0x7f7fafb316a0>  
+77   <mouseworld.food.Food object at 0x7f7fafdfb710>  
+78   <mouseworld.food.Food object at 0x7f7fafb31710>  
+79   <mouseworld.food.Food object at 0x7f7fafb31780>  
+80   <mouseworld.food.Food object at 0x7f7fafdfb7b8>  
+81   <mouseworld.food.Food object at 0x7f7fafb317f0>  
+82   <mouseworld.food.Food object at 0x7f7fafdfb828>  
+83   <mouseworld.food.Food object at 0x7f7fafb31860>  
+84   <mouseworld.food.Food object at 0x7f7fafb318d0>  
+85   <mouseworld.food.Food object at 0x7f7fafb31940>  
+86   <mouseworld.food.Food object at 0x7f7fafdfb978>  
+87   <mouseworld.food.Food object at 0x7f7fafb319b0>  
+88   <mouseworld.food.Food object at 0x7f7fafb31a20>  
+89   <mouseworld.food.Food object at 0x7f7fafb31a90>  
+90   <mouseworld.food.Food object at 0x7f7fafdfbac8>  
+91   <mouseworld.food.Food object at 0x7f7fafb31b00>  
+92   <mouseworld.food.Food object at 0x7f7fafdfbb70>  
+93   <mouseworld.food.Food object at 0x7f7fafb31b70>  
+94   <mouseworld.food.Food object at 0x7f7fafdfbbe0>  
+95   <mouseworld.food.Food object at 0x7f7fafb31be0>  
+96   <mouseworld.food.Food object at 0x7f7fafdfbc50>  
+97   <mouseworld.food.Food object at 0x7f7fafb31c50>  
+98   <mouseworld.food.Food object at 0x7f7fafb31cc0>  
+99   <mouseworld.food.Food object at 0x7f7fafb31d30>  
+100  <mouseworld.food.Food object at 0x7f7fafdfbda0>  
+101  <mouseworld.food.Food object at 0x7f7fafb31da0>  
+102  <mouseworld.food.Food object at 0x7f7fafb31e10>  
+103  <mouseworld.food.Food object at 0x7f7fafb31e80>  
+104  <mouseworld.food.Food object at 0x7f7fafb31ef0>  
+
+[105 rows x 5 columns]"	{'Food_group_0': 1, 'Food_group_1': 1, 'Food_group_2': 4.61, 'Predator_group_0': 1, 'Predator_group_1': 1, 'Predator_group_2': 1, 'Predator_group_3': 1}	"                  Food_odor_0  Food_odor_1  Food_odor_2  Predator_odor_0  \
+Food_group_0         0.000000     0.000000     0.000000              0.0   
+Food_group_1         0.000000     0.000000     0.000000              0.0   
+Food_group_2         0.141864     0.137691     0.137691              0.0   
+Predator_group_0     0.000000     0.000000     0.000000              0.0   
+Predator_group_1     0.000000     0.000000     0.000000              0.0   
+Predator_group_2     0.000000     0.000000     0.000000              0.0   
+Predator_group_3     0.000000     0.000000     0.000000              0.0   
+
+                  Predator_odor_1  Predator_odor_2  Predator_odor_3  
+Food_group_0                  0.0              0.0              0.0  
+Food_group_1                  0.0              0.0              0.0  
+Food_group_2                  0.0              0.0              0.0  
+Predator_group_0              0.0              0.0              0.0  
+Predator_group_1              0.0              0.0              0.0  
+Predator_group_2              0.0              0.0              0.0  
+Predator_group_3              0.0              0.0              0.0  "	"[[ 2.06479467  0.        ]
+ [ 2.00406541  0.        ]
+ [ 2.00406541  0.        ]
+ [ 0.          0.        ]
+ [ 0.          0.        ]
+ [ 0.          0.        ]
+ [ 0.          0.        ]]"	[ 0.  0.]	[(0, 1), (0, 1)]	True	False	False		[]	0		[ 0.77  0.76  0.55  0.64  0.44]	<nengo.simulator.Simulator object at 0x7f7faf682208>			2.0	
+0	Mouse_9	2	994.7739488102333	0	0	"     Verb Noun_group  Duration  Benefit Termination  Distance
+0  Search       None       2.0      0.0        None  3.226051"	"     Verb Noun_group    Value  \
 0    Wait       None  0.00000   
 1  Search       None  0.00001   
 
@@ -22,109 +1731,10 @@ Food_group_2                  0.0              0.0              0.0
 Predator_group_0              0.0              0.0              0.0  
 Predator_group_1              0.0              0.0              0.0  
 Predator_group_2              0.0              0.0              0.0  
-Predator_group_3              0.0              0.0              0.0  "	"[[ 0.  0.]
- [ 0.  0.]
- [ 0.  0.]
- [ 0.  0.]
- [ 0.  0.]
- [ 0.  0.]
- [ 0.  0.]]"	[ 0.97103245 -0.01949116]	[(94, 52), (94, 51)]	True	True	False		[]	0	5	[ 0.09  0.48  0.44  0.63  0.71]	<nengo.simulator.Simulator object at 0x7f065ade5828>		"[array([[ -3.16387388e-04,   5.57311672e-06,   3.09395210e-04,
-          2.68140050e-04,  -1.33792992e-04,  -5.80263414e-05,
-          2.43046589e-04,   3.55198596e-04,   5.48791943e-04,
-         -2.47386029e-05,   3.10395058e-04,  -2.56567544e-04,
-         -1.01425422e-04,   4.93390805e-04,   2.13680279e-04,
-          5.24743492e-04,  -9.37439602e-05,   2.09776730e-05,
-          1.43733363e-04,   2.25911072e-04,  -7.06873358e-05,
-          3.54965144e-04,   7.20916804e-05,   5.48931109e-04,
-          1.49154674e-04,  -4.83232654e-05,   3.49124416e-04,
-          3.89979539e-04,   3.77997469e-05,   2.65465245e-04,
-          2.29706685e-04,  -3.43401446e-04,   1.04384320e-04,
-         -7.70161296e-05,   1.18920786e-04,   1.76649565e-04,
-          0.00000000e+00,   9.62888155e-05,  -2.66636645e-05,
-         -2.13267623e-04,  -1.66298468e-04,   2.20290080e-04,
-         -1.43337393e-06,   5.30912483e-05,   1.08786192e-05,
-          6.98394238e-05,   2.67687361e-05,  -1.09799358e-04,
-          3.36699499e-04,   3.87462105e-05],
-       [ -5.70513051e-04,  -1.31838355e-03,   5.06980587e-04,
-          4.34205561e-03,   3.92516970e-03,  -3.42361480e-04,
-          2.08747401e-03,   1.69544440e-03,  -7.55847181e-04,
-          2.15741403e-03,  -2.40189464e-03,  -3.70544458e-03,
-          2.46633300e-03,   1.29059162e-03,   1.93708073e-03,
-          2.65575631e-04,  -5.94388144e-04,  -1.96053372e-03,
-         -1.74479791e-03,  -9.80255067e-05,  -4.42222214e-03,
-         -9.79525156e-04,   7.36473222e-04,   2.02829262e-04,
-         -5.51147556e-03,  -1.76073585e-03,  -3.95186050e-03,
-         -2.26601844e-03,  -1.21799758e-03,  -1.14871131e-03,
-          3.32616420e-03,   1.87521353e-03,  -5.43122943e-03,
-          2.66762434e-03,  -1.32195117e-03,   2.83778175e-03,
-          0.00000000e+00,   5.25382155e-05,   1.45211306e-03,
-          2.09502771e-03,   6.54320801e-04,  -1.68839871e-03,
-         -1.23684537e-04,  -6.06242579e-04,  -1.41299713e-04,
-          2.85225498e-03,   2.51943668e-03,   2.82456712e-03,
-          2.94234980e-03,  -1.13243228e-03]]), array([[  3.43557621e-04,   1.96316806e-04,  -2.49801244e-04,
-         -1.53507297e-04,   1.38640640e-06,   1.26712269e-05,
-         -1.57075017e-04,  -7.43589121e-05,   1.39551039e-04,
-          2.09031461e-04,  -1.76192062e-04,   4.28469670e-04,
-         -2.45470288e-05,  -1.33412155e-04,  -2.61825932e-04,
-         -3.06581187e-05,   3.69771566e-06,   8.57136336e-06,
-         -7.34448667e-05,  -5.06399423e-04,   3.46822144e-04,
-          9.69732158e-06,   6.84601736e-04,   7.86869084e-05,
-          2.51128555e-04,   3.59209107e-05,  -2.62831263e-04,
-         -2.43657812e-04,  -4.17509297e-05,  -2.47483970e-04,
-          8.81076839e-05,   3.11486612e-04,   1.02337957e-04,
-          1.62820643e-04,   4.11087583e-04,   1.39446065e-04,
-          0.00000000e+00,   5.71455204e-06,   3.63022905e-04,
-          2.71863904e-04,   3.48988766e-04,  -4.10103334e-05,
-          3.69473779e-05,   3.94419091e-04,   2.54985385e-04,
-          2.82532979e-04,  -7.85947489e-05,   2.79698944e-04,
-         -1.01975691e-04,   2.26090700e-04],
-       [  5.70561550e-04,   1.31838355e-03,  -5.06910638e-04,
-         -4.34205561e-03,  -3.92516970e-03,   3.42361480e-04,
-         -2.08743098e-03,  -1.69541733e-03,   7.55847181e-04,
-         -2.15737850e-03,   2.40191418e-03,   3.70550521e-03,
-         -2.46633300e-03,  -1.29059162e-03,  -1.93699659e-03,
-         -2.65575631e-04,   5.94388144e-04,   1.96054417e-03,
-          1.74480848e-03,   9.81088178e-05,   4.42224903e-03,
-          9.79525156e-04,  -7.36473222e-04,  -2.02829262e-04,
-          5.51152406e-03,   1.76073585e-03,   3.95190551e-03,
-          2.26604632e-03,   1.21800076e-03,   1.14876788e-03,
-         -3.32609637e-03,  -1.87515422e-03,   5.43126372e-03,
-         -2.66762434e-03,   1.32195117e-03,  -2.83772880e-03,
-          0.00000000e+00,  -5.25382155e-05,  -1.45211306e-03,
-         -2.09494958e-03,  -6.54297669e-04,   1.68840787e-03,
-          1.23684537e-04,   6.06242579e-04,   1.41299713e-04,
-         -2.85219395e-03,  -2.51943668e-03,  -2.82453414e-03,
-         -2.94231427e-03,   1.13243228e-03]]), array([[  2.87588769e-04,   1.11994089e-04,   2.14195369e-04,
-          2.32878536e-05,  -1.63348497e-05,   1.05670330e-04,
-          1.74801132e-04,   9.72030941e-05,   9.14650625e-05,
-          1.94992592e-04,   9.09079641e-05,   3.53768191e-04,
-         -1.88574367e-05,   1.77568647e-05,   3.47813419e-04,
-          3.98436277e-05,   9.82912547e-05,   6.62906422e-05,
-          8.48257366e-05,   2.86707420e-04,   2.19463342e-04,
-          3.78703650e-07,   1.76081363e-04,   5.63754405e-05,
-          2.90322678e-04,   5.50603093e-05,   1.63046188e-04,
-          9.64193979e-05,   7.01363365e-05,   2.28855563e-04,
-          2.65947314e-04,   2.07468522e-04,   1.33675512e-04,
-          2.13320446e-05,   1.78418144e-04,   2.37075055e-04,
-          0.00000000e+00,   4.16167577e-06,   7.72631592e-05,
-          2.63337630e-04,   1.50164228e-04,   1.14523911e-04,
-          2.61932584e-06,   5.41842488e-05,   2.21663356e-05,
-          2.65770305e-04,  -1.84924226e-06,   1.97335175e-04,
-          1.21045026e-04,   6.08764245e-05],
-       [ -3.49771307e-09,   0.00000000e+00,  -4.44105539e-09,
-          0.00000000e+00,   0.00000000e+00,   0.00000000e+00,
-         -3.26108425e-09,  -1.54760395e-09,   0.00000000e+00,
-         -2.05439498e-09,  -1.27048551e-09,  -4.22684111e-09,
-          0.00000000e+00,   0.00000000e+00,  -5.27357926e-09,
-          0.00000000e+00,   0.00000000e+00,  -2.60460388e-10,
-         -2.89431287e-10,  -5.26587510e-09,  -1.56213835e-09,
-          0.00000000e+00,   0.00000000e+00,   0.00000000e+00,
-         -3.49771307e-09,   0.00000000e+00,  -3.34605933e-09,
-         -1.70991660e-09,  -3.55865351e-11,  -4.11419581e-09,
-         -4.39410355e-09,  -4.19657845e-09,  -1.65464064e-09,
-          0.00000000e+00,   0.00000000e+00,  -3.60097310e-09,
-          0.00000000e+00,   0.00000000e+00,   0.00000000e+00,
-         -4.72665809e-09,  -1.41751532e-09,  -2.02000497e-10,
-          0.00000000e+00,   0.00000000e+00,   0.00000000e+00,
-         -4.38421295e-09,   0.00000000e+00,  -1.63229504e-09,
-         -2.05439498e-09,   0.00000000e+00]])]"
+Predator_group_3              0.0              0.0              0.0  "	"[[ 1.27852526 -1.57253881]
+ [ 1.24092158 -1.52628767]
+ [ 1.24092158 -1.52628767]
+ [ 0.          0.        ]
+ [ 0.          0.        ]
+ [ 0.          0.        ]
+ [ 0.          0.        ]]"	[ 0.7524929  -0.00444437]	[(0, 2), (0, 1)]	True	True	False		[]	0		[ 0.62  0.59  0.71  0.3   0.59]	<nengo.simulator.Simulator object at 0x7f7faf564c50>			2.0	

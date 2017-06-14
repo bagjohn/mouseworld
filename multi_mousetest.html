@@ -11939,7 +11939,7 @@ importing time on engine(s)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[9]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> multi_mousetest_run_parallel.py
@@ -11989,13 +11989,13 @@ def make_model(mouse_data):
 #     pos = params[0]
 #     header = params[1]
 #     mouse_list = params[2]
-    model = Multi_Mousetest(mouse_data, -10, 1, 0, 100, 100)
+    model = Multi_Mousetest(mouse_data, 10, 1, 0, 100, 100)
     for i in range(10) :
         model.food_schedule.step()
         #model.predator_schedule.step()
         model.diffuse_odor_layers(model.odor_layers)
     #counter = 0
-    myrange = 40
+    myrange = 60
     for i in range(myrange) :
         #c=time.time()
         #counter += 1
@@ -12180,8 +12180,8 @@ class Multi_Mousetest(Mouseworld):
 #         temp = [np.zeros(self.sensor_num)] * self.groups_num
 #         self.zero_sensor_vector = pd.Series(temp, index=self.odor_layers)
         
-        pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
-#         pos =[(1,1)]
+#         pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
+        pos =[(4,3) for i ]
         header = [0,1,2,3,4,5,6,7]
         params = (pos, header)
         param_combs = list(itertools.product(*params))    

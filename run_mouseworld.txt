@@ -13,23 +13,23 @@ initial_model_data = model.initial_datacollector.get_model_vars_dataframe()
 initial_model_data.to_csv('results/initial_model_data.csv', sep='\t')
 
 # Prepare environment by stepping food and predators and diffusing odors
-for i in range(0) :
+for i in range(2) :
     model.food_schedule.step()
     model.predator_schedule.step()
     model.diffuse_odor_layers_parallel(model.odor_layers)
 
 counter = 0
 # Run for discrete number of timesteps
-# for i in range(2) :
-#     counter += 1
-#     print('sim step : %i'%counter)
-#     model.step()
-
-# Run until all mice perish
-while model.num_mice > 0 :
+for i in range(2) :
     counter += 1
     print('sim step : %i'%counter)
     model.step()
+
+# Run until all mice perish
+# while model.num_mice > 0 :
+#     counter += 1
+#     print('sim step : %i'%counter)
+#     model.step()
     
 # Gather final model and agent data
 model.final_datacollector.collect(model,model.all_mice_schedule)

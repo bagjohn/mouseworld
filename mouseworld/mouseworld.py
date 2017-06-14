@@ -25,7 +25,12 @@ from joblib import Parallel, delayed
 import multiprocessing
 
 class Mouseworld(Model):
-    def __init__(self, num_mice, num_food, num_predators, width, height, mousebrain_inheritance = False):
+    def __init__(self, num_mice, num_food, num_predators, 
+                 genome_range = [(0,1), (0,1), (0,1), (0,1), (0,1)], 
+                 mouse_position = 'random', food_position = 'random', predator_position = 'random',
+                 primary_values = None, secondary_values = None, 
+                 food_amount_range = (20,400), nutritional_value = [-1, 0.7, 1], 
+                 width = 100, height = 100, mousebrain_inheritance = False):
         
         # for parallel processing
         self.num_cores = multiprocessing.cpu_count()
@@ -33,7 +38,8 @@ class Mouseworld(Model):
         # define model variables from args
         self.num_mice = sum(num_mice)
         self.num_unborn_mice = 0
-        self.num_genes = 5
+        self.genome_range = genome_range
+        self.num_genes = len(genome_range)
         self.num_food = num_food
         self.num_predators = num_predators
         self.mousebrain_inheritance = mousebrain_inheritance
@@ -44,11 +50,25 @@ class Mouseworld(Model):
         # initialize genome
         self.initialization_genome = self.initialize_genome()
         
+        # initialize positions
+        if mouse_position == 'random' :
+            self.initial_mouse_positions = self.initialize_pos_randomly(self.num_mice, header = True)
+        elif mouse_position == 'in_quadrant' :
+            self.initial_mouse_positions = self.initialize_pos_in_quadrant(self.num_mice)
+        if food_position == 'random' :
+            self.initial_food_positions = self.initialize_pos_randomly(self.num_food)
+        else : 
+            self.initial_food_positions = [food_position for i in range(self.num_food)]
+        if predator_position == 'random' :
+            self.initial_predator_positions = self.initialize_pos_randomly(self.num_predators)
+        else : 
+            self.initial_predator_positions = [predator_position for i in range(self.num_predators)]
+            
         # initialize food parameters
-        self.food_amount_range = (20,200)
+        self.food_amount_range = food_amount_range
         self.food_odor_strength = [1] #[0.7,1]
         self.food_odor_std = [8]
-        self.nutritional_value = [-1, 0.7, 1]
+        self.nutritional_value = nutritional_value #[-1, 0.7, 1]
         self.food_params = (self.food_odor_strength, self.nutritional_value, self.food_odor_std)
         self.food_param_combs = list(itertools.product(*self.food_params))
         self.food_groups_num = len(self.food_param_combs)
@@ -97,36 +117,54 @@ class Mouseworld(Model):
 #         temp = [np.zeros(self.sensor_num)] * self.groups_num
 #         self.zero_sensor_vector = pd.Series(temp, index=self.odor_layers)
         
-        # Create agents
-        for i in range(self.num_mice):
-            temp_genome = self.initialization_genome[i]
-            if i < num_mice[0] :
-                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = False, learning_on = False, appraisal_NN_on = False)
-            elif i < (num_mice[0] + num_mice[1]):
-                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = True, learning_on = False, appraisal_NN_on = False)
-            else :
-                mouse = Mouse(self, None, temp_genome, 0, motor_NN_on = True, learning_on = True, appraisal_NN_on = False)
-            self.schedule.add(mouse)
-            self.all_mice_schedule.add(mouse)
-            self.place_agent_randomly(mouse)
-            #print(mouse.unique_id)
-            #print(mouse.genome)
-            
-        
+        # Create environment agents (food & predators)
         for i in range(self.num_food):
+            temp_position = self.initial_food_positions[i]
             j = i%(self.food_groups_num)
             food = Food(self.food_groups[j], j, self.food_layers[j], self.food_amount_range, self)
             self.food_schedule.add(food)
-            self.place_agent_randomly(food)
+            self.space.place_agent(food, temp_position)
             #self.food_layers[j].add_agent(food)
             
         for i in range(self.num_predators):
+            temp_position = self.initial_predator_positions[i]
             j = i%(self.predator_groups_num)
             predator = Predator(self.predator_groups[j], j, self.predator_layers[j], self)
             self.predator_schedule.add(predator)
-            self.place_agent_randomly(predator)
+            self.space.place_agent(predator, temp_position)
             #self.predator_layers[j].add_agent(predator)
-                
+    
+        # Create acting agents (mice)
+        for i in range(self.num_mice):
+            temp_genome = self.initialization_genome[i]
+            temp_position = self.initial_mouse_positions[i]
+            if i < num_mice[0] :
+                mouse = Mouse(self, None, temp_genome, 0, 
+                              motor_NN_on = False, learning_on = False, appraisal_NN_on = False, 
+                             header = temp_position[1])
+            elif i < (num_mice[0] + num_mice[1]):
+                mouse = Mouse(self, None, temp_genome, 0, 
+                              motor_NN_on = True, learning_on = False, appraisal_NN_on = False,
+                             header = temp_position[1])
+            else :
+                mouse = Mouse(self, None, temp_genome, 0, 
+                              motor_NN_on = True, learning_on = True, appraisal_NN_on = False,
+                             header = temp_position[1])
+            self.schedule.add(mouse)
+            self.all_mice_schedule.add(mouse)
+            self.space.place_agent(mouse, temp_position[0])
+            
+            if primary_values is not None :
+                mouse.primary_values[self.food_groups[0]] = primary_values[0]
+                mouse.primary_values[self.predator_groups[0]] = primary_values[1]
+
+            if secondary_values is not None :
+                mouse.secondary_values.ix[self.food_groups[0]][self.food_layer_names[0]]= secondary_values[0]
+                mouse.secondary_values.ix[self.predator_groups[0]][self.predator_layer_names[0]]= secondary_values[1]
+
+#             self.place_agent_randomly(mouse)   
+        
+        # Create data collectors        
         self.initial_datacollector = MyDataCollector(
             model_reporters={"Initial genome distribution": lambda a: a.initialization_genome})
         
@@ -200,7 +238,9 @@ class Mouseworld(Model):
                             "mousebrain_sim": lambda a: a.mousebrain_sim,
                             "initial_mousebrain_weights": lambda a: a.initial_mousebrain_weights,
 #                              "current_mousebrain_weights": lambda a: a.current_mousebrain_weights,
-                            "final_mousebrain_weights": lambda a: a.final_mousebrain_weights})
+                            "final_mousebrain_weights": lambda a: a.final_mousebrain_weights,
+                            "first_action_duration": lambda a: a.action_history['Duration'][0],
+                             "first_action_termination": lambda a: a.action_history['Termination'][0]})
         
         self.predator_datacollector = MyDataCollector(
             agent_reporters={"Victims_num": lambda a: a.victims_num,
@@ -259,16 +299,37 @@ class Mouseworld(Model):
         return next_id
         
     def initialize_genome(self) :
-        genome = np.random.uniform(low=0.0, high=1.0, size=(self.num_mice, self.num_genes))
+        genome = [[np.random.uniform(low=low, high=high) for (low, high) in self.genome_range] for i in range(self.num_mice)]
         genome = np.around(genome, decimals = 2)
         #print(genome)
         return genome
-      
+    
+    # Creates 20 * 8 = 160 combinations of position and header in a quadrant of space around (0,0)
+    # Then adjusts to num
+    def initialize_pos_in_quadrant(self, num) :
+        pos =[(0,1), (0,2), (0,3), (0,4), (0,5), (1,1), (1,2), (1,3), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
+        header = [0,1,2,3,4,5,6,7]
+        params = (pos, header)
+        param_combs = list(itertools.product(*params))
+        num_combs = len(param_combs)
+        positions = [param_combs[i%num_combs] for i in range(num)]
+        return positions
+    
     # Add the agent to a random space point
-    def place_agent_randomly(self, agent):
+    def place_agent_randomly(self, agent) :
         x = random.randrange(self.space.width)
         y = random.randrange(self.space.height)
-        self.space.place_agent(agent, (x, y))
+        self.space.place_agent(agent, (x,y))
+        
+    # Creates num random positions in space with/without header 
+    def initialize_pos_randomly(self, num, header = False):
+        if header == True :
+            positions = [((random.randrange(self.space.width), random.randrange(self.space.height)), 
+                          random.uniform(0, 2*math.pi)) for i in range(num)]
+        else :
+            positions = [(random.randrange(self.space.width), random.randrange(self.space.height)) for i in range(num)]
+        return positions
+        
 #         if hasattr(agent, 'sensor_position'):
 #             agent.set_sensor_position()
     

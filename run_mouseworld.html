@@ -11748,51 +11748,51 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#%%writefile mouseworld_run.py</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld_run.py
 
-<span class="kn">from</span> <span class="nn">mouseworld</span> <span class="k">import</span> <span class="n">mouseworld</span>
-<span class="kn">import</span> <span class="nn">time</span>
+from mouseworld import mouseworld
+import time
 
-<span class="c1"># Build the model</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">mouseworld</span><span class="o">.</span><span class="n">Mouseworld</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="n">mousebrain_inheritance</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+# Build the model
+model = mouseworld.Mouseworld([0, 0, 100], 100, 40, mousebrain_inheritance = True)
 
-<span class="c1"># Gather initial randomly distributed data</span>
-<span class="n">model</span><span class="o">.</span><span class="n">initial_datacollector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">schedule</span><span class="p">)</span>
-<span class="n">initial_model_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">initial_datacollector</span><span class="o">.</span><span class="n">get_model_vars_dataframe</span><span class="p">()</span>
-<span class="n">initial_model_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;results/initial_model_data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+# Gather initial randomly distributed data
+model.initial_datacollector.collect(model,model.schedule)
+initial_model_data = model.initial_datacollector.get_model_vars_dataframe()
+initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)
 
-<span class="c1"># Prepare environment by stepping food and predators and diffusing odors</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">food_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">predator_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">diffuse_odor_layers_parallel</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">odor_layers</span><span class="p">)</span>
+# Prepare environment by stepping food and predators and diffusing odors
+for i in range(2) :
+    model.food_schedule.step()
+    model.predator_schedule.step()
+    model.diffuse_odor_layers_parallel(model.odor_layers)
 
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="c1"># Run for discrete number of timesteps</span>
-<span class="c1"># for i in range(2) :</span>
-<span class="c1">#     counter += 1</span>
-<span class="c1">#     print(&#39;sim step : %i&#39;%counter)</span>
-<span class="c1">#     model.step()</span>
+counter = 0
+# Run for discrete number of timesteps
+for i in range(2) :
+    counter += 1
+    print(&#39;sim step : %i&#39;%counter)
+    model.step()
 
-<span class="c1"># Run until all mice perish</span>
-<span class="k">while</span> <span class="n">model</span><span class="o">.</span><span class="n">num_mice</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim step : </span><span class="si">%i</span><span class="s1">&#39;</span><span class="o">%</span><span class="k">counter</span>)
-    <span class="n">model</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+# Run until all mice perish
+# while model.num_mice &gt; 0 :
+#     counter += 1
+#     print(&#39;sim step : %i&#39;%counter)
+#     model.step()
     
-<span class="c1"># Gather final model and agent data</span>
-<span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">all_mice_schedule</span><span class="p">)</span>
-<span class="n">final_model_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">get_model_vars_dataframe</span><span class="p">()</span>
-<span class="n">final_model_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;results/final_model_data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">final_agent_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">get_agent_vars_dataframe</span><span class="p">()</span>
-<span class="n">final_agent_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;results/final_agent_data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+# Gather final model and agent data
+model.final_datacollector.collect(model,model.all_mice_schedule)
+final_model_data = model.final_datacollector.get_model_vars_dataframe()
+final_model_data.to_csv(&#39;results/final_model_data.csv&#39;, sep=&#39;\t&#39;)
+final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
+final_agent_data.to_csv(&#39;results/final_agent_data.csv&#39;, sep=&#39;\t&#39;)
 
-<span class="c1"># Gather test model and agent data</span>
-<span class="n">test_agent_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">test_datacollector</span><span class="o">.</span><span class="n">get_agent_vars_dataframe</span><span class="p">()</span>
-<span class="n">test_agent_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s1">&#39;results/test_agent_data.csv&#39;</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+# Gather test model and agent data
+test_agent_data = model.test_datacollector.get_agent_vars_dataframe()
+test_agent_data.to_csv(&#39;results/test_agent_data.csv&#39;, sep=&#39;\t&#39;)
 </pre></div>
 
 </div>
@@ -11804,67 +11804,8 @@ div#notebook {
 
 
 <div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/node.py:28: UserWarning: &#39;Node.size_out&#39; is being overwritten with &#39;Node.size_in&#39; since &#39;Node.output=None&#39;
-  warnings.warn(&#34;&#39;Node.size_out&#39; is being overwritten with &#34;
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Building finished in 0:00:01.                                                                                                                                           
-sim step : 1
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:533: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Distance&#39;][self.action_history.index.max()] += distance
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 2
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:365: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  action_history[&#39;Duration&#39;][action_history.index.max()] += 1
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 3
-sim step : 4
-sim step : 5
-sim step : 6
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:147: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Termination&#39;][self.action_history.index.max()] = &#39;Death&#39;
+<pre>Overwriting mouseworld_run.py
 </pre>
 </div>
 </div>

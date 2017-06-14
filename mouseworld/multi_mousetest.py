@@ -120,9 +120,9 @@ class Multi_Mousetest(Mouseworld):
 #         temp = [np.zeros(self.sensor_num)] * self.groups_num
 #         self.zero_sensor_vector = pd.Series(temp, index=self.odor_layers)
         
-        pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
-#         pos =[(1,1)]
-        header = [0,1,2,3,4,5,6,7]
+#         pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
+        pos =[(4,3) for i in range(100)]
+        header = [7]
         params = (pos, header)
         param_combs = list(itertools.product(*params))    
         

@@ -22,13 +22,16 @@ import mouseworld.predator
 
 class Mouse(Agent):
     
-    def __init__(self, model, parent_ID, genome, generation, motor_NN_on, learning_on, appraisal_NN_on, initial_mousebrain_weights = None):
+    def __init__(self, model, parent_ID, genome, generation, 
+                 motor_NN_on, learning_on, appraisal_NN_on, 
+                 header = random.uniform(0, 2*math.pi), initial_mousebrain_weights = None):
         
         # Initial parameter setting
         self.model = model
         self.unique_id = model.give_next_id('Mouse')
         self.generation = generation
         self.parent_ID = parent_ID
+        self.header = header
         
         # Constants
         self.max_energy = 1200
@@ -55,7 +58,6 @@ class Mouse(Agent):
         self.incubation_time = 0   
         self.pregnant = False
         self.unborn = False
-        self.header = random.uniform(0, 2*math.pi)
         #self.header = random.uniform(0, 2*math.pi)
         self.unborn_child = None
         self.num_offspring = 0
@@ -200,7 +202,8 @@ class Mouse(Agent):
     def give_birth(self):
         
         # TECH : Place newborn in the world
-        self.model.place_agent_randomly(self.unborn_child)
+        child_pos = (self.pos[0] + random.uniform(-1, 1), self.pos[1] + random.uniform(-1, 1))
+        self.model.space.place_agent(self.unborn_child, child_pos)
         self.model.schedule.add(self.unborn_child)
         self.model.all_mice_schedule.add(self.unborn_child)
         

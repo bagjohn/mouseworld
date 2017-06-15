@@ -11789,7 +11789,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> check_consistency_parallel.py
@@ -11813,7 +11813,8 @@ def initialize_pos_in_quadrant(num) :
     positions = [param_combs[i%num_combs] for i in range(num)]
     return positions
 
-mouse_positions = initialize_pos_in_quadrant(4)
+# mouse_positions = initialize_pos_in_quadrant(160)
+mouse_positions = [[(45,45), i/4*math.pi] for i in(range(8))]
 
 with dview.sync_imports():
     from mouseworld import mouseworld
@@ -11822,9 +11823,9 @@ with dview.sync_imports():
 dview.push({&quot;Mouseworld&quot;: Mouseworld})
 
 def run_experiment(mouse_position) :
-#     mouse_position = [(45,45), 1/4*math.pi]
+#    
 
-    num_mice = [0, 0, 1]
+    num_mice = [0, 0, 10]
 
     # Build the model
     print(&#39;Building mouseworld&#39;)
@@ -11907,7 +11908,7 @@ def run_experiment(mouse_position) :
 # print(performance,  mean_time)
 all_exp_data = dview.map_sync(run_experiment, mouse_positions)
 
-file = open(&#39;results/check_consistency.txt&#39;,&#39;w&#39;) 
+file = open(&#39;results/check_approach_consistency_001.txt&#39;,&#39;w&#39;) 
 for exp_data in all_exp_data :
     file.write(str(exp_data) + &#39;\n&#39;)
 # file.write(str(results) + &#39;\n&#39;)

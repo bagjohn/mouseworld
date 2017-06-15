@@ -19,6 +19,7 @@ def initialize_pos_in_quadrant(num) :
     return positions
 
 mouse_positions = initialize_pos_in_quadrant(160)
+# mouse_positions = [[(45,45), i/4*math.pi] for i in(range(8))]
 
 with dview.sync_imports():
     from mouseworld import mouseworld
@@ -27,9 +28,9 @@ with dview.sync_imports():
 dview.push({"Mouseworld": Mouseworld})
 
 def run_experiment(mouse_position) :
-#     mouse_position = [(45,45), 1/4*math.pi]
+#    
 
-    num_mice = [0, 0, 1]
+    num_mice = [0, 0, 100]
 
     # Build the model
     print('Building mouseworld')

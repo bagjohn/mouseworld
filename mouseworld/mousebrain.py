@@ -12,13 +12,13 @@ import nengo
 class Mousebrain(nengo.Network) :
     
     def approach(self, x):
-        spd = np.exp(-x[0])-np.exp(-0.5)
-        turn = x[1]*10
+        spd = np.exp(-x[0])-0.4
+        turn = x[1]
         return spd, turn
 
     def avoid(self, x) :
         spd = np.exp(x[0])-0.9    
-        turn = -x[1]*10      
+        turn = -x[1]  
         return spd, turn
 
     def search(self, x) :

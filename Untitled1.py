@@ -59,6 +59,17 @@ show(grid3)
 # print(grid.get_value((20,20)))
 
 
+# In[1]:
+
+import itertools
+
+pos =[(4,3) for i in range(100)]
+header = [7]
+params = (pos, header)
+param_combs = list(itertools.product(*params))  
+param_combs
+
+
 # In[26]:
 
 import numpy as np
@@ -100,15 +111,12 @@ sensor_vector = [np.mean(sensor_vector), sensor_vector[0]-sensor_vector[1]]
 sensor_vector
 
 
-# In[94]:
+# In[4]:
 
-a = [[0,0]] * 3
-b = [[0,0],[0,0],[0,0]]
-print(b==a)
-a[1][1] = 5
-b[1][1] = 5
-print(b==a)
-a
+ind = 3
+print(ind)
+ind = "{0:03}".format(ind)
+print(ind)
 
 
 # In[97]:

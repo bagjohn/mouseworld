@@ -11939,98 +11939,100 @@ importing time on engine(s)
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> multi_mousetest_run_parallel.py
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#%%writefile multi_mousetest_run_parallel.py</span>
 
-# at terminal : ipcluster start -n 4
+<span class="c1"># at terminal : ipcluster start -n 4</span>
 
-import ipyparallel
-import itertools
-import mouseworld
+<span class="kn">import</span> <span class="nn">ipyparallel</span>
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">mouseworld</span>
 
 
-clients = ipyparallel.Client()
-dview = clients.direct_view()
+<span class="n">clients</span> <span class="o">=</span> <span class="n">ipyparallel</span><span class="o">.</span><span class="n">Client</span><span class="p">()</span>
+<span class="n">dview</span> <span class="o">=</span> <span class="n">clients</span><span class="o">.</span><span class="n">direct_view</span><span class="p">()</span>
 
-# mouse_list_file = sys.argv[1]
-mouse_list= []
-max_speed = [0, 0.2, 0.4, 0.6, 0.8, 1]
-antenna_length = [0, 0.2, 0.4, 0.6, 0.8, 1]
-antenna_angle = [0, 0.2, 0.4, 0.6, 0.8, 1]
-# max_speed = [0.2]
-# antenna_length = [0.4]
-# antenna_angle = [0.2]
-params = (max_speed, antenna_length, antenna_angle)
-param_combs = list(itertools.product(*params))
-for params in param_combs :
-    genome = [params[0], 0, 0, params[1], params[2]]
-    mouse_list.append(tuple([genome, True, True, None]))
-    mouse_list.append(tuple([genome, True, False, None]))
-    mouse_list.append(tuple([genome, False, False, None]))
-# mouse_list=[([[0.2,0.4,0.6,0.4,0.2], True, True, None]),
-#             ([[0.2,0.4,0.6,0.4,0.2], True, False, None]),([[0.2,0.4,0.6,0.4,0.2], False, False, None])]
-# pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
-# # pos =[(1,1), (2,2), (3,3)]
-# header = [0,1,2,3,4,5,6,7]
-# # header = [0]
+<span class="c1"># mouse_list_file = sys.argv[1]</span>
+<span class="n">mouse_list</span><span class="o">=</span> <span class="p">[]</span>
+<span class="c1"># max_speed = [0, 0.2, 0.4, 0.6, 0.8, 1]</span>
+<span class="c1"># antenna_length = [0, 0.2, 0.4, 0.6, 0.8, 1]</span>
+<span class="c1"># antenna_angle = [0, 0.2, 0.4, 0.6, 0.8, 1]</span>
+<span class="n">max_speed</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">]</span>
+<span class="n">antenna_length</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.4</span><span class="p">]</span>
+<span class="n">antenna_angle</span> <span class="o">=</span> <span class="p">[</span><span class="mf">0.2</span><span class="p">]</span>
+<span class="n">params</span> <span class="o">=</span> <span class="p">(</span><span class="n">max_speed</span><span class="p">,</span> <span class="n">antenna_length</span><span class="p">,</span> <span class="n">antenna_angle</span><span class="p">)</span>
+<span class="n">param_combs</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">itertools</span><span class="o">.</span><span class="n">product</span><span class="p">(</span><span class="o">*</span><span class="n">params</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">params</span> <span class="ow">in</span> <span class="n">param_combs</span> <span class="p">:</span>
+    <span class="n">genome</span> <span class="o">=</span> <span class="p">[</span><span class="n">params</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">params</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">params</span><span class="p">[</span><span class="mi">2</span><span class="p">]]</span>
+    <span class="n">mouse_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="n">genome</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">None</span><span class="p">]))</span>
+    <span class="n">mouse_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="n">genome</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">]))</span>
+    <span class="n">mouse_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">([</span><span class="n">genome</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">None</span><span class="p">]))</span>
+<span class="c1"># mouse_list=[([[0.2,0.4,0.6,0.4,0.2], True, True, None]),</span>
+<span class="c1">#             ([[0.2,0.4,0.6,0.4,0.2], True, False, None]),([[0.2,0.4,0.6,0.4,0.2], False, False, None])]</span>
+<span class="c1"># pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]</span>
+<span class="c1"># # pos =[(1,1), (2,2), (3,3)]</span>
+<span class="c1"># header = [0,1,2,3,4,5,6,7]</span>
+<span class="c1"># # header = [0]</span>
 
-# params = (pos, header, mouse_list)
-# param_combs = list(itertools.product(*params))
+<span class="c1"># params = (pos, header, mouse_list)</span>
+<span class="c1"># param_combs = list(itertools.product(*params))</span>
 
-with dview.sync_imports():
-    from mouseworld.multi_mousetest import Multi_Mousetest
-    import time
-dview.push({&quot;Multi_Mousetest&quot;: Multi_Mousetest})
+<span class="k">with</span> <span class="n">dview</span><span class="o">.</span><span class="n">sync_imports</span><span class="p">():</span>
+    <span class="kn">from</span> <span class="nn">mouseworld.multi_mousetest</span> <span class="k">import</span> <span class="n">Multi_Mousetest</span>
+    <span class="kn">import</span> <span class="nn">time</span>
+<span class="n">dview</span><span class="o">.</span><span class="n">push</span><span class="p">({</span><span class="s2">&quot;Multi_Mousetest&quot;</span><span class="p">:</span> <span class="n">Multi_Mousetest</span><span class="p">})</span>
 
-def make_model(mouse_data):
-    #header = params[0]
-#     pos = params[0]
-#     header = params[1]
-#     mouse_list = params[2]
-    model = Multi_Mousetest(mouse_data, 10, 1, 0, 100, 100)
-    for i in range(10) :
-        model.food_schedule.step()
-        #model.predator_schedule.step()
-        model.diffuse_odor_layers(model.odor_layers)
-    #counter = 0
-    myrange = 60
-    for i in range(myrange) :
-        #c=time.time()
-        #counter += 1
-        model.step()
-        #d=time.time()
-    model.final_datacollector.collect(model,model.all_mice_schedule)
-    final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
-    mouse_statistics = final_agent_data[[&#39;first_action_duration&#39;, &#39;first_action_termination&#39;]]
-    mouse_statistics = mouse_statistics.reset_index(&#39;Step&#39;, drop = True)
-    #mouse_statistics = mouse_statistics.reset_index(&#39;AgentID&#39;, drop = True)
-    succesful_trials = mouse_statistics.loc[(mouse_statistics[&#39;first_action_termination&#39;] == &#39;Closure&#39;)]
-    num_trials = len(mouse_statistics.index)
-    num_succesful_trials = len(succesful_trials.index)
-    performance = num_succesful_trials / num_trials
-    mean_time = succesful_trials[&#39;first_action_duration&#39;].mean()
-#     sensor_vector = final_agent_data[&#39;sensor_vector&#39;][0].values[0]
-#     sensor_position = final_agent_data[&#39;sensor_position&#39;][0].values[0]
-#     motor_vector = final_agent_data[&#39;motor_vector&#39;][0].values[0]
-#     first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]
-#     first_action = mousetest_data
-#     first_action = (mousetest_data[&#39;Duration&#39;], mousetest_data[&#39;Termination&#39;])
-    #first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]
-    return (performance,  mean_time)
-#     return (params, mousetest_data.loc[&#39;Mouse_1&#39;])
+<span class="k">def</span> <span class="nf">make_model</span><span class="p">(</span><span class="n">mouse_data</span><span class="p">):</span>
+    <span class="c1">#header = params[0]</span>
+<span class="c1">#     pos = params[0]</span>
+<span class="c1">#     header = params[1]</span>
+<span class="c1">#     mouse_list = params[2]</span>
+    <span class="n">model</span> <span class="o">=</span> <span class="n">Multi_Mousetest</span><span class="p">(</span><span class="n">mouse_data</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">100</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">:</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">food_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="c1">#model.predator_schedule.step()</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">diffuse_odor_layers</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">odor_layers</span><span class="p">)</span>
+    <span class="c1">#counter = 0</span>
+    <span class="n">myrange</span> <span class="o">=</span> <span class="mi">20</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">myrange</span><span class="p">)</span> <span class="p">:</span>
+        <span class="c1">#c=time.time()</span>
+        <span class="c1">#counter += 1</span>
+        <span class="n">model</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+        <span class="c1">#d=time.time()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">all_mice_schedule</span><span class="p">)</span>
+    <span class="n">final_agent_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">get_agent_vars_dataframe</span><span class="p">()</span>
+    <span class="n">mouse_statistics</span> <span class="o">=</span> <span class="n">final_agent_data</span><span class="p">[[</span><span class="s1">&#39;first_action_duration&#39;</span><span class="p">,</span> <span class="s1">&#39;first_action_termination&#39;</span><span class="p">]]</span>
+    <span class="n">mouse_statistics</span> <span class="o">=</span> <span class="n">mouse_statistics</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="s1">&#39;Step&#39;</span><span class="p">,</span> <span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+    <span class="c1">#mouse_statistics = mouse_statistics.reset_index(&#39;AgentID&#39;, drop = True)</span>
+    <span class="n">succesful_trials</span> <span class="o">=</span> <span class="n">mouse_statistics</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">mouse_statistics</span><span class="p">[</span><span class="s1">&#39;first_action_termination&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Closure&#39;</span><span class="p">)]</span>
+    <span class="n">num_trials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mouse_statistics</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">num_succesful_trials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">succesful_trials</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
+    <span class="n">performance</span> <span class="o">=</span> <span class="n">num_succesful_trials</span> <span class="o">/</span> <span class="n">num_trials</span>
+    <span class="n">mean_time</span> <span class="o">=</span> <span class="n">succesful_trials</span><span class="p">[</span><span class="s1">&#39;first_action_duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="c1">#     sensor_vector = final_agent_data[&#39;sensor_vector&#39;][0].values[0]</span>
+<span class="c1">#     sensor_position = final_agent_data[&#39;sensor_position&#39;][0].values[0]</span>
+<span class="c1">#     motor_vector = final_agent_data[&#39;motor_vector&#39;][0].values[0]</span>
+<span class="c1">#     first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]</span>
+<span class="c1">#     first_action = mousetest_data</span>
+<span class="c1">#     first_action = (mousetest_data[&#39;Duration&#39;], mousetest_data[&#39;Termination&#39;])</span>
+    <span class="c1">#first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]</span>
+<span class="c1">#     return (performance,  mean_time)</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">mouse_statistics</span><span class="p">)</span>
 
-#     return (first_action, sensor_vector, sensor_position, motor_vector)
+<span class="c1">#     return (first_action, sensor_vector, sensor_position, motor_vector)</span>
  
-all_first_actions = dview.map_sync(make_model, mouse_list)
-file = open(&#39;results/stats.txt&#39;,&#39;w&#39;) 
-for i in range(len(mouse_list)) :
-    if i%3 == 0 :
-        file.write(&#39;------------------NEW GENOME------------------\n&#39;)
-    file.write(str(mouse_list[i]) + &#39;\n&#39;)
-    file.write(str(all_first_actions[i]) + &#39;\n&#39;)
-file.close() 
+<span class="n">all_first_actions</span> <span class="o">=</span> <span class="n">dview</span><span class="o">.</span><span class="n">map_sync</span><span class="p">(</span><span class="n">make_model</span><span class="p">,</span> <span class="n">mouse_list</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="n">all_first_actions</span><span class="p">)</span>
+<span class="c1"># file = open(&#39;results/stats3.txt&#39;,&#39;w&#39;) </span>
+<span class="c1"># for i in range(len(mouse_list)) :</span>
+<span class="c1">#     if i%3 == 0 :</span>
+<span class="c1">#         file.write(&#39;------------------NEW GENOME------------------\n&#39;)</span>
+<span class="c1">#     file.write(str(mouse_list[i]) + &#39;\n&#39;)</span>
+<span class="c1">#     file.write(str(all_first_actions[i]) + &#39;\n&#39;)</span>
+<span class="c1"># file.close() </span>
 </pre></div>
 
 </div>
@@ -12043,7 +12045,201 @@ file.close()
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Overwriting multi_mousetest_run_parallel.py
+<pre>importing Multi_Mousetest from mouseworld.multi_mousetest on engine(s)
+importing time on engine(s)
+[           first_action_duration first_action_termination
+AgentID                                                  
+Mouse_1                     20.0                     None
+Mouse_10                     7.0                  Failure
+Mouse_100                   15.0                  Failure
+Mouse_11                    20.0                     None
+Mouse_12                    11.0                  Failure
+Mouse_13                     6.0                  Failure
+Mouse_14                    20.0                     None
+Mouse_15                     9.0                  Failure
+Mouse_16                    20.0                     None
+Mouse_17                    20.0                     None
+Mouse_18                    20.0                     None
+Mouse_19                    20.0                     None
+Mouse_2                     20.0                     None
+Mouse_20                     7.0                  Failure
+Mouse_21                     6.0                  Failure
+Mouse_22                    20.0                     None
+Mouse_23                    20.0                     None
+Mouse_24                    20.0                     None
+Mouse_25                    11.0                  Failure
+Mouse_26                    20.0                     None
+Mouse_27                     5.0                  Failure
+Mouse_28                     7.0                  Failure
+Mouse_29                    20.0                     None
+Mouse_3                     18.0                  Failure
+Mouse_30                    20.0                     None
+Mouse_31                    20.0                     None
+Mouse_32                    20.0                     None
+Mouse_33                    20.0                     None
+Mouse_34                    20.0                     None
+Mouse_35                    20.0                     None
+...                          ...                      ...
+Mouse_72                     8.0                  Closure
+Mouse_73                    20.0                     None
+Mouse_74                    20.0                     None
+Mouse_75                    14.0                  Failure
+Mouse_76                    20.0                     None
+Mouse_77                    20.0                     None
+Mouse_78                    20.0                     None
+Mouse_79                    20.0                     None
+Mouse_8                     20.0                     None
+Mouse_80                    20.0                     None
+Mouse_81                    20.0                     None
+Mouse_82                     8.0                  Failure
+Mouse_83                    20.0                     None
+Mouse_84                    10.0                  Failure
+Mouse_85                    20.0                     None
+Mouse_86                     7.0                  Failure
+Mouse_87                    20.0                     None
+Mouse_88                    20.0                     None
+Mouse_89                    20.0                     None
+Mouse_9                     20.0                     None
+Mouse_90                    20.0                     None
+Mouse_91                    20.0                     None
+Mouse_92                    20.0                     None
+Mouse_93                    13.0                  Closure
+Mouse_94                    20.0                     None
+Mouse_95                    20.0                     None
+Mouse_96                    20.0                     None
+Mouse_97                    20.0                     None
+Mouse_98                    20.0                     None
+Mouse_99                     6.0                  Failure
+
+[100 rows x 2 columns],            first_action_duration first_action_termination
+AgentID                                                  
+Mouse_1                     20.0                     None
+Mouse_10                    20.0                     None
+Mouse_100                   20.0                     None
+Mouse_11                    20.0                     None
+Mouse_12                    20.0                     None
+Mouse_13                    20.0                     None
+Mouse_14                    20.0                     None
+Mouse_15                    20.0                     None
+Mouse_16                     9.0                  Failure
+Mouse_17                    20.0                     None
+Mouse_18                    20.0                     None
+Mouse_19                    20.0                     None
+Mouse_2                     20.0                     None
+Mouse_20                    20.0                     None
+Mouse_21                    18.0                  Closure
+Mouse_22                    20.0                     None
+Mouse_23                    17.0                  Failure
+Mouse_24                     9.0                  Closure
+Mouse_25                     7.0                  Failure
+Mouse_26                    20.0                     None
+Mouse_27                    20.0                     None
+Mouse_28                    19.0                  Failure
+Mouse_29                    20.0                     None
+Mouse_3                     20.0                     None
+Mouse_30                     5.0                  Failure
+Mouse_31                    11.0                  Closure
+Mouse_32                    20.0                     None
+Mouse_33                    20.0                     None
+Mouse_34                    20.0                     None
+Mouse_35                    20.0                     None
+...                          ...                      ...
+Mouse_72                    20.0                     None
+Mouse_73                     6.0                  Failure
+Mouse_74                     7.0                  Failure
+Mouse_75                    20.0                     None
+Mouse_76                    20.0                     None
+Mouse_77                    20.0                     None
+Mouse_78                     6.0                  Failure
+Mouse_79                    20.0                     None
+Mouse_8                     19.0                  Failure
+Mouse_80                    20.0                     None
+Mouse_81                    20.0                     None
+Mouse_82                    13.0                  Closure
+Mouse_83                    20.0                     None
+Mouse_84                     7.0                  Failure
+Mouse_85                     7.0                  Failure
+Mouse_86                     6.0                  Failure
+Mouse_87                    20.0                     None
+Mouse_88                    20.0                     None
+Mouse_89                    20.0                     None
+Mouse_9                     13.0                  Closure
+Mouse_90                    20.0                     None
+Mouse_91                     6.0                  Failure
+Mouse_92                     7.0                  Failure
+Mouse_93                    20.0                     None
+Mouse_94                    20.0                     None
+Mouse_95                    20.0                     None
+Mouse_96                     6.0                  Failure
+Mouse_97                    20.0                     None
+Mouse_98                     9.0                  Closure
+Mouse_99                     6.0                  Failure
+
+[100 rows x 2 columns],            first_action_duration first_action_termination
+AgentID                                                  
+Mouse_1                      8.0                  Failure
+Mouse_10                     8.0                  Failure
+Mouse_100                    8.0                  Failure
+Mouse_11                     8.0                  Failure
+Mouse_12                     8.0                  Failure
+Mouse_13                     8.0                  Failure
+Mouse_14                     8.0                  Failure
+Mouse_15                     8.0                  Failure
+Mouse_16                     8.0                  Failure
+Mouse_17                     8.0                  Failure
+Mouse_18                     8.0                  Failure
+Mouse_19                     8.0                  Failure
+Mouse_2                      8.0                  Failure
+Mouse_20                     8.0                  Failure
+Mouse_21                     8.0                  Failure
+Mouse_22                     8.0                  Failure
+Mouse_23                     8.0                  Failure
+Mouse_24                     8.0                  Failure
+Mouse_25                     8.0                  Failure
+Mouse_26                     8.0                  Failure
+Mouse_27                     8.0                  Failure
+Mouse_28                     8.0                  Failure
+Mouse_29                     8.0                  Failure
+Mouse_3                      8.0                  Failure
+Mouse_30                     8.0                  Failure
+Mouse_31                     8.0                  Failure
+Mouse_32                     8.0                  Failure
+Mouse_33                     8.0                  Failure
+Mouse_34                     8.0                  Failure
+Mouse_35                     8.0                  Failure
+...                          ...                      ...
+Mouse_72                     8.0                  Failure
+Mouse_73                     8.0                  Failure
+Mouse_74                     8.0                  Failure
+Mouse_75                     8.0                  Failure
+Mouse_76                     8.0                  Failure
+Mouse_77                     8.0                  Failure
+Mouse_78                     8.0                  Failure
+Mouse_79                     8.0                  Failure
+Mouse_8                      8.0                  Failure
+Mouse_80                     8.0                  Failure
+Mouse_81                     8.0                  Failure
+Mouse_82                     8.0                  Failure
+Mouse_83                     8.0                  Failure
+Mouse_84                     8.0                  Failure
+Mouse_85                     8.0                  Failure
+Mouse_86                     8.0                  Failure
+Mouse_87                     8.0                  Failure
+Mouse_88                     8.0                  Failure
+Mouse_89                     8.0                  Failure
+Mouse_9                      8.0                  Failure
+Mouse_90                     8.0                  Failure
+Mouse_91                     8.0                  Failure
+Mouse_92                     8.0                  Failure
+Mouse_93                     8.0                  Failure
+Mouse_94                     8.0                  Failure
+Mouse_95                     8.0                  Failure
+Mouse_96                     8.0                  Failure
+Mouse_97                     8.0                  Failure
+Mouse_98                     8.0                  Failure
+Mouse_99                     8.0                  Failure
+
+[100 rows x 2 columns]]
 </pre>
 </div>
 </div>
@@ -12054,7 +12250,7 @@ file.close()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/multi_mousetest.py
@@ -12181,8 +12377,8 @@ class Multi_Mousetest(Mouseworld):
 #         self.zero_sensor_vector = pd.Series(temp, index=self.odor_layers)
         
 #         pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
-        pos =[(4,3) for i ]
-        header = [0,1,2,3,4,5,6,7]
+        pos =[(4,3) for i in range(10)]
+        header = [7]
         params = (pos, header)
         param_combs = list(itertools.product(*params))    
         
@@ -12194,7 +12390,8 @@ class Multi_Mousetest(Mouseworld):
             x, y = params[0]
 
             mouse = Mouse(self, None, self.genome, 0, motor_NN_on = self.motor_NN_on, learning_on = self.learning_on,
-                           appraisal_NN_on = False, initial_mousebrain_weights = self.mousebrain_weights)
+                           appraisal_NN_on = False, initial_mousebrain_weights = self.mousebrain_weights, 
+                          brain_iterations_per_step = 100)
 
             mouse.header = header * math.pi / 4
             mouse.primary_values[self.food_groups[0]] = 100

@@ -24,7 +24,8 @@ class Mouse(Agent):
     
     def __init__(self, model, parent_ID, genome, generation, 
                  motor_NN_on, learning_on, appraisal_NN_on, 
-                 header = random.uniform(0, 2*math.pi), initial_mousebrain_weights = None):
+                 header = random.uniform(0, 2*math.pi), initial_mousebrain_weights = None,
+                brain_iterations_per_step = 10):
         
         # Initial parameter setting
         self.model = model
@@ -82,7 +83,7 @@ class Mouse(Agent):
         # Sensor and actor initialization
         self.sensor_num = 2
         self.sensor_vector = np.zeros(shape = (self.model.groups_num,self.sensor_num))
-        self.sensor_threshold = 0.0001
+        self.sensor_threshold = 0.001
         self.sensor_position = [(0,0)] * self.sensor_num
         self.motor_num = 2
         self.motor_vector = np.zeros(self.motor_num)
@@ -114,7 +115,7 @@ class Mouse(Agent):
         self.initial_mousebrain_weights = initial_mousebrain_weights
 #         self.current_mousebrain_weights = initial_mousebrain_weights
         self.final_mousebrain_weights = None
-        self.brain_iterations_per_step = 10
+        self.brain_iterations_per_step = brain_iterations_per_step
         self.motor_NN_on = motor_NN_on
         self.appraisal_NN_on = appraisal_NN_on
         self.learning_on = learning_on
@@ -180,10 +181,12 @@ class Mouse(Agent):
         if self.model.mousebrain_inheritance :
              # BIO : Child inherits parent knowledge (TEST)
             mouse = Mouse(self.model, self.unique_id, child_genome, self.generation + 1, self.motor_NN_on, 
-                          self.learning_on, self.appraisal_NN_on, initial_mousebrain_weights = self.get_mousebrain_weights())
+                          self.learning_on, self.appraisal_NN_on, initial_mousebrain_weights = self.get_mousebrain_weights(),
+                         brain_iterations_per_step = self.brain_iterations_per_step)
         else :
             mouse = Mouse(self.model, self.unique_id, child_genome, self.generation + 1, self.motor_NN_on, 
-                          self.learning_on, self.appraisal_NN_on, initial_mousebrain_weights = None)
+                          self.learning_on, self.appraisal_NN_on, initial_mousebrain_weights = None, 
+                          brain_iterations_per_step = self.brain_iterations_per_step)
         mouse.unborn = True
         self.offspring.append(mouse)
         
@@ -243,7 +246,7 @@ class Mouse(Agent):
                 else :
                     sensor_vector[i][j] = 0
             # trivial transformation for test purposes
-            sensor_vector[i] = [np.mean(sensor_vector[i]), sensor_vector[i][0]-sensor_vector[i][1]]
+            sensor_vector[i] = [np.mean(sensor_vector[i]), (sensor_vector[i][0]-sensor_vector[i][1])/np.mean(sensor_vector[i])]
         return sensor_vector      
     
     def update_possible_actions (self, actions) :
@@ -432,7 +435,7 @@ class Mouse(Agent):
 #             self.current_mousebrain_weights = self.get_mousebrain_weights()
             self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
         else :
-            self.motor_vector = [np.exp(-goal_sense[0])-np.exp(-0.5), goal_sense[1]*10]
+            self.motor_vector = [np.exp(-goal_sense[0])-0.4, goal_sense[1]]
         
     def avoid(self, goal_sense) :
         #goal_sense = self.sensor_vector[odor_layer]
@@ -454,7 +457,7 @@ class Mouse(Agent):
 #             self.current_mousebrain_weights = self.get_mousebrain_weights()
             self.motor_vector = np.mean(temp[-self.brain_iterations_per_step : ], axis = 0)
         else :
-            self.motor_vector = [np.exp(goal_sense[0])-0.9, -goal_sense[1]*10]
+            self.motor_vector = [np.exp(goal_sense[0])-0.9, -goal_sense[1]]
             
     def suffer(self,predator) :
         
@@ -544,7 +547,7 @@ class Mouse(Agent):
         
         # BIO : Translate motor signal to behavior (how much to turn, how much to move)
         distance = motor_vector[0] * self.max_speed
-        self.header = (self.header + motor_vector[1] * math.pi)%(2*math.pi)
+        self.header = (self.header + motor_vector[1] * math.pi / 2)%(2*math.pi)
         
         # COUNTER
         self.total_distance += distance

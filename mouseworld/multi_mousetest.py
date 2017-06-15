@@ -121,7 +121,7 @@ class Multi_Mousetest(Mouseworld):
 #         self.zero_sensor_vector = pd.Series(temp, index=self.odor_layers)
         
 #         pos =[(1,1), (1,2), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
-        pos =[(4,3) for i in range(100)]
+        pos =[(4,3) for i in range(10)]
         header = [7]
         params = (pos, header)
         param_combs = list(itertools.product(*params))    
@@ -134,7 +134,8 @@ class Multi_Mousetest(Mouseworld):
             x, y = params[0]
 
             mouse = Mouse(self, None, self.genome, 0, motor_NN_on = self.motor_NN_on, learning_on = self.learning_on,
-                           appraisal_NN_on = False, initial_mousebrain_weights = self.mousebrain_weights)
+                           appraisal_NN_on = False, initial_mousebrain_weights = self.mousebrain_weights, 
+                          brain_iterations_per_step = 100)
 
             mouse.header = header * math.pi / 4
             mouse.primary_values[self.food_groups[0]] = 100

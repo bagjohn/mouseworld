@@ -30,7 +30,7 @@ class Mouseworld(Model):
                  mouse_position = 'random', food_position = 'random', predator_position = 'random',
                  primary_values = None, secondary_values = None, 
                  food_amount_range = (20,400), nutritional_value = [-1, 0.7, 1], 
-                 width = 100, height = 100, mousebrain_inheritance = False):
+                 width = 100, height = 100, mousebrain_inheritance = False, brain_iterations_per_step = 10):
         
         # for parallel processing
         self.num_cores = multiprocessing.cpu_count()
@@ -43,6 +43,7 @@ class Mouseworld(Model):
         self.num_food = num_food
         self.num_predators = num_predators
         self.mousebrain_inheritance = mousebrain_inheritance
+        self.brain_iterations_per_step = brain_iterations_per_step
         # build model continuous space
         self.space = ContinuousSpace(width, height, True, x_min=0, y_min=0,
             grid_width=width, grid_height=height)
@@ -55,10 +56,14 @@ class Mouseworld(Model):
             self.initial_mouse_positions = self.initialize_pos_randomly(self.num_mice, header = True)
         elif mouse_position == 'in_quadrant' :
             self.initial_mouse_positions = self.initialize_pos_in_quadrant(self.num_mice)
+        else :
+            self.initial_mouse_positions = [mouse_position for i in range(self.num_mice)]
+            
         if food_position == 'random' :
             self.initial_food_positions = self.initialize_pos_randomly(self.num_food)
         else : 
             self.initial_food_positions = [food_position for i in range(self.num_food)]
+            
         if predator_position == 'random' :
             self.initial_predator_positions = self.initialize_pos_randomly(self.num_predators)
         else : 
@@ -66,7 +71,7 @@ class Mouseworld(Model):
             
         # initialize food parameters
         self.food_amount_range = food_amount_range
-        self.food_odor_strength = [1] #[0.7,1]
+        self.food_odor_strength = [2] #[0.7,1]
         self.food_odor_std = [8]
         self.nutritional_value = nutritional_value #[-1, 0.7, 1]
         self.food_params = (self.food_odor_strength, self.nutritional_value, self.food_odor_std)
@@ -83,8 +88,8 @@ class Mouseworld(Model):
         self.predator_odor_strength = [1] # [0.7,1]
         self.predator_odor_std = [8]
         self.damage_level = [1] #[0.3,1]
-        self.hunt_rule = [0, 1]
-        self.hunt_radius = [0.5, 1] #[0.5,1]
+        self.hunt_rule = [1] #[0, 1]
+        self.hunt_radius = [1] #[0.5, 1] #[0.5,1]
         self.predator_params = (self.predator_odor_strength, self.predator_odor_std, self.damage_level,
                                 self.hunt_rule, self.hunt_radius)
         self.predator_param_combs = list(itertools.product(*self.predator_params))
@@ -141,15 +146,15 @@ class Mouseworld(Model):
             if i < num_mice[0] :
                 mouse = Mouse(self, None, temp_genome, 0, 
                               motor_NN_on = False, learning_on = False, appraisal_NN_on = False, 
-                             header = temp_position[1])
+                             header = temp_position[1], brain_iterations_per_step = self.brain_iterations_per_step)
             elif i < (num_mice[0] + num_mice[1]):
                 mouse = Mouse(self, None, temp_genome, 0, 
                               motor_NN_on = True, learning_on = False, appraisal_NN_on = False,
-                             header = temp_position[1])
+                             header = temp_position[1], brain_iterations_per_step = self.brain_iterations_per_step)
             else :
                 mouse = Mouse(self, None, temp_genome, 0, 
                               motor_NN_on = True, learning_on = True, appraisal_NN_on = False,
-                             header = temp_position[1])
+                             header = temp_position[1], brain_iterations_per_step = self.brain_iterations_per_step)
             self.schedule.add(mouse)
             self.all_mice_schedule.add(mouse)
             self.space.place_agent(mouse, temp_position[0])
@@ -215,7 +220,8 @@ class Mouseworld(Model):
         self.final_datacollector = MyDataCollector(
             model_reporters={"Alive_mice": lambda a: a.schedule.get_agent_count(), 
                              "All_mice": lambda a: a.all_mice_schedule.get_agent_count(), 
-                             "Unborn_mice": lambda a: a.num_unborn_mice},
+                             "Unborn_mice": lambda a: a.num_unborn_mice, 
+                            "groups_num": lambda a: a.groups_num},
             agent_reporters={"age": lambda a: a.age,
                              "energy": lambda a: a.energy,
                              "generation": lambda a: a.generation,
@@ -294,7 +300,8 @@ class Mouseworld(Model):
             
     def give_next_id(self, class_name) :
         ind = int(self.next_ids[class_name])
-        next_id = '%s_%i'%(class_name, ind)
+        ind = "{0:03}".format(ind)
+        next_id = '%s_%s'%(class_name, ind)
         self.next_ids[class_name] += 1
         return next_id
         
@@ -339,11 +346,11 @@ class Mouseworld(Model):
     
     def diffuse_odor_layers(self, layers) :
         for layer in layers :
-            layer.diffuse(0.8,0.7) 
+            layer.diffuse(0.95,0.8) 
             
     def diffuse_odor_layers_parallel(self, layers) :
         
-        Parallel(n_jobs=self.num_cores)(delayed(layer.diffuse)(0.8,0.7) for layer in layers)
+        Parallel(n_jobs=self.num_cores)(delayed(layer.diffuse)(0.85,0.8) for layer in layers)
             
     def step(self):
         '''Advance the model by one step.'''

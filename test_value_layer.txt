@@ -1,8 +1,4 @@
 
-# coding: utf-8
-
-# In[10]:
-
 import numpy as np
 import matplotlib.pyplot as plt
 from mouseworld.myspace import *
@@ -26,13 +22,13 @@ def show(grid) :
 
 #show(grid)
 for i in range(40) :
-    grid.add_value((20,20),2)
+    grid.add_value((20,20),1)
 #     grid.add_value((i,i),1)
 #     grid.add_value((80,20),0.3)
 #     grid.add_value((50,i),0.3)
     grid.diffuse(0.95,0.8)
-#     show(grid)
-#     time.sleep(1)
+    show(grid)
+    time.sleep(1)
 
 # show(grid)
 
@@ -52,9 +48,6 @@ for i in range(10) :
 #     print(grid.get_value((97,97)))
 #     print(grid.get_value((98,98)))
 #     print(grid.get_value((99,99)))
-
-
-# In[ ]:
 
 
 

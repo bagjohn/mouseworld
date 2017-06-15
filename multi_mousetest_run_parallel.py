@@ -11,12 +11,12 @@ dview = clients.direct_view()
 
 # mouse_list_file = sys.argv[1]
 mouse_list= []
-max_speed = [0, 0.2, 0.4, 0.6, 0.8, 1]
-antenna_length = [0, 0.2, 0.4, 0.6, 0.8, 1]
-antenna_angle = [0, 0.2, 0.4, 0.6, 0.8, 1]
-# max_speed = [0.2]
-# antenna_length = [0.4]
-# antenna_angle = [0.2]
+# max_speed = [0, 0.2, 0.4, 0.6, 0.8, 1]
+# antenna_length = [0, 0.2, 0.4, 0.6, 0.8, 1]
+# antenna_angle = [0, 0.2, 0.4, 0.6, 0.8, 1]
+max_speed = [0.2]
+antenna_length = [0.4]
+antenna_angle = [0.2]
 params = (max_speed, antenna_length, antenna_angle)
 param_combs = list(itertools.product(*params))
 for params in param_combs :

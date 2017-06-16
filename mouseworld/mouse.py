@@ -35,9 +35,9 @@ class Mouse(Agent):
         self.header = header
         
         # Constants
-        self.max_energy = 1200
+        self.max_energy = self.model.mouse_max_energy
         self.max_gastric_content = 200
-        self.energy = 1000
+        self.energy = self.model.mouse_initial_energy
         self.maturity_age = 200       
         self.metabolism_rate = 0.95
         self.primary_learning_rate = 0.1
@@ -125,7 +125,7 @@ class Mouse(Agent):
         
         if motor_NN_on :
             self.input_manager = Input_manager()
-            self.mousebrain = Mousebrain()
+            self.mousebrain = Mousebrain(seed = 2)
             self.mousebrain.build(self.input_manager, self.initial_mousebrain_weights)
             self.mousebrain_sim = nengo.Simulator(self.mousebrain, dt=0.001)
             self.mousebrain_steps = [0, 0, 0]
@@ -580,12 +580,13 @@ class Mouse(Agent):
         if self.energy <= 0 :
             self.die()
         else :
-            if (self.age >= self.maturity_age and self.pregnant == False) :
-                self.conceive()
-            if (self.pregnant) :
-                self.incubation_time += 1
-                if self.incubation_time >= self.incubation_period :
-                    self.give_birth()
+            if self.model.mouse_reproduction :
+                if (self.age >= self.maturity_age and self.pregnant == False) :
+                    self.conceive()
+                if (self.pregnant) :
+                    self.incubation_time += 1
+                    if self.incubation_time >= self.incubation_period :
+                        self.give_birth()
             self.possible_actions = pd.DataFrame(self.trivial_actions, 
                                                      columns=('Verb', 'Noun_group', 'Value', 'Function', 'Arg_1'))
             self.sensor_position = self.set_sensor_position(self.pos, self.header)

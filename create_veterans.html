@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>test_value_layer</title>
+<title>create_veterans</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -11748,92 +11748,119 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">from</span> <span class="nn">mouseworld.myspace</span> <span class="k">import</span> <span class="o">*</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">ctypes</span>
-
-<span class="c1"># getcontext().prec = 7</span>
-
-<span class="n">grid</span> <span class="o">=</span> <span class="n">Value_layer</span><span class="p">(</span><span class="s1">&#39;example&#39;</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span><span class="kc">True</span><span class="p">)</span>
-<span class="c1">#grid2 = Value_layer(100,100,True)</span>
-<span class="c1">#grid.add_value((99,99),100)</span>
-
-<span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="n">grid</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">cell_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">grid</span><span class="o">.</span><span class="n">width</span><span class="p">,</span> <span class="n">grid</span><span class="o">.</span><span class="n">height</span><span class="p">))</span>
-    <span class="k">for</span> <span class="n">cell</span> <span class="ow">in</span> <span class="n">grid</span><span class="o">.</span><span class="n">coord_iter</span><span class="p">():</span>
-        <span class="n">cell_value</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="o">=</span> <span class="n">cell</span>
-        <span class="n">cell_values</span><span class="p">[</span><span class="n">x</span><span class="p">][</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="n">cell_value</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">cell_values</span><span class="p">,</span> <span class="n">interpolation</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">colorbar</span><span class="p">()</span>
-    <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="c1">#show(grid)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">grid</span><span class="o">.</span><span class="n">add_value</span><span class="p">((</span><span class="mi">20</span><span class="p">,</span><span class="mi">20</span><span class="p">),</span><span class="mi">2</span><span class="p">)</span>
-<span class="c1">#     grid.add_value((i,i),1)</span>
-<span class="c1">#     grid.add_value((80,20),0.3)</span>
-<span class="c1">#     grid.add_value((50,i),0.3)</span>
-<span class="c1">#     grid.diffuse(0.95,0.8)</span>
-    <span class="nb">print</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">CDLL</span><span class="p">(</span><span class="s1">&#39;library.so&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">square</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="c1"># linux or when mingw used on windows# from decimal import *</span>
-
-<span class="c1">#     show(grid)</span>
-<span class="c1">#     time.sleep(1)</span>
-
-<span class="c1"># show(grid)</span>
-
-<span class="c1"># for i in range(10) :</span>
-<span class="c1">#     print(grid.get_value((i*10+9,i*10+9)))</span>
-
-<span class="c1"># for i in range(10) :</span>
-<span class="c1">#     print(grid.get_value((50,i*10+9)))</span>
-
-<span class="c1"># for i in range(10) :</span>
-<span class="c1">#     print(grid.get_value((20+i,80+i)))</span>
-    
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span> <span class="p">:</span>
-    
-    <span class="nb">print</span><span class="p">(</span><span class="n">grid</span><span class="o">.</span><span class="n">get_value</span><span class="p">((</span><span class="mi">20</span><span class="o">+</span><span class="n">i</span><span class="p">,</span><span class="mi">20</span><span class="o">+</span><span class="n">i</span><span class="p">)))</span>
-<span class="c1">#     print(grid.get_value((90,90)))</span>
-<span class="c1">#     print(grid.get_value((96,96)))</span>
-<span class="c1">#     print(grid.get_value((97,97)))</span>
-<span class="c1">#     print(grid.get_value((98,98)))</span>
-<span class="c1">#     print(grid.get_value((99,99)))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-cyan-fg">  File </span><span class="ansi-green-fg">&#34;&lt;ipython-input-5-ba2c5d3ad4e3&gt;&#34;</span><span class="ansi-cyan-fg">, line </span><span class="ansi-green-fg">29</span>
-<span class="ansi-red-fg">    print ctypes.CDLL(&#39;library.so&#39;).square(4) # linux or when mingw used on windows# from decimal import *</span>
-               ^
-<span class="ansi-red-fg">SyntaxError</span><span class="ansi-red-fg">:</span> invalid syntax
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
 <div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> create_veterans_parallel.py
+
+import math
+import ipyparallel
+import itertools
+
+# at terminal : ipcluster start -n 4
+
+clients = ipyparallel.Client()
+dview = clients.direct_view()
+
+with dview.sync_imports():
+    from mouseworld import mouseworld
+    from mouseworld.mouseworld import Mouseworld
+    import time
+dview.push({&quot;Mouseworld&quot;: Mouseworld})
+
+def run_experiment() :
+#    
+    num_mice = [0, 0, 100]
+
+    # Build the model
+    print(&#39;Building mouseworld&#39;)
+    model = mouseworld.Mouseworld(num_mice, 100, 0, mouse_initial_energy = 1000, mouse_max_energy = 1200,
+                     food_amount_range = (20,40), nutritional_value = [1], mouse_reproduction = False, brain_iterations_per_step = 10)
+
+    # Gather initial randomly distributed data
+    # model.initial_datacollector.collect(model,model.schedule)
+    # initial_model_data = model.initial_datacollector.get_model_vars_dataframe()
+    # initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)
+
+    # Prepare environment by stepping food and predators and diffusing odors
+    print(&#39;Preparing environment&#39;)
+    for i in range(40) :
+        model.food_schedule.step()
+        model.predator_schedule.step()
+        model.diffuse_odor_layers(model.odor_layers)
+
+    counter = 0
+    myrange = 60
+    # Run for discrete number of timesteps
+#     print(&#39;Simulatimg for %i timesteps&#39;%myrange)
+#     for i in range(myrange) :
+#         c=time.time()
+#         counter += 1
+#         model.step()
+#         d=time.time()
+#         print(&#39;sim step : %i in %f&#39;%(counter, d-c))
+#     print(&#39;Simulation terminated - Number of time steps reached&#39;)
+
+    # Run until all mice perish
+    print(&#39;Simulatimg until all mice perish&#39;)
+    while model.num_mice &gt; 0 :
+        c=time.time()
+        counter += 1
+        model.step()
+        d=time.time()
+        print(&#39;sim step : %i in %f&#39;%(counter, d-c))
+    print(&#39;Simulation terminated - No alive mice&#39;)
+        
+    # Gather final model and agent data
+    model.final_datacollector.collect(model,model.all_mice_schedule)
+    # final_model_data = model.final_datacollector.get_model_vars_dataframe()
+    # print(final_model_data)
+
+    final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
+    mouse_statistics = final_agent_data[[&#39;first_action_duration&#39;, &#39;first_action_termination&#39;]]
+    # mouse_statistics = final_agent_data[&#39;action_history&#39;]
+    # mouse_statistics = final_agent_data[&#39;secondary_values&#39;]
+    # mouse_statistics = final_agent_data[&#39;sensor_vector&#39;]
+
+    mouse_statistics = mouse_statistics.reset_index(&#39;Step&#39;, drop = True)
+        #mouse_statistics = mouse_statistics.reset_index(&#39;AgentID&#39;, drop = True)
+    num_trials = len(mouse_statistics.index)
+    # for i in range(num_trials)
+    succesful_trials = mouse_statistics.loc[(mouse_statistics[&#39;first_action_termination&#39;] == &#39;Closure&#39;)]
+    unsuccesful_trials = mouse_statistics.loc[(mouse_statistics[&#39;first_action_termination&#39;] == &#39;Failure&#39;)]
+    # incomplete_trials = mouse_statistics.loc[(mouse_statistics[&#39;first_action_termination&#39;] == &#39;None&#39;)]
+
+    num_succesful_trials = len(succesful_trials.index)
+    num_unsuccesful_trials = len(unsuccesful_trials.index)
+    # num_incomplete_trials = len(incomplete_trials.index)
+
+    #performance = num_succesful_trials / num_trials
+    mean_time_success = succesful_trials[&#39;first_action_duration&#39;].mean()
+    mean_time_failure = unsuccesful_trials[&#39;first_action_duration&#39;].mean()
+
+    sim_params = [mouse_position, num_mice, myrange]
+    results = [num_succesful_trials, mean_time_success, num_unsuccesful_trials, mean_time_failure]
+    exp_data = [results, sim_params]
+    return exp_data
+    # mouse_statistics = [performance,  mean_time]
+    #     sensor_vector = final_agent_data[&#39;sensor_vector&#39;][0].values[0]
+#     sensor_position = final_agent_data[&#39;sensor_position&#39;][0].values[0]
+#     motor_vector = final_agent_data[&#39;motor_vector&#39;][0].values[0]
+#     first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]
+#     first_action = mousetest_data
+#     first_action = (mousetest_data[&#39;Duration&#39;], mousetest_data[&#39;Termination&#39;])
+    #first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]
+#     return (performance,  mean_time)
+#     return (mouse_statistics)
+# print(performance,  mean_time)
+all_exp_data = dview.map_sync(run_experiment, mouse_positions)
+
+file = open(&#39;results/check_approach_consistency_001_2.txt&#39;,&#39;w&#39;) 
+for exp_data in all_exp_data :
+    file.write(str(exp_data) + &#39;\n&#39;)
+# file.write(str(results) + &#39;\n&#39;)
+file.close() 
+# mouse_statistics.to_csv(&#39;results/mouse_statistics.csv&#39;, sep=&#39;\t&#39;)
 </pre></div>
 
 </div>

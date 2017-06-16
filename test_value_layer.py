@@ -1,13 +1,13 @@
 
 # coding: utf-8
 
-# In[10]:
+# In[5]:
 
 import numpy as np
 import matplotlib.pyplot as plt
 from mouseworld.myspace import *
 import time
-# from decimal import *
+import ctypes
 
 # getcontext().prec = 7
 
@@ -30,7 +30,9 @@ for i in range(40) :
 #     grid.add_value((i,i),1)
 #     grid.add_value((80,20),0.3)
 #     grid.add_value((50,i),0.3)
-    grid.diffuse(0.95,0.8)
+#     grid.diffuse(0.95,0.8)
+    print ctypes.CDLL('library.so').square(4) # linux or when mingw used on windows# from decimal import *
+
 #     show(grid)
 #     time.sleep(1)
 
@@ -46,6 +48,7 @@ for i in range(40) :
 #     print(grid.get_value((20+i,80+i)))
     
 for i in range(10) :
+    
     print(grid.get_value((20+i,20+i)))
 #     print(grid.get_value((90,90)))
 #     print(grid.get_value((96,96)))

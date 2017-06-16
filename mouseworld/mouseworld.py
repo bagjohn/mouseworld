@@ -26,11 +26,13 @@ import multiprocessing
 
 class Mouseworld(Model):
     def __init__(self, num_mice, num_food, num_predators, 
-                 genome_range = [(0,1), (0,1), (0,1), (0,1), (0,1)], 
+                 genome_range = [(0,1), (0,1), (0,1), (0,1), (0,1)],
+                 mouse_initial_energy = 1000, mouse_max_energy = 1200,
                  mouse_position = 'random', food_position = 'random', predator_position = 'random',
                  primary_values = None, secondary_values = None, 
-                 food_amount_range = (20,400), nutritional_value = [-1, 0.7, 1], 
-                 width = 100, height = 100, mousebrain_inheritance = False, brain_iterations_per_step = 10):
+                 food_amount_range = (20,400), nutritional_value = [-1, 0.7, 1], food_growth_rate = [1],
+                 width = 100, height = 100, mousebrain_inheritance = False, mouse_reproduction = True, 
+                 brain_iterations_per_step = 10):
         
         # for parallel processing
         self.num_cores = multiprocessing.cpu_count()
@@ -39,11 +41,15 @@ class Mouseworld(Model):
         self.num_mice = sum(num_mice)
         self.num_unborn_mice = 0
         self.genome_range = genome_range
+        self.mouse_initial_energy = mouse_initial_energy
+        self.mouse_max_energy = mouse_max_energy
         self.num_genes = len(genome_range)
         self.num_food = num_food
         self.num_predators = num_predators
         self.mousebrain_inheritance = mousebrain_inheritance
         self.brain_iterations_per_step = brain_iterations_per_step
+        self.mouse_reproduction = mouse_reproduction
+        
         # build model continuous space
         self.space = ContinuousSpace(width, height, True, x_min=0, y_min=0,
             grid_width=width, grid_height=height)
@@ -74,7 +80,8 @@ class Mouseworld(Model):
         self.food_odor_strength = [2] #[0.7,1]
         self.food_odor_std = [8]
         self.nutritional_value = nutritional_value #[-1, 0.7, 1]
-        self.food_params = (self.food_odor_strength, self.nutritional_value, self.food_odor_std)
+        self.food_growth_rate = food_growth_rate
+        self.food_params = (self.food_odor_strength, self.nutritional_value, self.food_odor_std, self.food_growth_rate)
         self.food_param_combs = list(itertools.product(*self.food_params))
         self.food_groups_num = len(self.food_param_combs)
         self.food_groups = [('Food_group_%i'%i) for i in range(self.food_groups_num)]

@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> check_consistency_parallel.py
@@ -11784,7 +11784,7 @@ dview.push({&quot;Mouseworld&quot;: Mouseworld})
 def run_experiment(mouse_position) :
 #    
 
-    num_mice = [0, 0, 100]
+    num_mice = [0, 100, 0]
 
     # Build the model
     print(&#39;Building mouseworld&#39;)
@@ -11867,7 +11867,7 @@ def run_experiment(mouse_position) :
 # print(performance,  mean_time)
 all_exp_data = dview.map_sync(run_experiment, mouse_positions)
 
-file = open(&#39;results/check_approach_consistency_001.txt&#39;,&#39;w&#39;) 
+file = open(&#39;results/check_approach_consistency_010.txt&#39;,&#39;w&#39;) 
 for exp_data in all_exp_data :
     file.write(str(exp_data) + &#39;\n&#39;)
 # file.write(str(results) + &#39;\n&#39;)

@@ -30,7 +30,7 @@ dview.push({"Mouseworld": Mouseworld})
 def run_experiment(mouse_position) :
 #    
 
-    num_mice = [0, 100, 0]
+    num_mice = [0, 0, 100]
 
     # Build the model
     print('Building mouseworld')
@@ -113,7 +113,7 @@ def run_experiment(mouse_position) :
 # print(performance,  mean_time)
 all_exp_data = dview.map_sync(run_experiment, mouse_positions)
 
-file = open('results/check_approach_consistency_010_2.txt','w') 
+file = open('results/check_approach_consistency_001_2.txt','w') 
 for exp_data in all_exp_data :
     file.write(str(exp_data) + '\n')
 # file.write(str(results) + '\n')

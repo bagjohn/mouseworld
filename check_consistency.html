@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[33]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> check_consistency_parallel.py
@@ -11866,7 +11866,7 @@ def run_experiment(mouse_position) :
 # print(performance,  mean_time)
 all_exp_data = dview.map_sync(run_experiment, mouse_positions)
 
-file = open(&#39;results/check_approach_consistency_001_2.txt&#39;,&#39;w&#39;) 
+file = open(&#39;results/check_approach_consistency_001_seed.txt&#39;,&#39;w&#39;) 
 for exp_data in all_exp_data :
     file.write(str(exp_data) + &#39;\n&#39;)
 # file.write(str(results) + &#39;\n&#39;)
@@ -11895,7 +11895,7 @@ file.close()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#%%writefile check_consistency.py</span>
@@ -11904,15 +11904,16 @@ file.close()
 <span class="kn">import</span> <span class="nn">time</span>
 <span class="kn">import</span> <span class="nn">math</span>
 
-<span class="n">mouse_position</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">45</span><span class="p">,</span><span class="mi">45</span><span class="p">),</span> <span class="mi">1</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">]</span>
-<span class="n">num_mice</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+<span class="n">mouse_position</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">45</span><span class="p">,</span><span class="mi">45</span><span class="p">),</span> <span class="mi">4</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">]</span>
+<span class="n">num_mice</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
 
 <span class="c1"># Build the model</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Building mouseworld&#39;</span><span class="p">)</span>
 <span class="n">model</span> <span class="o">=</span> <span class="n">mouseworld</span><span class="o">.</span><span class="n">Mouseworld</span><span class="p">(</span><span class="n">num_mice</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">genome_range</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.6</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.8</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)],</span> 
                  <span class="n">mouse_position</span> <span class="o">=</span> <span class="n">mouse_position</span><span class="p">,</span> <span class="n">food_position</span> <span class="o">=</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span>
                  <span class="n">primary_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">secondary_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> 
-                 <span class="n">food_amount_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10000</span><span class="p">,</span><span class="mi">10000</span><span class="p">),</span> <span class="n">nutritional_value</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">brain_iterations_per_step</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
+                 <span class="n">food_amount_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10000</span><span class="p">,</span><span class="mi">10000</span><span class="p">),</span> <span class="n">nutritional_value</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">brain_iterations_per_step</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
+                             <span class="n">mouse_reproduction</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">initial_mousebrain_weights</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mousebrain_seed</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
 
 <span class="c1"># Gather initial randomly distributed data</span>
 <span class="c1"># model.initial_datacollector.collect(model,model.schedule)</span>
@@ -11921,13 +11922,13 @@ file.close()
 
 <span class="c1"># Prepare environment by stepping food and predators and diffusing odors</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Preparing environment&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span> <span class="p">:</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="p">:</span>
     <span class="n">model</span><span class="o">.</span><span class="n">food_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
     <span class="n">model</span><span class="o">.</span><span class="n">predator_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
     <span class="n">model</span><span class="o">.</span><span class="n">diffuse_odor_layers</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">odor_layers</span><span class="p">)</span>
 
 <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">myrange</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="n">myrange</span> <span class="o">=</span> <span class="mi">40</span>
 <span class="c1"># Run for discrete number of timesteps</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulatimg for </span><span class="si">%i</span><span class="s1"> timesteps&#39;</span><span class="o">%</span><span class="k">myrange</span>)
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">myrange</span><span class="p">)</span> <span class="p">:</span>
@@ -11984,9 +11985,9 @@ file.close()
 <span class="c1">#     return (performance,  mean_time)</span>
 <span class="c1">#     return (mouse_statistics)</span>
 <span class="c1"># print(performance,  mean_time)</span>
-<span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;results/check_consistency.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> 
-<span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sim_params</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;results/check_consistency_seed.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> 
+<span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sim_params</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
 <span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> 
 <span class="c1"># mouse_statistics.to_csv(&#39;results/mouse_statistics.csv&#39;, sep=&#39;\t&#39;)</span>
 </pre></div>
@@ -12026,17 +12027,107 @@ Building finished in 0:00:01.
 Building finished in 0:00:01.                                                   
 Building finished in 0:00:01.                                                   
 Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
+Building finished in 0:00:01.                                                   
 Preparing environment
-Simulatimg for 2 timesteps
+Simulatimg for 40 timesteps
 </pre>
 </div>
 </div>
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:249: RuntimeWarning: invalid value encountered in double_scalars
+<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:271: RuntimeWarning: invalid value encountered in double_scalars
   sensor_vector[i] = [np.mean(sensor_vector[i]), (sensor_vector[i][0]-sensor_vector[i][1])/np.mean(sensor_vector[i])]
-/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:554: SettingWithCopyWarning: 
+/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:585: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
@@ -12047,14 +12138,14 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 1 in 1.523326
+<pre>sim step : 1 in 22.780658
 </pre>
 </div>
 </div>
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:375: SettingWithCopyWarning: 
+<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:404: SettingWithCopyWarning: 
 A value is trying to be set on a copy of a slice from a DataFrame
 
 See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
@@ -12065,7 +12156,84 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 2 in 1.972605
+<pre>sim step : 2 in 40.275073
+sim step : 3 in 40.820925
+sim step : 4 in 40.895560
+sim step : 5 in 42.451768
+sim step : 6 in 42.290540
+sim step : 7 in 43.211764
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:324: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  self.action_history[&#39;Termination&#39;][self.action_history.index.max()] = &#39;Closure&#39;
+/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:537: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  self.action_history[&#39;Benefit&#39;][self.action_history.index.max()] += gain
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>sim step : 8 in 59.946546
+sim step : 9 in 57.008391
+sim step : 10 in 22.258883
+sim step : 11 in 57.536801
+sim step : 12 in 57.157382
+sim step : 13 in 59.397124
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:518: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
+  self.action_history[&#39;Termination&#39;][self.action_history.index.max()] = &#39;No food!&#39;
+</pre>
+</div>
+</div>
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>sim step : 14 in 77.268864
+sim step : 15 in 22.442438
+sim step : 16 in 40.583603
+sim step : 17 in 40.800710
+sim step : 18 in 42.478910
+sim step : 19 in 41.863152
+sim step : 20 in 40.502202
+sim step : 21 in 40.205713
+sim step : 22 in 40.550128
+sim step : 23 in 44.398115
+sim step : 24 in 40.554498
+sim step : 25 in 41.016773
+sim step : 26 in 40.892814
+sim step : 27 in 41.023661
+sim step : 28 in 41.044802
+sim step : 29 in 41.327090
+sim step : 30 in 41.718227
+sim step : 31 in 41.515112
+sim step : 32 in 42.129732
+sim step : 33 in 41.883521
+sim step : 34 in 42.460851
+sim step : 35 in 42.187684
+sim step : 36 in 42.300120
+sim step : 37 in 42.031894
+sim step : 38 in 41.861339
+sim step : 39 in 41.898300
+sim step : 40 in 42.185256
 Simulation terminated - Number of time steps reached
 </pre>
 </div>

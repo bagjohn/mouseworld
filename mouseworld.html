@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[11]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouseworld.py
@@ -11786,7 +11786,8 @@ class Mouseworld(Model):
                  primary_values = None, secondary_values = None, 
                  food_amount_range = (20,400), nutritional_value = [-1, 0.7, 1], food_growth_rate = [1],
                  width = 100, height = 100, mousebrain_inheritance = False, mouse_reproduction = True, 
-                 brain_iterations_per_step = 10):
+                 brain_iterations_per_step = 10, initial_mousebrain_weights = None, mousebrain_seed = None,
+                test_veteran = False):
         
         # for parallel processing
         self.num_cores = multiprocessing.cpu_count()
@@ -11803,6 +11804,8 @@ class Mouseworld(Model):
         self.mousebrain_inheritance = mousebrain_inheritance
         self.brain_iterations_per_step = brain_iterations_per_step
         self.mouse_reproduction = mouse_reproduction
+        self.initial_mousebrain_weights = initial_mousebrain_weights
+        self.mousebrain_seed = mousebrain_seed
         
         # build model continuous space
         self.space = ContinuousSpace(width, height, True, x_min=0, y_min=0,
@@ -11878,6 +11881,12 @@ class Mouseworld(Model):
         #initialize ids
         self.initialize_ids([&#39;Mouse&#39;, &#39;Food&#39;, &#39;Predator&#39;])
         
+        #initialize ranks
+        self.age_rank = []
+        self.exp_search_rank = []
+        self.exp_approach_rank = []
+        self.exp_avoid_rank = []
+        
         #initialize sensor_vector
 #         self.sensor_num = 2
 #         temp = [np.zeros(self.sensor_num)] * self.groups_num
@@ -11905,21 +11914,30 @@ class Mouseworld(Model):
             temp_genome = self.initialization_genome[i]
             temp_position = self.initial_mouse_positions[i]
             if i &lt; num_mice[0] :
-                mouse = Mouse(self, None, temp_genome, 0, 
-                              motor_NN_on = False, learning_on = False, appraisal_NN_on = False, 
-                             header = temp_position[1], brain_iterations_per_step = self.brain_iterations_per_step)
+                temp = [False, False, False]
             elif i &lt; (num_mice[0] + num_mice[1]):
-                mouse = Mouse(self, None, temp_genome, 0, 
-                              motor_NN_on = True, learning_on = False, appraisal_NN_on = False,
-                             header = temp_position[1], brain_iterations_per_step = self.brain_iterations_per_step)
+                temp = [True, False, False]
             else :
-                mouse = Mouse(self, None, temp_genome, 0, 
-                              motor_NN_on = True, learning_on = True, appraisal_NN_on = False,
-                             header = temp_position[1], brain_iterations_per_step = self.brain_iterations_per_step)
+                temp = [True, True, False]
+            mouse = Mouse(self, None, temp_genome, 0, 
+                          motor_NN_on = temp[0], learning_on = temp[1], appraisal_NN_on = temp[2],
+                          header = temp_position[1], brain_iterations_per_step = self.brain_iterations_per_step,
+                          initial_mousebrain_weights = self.initial_mousebrain_weights, 
+                          mousebrain_seed = self.mousebrain_seed)
             self.schedule.add(mouse)
             self.all_mice_schedule.add(mouse)
             self.space.place_agent(mouse, temp_position[0])
             
+            if test_veteran :
+                mouse = Mouse(self, None, temp_genome, 0, 
+                          motor_NN_on = temp[0], learning_on = temp[1], appraisal_NN_on = temp[2],
+                          header = temp_position[1], brain_iterations_per_step = self.brain_iterations_per_step,
+                          mousebrain_seed = self.mousebrain_seed, control_population = True)
+                self.schedule.add(mouse)
+                self.all_mice_schedule.add(mouse)
+                self.space.place_agent(mouse, temp_position[0])
+                
+        for mouse in self.schedule.agents :
             if primary_values is not None :
                 mouse.primary_values[self.food_groups[0]] = primary_values[0]
                 mouse.primary_values[self.predator_groups[0]] = primary_values[1]
@@ -12007,7 +12025,8 @@ class Mouseworld(Model):
 #                              &quot;current_mousebrain_weights&quot;: lambda a: a.current_mousebrain_weights,
                             &quot;final_mousebrain_weights&quot;: lambda a: a.final_mousebrain_weights,
                             &quot;first_action_duration&quot;: lambda a: a.action_history[&#39;Duration&#39;][0],
-                             &quot;first_action_termination&quot;: lambda a: a.action_history[&#39;Termination&#39;][0]})
+                             &quot;first_action_termination&quot;: lambda a: a.action_history[&#39;Termination&#39;][0],
+                            &quot;control_population&quot;: lambda a: a.control_population})
         
         self.predator_datacollector = MyDataCollector(
             agent_reporters={&quot;Victims_num&quot;: lambda a: a.victims_num,
@@ -12072,10 +12091,10 @@ class Mouseworld(Model):
         #print(genome)
         return genome
     
-    # Creates 20 * 8 = 160 combinations of position and header in a quadrant of space around (0,0)
+    # Creates 19 * 8 = 152 combinations of position and header in a quadrant of space around (0,0)
     # Then adjusts to num
     def initialize_pos_in_quadrant(self, num) :
-        pos =[(0,1), (0,2), (0,3), (0,4), (0,5), (1,1), (1,2), (1,3), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
+        pos =[(0,2), (0,3), (0,4), (0,5), (1,1), (1,2), (1,3), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
         header = [0,1,2,3,4,5,6,7]
         params = (pos, header)
         param_combs = list(itertools.product(*params))
@@ -12112,7 +12131,13 @@ class Mouseworld(Model):
     def diffuse_odor_layers_parallel(self, layers) :
         
         Parallel(n_jobs=self.num_cores)(delayed(layer.diffuse)(0.85,0.8) for layer in layers)
-            
+    
+    def update_ranks(self) :
+        self.age_rank = sorted(self.all_mice_schedule.agents, key=lambda x: x.age, reverse=False)
+        self.exp_search_rank = sorted(self.all_mice_schedule.agents, key=lambda x: x.mousebrain_steps[0], reverse=True)
+        self.exp_approach_rank = sorted(self.all_mice_schedule.agents, key=lambda x: x.mousebrain_steps[1], reverse=True)
+        self.exp_avoid_rank = sorted(self.all_mice_schedule.agents, key=lambda x: x.mousebrain_steps[2], reverse=True)
+
     def step(self):
         &#39;&#39;&#39;Advance the model by one step.&#39;&#39;&#39;
         #self.predator_datacollector.collect(self,self.predator_schedule)
@@ -12121,6 +12146,7 @@ class Mouseworld(Model):
         #self.diffuse_odor_layers_parallel(self.odor_layers)
         self.diffuse_odor_layers(self.odor_layers)
         self.schedule.step() 
+        self.update_ranks()
         self.test_datacollector.collect(self, self.schedule)
         self.model_datacollector.collect(self, self.schedule)
         self.mouseworld_date += 1
@@ -12154,7 +12180,7 @@ class Mouseworld(Model):
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouse.py
@@ -12166,6 +12192,7 @@ from mesa import Agent, Model
 import nengo
 import random
 import math
+import os
 import numpy as np
 import pandas as pd
 from inspect import signature
@@ -12185,7 +12212,7 @@ class Mouse(Agent):
     def __init__(self, model, parent_ID, genome, generation, 
                  motor_NN_on, learning_on, appraisal_NN_on, 
                  header = random.uniform(0, 2*math.pi), initial_mousebrain_weights = None,
-                brain_iterations_per_step = 10):
+                mousebrain_seed = None, brain_iterations_per_step = 10, control_population = False):
         
         # Initial parameter setting
         self.model = model
@@ -12193,6 +12220,7 @@ class Mouse(Agent):
         self.generation = generation
         self.parent_ID = parent_ID
         self.header = header
+        self.control_population = control_population
         
         # Constants
         self.max_energy = self.model.mouse_max_energy
@@ -12275,17 +12303,19 @@ class Mouse(Agent):
         self.initial_mousebrain_weights = initial_mousebrain_weights
 #         self.current_mousebrain_weights = initial_mousebrain_weights
         self.final_mousebrain_weights = None
+        self.num_mousebrain_initialization_steps = 5
+        self.mousebrain_seed = mousebrain_seed
         self.brain_iterations_per_step = brain_iterations_per_step
         self.motor_NN_on = motor_NN_on
         self.appraisal_NN_on = appraisal_NN_on
         self.learning_on = learning_on
         
-        if appraisal_NN_on:
+        if self.appraisal_NN_on:
             pass
         
-        if motor_NN_on :
+        if self.motor_NN_on :
             self.input_manager = Input_manager()
-            self.mousebrain = Mousebrain(seed = 2)
+            self.mousebrain = Mousebrain(seed = self.mousebrain_seed)
             self.mousebrain.build(self.input_manager, self.initial_mousebrain_weights)
             self.mousebrain_sim = nengo.Simulator(self.mousebrain, dt=0.001)
             self.mousebrain_steps = [0, 0, 0]
@@ -12302,6 +12332,25 @@ class Mouse(Agent):
             return [temp0, temp1, temp2]
         else :
             return self.initial_mousebrain_weights
+    
+    def store_mousebrain_weights(self) :
+        filename = (&#39;results/veteran_mousebrains/veteran_%i_%i_%i.npz&#39;%(self.mousebrain_steps[0], self.mousebrain_steps[1], self.mousebrain_steps[2]))
+        weights = self.get_mousebrain_weights()
+        np.savez(filename, genome = self.genome, motor_NN_on = self.motor_NN_on, learning_on = self.learning_on, 
+                 seed = self.mousebrain_seed, brain_iterations_per_step = self.brain_iterations_per_step, 
+                 mousebrain_steps = self.mousebrain_steps, w_search=weights[0], w_approach=weights[1], w_avoid=weights[2])
+#         directory = (&#39;results/veteran_mousebrains/%i&#39;%self.mousebrain_seed)
+#         if not os.path.exists(directory):
+#             os.makedirs(directory)
+#         filename = [(&#39;%s/%s_weights&#39;%(directory, i)) for i in [&#39;search&#39;, &#39;approach&#39;, &#39;avoid&#39;]]
+#         weights = self.get_mousebrain_weights()
+#         for i in range(len(filename)) :
+#             f = filename[i]
+#             w = weights[i]
+#             np.save(f, w)
+#         with open(&#39;results/veteran_mousebrains/mousebrain_exp.txt&#39;, &#39;a&#39;) as myfile:
+#             myfile.write(str(self.mousebrain_steps) + &#39;\t&#39;)
+#             myfile.write(str(self.mousebrain_seed) + &#39;\n&#39;)
     
     def die(self):
         if (self.pregnant) :
@@ -12525,16 +12574,25 @@ class Mouse(Agent):
 #                                            index =(&#39;Verb&#39;, &#39;Noun_group&#39;, &#39;Duration&#39;, &#39;Benefit&#39;, &#39;Closure&#39;))
         
 #         return new_action
-    
+    def initialize_mousebrain(self, goal_sense) :
+        if self.motor_NN :
+            self.input_manager.value = goal_sense
+            self.input_manager.state = [-1,-1,-1]
+            self.mousebrain_sim.run_steps(self.num_mousebrain_initialization_steps, progress_bar=False)
+            
     def update_action_history(self, action, action_history) :
         if action_history.empty :
             action_history.loc[0] = [action[&#39;Verb&#39;], action[&#39;Noun_group&#39;], 1, 0, None, 0]
+            if any(t == action[&#39;Verb&#39;] for t in [&#39;approach&#39;, &#39;avoid&#39;]):
+                self.initialize_mousebrain(action[&#39;Arg_1&#39;])
         else :
             last_action = action_history.loc[action_history.index.max()]
             if (action[&#39;Verb&#39;] == last_action[&#39;Verb&#39;]) &amp; ((action[&#39;Noun_group&#39;] is None) or (action[&#39;Noun_group&#39;] == last_action[&#39;Noun_group&#39;])):
                 action_history[&#39;Duration&#39;][action_history.index.max()] += 1
             else :
                 action_history.loc[action_history.index.max() + 1] = [action[&#39;Verb&#39;], action[&#39;Noun_group&#39;], 1, 0, None, 0]
+                if any(t == action[&#39;Verb&#39;] for t in [&#39;approach&#39;, &#39;avoid&#39;]):
+                    self.initialize_mousebrain(action[&#39;Arg_1&#39;])        
         return action_history
         
     def act(self, action) :

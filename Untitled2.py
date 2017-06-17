@@ -1,7 +1,7 @@
 
 # coding: utf-8
 
-# In[16]:
+# In[8]:
 
 import pandas as pd
 import numpy as np
@@ -15,7 +15,7 @@ def search() :
     print('lbbla')
     
 #df = pd.DataFrame(np.nan, index=[1], columns=('Verb','Noun_type','Noun_group','Function'))
-df = pd.DataFrame([['Wait', 3, -0, wait, None], ['Search', 12, 0, search, 12]], columns=('Verb', 'Noun_group', 'Value', 'Function', 'Arg_1'))
+df = pd.DataFrame([['Wait', 3, -0, wait, None], ['Search', 12, False, search, 12]], columns=('Verb', 'Noun_group', 'Value', 'Function', 'Arg_1'))
 
 cf = pd.DataFrame([['Approach', 'Food_2', -1, wait, np.nan]], columns=('Verb', 'Noun_group', 'Value', 'Function', 'Arg_1'))    
 df.loc[df.index.max() + 1] = ['Approach','Food_1',0,1,1]
@@ -41,16 +41,17 @@ df.ix[1]
 g = None
 g is not None#a.loc[]
 
-df['Value'][df['Verb'] == 'Search'] = 0
+df['Value'][df['Verb'] == 'Search'] = False
 # temp = df['Verb'] == 'Wait'
 # temp2 = df['Noun_group'].isnull
 # temp2
 #cf.loc[0]['Noun_group']
-df.loc['fdfd'] = ['Feed','Food_1',0,1,1]
-df.set_value('fdfd','Value',0)
+df.loc['fdfd'] = ['Feed','Food_1',True,1,1]
+df.set_value('fdfd','Value',True)
 df.as_matrix()
 df
 print(df['Value'].idxmax())
+df.loc[df['Value'] != True]
 
 
 # In[4]:

@@ -54,6 +54,16 @@ print(df['Value'].idxmax())
 df.loc[df['Value'] != True]
 
 
+# In[12]:
+
+import os
+filenames = []
+for file in os.listdir('results/veteran_mousebrains'):
+    if file.endswith(".npz"):
+        filenames.append(file)
+filenames[0]
+
+
 # In[4]:
 
 import pandas as pd

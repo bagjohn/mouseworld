@@ -11870,70 +11870,70 @@ file.close()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#%%writefile create_veterans.py</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> create_veterans.py
 
-<span class="kn">from</span> <span class="nn">mouseworld</span> <span class="k">import</span> <span class="n">mouseworld</span>
-<span class="kn">import</span> <span class="nn">time</span>
+from mouseworld import mouseworld
+import time
 
-<span class="n">num_mice</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
+num_mice = [0, 0, 10]
 
- <span class="c1"># Build the model</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Building mouseworld&#39;</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">mouseworld</span><span class="o">.</span><span class="n">Mouseworld</span><span class="p">(</span><span class="n">num_mice</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">mouse_initial_energy</span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="n">mouse_max_energy</span> <span class="o">=</span> <span class="mi">1200</span><span class="p">,</span>
-                 <span class="n">food_amount_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">),</span> <span class="n">nutritional_value</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mouse_reproduction</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> 
-                              <span class="n">brain_iterations_per_step</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">mousebrain_seed</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+ # Build the model
+print(&#39;Building mouseworld&#39;)
+model = mouseworld.Mouseworld(num_mice, 100, 0, mouse_initial_energy = 1000, mouse_max_energy = 1200,
+                 food_amount_range = (20,40), nutritional_value = [1], mouse_reproduction = False, 
+                              brain_iterations_per_step = 10, mousebrain_seed = 5)
 
-<span class="c1"># Gather initial randomly distributed data</span>
-<span class="c1"># model.initial_datacollector.collect(model,model.schedule)</span>
-<span class="c1"># initial_model_data = model.initial_datacollector.get_model_vars_dataframe()</span>
-<span class="c1"># initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)</span>
+# Gather initial randomly distributed data
+# model.initial_datacollector.collect(model,model.schedule)
+# initial_model_data = model.initial_datacollector.get_model_vars_dataframe()
+# initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)
 
-<span class="c1"># Prepare environment by stepping food and predators and diffusing odors</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Preparing environment&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">food_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">predator_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">diffuse_odor_layers</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">odor_layers</span><span class="p">)</span>
+# Prepare environment by stepping food and predators and diffusing odors
+print(&#39;Preparing environment&#39;)
+for i in range(40) :
+    model.food_schedule.step()
+    model.predator_schedule.step()
+    model.diffuse_odor_layers(model.odor_layers)
 
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">myrange</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="c1"># Run for discrete number of timesteps</span>
-<span class="c1"># print(&#39;Simulatimg for %i timesteps&#39;%myrange)</span>
-<span class="c1"># for i in range(myrange) :</span>
-<span class="c1">#     c=time.time()</span>
-<span class="c1">#     counter += 1</span>
-<span class="c1">#     model.step()</span>
-<span class="c1">#     d=time.time()</span>
-<span class="c1">#     print(&#39;sim step : %i in %f&#39;%(counter, d-c))</span>
-<span class="c1"># print(&#39;Simulation terminated - Number of time steps reached&#39;)</span>
+counter = 0
+myrange = 2
+# Run for discrete number of timesteps
+# print(&#39;Simulatimg for %i timesteps&#39;%myrange)
+# for i in range(myrange) :
+#     c=time.time()
+#     counter += 1
+#     model.step()
+#     d=time.time()
+#     print(&#39;sim step : %i in %f&#39;%(counter, d-c))
+# print(&#39;Simulation terminated - Number of time steps reached&#39;)
 
 
-<span class="c1"># Run until all mice perish</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulatimg until all mice perish&#39;</span><span class="p">)</span>
-<span class="k">while</span> <span class="n">model</span><span class="o">.</span><span class="n">num_mice</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
-    <span class="n">c</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">d</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim step : </span><span class="si">%i</span><span class="s1"> in </span><span class="si">%f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">d</span><span class="o">-</span><span class="n">c</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulation terminated - No alive mice&#39;</span><span class="p">)</span>
+# Run until all mice perish
+print(&#39;Simulatimg until all mice perish&#39;)
+while model.num_mice &gt; 0 :
+    c=time.time()
+    counter += 1
+    model.step()
+    d=time.time()
+    print(&#39;sim step : %i in %f&#39;%(counter, d-c))
+print(&#39;Simulation terminated - No alive mice&#39;)
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Storing mousebrains&#39;</span><span class="p">)</span>
-<span class="c1"># print(model.exp_approach_rank)</span>
-<span class="c1"># print(model.exp_approach_rank[:1])</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">exp_approach_rank</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="p">:</span>
-    <span class="n">i</span><span class="o">.</span><span class="n">store_mousebrain_weights</span><span class="p">()</span>
+print(&#39;Storing mousebrains&#39;)
+# print(model.exp_approach_rank)
+# print(model.exp_approach_rank[:1])
+for i in model.exp_approach_rank[:5] :
+    i.store_mousebrain_weights()
     
-<span class="c1"># # Gather final model and agent data</span>
-<span class="c1"># model.final_datacollector.collect(model,model.all_mice_schedule)</span>
-<span class="c1"># # final_model_data = model.final_datacollector.get_model_vars_dataframe()</span>
-<span class="c1"># # print(final_model_data)</span>
+# # Gather final model and agent data
+# model.final_datacollector.collect(model,model.all_mice_schedule)
+# # final_model_data = model.final_datacollector.get_model_vars_dataframe()
+# # print(final_model_data)
 
-<span class="c1"># final_agent_data = model.final_datacollector.get_agent_vars_dataframe()</span>
-<span class="c1"># mouse_statistics = final_agent_data[[&#39;first_action_duration&#39;, &#39;first_action_termination&#39;]]</span>
+# final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
+# mouse_statistics = final_agent_data[[&#39;first_action_duration&#39;, &#39;first_action_termination&#39;]]
 </pre></div>
 
 </div>
@@ -11946,267 +11946,177 @@ file.close()
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Building mouseworld
+<pre>Overwriting create_veterans.py
 </pre>
 </div>
 </div>
 
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/node.py:28: UserWarning: &#39;Node.size_out&#39; is being overwritten with &#39;Node.size_in&#39; since &#39;Node.output=None&#39;
-  warnings.warn(&#34;&#39;Node.size_out&#39; is being overwritten with &#34;
-</pre>
 </div>
 </div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> test_veterans_parallel.py
+
+import math
+import ipyparallel
+import itertools
+import os
+import numpy as np
+# at terminal : ipcluster start -n 4
+
+clients = ipyparallel.Client()
+dview = clients.direct_view()
+
+print(&#39;Loading modules to engines&#39;) 
+with dview.sync_imports():
+    from mouseworld import mouseworld
+    from mouseworld.mouseworld import Mouseworld
+    import time
+    import sys
+    import numpy
+dview.push({&quot;Mouseworld&quot;: Mouseworld})
+
+directory = (&#39;results/%s/veteran_mousebrains&#39;%sys.argv[1])
+
+def run_experiment(file) :
+
+    mouse_data = numpy.load(file)
+
+    if mouse_data[&#39;motor_NN_on&#39;] :
+        if mouse_data[&#39;learning_on&#39;] :
+            num_mice = [0, 0, 152]
+        else :
+            num_mice = [0, 152, 0]
+    else :
+        num_mice = [152, 0, 0]
+    genome = numpy.around(mouse_data[&#39;genome&#39;], decimals = 2)
+    genome_range = [(x,x) for x in genome]
+    mousebrain_seed = mouse_data[&#39;seed&#39;]
+    brain_iterations_per_step = mouse_data[&#39;brain_iterations_per_step&#39;]
+    mousebrain_steps = mouse_data[&#39;mousebrain_steps&#39;]
+    mousebrain_weights = [mouse_data[&#39;w_search&#39;], mouse_data[&#39;w_approach&#39;], mouse_data[&#39;w_avoid&#39;]]
+
+    # Build the model
+    print(&#39;Building mouseworld&#39;)
+    model = mouseworld.Mouseworld(num_mice, 1, 0, genome_range = genome_range, 
+                                  mouse_position = &#39;in_quadrant&#39;, food_position = (0,0), 
+                                  primary_values = [100, 0], secondary_values = [100,0], food_amount_range = (10000,10000), 
+                                  nutritional_value = [1], mouse_reproduction = False, 
+                                  brain_iterations_per_step = brain_iterations_per_step, mousebrain_seed = mousebrain_seed,
+                                 initial_mousebrain_weights = mousebrain_weights, test_veteran = True)
+
+    # Gather initial randomly distributed data
+    # model.initial_datacollector.collect(model,model.schedule)
+    # initial_model_data = model.initial_datacollector.get_model_vars_dataframe()
+    # initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)
+
+    # Prepare environment by stepping food and predators and diffusing odors
+    print(&#39;Preparing environment&#39;)
+    for i in range(40) :
+        model.food_schedule.step()
+        model.predator_schedule.step()
+        model.diffuse_odor_layers(model.odor_layers)
+
+    counter = 0
+    myrange = 40
+    # Run for discrete number of timesteps
+    print(&#39;Simulatimg for %i timesteps&#39;%myrange)
+    for i in range(myrange) :
+        c=time.time()
+        counter += 1
+        model.step()
+        d=time.time()
+        print(&#39;sim step : %i in %f&#39;%(counter, d-c))
+    print(&#39;Simulation terminated - Number of time steps reached&#39;)
+
+
+    # Run until all mice perish
+    # print(&#39;Simulatimg until all mice perish&#39;)
+    # while model.num_mice &gt; 0 :
+    #     c=time.time()
+    #     counter += 1
+    #     model.step()
+    #     d=time.time()
+    #     print(&#39;sim step : %i in %f&#39;%(counter, d-c))
+    # print(&#39;Simulation terminated - No alive mice&#39;)
+
+    # Gather final model and agent data
+    print(&#39;Gathering simulation data&#39;)
+    model.final_datacollector.collect(model,model.all_mice_schedule)
+
+    final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
+    mouse_statistics = final_agent_data[[&#39;control_population&#39;, &#39;first_action_duration&#39;, &#39;first_action_termination&#39;]]
+
+    mouse_statistics = mouse_statistics.reset_index(&#39;Step&#39;, drop = True)
+    print(&#39;Counting successful trials&#39;)
+    veteran_stats = mouse_statistics.loc[mouse_statistics[&#39;control_population&#39;] == False]
+    control_stats = mouse_statistics.loc[mouse_statistics[&#39;control_population&#39;] == True]
+    num_trials = len(veteran_stats.index)
+    succesful_veteran_trials = veteran_stats.loc[(veteran_stats[&#39;first_action_termination&#39;] == &#39;Closure&#39;)]
+    succesful_control_trials = control_stats.loc[(control_stats[&#39;first_action_termination&#39;] == &#39;Closure&#39;)]
+    unsuccesful_veteran_trials = veteran_stats.loc[(veteran_stats[&#39;first_action_termination&#39;] == &#39;Failure&#39;)]
+    unsuccesful_control_trials = control_stats.loc[(control_stats[&#39;first_action_termination&#39;] == &#39;Failure&#39;)]
+
+    num_succesful_veteran_trials = len(succesful_veteran_trials.index)
+    num_succesful_control_trials = len(succesful_control_trials.index)                                     
+    num_unsuccesful_veteran_trials = len(unsuccesful_veteran_trials.index)
+    num_unsuccesful_control_trials = len(unsuccesful_control_trials.index)
+
+    mean_time_veteran_success = succesful_veteran_trials[&#39;first_action_duration&#39;].mean()
+    mean_time_control_success = succesful_control_trials[&#39;first_action_duration&#39;].mean()                 
+    mean_time_veteran_failure = unsuccesful_veteran_trials[&#39;first_action_duration&#39;].mean()
+    mean_time_control_failure = unsuccesful_control_trials[&#39;first_action_duration&#39;].mean()
+
+    veteran_results = [num_succesful_veteran_trials, mean_time_veteran_success, num_unsuccesful_veteran_trials, mean_time_veteran_failure]
+    control_results = [num_succesful_control_trials, mean_time_control_success, num_unsuccesful_control_trials, mean_time_control_failure]
+
+    exp_data = [mousebrain_steps, mousebrain_seed, veteran_results, control_results]
+    return exp_data
+
+filenames = []
+for file in os.listdir(directory):
+    if file.endswith(&quot;.npz&quot;):
+        filenames.append(&#39;%s/%s&#39;%(directory,file))
+        
+print(&#39;Initializing parallel execution&#39;)      
+all_exp_data = dview.map_sync(run_experiment, filenames)
+
+print(&#39;Writing results to file&#39;)
+file = open(&#39;%s/test_veterans.txt&#39;%directory,&#39;w&#39;) 
+counter = 0
+for exp_data in all_exp_data :
+    counter +=1
+    mousebrain_steps = exp_data[0]
+    mousebrain_seed = exp_data[1]
+    veteran_results = exp_data[2]
+    control_results = exp_data[3]
+    file.write(&#39;-----Veteran Mouse : %i-----&#39;%counter)
+    file.write(&#39;experience : %s&#39;%str(mousebrain_steps) + &#39;\t&#39;)
+    file.write(&#39;mousebrain seed : %s&#39; %str(mousebrain_seed) + &#39;\n&#39;)
+    file.write(&#39;veteran results&#39; + &#39;\t&#39;)
+    file.write(str(veteran_results) + &#39;\n&#39;)
+    file.write(&#39;control results&#39; + &#39;\t&#39;)
+    file.write(str(control_results) + &#39;\n&#39;)
+
+file.close() 
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Preparing environment
-Simulatimg until all mice perish
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:272: RuntimeWarning: invalid value encountered in double_scalars
-  sensor_vector[i] = [np.mean(sensor_vector[i]), (sensor_vector[i][0]-sensor_vector[i][1])/np.mean(sensor_vector[i])]
-/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:586: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Distance&#39;][self.action_history.index.max()] += distance
-/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:538: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Benefit&#39;][self.action_history.index.max()] += gain
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 1 in 1.427053
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:405: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  action_history[&#39;Duration&#39;][action_history.index.max()] += 1
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 2 in 2.072236
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:519: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Termination&#39;][self.action_history.index.max()] = &#39;No food!&#39;
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 3 in 2.115228
-sim step : 4 in 2.063942
-sim step : 5 in 2.107656
-sim step : 6 in 1.981898
-sim step : 7 in 2.145622
-sim step : 8 in 2.259495
-sim step : 9 in 2.179507
-sim step : 10 in 2.005031
-sim step : 11 in 2.019527
-sim step : 12 in 2.142473
-sim step : 13 in 2.190406
-sim step : 14 in 2.388853
-sim step : 15 in 2.146938
-sim step : 16 in 2.349213
-sim step : 17 in 1.972371
-sim step : 18 in 2.135364
-sim step : 19 in 2.556731
-sim step : 20 in 2.221015
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:181: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Termination&#39;][self.action_history.index.max()] = &#39;Death&#39;
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 21 in 2.252279
-sim step : 22 in 1.813278
-sim step : 23 in 2.136048
-sim step : 24 in 2.103550
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:325: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Termination&#39;][self.action_history.index.max()] = &#39;Closure&#39;
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 25 in 2.373126
-sim step : 26 in 1.948687
-sim step : 27 in 1.670238
-sim step : 28 in 1.686309
-sim step : 29 in 1.950197
-sim step : 30 in 1.844458
-sim step : 31 in 2.278769
-sim step : 32 in 1.659572
-sim step : 33 in 1.818720
-sim step : 34 in 2.104428
-sim step : 35 in 1.914198
-sim step : 36 in 2.254445
-sim step : 37 in 1.513936
-sim step : 38 in 1.563665
-sim step : 39 in 1.610671
-sim step : 40 in 1.402482
-sim step : 41 in 1.404395
-sim step : 42 in 1.384251
-sim step : 43 in 1.238401
-sim step : 44 in 1.190616
-sim step : 45 in 1.219003
-sim step : 46 in 1.160505
-sim step : 47 in 1.209266
-sim step : 48 in 1.484375
-sim step : 49 in 1.129452
-sim step : 50 in 1.218439
-sim step : 51 in 1.145310
-sim step : 52 in 1.211511
-sim step : 53 in 1.189660
-sim step : 54 in 1.187799
-sim step : 55 in 1.185236
-sim step : 56 in 1.243910
-sim step : 57 in 1.135929
-sim step : 58 in 1.241760
-sim step : 59 in 1.162730
-sim step : 60 in 1.105846
-sim step : 61 in 1.122503
-sim step : 62 in 1.112264
-sim step : 63 in 1.167844
-sim step : 64 in 1.135476
-sim step : 65 in 1.216912
-sim step : 66 in 1.241105
-sim step : 67 in 1.117137
-sim step : 68 in 1.483690
-sim step : 69 in 1.450411
-sim step : 70 in 1.167211
-sim step : 71 in 1.240005
-sim step : 72 in 1.114275
-sim step : 73 in 1.134098
-sim step : 74 in 1.175236
-sim step : 75 in 1.315163
-sim step : 76 in 1.137133
-sim step : 77 in 1.130045
-sim step : 78 in 1.121765
-sim step : 79 in 1.133743
-sim step : 80 in 1.133690
-sim step : 81 in 1.125240
-sim step : 82 in 1.144275
-sim step : 83 in 1.124871
-sim step : 84 in 1.132184
-sim step : 85 in 1.112073
-sim step : 86 in 1.096673
-sim step : 87 in 1.098920
-sim step : 88 in 1.095052
-sim step : 89 in 1.098773
-sim step : 90 in 1.116872
-sim step : 91 in 1.101039
-sim step : 92 in 1.137091
-sim step : 93 in 1.132230
-sim step : 94 in 1.100594
-sim step : 95 in 1.153681
-sim step : 96 in 1.109303
-sim step : 97 in 1.018092
-sim step : 98 in 0.955149
-sim step : 99 in 0.973166
-sim step : 100 in 0.973584
-sim step : 101 in 0.963603
-sim step : 102 in 0.946339
-sim step : 103 in 0.941463
-sim step : 104 in 0.956152
-sim step : 105 in 0.943393
-sim step : 106 in 0.970304
-sim step : 107 in 0.947194
-sim step : 108 in 0.951519
-sim step : 109 in 0.950362
-sim step : 110 in 0.850370
-sim step : 111 in 0.782006
-sim step : 112 in 0.815540
-sim step : 113 in 0.806522
-sim step : 114 in 0.800573
-sim step : 115 in 0.825455
-sim step : 116 in 0.810883
-sim step : 117 in 0.788480
-sim step : 118 in 0.787106
-sim step : 119 in 0.788934
-sim step : 120 in 0.802168
-sim step : 121 in 0.795556
-sim step : 122 in 0.802766
-sim step : 123 in 0.852331
-sim step : 124 in 0.791073
-sim step : 125 in 0.696641
-sim step : 126 in 0.621905
-sim step : 127 in 0.658292
-sim step : 128 in 0.615304
-sim step : 129 in 0.658820
-sim step : 130 in 0.636517
-sim step : 131 in 0.617717
-sim step : 132 in 0.610842
-sim step : 133 in 0.606254
-sim step : 134 in 0.601768
-sim step : 135 in 0.609215
-sim step : 136 in 0.608134
-sim step : 137 in 0.626851
-sim step : 138 in 0.624872
-sim step : 139 in 0.614782
-sim step : 140 in 0.533078
-Simulation terminated - No alive mice
-Storing mousebrains
+<pre>Overwriting test_veterans_parallel.py
 </pre>
 </div>
 </div>

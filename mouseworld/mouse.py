@@ -147,7 +147,7 @@ class Mouse(Agent):
         else :
             return self.initial_mousebrain_weights
     
-    def store_mousebrain_weights(self,simulation) :
+    def store_mousebrain_weights(self) :
         directory = ('%s/veteran_mousebrains'%self.model.directory)
         if not os.path.exists(directory):
             os.makedirs(directory)

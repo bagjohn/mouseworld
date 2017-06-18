@@ -11870,75 +11870,75 @@ file.close()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#%%writefile create_veterans.py</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> create_veterans.py
 
-<span class="kn">from</span> <span class="nn">mouseworld</span> <span class="k">import</span> <span class="n">mouseworld</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">sys</span>
+from mouseworld import mouseworld
+import time
+import sys
 
-<span class="n">simulation_num</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-<span class="c1"># simulation_num = 999</span>
-
-
-<span class="n">num_mice</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
-
- <span class="c1"># Build the model</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Building mouseworld&#39;</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">mouseworld</span><span class="o">.</span><span class="n">Mouseworld</span><span class="p">(</span><span class="n">num_mice</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">simulation_num</span><span class="p">,</span> <span class="n">mouse_initial_energy</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">mouse_max_energy</span> <span class="o">=</span> <span class="mi">12000</span><span class="p">,</span>
-                 <span class="n">food_amount_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">),</span> <span class="n">nutritional_value</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mouse_reproduction</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> 
-                              <span class="n">brain_iterations_per_step</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">mousebrain_seed</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
-
-<span class="c1"># Gather initial randomly distributed data</span>
-<span class="c1"># model.initial_datacollector.collect(model,model.schedule)</span>
-<span class="c1"># initial_model_data = model.initial_datacollector.get_model_vars_dataframe()</span>
-<span class="c1"># initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)</span>
-
-<span class="c1"># Prepare environment by stepping food and predators and diffusing odors</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Preparing environment&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">food_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">predator_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">diffuse_odor_layers</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">odor_layers</span><span class="p">)</span>
-
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">myrange</span> <span class="o">=</span> <span class="mi">2</span>
-<span class="c1"># Run for discrete number of timesteps</span>
-<span class="c1"># print(&#39;Simulatimg for %i timesteps&#39;%myrange)</span>
-<span class="c1"># for i in range(myrange) :</span>
-<span class="c1">#     c=time.time()</span>
-<span class="c1">#     counter += 1</span>
-<span class="c1">#     model.step()</span>
-<span class="c1">#     d=time.time()</span>
-<span class="c1">#     print(&#39;sim step : %i in %f&#39;%(counter, d-c))</span>
-<span class="c1"># print(&#39;Simulation terminated - Number of time steps reached&#39;)</span>
+simulation_num = sys.argv[1]
+# simulation_num = 999
 
 
-<span class="c1"># Run until all mice perish</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulatimg until all mice perish&#39;</span><span class="p">)</span>
-<span class="k">while</span> <span class="n">model</span><span class="o">.</span><span class="n">num_mice</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
-    <span class="n">c</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">d</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim step : </span><span class="si">%i</span><span class="s1"> in </span><span class="si">%f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">d</span><span class="o">-</span><span class="n">c</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulation terminated - No alive mice&#39;</span><span class="p">)</span>
+num_mice = [0, 0, 10]
 
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Storing mousebrains&#39;</span><span class="p">)</span>
-<span class="c1"># print(model.exp_approach_rank)</span>
-<span class="c1"># print(model.exp_approach_rank[:1])</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">exp_approach_rank</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="p">:</span>
-    <span class="n">i</span><span class="o">.</span><span class="n">store_mousebrain_weights</span><span class="p">()</span>
+ # Build the model
+print(&#39;Building mouseworld&#39;)
+model = mouseworld.Mouseworld(num_mice, 100, 0, simulation_num, mouse_initial_energy = 10000, mouse_max_energy = 12000,
+                 food_amount_range = (20,40), nutritional_value = [1], mouse_reproduction = False, 
+                              brain_iterations_per_step = 10, mousebrain_seed = 8)
+
+# Gather initial randomly distributed data
+# model.initial_datacollector.collect(model,model.schedule)
+# initial_model_data = model.initial_datacollector.get_model_vars_dataframe()
+# initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)
+
+# Prepare environment by stepping food and predators and diffusing odors
+print(&#39;Preparing environment&#39;)
+for i in range(40) :
+    model.food_schedule.step()
+    model.predator_schedule.step()
+    model.diffuse_odor_layers(model.odor_layers)
+
+counter = 0
+myrange = 2
+# Run for discrete number of timesteps
+# print(&#39;Simulatimg for %i timesteps&#39;%myrange)
+# for i in range(myrange) :
+#     c=time.time()
+#     counter += 1
+#     model.step()
+#     d=time.time()
+#     print(&#39;sim step : %i in %f&#39;%(counter, d-c))
+# print(&#39;Simulation terminated - Number of time steps reached&#39;)
+
+
+# Run until all mice perish
+print(&#39;Simulatimg until all mice perish&#39;)
+while model.num_mice &gt; 0 :
+    c=time.time()
+    counter += 1
+    model.step()
+    d=time.time()
+    print(&#39;sim step : %i in %f&#39;%(counter, d-c))
+print(&#39;Simulation terminated - No alive mice&#39;)
+
+print(&#39;Storing mousebrains&#39;)
+# print(model.exp_approach_rank)
+# print(model.exp_approach_rank[:1])
+for i in model.exp_approach_rank[:5] :
+    i.store_mousebrain_weights()
     
-<span class="c1"># # Gather final model and agent data</span>
-<span class="c1"># model.final_datacollector.collect(model,model.all_mice_schedule)</span>
-<span class="c1"># # final_model_data = model.final_datacollector.get_model_vars_dataframe()</span>
-<span class="c1"># # print(final_model_data)</span>
+# # Gather final model and agent data
+# model.final_datacollector.collect(model,model.all_mice_schedule)
+# # final_model_data = model.final_datacollector.get_model_vars_dataframe()
+# # print(final_model_data)
 
-<span class="c1"># final_agent_data = model.final_datacollector.get_agent_vars_dataframe()</span>
-<span class="c1"># mouse_statistics = final_agent_data[[&#39;first_action_duration&#39;, &#39;first_action_termination&#39;]]</span>
+# final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
+# mouse_statistics = final_agent_data[[&#39;first_action_duration&#39;, &#39;first_action_termination&#39;]]
 </pre></div>
 
 </div>
@@ -11951,162 +11951,8 @@ file.close()
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Building mouseworld
+<pre>Overwriting create_veterans.py
 </pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/node.py:28: UserWarning: &#39;Node.size_out&#39; is being overwritten with &#39;Node.size_in&#39; since &#39;Node.output=None&#39;
-  warnings.warn(&#34;&#39;Node.size_out&#39; is being overwritten with &#34;
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Building finished in 0:00:01.                                                                                                                                           
-Building finished in 0:00:01.                                                                                                                                           
-Building finished in 0:00:01.                                                                                                                                           
-Building finished in 0:00:01.                                                                                                                                           
-Building finished in 0:00:01.                                                                                                                                           
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">KeyboardInterrupt</span>                         Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-2-a71bc3ae56c1&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-intense-fg ansi-bold">     15</span> model = mouseworld.Mouseworld(num_mice, 100, 0, simulation_num, mouse_initial_energy = 10000, mouse_max_energy = 12000,
-<span class="ansi-green-intense-fg ansi-bold">     16</span>                  food_amount_range <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">(</span><span class="ansi-cyan-fg">20</span><span class="ansi-blue-fg">,</span><span class="ansi-cyan-fg">40</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span> nutritional_value <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> mouse_reproduction <span class="ansi-blue-fg">=</span> <span class="ansi-green-fg">False</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">---&gt; 17</span><span class="ansi-red-fg">                               brain_iterations_per_step = 10, mousebrain_seed = 8)
-</span><span class="ansi-green-intense-fg ansi-bold">     18</span> 
-<span class="ansi-green-intense-fg ansi-bold">     19</span> <span class="ansi-red-fg"># Gather initial randomly distributed data</span>
-
-<span class="ansi-green-fg">/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouseworld.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, num_mice, num_food, num_predators, simulation_num, genome_range, mouse_initial_energy, mouse_max_energy, mouse_position, food_position, predator_position, primary_values, secondary_values, food_amount_range, nutritional_value, food_growth_rate, width, height, mousebrain_inheritance, mouse_reproduction, brain_iterations_per_step, initial_mousebrain_weights, mousebrain_seed, test_veteran)</span>
-<span class="ansi-green-intense-fg ansi-bold">    177</span>                           header <span class="ansi-blue-fg">=</span> temp_position<span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">1</span><span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">,</span> brain_iterations_per_step <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>brain_iterations_per_step<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    178</span>                           initial_mousebrain_weights <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>initial_mousebrain_weights<span class="ansi-blue-fg">,</span>
-<span class="ansi-green-fg">--&gt; 179</span><span class="ansi-red-fg">                           mousebrain_seed = self.mousebrain_seed)
-</span><span class="ansi-green-intense-fg ansi-bold">    180</span>             self<span class="ansi-blue-fg">.</span>schedule<span class="ansi-blue-fg">.</span>add<span class="ansi-blue-fg">(</span>mouse<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    181</span>             self<span class="ansi-blue-fg">.</span>all_mice_schedule<span class="ansi-blue-fg">.</span>add<span class="ansi-blue-fg">(</span>mouse<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, model, parent_ID, genome, generation, motor_NN_on, learning_on, appraisal_NN_on, header, initial_mousebrain_weights, mousebrain_seed, brain_iterations_per_step, control_population)</span>
-<span class="ansi-green-intense-fg ansi-bold">    132</span>             self<span class="ansi-blue-fg">.</span>mousebrain <span class="ansi-blue-fg">=</span> Mousebrain<span class="ansi-blue-fg">(</span>seed <span class="ansi-blue-fg">=</span> self<span class="ansi-blue-fg">.</span>mousebrain_seed<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    133</span>             self<span class="ansi-blue-fg">.</span>mousebrain<span class="ansi-blue-fg">.</span>build<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>input_manager<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>initial_mousebrain_weights<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-fg">--&gt; 134</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>mousebrain_sim <span class="ansi-blue-fg">=</span> nengo<span class="ansi-blue-fg">.</span>Simulator<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">.</span>mousebrain<span class="ansi-blue-fg">,</span> dt<span class="ansi-blue-fg">=</span><span class="ansi-cyan-fg">0.001</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    135</span>             self<span class="ansi-blue-fg">.</span>mousebrain_steps <span class="ansi-blue-fg">=</span> <span class="ansi-blue-fg">[</span><span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">,</span> <span class="ansi-cyan-fg">0</span><span class="ansi-blue-fg">]</span>
-<span class="ansi-green-intense-fg ansi-bold">    136</span>         <span class="ansi-green-fg">else</span> <span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/simulator.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, network, dt, seed, model, progress_bar)</span>
-<span class="ansi-green-intense-fg ansi-bold">    143</span>         <span class="ansi-green-fg">if</span> network <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    144</span>             <span class="ansi-red-fg"># Build the network into the model</span>
-<span class="ansi-green-fg">--&gt; 145</span><span class="ansi-red-fg">             </span>self<span class="ansi-blue-fg">.</span>model<span class="ansi-blue-fg">.</span>build<span class="ansi-blue-fg">(</span>network<span class="ansi-blue-fg">,</span> progress_bar<span class="ansi-blue-fg">=</span>self<span class="ansi-blue-fg">.</span>progress_bar<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    146</span> 
-<span class="ansi-green-intense-fg ansi-bold">    147</span>         <span class="ansi-red-fg"># -- map from Signal.base -&gt; ndarray</span>
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/builder/builder.py</span> in <span class="ansi-cyan-fg">build</span><span class="ansi-blue-fg">(self, obj, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    119</span>             The object to build into this model<span class="ansi-blue-fg">.</span>
-<span class="ansi-green-intense-fg ansi-bold">    120</span>         &#34;&#34;&#34;
-<span class="ansi-green-fg">--&gt; 121</span><span class="ansi-red-fg">         </span>built <span class="ansi-blue-fg">=</span> Builder<span class="ansi-blue-fg">.</span>build<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> obj<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    122</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>build_callback <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    123</span>             self<span class="ansi-blue-fg">.</span>build_callback<span class="ansi-blue-fg">(</span>obj<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/builder/builder.py</span> in <span class="ansi-cyan-fg">build</span><span class="ansi-blue-fg">(cls, model, obj, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    214</span>                 &#34;Cannot build object of type %r&#34; % type(obj).__name__)
-<span class="ansi-green-intense-fg ansi-bold">    215</span> 
-<span class="ansi-green-fg">--&gt; 216</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> cls<span class="ansi-blue-fg">.</span>builders<span class="ansi-blue-fg">[</span>obj_cls<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>model<span class="ansi-blue-fg">,</span> obj<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    217</span> 
-<span class="ansi-green-intense-fg ansi-bold">    218</span>     <span class="ansi-blue-fg">@</span>classmethod
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/builder/network.py</span> in <span class="ansi-cyan-fg">build_network</span><span class="ansi-blue-fg">(model, network, progress_bar)</span>
-<span class="ansi-green-intense-fg ansi-bold">    111</span>         logger<span class="ansi-blue-fg">.</span>debug<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#34;Network step 4: Building probes&#34;</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    112</span>         <span class="ansi-green-fg">for</span> probe <span class="ansi-green-fg">in</span> network<span class="ansi-blue-fg">.</span>probes<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 113</span><span class="ansi-red-fg">             </span>model<span class="ansi-blue-fg">.</span>build<span class="ansi-blue-fg">(</span>probe<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    114</span> 
-<span class="ansi-green-intense-fg ansi-bold">    115</span>         <span class="ansi-green-fg">if</span> context <span class="ansi-green-fg">is</span> model<span class="ansi-blue-fg">.</span>decoder_cache<span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/builder/builder.py</span> in <span class="ansi-cyan-fg">build</span><span class="ansi-blue-fg">(self, obj, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    119</span>             The object to build into this model<span class="ansi-blue-fg">.</span>
-<span class="ansi-green-intense-fg ansi-bold">    120</span>         &#34;&#34;&#34;
-<span class="ansi-green-fg">--&gt; 121</span><span class="ansi-red-fg">         </span>built <span class="ansi-blue-fg">=</span> Builder<span class="ansi-blue-fg">.</span>build<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> obj<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    122</span>         <span class="ansi-green-fg">if</span> self<span class="ansi-blue-fg">.</span>build_callback <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    123</span>             self<span class="ansi-blue-fg">.</span>build_callback<span class="ansi-blue-fg">(</span>obj<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/builder/builder.py</span> in <span class="ansi-cyan-fg">build</span><span class="ansi-blue-fg">(cls, model, obj, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">    214</span>                 &#34;Cannot build object of type %r&#34; % type(obj).__name__)
-<span class="ansi-green-intense-fg ansi-bold">    215</span> 
-<span class="ansi-green-fg">--&gt; 216</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> cls<span class="ansi-blue-fg">.</span>builders<span class="ansi-blue-fg">[</span>obj_cls<span class="ansi-blue-fg">]</span><span class="ansi-blue-fg">(</span>model<span class="ansi-blue-fg">,</span> obj<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    217</span> 
-<span class="ansi-green-intense-fg ansi-bold">    218</span>     <span class="ansi-blue-fg">@</span>classmethod
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/builder/probe.py</span> in <span class="ansi-cyan-fg">build_probe</span><span class="ansi-blue-fg">(model, probe)</span>
-<span class="ansi-green-intense-fg ansi-bold">    107</span>     key <span class="ansi-blue-fg">=</span> probeables<span class="ansi-blue-fg">[</span>probe<span class="ansi-blue-fg">.</span>attr<span class="ansi-blue-fg">]</span> <span class="ansi-green-fg">if</span> probe<span class="ansi-blue-fg">.</span>attr <span class="ansi-green-fg">in</span> probeables <span class="ansi-green-fg">else</span> probe<span class="ansi-blue-fg">.</span>attr
-<span class="ansi-green-intense-fg ansi-bold">    108</span>     <span class="ansi-green-fg">if</span> key <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 109</span><span class="ansi-red-fg">         </span>conn_probe<span class="ansi-blue-fg">(</span>model<span class="ansi-blue-fg">,</span> probe<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    110</span>     <span class="ansi-green-fg">else</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    111</span>         signal_probe<span class="ansi-blue-fg">(</span>model<span class="ansi-blue-fg">,</span> key<span class="ansi-blue-fg">,</span> probe<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/builder/probe.py</span> in <span class="ansi-cyan-fg">conn_probe</span><span class="ansi-blue-fg">(model, probe)</span>
-<span class="ansi-green-intense-fg ansi-bold">     17</span> 
-<span class="ansi-green-intense-fg ansi-bold">     18</span>     conn = Connection(probe.target, probe, synapse=probe.synapse,
-<span class="ansi-green-fg">---&gt; 19</span><span class="ansi-red-fg">                       solver=probe.solver, add_to_container=False)
-</span><span class="ansi-green-intense-fg ansi-bold">     20</span> 
-<span class="ansi-green-intense-fg ansi-bold">     21</span>     <span class="ansi-red-fg"># Set connection&#39;s seed to probe&#39;s (which isn&#39;t used elsewhere)</span>
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/base.py</span> in <span class="ansi-cyan-fg">__call__</span><span class="ansi-blue-fg">(cls, *args, **kwargs)</span>
-<span class="ansi-green-intense-fg ansi-bold">     33</span>         add_to_container <span class="ansi-blue-fg">=</span> kwargs<span class="ansi-blue-fg">.</span>pop<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;add_to_container&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-green-fg">True</span><span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     34</span>         <span class="ansi-red-fg"># Do the __init__ before adding in case __init__ errors out</span>
-<span class="ansi-green-fg">---&gt; 35</span><span class="ansi-red-fg">         </span>inst<span class="ansi-blue-fg">.</span>__init__<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">*</span>args<span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">**</span>kwargs<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">     36</span>         <span class="ansi-green-fg">if</span> add_to_container<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">     37</span>             nengo<span class="ansi-blue-fg">.</span>Network<span class="ansi-blue-fg">.</span>add<span class="ansi-blue-fg">(</span>inst<span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/connection.py</span> in <span class="ansi-cyan-fg">__init__</span><span class="ansi-blue-fg">(self, pre, post, synapse, function, transform, solver, learning_rule_type, eval_points, scale_eval_points, label, seed, modulatory)</span>
-<span class="ansi-green-intense-fg ansi-bold">    410</span>         self<span class="ansi-blue-fg">.</span>eval_points <span class="ansi-blue-fg">=</span> eval_points  <span class="ansi-red-fg"># Must be set before function</span>
-<span class="ansi-green-intense-fg ansi-bold">    411</span>         self<span class="ansi-blue-fg">.</span>function_info <span class="ansi-blue-fg">=</span> function  <span class="ansi-red-fg"># Must be set after transform</span>
-<span class="ansi-green-fg">--&gt; 412</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>solver <span class="ansi-blue-fg">=</span> solver  <span class="ansi-red-fg"># Must be set before learning rule</span>
-<span class="ansi-green-intense-fg ansi-bold">    413</span>         self<span class="ansi-blue-fg">.</span>learning_rule_type <span class="ansi-blue-fg">=</span> learning_rule_type  <span class="ansi-red-fg"># set after transform</span>
-<span class="ansi-green-intense-fg ansi-bold">    414</span>         self<span class="ansi-blue-fg">.</span>modulatory <span class="ansi-blue-fg">=</span> modulatory
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/base.py</span> in <span class="ansi-cyan-fg">__setattr__</span><span class="ansi-blue-fg">(self, name, val)</span>
-<span class="ansi-green-intense-fg ansi-bold">    104</span>                 <span class="ansi-blue-fg">&#34;Did you mean to change an existing attribute?&#34;</span> <span class="ansi-blue-fg">%</span> <span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    105</span>                 SyntaxWarning)
-<span class="ansi-green-fg">--&gt; 106</span><span class="ansi-red-fg">         </span>super<span class="ansi-blue-fg">(</span>NengoObject<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__setattr__<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">,</span> val<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    107</span> 
-<span class="ansi-green-intense-fg ansi-bold">    108</span>     <span class="ansi-green-fg">def</span> __str__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/config.py</span> in <span class="ansi-cyan-fg">__setattr__</span><span class="ansi-blue-fg">(self, name, val)</span>
-<span class="ansi-green-intense-fg ansi-bold">    448</span>         <span class="ansi-green-fg">if</span> rc<span class="ansi-blue-fg">.</span>getboolean<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">&#39;exceptions&#39;</span><span class="ansi-blue-fg">,</span> <span class="ansi-blue-fg">&#39;simplified&#39;</span><span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    449</span>             <span class="ansi-green-fg">try</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 450</span><span class="ansi-red-fg">                 </span>super<span class="ansi-blue-fg">(</span>SupportDefaultsMixin<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>__setattr__<span class="ansi-blue-fg">(</span>name<span class="ansi-blue-fg">,</span> val<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    451</span>             <span class="ansi-green-fg">except</span> ValidationError<span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    452</span>                 exc_info <span class="ansi-blue-fg">=</span> sys<span class="ansi-blue-fg">.</span>exc_info<span class="ansi-blue-fg">(</span><span class="ansi-blue-fg">)</span>
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/params.py</span> in <span class="ansi-cyan-fg">__set__</span><span class="ansi-blue-fg">(self, instance, value)</span>
-<span class="ansi-green-intense-fg ansi-bold">    108</span> 
-<span class="ansi-green-intense-fg ansi-bold">    109</span>     <span class="ansi-green-fg">def</span> __set__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> instance<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 110</span><span class="ansi-red-fg">         </span>self<span class="ansi-blue-fg">.</span>validate<span class="ansi-blue-fg">(</span>instance<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    111</span>         self<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">[</span>instance<span class="ansi-blue-fg">]</span> <span class="ansi-blue-fg">=</span> value
-<span class="ansi-green-intense-fg ansi-bold">    112</span> 
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/connection.py</span> in <span class="ansi-cyan-fg">validate</span><span class="ansi-blue-fg">(self, conn, solver)</span>
-<span class="ansi-green-intense-fg ansi-bold">    100</span>         super<span class="ansi-blue-fg">(</span>ConnectionSolverParam<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">.</span>validate<span class="ansi-blue-fg">(</span>conn<span class="ansi-blue-fg">,</span> solver<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    101</span>         <span class="ansi-green-fg">if</span> solver <span class="ansi-green-fg">is</span> <span class="ansi-green-fg">not</span> <span class="ansi-green-fg">None</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-fg">--&gt; 102</span><span class="ansi-red-fg">             </span><span class="ansi-green-fg">if</span> solver<span class="ansi-blue-fg">.</span>weights <span class="ansi-green-fg">and</span> <span class="ansi-green-fg">not</span> isinstance<span class="ansi-blue-fg">(</span>conn<span class="ansi-blue-fg">.</span>pre_obj<span class="ansi-blue-fg">,</span> Ensemble<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-<span class="ansi-green-intense-fg ansi-bold">    103</span>                 raise ValidationError(
-<span class="ansi-green-intense-fg ansi-bold">    104</span>                     <span class="ansi-blue-fg">&#34;weight solvers only work for connections from ensembles &#34;</span>
-
-<span class="ansi-green-fg">/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/params.py</span> in <span class="ansi-cyan-fg">__get__</span><span class="ansi-blue-fg">(self, instance, type_)</span>
-<span class="ansi-green-intense-fg ansi-bold">    105</span>                 <span class="ansi-blue-fg">&#34; value of the parameter is set before trying to access it.&#34;</span><span class="ansi-blue-fg">,</span>
-<span class="ansi-green-intense-fg ansi-bold">    106</span>                 attr=self.name, obj=instance)
-<span class="ansi-green-fg">--&gt; 107</span><span class="ansi-red-fg">         </span><span class="ansi-green-fg">return</span> self<span class="ansi-blue-fg">.</span>data<span class="ansi-blue-fg">.</span>get<span class="ansi-blue-fg">(</span>instance<span class="ansi-blue-fg">,</span> self<span class="ansi-blue-fg">.</span>default<span class="ansi-blue-fg">)</span>
-<span class="ansi-green-intense-fg ansi-bold">    108</span> 
-<span class="ansi-green-intense-fg ansi-bold">    109</span>     <span class="ansi-green-fg">def</span> __set__<span class="ansi-blue-fg">(</span>self<span class="ansi-blue-fg">,</span> instance<span class="ansi-blue-fg">,</span> value<span class="ansi-blue-fg">)</span><span class="ansi-blue-fg">:</span>
-
-<span class="ansi-red-fg">KeyboardInterrupt</span>: </pre>
 </div>
 </div>
 

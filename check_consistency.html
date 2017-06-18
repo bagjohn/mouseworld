@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[10]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> check_consistency_parallel.py
@@ -11763,7 +11763,7 @@ clients = ipyparallel.Client()
 dview = clients.direct_view()
 
 def initialize_pos_in_quadrant(num) :
-    pos =[(0,1), (0,2), (0,3), (0,4), (0,5), (1,1), (1,2), (1,3), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
+    pos =[(0,2), (0,3), (0,4), (0,5), (1,1), (1,2), (1,3), (1,4), (1,5), (2,2), (2,3), (2,4), (2,5), (3,3), (3,4), (3,5), (4,4), (4,5), (5,5)]
     temp = [0,1,2,3,4,5,6,7]
     header = [i*math.pi/4 for i in temp]
     params = (pos, header)
@@ -11772,7 +11772,7 @@ def initialize_pos_in_quadrant(num) :
     positions = [param_combs[i%num_combs] for i in range(num)]
     return positions
 
-mouse_positions = initialize_pos_in_quadrant(160)
+mouse_positions = initialize_pos_in_quadrant(4)
 # mouse_positions = [[(45,45), i/4*math.pi] for i in(range(8))]
 
 with dview.sync_imports():
@@ -11783,14 +11783,15 @@ dview.push({&quot;Mouseworld&quot;: Mouseworld})
 
 def run_experiment(mouse_position) :
 #    
-    num_mice = [0, 0, 100]
+    num_mice = [0, 0, 10]
 
     # Build the model
     print(&#39;Building mouseworld&#39;)
-    model = mouseworld.Mouseworld(num_mice, 1, 0, genome_range = [(0.6,0.6), (0,1), (0,1), (0.8,0.8), (0.4,0.4)], 
+    model = mouseworld.Mouseworld(num_mice, 1, 0, &#39;002&#39;,genome_range = [(0.6,0.6), (0,1), (0,1), (0.8,0.8), (0.4,0.4)], 
                      mouse_position = mouse_position, food_position = (0,0),
                      primary_values = [100, 0], secondary_values = [100, 0], 
-                     food_amount_range = (10000,10000), nutritional_value = [1], brain_iterations_per_step = 10)
+                     food_amount_range = (10000,10000), nutritional_value = [1], brain_iterations_per_step = 10,
+                                 mousebrain_seed = 5)
 
     # Gather initial randomly distributed data
     # model.initial_datacollector.collect(model,model.schedule)
@@ -11799,13 +11800,13 @@ def run_experiment(mouse_position) :
 
     # Prepare environment by stepping food and predators and diffusing odors
     print(&#39;Preparing environment&#39;)
-    for i in range(40) :
+    for i in range(20) :
         model.food_schedule.step()
         model.predator_schedule.step()
         model.diffuse_odor_layers(model.odor_layers)
 
     counter = 0
-    myrange = 60
+    myrange = 40
     # Run for discrete number of timesteps
     print(&#39;Simulatimg for %i timesteps&#39;%myrange)
     for i in range(myrange) :
@@ -11866,7 +11867,7 @@ def run_experiment(mouse_position) :
 # print(performance,  mean_time)
 all_exp_data = dview.map_sync(run_experiment, mouse_positions)
 
-file = open(&#39;results/check_approach_consistency_001_seed.txt&#39;,&#39;w&#39;) 
+file = open(&#39;results/check_approach_consistency_001_2_seed.txt&#39;,&#39;w&#39;) 
 for exp_data in all_exp_data :
     file.write(str(exp_data) + &#39;\n&#39;)
 # file.write(str(results) + &#39;\n&#39;)
@@ -11895,101 +11896,101 @@ file.close()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[4]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#%%writefile check_consistency.py</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> check_consistency.py
 
-<span class="kn">from</span> <span class="nn">mouseworld</span> <span class="k">import</span> <span class="n">mouseworld</span>
-<span class="kn">import</span> <span class="nn">time</span>
-<span class="kn">import</span> <span class="nn">math</span>
+from mouseworld import mouseworld
+import time
+import math
 
-<span class="n">mouse_position</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">45</span><span class="p">,</span><span class="mi">45</span><span class="p">),</span> <span class="mi">4</span><span class="o">/</span><span class="mi">4</span><span class="o">*</span><span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">]</span>
-<span class="n">num_mice</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">]</span>
+mouse_position = [(45,45), 4/4*math.pi]
+num_mice = [0, 0, 100]
 
-<span class="c1"># Build the model</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Building mouseworld&#39;</span><span class="p">)</span>
-<span class="n">model</span> <span class="o">=</span> <span class="n">mouseworld</span><span class="o">.</span><span class="n">Mouseworld</span><span class="p">(</span><span class="n">num_mice</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">genome_range</span> <span class="o">=</span> <span class="p">[(</span><span class="mf">0.6</span><span class="p">,</span><span class="mf">0.6</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.8</span><span class="p">,</span><span class="mf">0.8</span><span class="p">),</span> <span class="p">(</span><span class="mf">0.4</span><span class="p">,</span><span class="mf">0.4</span><span class="p">)],</span> 
-                 <span class="n">mouse_position</span> <span class="o">=</span> <span class="n">mouse_position</span><span class="p">,</span> <span class="n">food_position</span> <span class="o">=</span> <span class="p">(</span><span class="mi">50</span><span class="p">,</span><span class="mi">50</span><span class="p">),</span>
-                 <span class="n">primary_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">secondary_values</span> <span class="o">=</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span> 
-                 <span class="n">food_amount_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10000</span><span class="p">,</span><span class="mi">10000</span><span class="p">),</span> <span class="n">nutritional_value</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">brain_iterations_per_step</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span>
-                             <span class="n">mouse_reproduction</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> <span class="n">initial_mousebrain_weights</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">mousebrain_seed</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span>
+# Build the model
+print(&#39;Building mouseworld&#39;)
+model = mouseworld.Mouseworld(num_mice, 1, 0, genome_range = [(0.6,0.6), (0,1), (0,1), (0.8,0.8), (0.4,0.4)], 
+                 mouse_position = mouse_position, food_position = (50,50),
+                 primary_values = [100, 0], secondary_values = [100, 0], 
+                 food_amount_range = (10000,10000), nutritional_value = [1], brain_iterations_per_step = 10,
+                             mouse_reproduction = False, initial_mousebrain_weights = None, mousebrain_seed = 5)
 
-<span class="c1"># Gather initial randomly distributed data</span>
-<span class="c1"># model.initial_datacollector.collect(model,model.schedule)</span>
-<span class="c1"># initial_model_data = model.initial_datacollector.get_model_vars_dataframe()</span>
-<span class="c1"># initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)</span>
+# Gather initial randomly distributed data
+# model.initial_datacollector.collect(model,model.schedule)
+# initial_model_data = model.initial_datacollector.get_model_vars_dataframe()
+# initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)
 
-<span class="c1"># Prepare environment by stepping food and predators and diffusing odors</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Preparing environment&#39;</span><span class="p">)</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">food_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">predator_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">diffuse_odor_layers</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">odor_layers</span><span class="p">)</span>
+# Prepare environment by stepping food and predators and diffusing odors
+print(&#39;Preparing environment&#39;)
+for i in range(40) :
+    model.food_schedule.step()
+    model.predator_schedule.step()
+    model.diffuse_odor_layers(model.odor_layers)
 
-<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">myrange</span> <span class="o">=</span> <span class="mi">40</span>
-<span class="c1"># Run for discrete number of timesteps</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulatimg for </span><span class="si">%i</span><span class="s1"> timesteps&#39;</span><span class="o">%</span><span class="k">myrange</span>)
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">myrange</span><span class="p">)</span> <span class="p">:</span>
-    <span class="n">c</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="n">model</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
-    <span class="n">d</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim step : </span><span class="si">%i</span><span class="s1"> in </span><span class="si">%f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">d</span><span class="o">-</span><span class="n">c</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulation terminated - Number of time steps reached&#39;</span><span class="p">)</span>
+counter = 0
+myrange = 40
+# Run for discrete number of timesteps
+print(&#39;Simulatimg for %i timesteps&#39;%myrange)
+for i in range(myrange) :
+    c=time.time()
+    counter += 1
+    model.step()
+    d=time.time()
+    print(&#39;sim step : %i in %f&#39;%(counter, d-c))
+print(&#39;Simulation terminated - Number of time steps reached&#39;)
 
-<span class="c1"># Run until all mice perish</span>
-<span class="c1"># while model.num_mice &gt; 0 :</span>
-<span class="c1">#     counter += 1</span>
-<span class="c1">#     print(&#39;sim step : %i&#39;%counter)</span>
-<span class="c1">#     model.step()</span>
+# Run until all mice perish
+# while model.num_mice &gt; 0 :
+#     counter += 1
+#     print(&#39;sim step : %i&#39;%counter)
+#     model.step()
     
-<span class="c1"># Gather final model and agent data</span>
-<span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">collect</span><span class="p">(</span><span class="n">model</span><span class="p">,</span><span class="n">model</span><span class="o">.</span><span class="n">all_mice_schedule</span><span class="p">)</span>
-<span class="c1"># final_model_data = model.final_datacollector.get_model_vars_dataframe()</span>
-<span class="c1"># print(final_model_data)</span>
+# Gather final model and agent data
+model.final_datacollector.collect(model,model.all_mice_schedule)
+# final_model_data = model.final_datacollector.get_model_vars_dataframe()
+# print(final_model_data)
 
-<span class="n">final_agent_data</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">final_datacollector</span><span class="o">.</span><span class="n">get_agent_vars_dataframe</span><span class="p">()</span>
-<span class="n">mouse_statistics</span> <span class="o">=</span> <span class="n">final_agent_data</span><span class="p">[[</span><span class="s1">&#39;first_action_duration&#39;</span><span class="p">,</span> <span class="s1">&#39;first_action_termination&#39;</span><span class="p">]]</span>
-<span class="c1"># mouse_statistics = final_agent_data[&#39;action_history&#39;]</span>
-<span class="c1"># mouse_statistics = final_agent_data[&#39;secondary_values&#39;]</span>
-<span class="c1"># mouse_statistics = final_agent_data[&#39;sensor_vector&#39;]</span>
+final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
+mouse_statistics = final_agent_data[[&#39;first_action_duration&#39;, &#39;first_action_termination&#39;]]
+# mouse_statistics = final_agent_data[&#39;action_history&#39;]
+# mouse_statistics = final_agent_data[&#39;secondary_values&#39;]
+# mouse_statistics = final_agent_data[&#39;sensor_vector&#39;]
 
-<span class="n">mouse_statistics</span> <span class="o">=</span> <span class="n">mouse_statistics</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="s1">&#39;Step&#39;</span><span class="p">,</span> <span class="n">drop</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-    <span class="c1">#mouse_statistics = mouse_statistics.reset_index(&#39;AgentID&#39;, drop = True)</span>
-<span class="n">num_trials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">mouse_statistics</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-<span class="c1"># for i in range(num_trials)</span>
-<span class="n">succesful_trials</span> <span class="o">=</span> <span class="n">mouse_statistics</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">mouse_statistics</span><span class="p">[</span><span class="s1">&#39;first_action_termination&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Closure&#39;</span><span class="p">)]</span>
-<span class="n">unsuccesful_trials</span> <span class="o">=</span> <span class="n">mouse_statistics</span><span class="o">.</span><span class="n">loc</span><span class="p">[(</span><span class="n">mouse_statistics</span><span class="p">[</span><span class="s1">&#39;first_action_termination&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Failure&#39;</span><span class="p">)]</span>
-<span class="c1"># incomplete_trials = mouse_statistics.loc[(mouse_statistics[&#39;first_action_termination&#39;] == &#39;None&#39;)]</span>
+mouse_statistics = mouse_statistics.reset_index(&#39;Step&#39;, drop = True)
+    #mouse_statistics = mouse_statistics.reset_index(&#39;AgentID&#39;, drop = True)
+num_trials = len(mouse_statistics.index)
+# for i in range(num_trials)
+succesful_trials = mouse_statistics.loc[(mouse_statistics[&#39;first_action_termination&#39;] == &#39;Closure&#39;)]
+unsuccesful_trials = mouse_statistics.loc[(mouse_statistics[&#39;first_action_termination&#39;] == &#39;Failure&#39;)]
+# incomplete_trials = mouse_statistics.loc[(mouse_statistics[&#39;first_action_termination&#39;] == &#39;None&#39;)]
 
-<span class="n">num_succesful_trials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">succesful_trials</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-<span class="n">num_unsuccesful_trials</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">unsuccesful_trials</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>
-<span class="c1"># num_incomplete_trials = len(incomplete_trials.index)</span>
+num_succesful_trials = len(succesful_trials.index)
+num_unsuccesful_trials = len(unsuccesful_trials.index)
+# num_incomplete_trials = len(incomplete_trials.index)
 
-<span class="c1">#performance = num_succesful_trials / num_trials</span>
-<span class="n">mean_time_success</span> <span class="o">=</span> <span class="n">succesful_trials</span><span class="p">[</span><span class="s1">&#39;first_action_duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="n">mean_time_failure</span> <span class="o">=</span> <span class="n">unsuccesful_trials</span><span class="p">[</span><span class="s1">&#39;first_action_duration&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+#performance = num_succesful_trials / num_trials
+mean_time_success = succesful_trials[&#39;first_action_duration&#39;].mean()
+mean_time_failure = unsuccesful_trials[&#39;first_action_duration&#39;].mean()
 
-<span class="n">sim_params</span> <span class="o">=</span> <span class="p">[</span><span class="n">mouse_position</span><span class="p">,</span> <span class="n">num_mice</span><span class="p">,</span> <span class="n">myrange</span><span class="p">]</span>
-<span class="n">results</span> <span class="o">=</span> <span class="p">[</span><span class="n">num_succesful_trials</span><span class="p">,</span> <span class="n">mean_time_success</span><span class="p">,</span> <span class="n">num_unsuccesful_trials</span><span class="p">,</span> <span class="n">mean_time_failure</span><span class="p">]</span>
-<span class="c1"># mouse_statistics = [performance,  mean_time]</span>
-<span class="c1">#     sensor_vector = final_agent_data[&#39;sensor_vector&#39;][0].values[0]</span>
-<span class="c1">#     sensor_position = final_agent_data[&#39;sensor_position&#39;][0].values[0]</span>
-<span class="c1">#     motor_vector = final_agent_data[&#39;motor_vector&#39;][0].values[0]</span>
-<span class="c1">#     first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]</span>
-<span class="c1">#     first_action = mousetest_data</span>
-<span class="c1">#     first_action = (mousetest_data[&#39;Duration&#39;], mousetest_data[&#39;Termination&#39;])</span>
-    <span class="c1">#first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]</span>
-<span class="c1">#     return (performance,  mean_time)</span>
-<span class="c1">#     return (mouse_statistics)</span>
-<span class="c1"># print(performance,  mean_time)</span>
-<span class="n">file</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;results/check_consistency_seed.txt&#39;</span><span class="p">,</span><span class="s1">&#39;w&#39;</span><span class="p">)</span> 
-<span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">results</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">sim_params</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="n">file</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> 
-<span class="c1"># mouse_statistics.to_csv(&#39;results/mouse_statistics.csv&#39;, sep=&#39;\t&#39;)</span>
+sim_params = [mouse_position, num_mice, myrange]
+results = [num_succesful_trials, mean_time_success, num_unsuccesful_trials, mean_time_failure]
+# mouse_statistics = [performance,  mean_time]
+#     sensor_vector = final_agent_data[&#39;sensor_vector&#39;][0].values[0]
+#     sensor_position = final_agent_data[&#39;sensor_position&#39;][0].values[0]
+#     motor_vector = final_agent_data[&#39;motor_vector&#39;][0].values[0]
+#     first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]
+#     first_action = mousetest_data
+#     first_action = (mousetest_data[&#39;Duration&#39;], mousetest_data[&#39;Termination&#39;])
+    #first_action = final_agent_data[&#39;action_history&#39;][0].values[0].loc[0]
+#     return (performance,  mean_time)
+#     return (mouse_statistics)
+# print(performance,  mean_time)
+file = open(&#39;results/check_consistency_seed.txt&#39;,&#39;w&#39;) 
+file.write(str(results) + &#39;\t&#39;)
+file.write(str(sim_params) + &#39;\n&#39;)
+file.close() 
+# mouse_statistics.to_csv(&#39;results/mouse_statistics.csv&#39;, sep=&#39;\t&#39;)
 </pre></div>
 
 </div>
@@ -12002,239 +12003,7 @@ file.close()
 
 <div class="output_area"><div class="prompt"></div>
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Building mouseworld
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/anaconda3/lib/python3.6/site-packages/nengo/node.py:28: UserWarning: &#39;Node.size_out&#39; is being overwritten with &#39;Node.size_in&#39; since &#39;Node.output=None&#39;
-  warnings.warn(&#34;&#39;Node.size_out&#39; is being overwritten with &#34;
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Building finished in 0:00:01.                                                   
-Preparing environment
-Simulatimg for 40 timesteps
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:271: RuntimeWarning: invalid value encountered in double_scalars
-  sensor_vector[i] = [np.mean(sensor_vector[i]), (sensor_vector[i][0]-sensor_vector[i][1])/np.mean(sensor_vector[i])]
-/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:585: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Distance&#39;][self.action_history.index.max()] += distance
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 1 in 22.780658
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:404: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  action_history[&#39;Duration&#39;][action_history.index.max()] += 1
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 2 in 40.275073
-sim step : 3 in 40.820925
-sim step : 4 in 40.895560
-sim step : 5 in 42.451768
-sim step : 6 in 42.290540
-sim step : 7 in 43.211764
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:324: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Termination&#39;][self.action_history.index.max()] = &#39;Closure&#39;
-/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:537: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Benefit&#39;][self.action_history.index.max()] += gain
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 8 in 59.946546
-sim step : 9 in 57.008391
-sim step : 10 in 22.258883
-sim step : 11 in 57.536801
-sim step : 12 in 57.157382
-sim step : 13 in 59.397124
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/home/bagjohn/Documents/PhD/mouseworld_python/mouseworld/mouse.py:518: SettingWithCopyWarning: 
-A value is trying to be set on a copy of a slice from a DataFrame
-
-See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html#indexing-view-versus-copy
-  self.action_history[&#39;Termination&#39;][self.action_history.index.max()] = &#39;No food!&#39;
-</pre>
-</div>
-</div>
-
-<div class="output_area"><div class="prompt"></div>
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>sim step : 14 in 77.268864
-sim step : 15 in 22.442438
-sim step : 16 in 40.583603
-sim step : 17 in 40.800710
-sim step : 18 in 42.478910
-sim step : 19 in 41.863152
-sim step : 20 in 40.502202
-sim step : 21 in 40.205713
-sim step : 22 in 40.550128
-sim step : 23 in 44.398115
-sim step : 24 in 40.554498
-sim step : 25 in 41.016773
-sim step : 26 in 40.892814
-sim step : 27 in 41.023661
-sim step : 28 in 41.044802
-sim step : 29 in 41.327090
-sim step : 30 in 41.718227
-sim step : 31 in 41.515112
-sim step : 32 in 42.129732
-sim step : 33 in 41.883521
-sim step : 34 in 42.460851
-sim step : 35 in 42.187684
-sim step : 36 in 42.300120
-sim step : 37 in 42.031894
-sim step : 38 in 41.861339
-sim step : 39 in 41.898300
-sim step : 40 in 42.185256
-Simulation terminated - Number of time steps reached
+<pre>Overwriting check_consistency.py
 </pre>
 </div>
 </div>

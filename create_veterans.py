@@ -15,7 +15,7 @@ num_mice = [0, 0, 10]
 print('Building mouseworld')
 model = mouseworld.Mouseworld(num_mice, 100, 0, simulation_num, mouse_initial_energy = 10000, mouse_max_energy = 12000,
                  food_amount_range = (20,40), nutritional_value = [1], mouse_reproduction = False, 
-                              brain_iterations_per_step = 10, mousebrain_seed = 8)
+                              brain_iterations_per_step = 100, mousebrain_seed = 8)
 
 # Gather initial randomly distributed data
 # model.initial_datacollector.collect(model,model.schedule)
@@ -55,7 +55,7 @@ print('Simulation terminated - No alive mice')
 print('Storing mousebrains')
 # print(model.exp_approach_rank)
 # print(model.exp_approach_rank[:1])
-for i in model.exp_approach_rank[:5] :
+for i in model.exp_approach_rank[:10] :
     i.store_mousebrain_weights()
     
 # # Gather final model and agent data

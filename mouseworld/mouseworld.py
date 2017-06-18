@@ -41,7 +41,7 @@ class Mouseworld(Model):
         
         # create results folder
         self.simulation_num = simulation_num
-        self.directory = ('results/simulation_%i'%simulation_num)
+        self.directory = ('results/simulation_%s'%simulation_num)
         if not os.path.exists(self.directory):
             os.makedirs(self.directory)
             

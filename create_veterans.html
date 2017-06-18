@@ -11870,73 +11870,75 @@ file.close()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> create_veterans.py
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#%%writefile create_veterans.py</span>
 
-from mouseworld import mouseworld
-import time
-import sys
+<span class="kn">from</span> <span class="nn">mouseworld</span> <span class="k">import</span> <span class="n">mouseworld</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
-simulation_num = sys.argv[1]
-
-num_mice = [0, 0, 10]
-
- # Build the model
-print(&#39;Building mouseworld&#39;)
-model = mouseworld.Mouseworld(num_mice, 100, 0, simulation_num, mouse_initial_energy = 10000, mouse_max_energy = 12000,
-                 food_amount_range = (20,40), nutritional_value = [1], mouse_reproduction = False, 
-                              brain_iterations_per_step = 10, mousebrain_seed = 8)
-
-# Gather initial randomly distributed data
-# model.initial_datacollector.collect(model,model.schedule)
-# initial_model_data = model.initial_datacollector.get_model_vars_dataframe()
-# initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)
-
-# Prepare environment by stepping food and predators and diffusing odors
-print(&#39;Preparing environment&#39;)
-for i in range(40) :
-    model.food_schedule.step()
-    model.predator_schedule.step()
-    model.diffuse_odor_layers(model.odor_layers)
-
-counter = 0
-myrange = 2
-# Run for discrete number of timesteps
-# print(&#39;Simulatimg for %i timesteps&#39;%myrange)
-# for i in range(myrange) :
-#     c=time.time()
-#     counter += 1
-#     model.step()
-#     d=time.time()
-#     print(&#39;sim step : %i in %f&#39;%(counter, d-c))
-# print(&#39;Simulation terminated - Number of time steps reached&#39;)
+<span class="n">simulation_num</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="c1"># simulation_num = 999</span>
 
 
-# Run until all mice perish
-print(&#39;Simulatimg until all mice perish&#39;)
-while model.num_mice &gt; 0 :
-    c=time.time()
-    counter += 1
-    model.step()
-    d=time.time()
-    print(&#39;sim step : %i in %f&#39;%(counter, d-c))
-print(&#39;Simulation terminated - No alive mice&#39;)
+<span class="n">num_mice</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">]</span>
 
-print(&#39;Storing mousebrains&#39;)
-# print(model.exp_approach_rank)
-# print(model.exp_approach_rank[:1])
-for i in model.exp_approach_rank[:5] :
-    i.store_mousebrain_weights()
+ <span class="c1"># Build the model</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Building mouseworld&#39;</span><span class="p">)</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">mouseworld</span><span class="o">.</span><span class="n">Mouseworld</span><span class="p">(</span><span class="n">num_mice</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">simulation_num</span><span class="p">,</span> <span class="n">mouse_initial_energy</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">,</span> <span class="n">mouse_max_energy</span> <span class="o">=</span> <span class="mi">12000</span><span class="p">,</span>
+                 <span class="n">food_amount_range</span> <span class="o">=</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span><span class="mi">40</span><span class="p">),</span> <span class="n">nutritional_value</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">mouse_reproduction</span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span> 
+                              <span class="n">brain_iterations_per_step</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">mousebrain_seed</span> <span class="o">=</span> <span class="mi">8</span><span class="p">)</span>
+
+<span class="c1"># Gather initial randomly distributed data</span>
+<span class="c1"># model.initial_datacollector.collect(model,model.schedule)</span>
+<span class="c1"># initial_model_data = model.initial_datacollector.get_model_vars_dataframe()</span>
+<span class="c1"># initial_model_data.to_csv(&#39;results/initial_model_data.csv&#39;, sep=&#39;\t&#39;)</span>
+
+<span class="c1"># Prepare environment by stepping food and predators and diffusing odors</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Preparing environment&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">40</span><span class="p">)</span> <span class="p">:</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">food_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">predator_schedule</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">diffuse_odor_layers</span><span class="p">(</span><span class="n">model</span><span class="o">.</span><span class="n">odor_layers</span><span class="p">)</span>
+
+<span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">myrange</span> <span class="o">=</span> <span class="mi">2</span>
+<span class="c1"># Run for discrete number of timesteps</span>
+<span class="c1"># print(&#39;Simulatimg for %i timesteps&#39;%myrange)</span>
+<span class="c1"># for i in range(myrange) :</span>
+<span class="c1">#     c=time.time()</span>
+<span class="c1">#     counter += 1</span>
+<span class="c1">#     model.step()</span>
+<span class="c1">#     d=time.time()</span>
+<span class="c1">#     print(&#39;sim step : %i in %f&#39;%(counter, d-c))</span>
+<span class="c1"># print(&#39;Simulation terminated - Number of time steps reached&#39;)</span>
+
+
+<span class="c1"># Run until all mice perish</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulatimg until all mice perish&#39;</span><span class="p">)</span>
+<span class="k">while</span> <span class="n">model</span><span class="o">.</span><span class="n">num_mice</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="p">:</span>
+    <span class="n">c</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="n">model</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+    <span class="n">d</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;sim step : </span><span class="si">%i</span><span class="s1"> in </span><span class="si">%f</span><span class="s1">&#39;</span><span class="o">%</span><span class="p">(</span><span class="n">counter</span><span class="p">,</span> <span class="n">d</span><span class="o">-</span><span class="n">c</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Simulation terminated - No alive mice&#39;</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Storing mousebrains&#39;</span><span class="p">)</span>
+<span class="c1"># print(model.exp_approach_rank)</span>
+<span class="c1"># print(model.exp_approach_rank[:1])</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">model</span><span class="o">.</span><span class="n">exp_approach_rank</span><span class="p">[:</span><span class="mi">5</span><span class="p">]</span> <span class="p">:</span>
+    <span class="n">i</span><span class="o">.</span><span class="n">store_mousebrain_weights</span><span class="p">()</span>
     
-# # Gather final model and agent data
-# model.final_datacollector.collect(model,model.all_mice_schedule)
-# # final_model_data = model.final_datacollector.get_model_vars_dataframe()
-# # print(final_model_data)
+<span class="c1"># # Gather final model and agent data</span>
+<span class="c1"># model.final_datacollector.collect(model,model.all_mice_schedule)</span>
+<span class="c1"># # final_model_data = model.final_datacollector.get_model_vars_dataframe()</span>
+<span class="c1"># # print(final_model_data)</span>
 
-# final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
-# mouse_statistics = final_agent_data[[&#39;first_action_duration&#39;, &#39;first_action_termination&#39;]]
+<span class="c1"># final_agent_data = model.final_datacollector.get_agent_vars_dataframe()</span>
+<span class="c1"># mouse_statistics = final_agent_data[[&#39;first_action_duration&#39;, &#39;first_action_termination&#39;]]</span>
 </pre></div>
 
 </div>

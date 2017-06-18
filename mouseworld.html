@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[7]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> mouseworld/mouseworld.py
@@ -11795,7 +11795,7 @@ class Mouseworld(Model):
         
         # create results folder
         self.simulation_num = simulation_num
-        self.directory = (&#39;results/simulation_%i&#39;%simulation_num)
+        self.directory = (&#39;results/simulation_%s&#39;%simulation_num)
         if not os.path.exists(self.directory):
             os.makedirs(self.directory)
             

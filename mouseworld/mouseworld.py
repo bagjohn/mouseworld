@@ -9,6 +9,7 @@ import numpy as np
 import math
 import pandas as pd
 import random
+import os
 from scipy.stats import norm
 
 # from mouseworld.myspace import ContinuousSpace
@@ -25,7 +26,7 @@ from joblib import Parallel, delayed
 import multiprocessing
 
 class Mouseworld(Model):
-    def __init__(self, num_mice, num_food, num_predators, 
+    def __init__(self, num_mice, num_food, num_predators, simulation_num,
                  genome_range = [(0,1), (0,1), (0,1), (0,1), (0,1)],
                  mouse_initial_energy = 1000, mouse_max_energy = 1200,
                  mouse_position = 'random', food_position = 'random', predator_position = 'random',
@@ -38,6 +39,12 @@ class Mouseworld(Model):
         # for parallel processing
         self.num_cores = multiprocessing.cpu_count()
         
+        # create results folder
+        self.simulation_num = simulation_num
+        self.directory = ('results/simulation_%i'%simulation_num)
+        if not os.path.exists(self.directory):
+            os.makedirs(self.directory)
+            
         # define model variables from args
         self.num_mice = sum(num_mice)
         self.num_unborn_mice = 0

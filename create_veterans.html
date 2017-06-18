@@ -11870,7 +11870,7 @@ file.close()
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> create_veterans.py
@@ -11878,13 +11878,15 @@ file.close()
 from mouseworld import mouseworld
 import time
 
+simulation_name = sys.argv[1]
+
 num_mice = [0, 0, 10]
 
  # Build the model
 print(&#39;Building mouseworld&#39;)
-model = mouseworld.Mouseworld(num_mice, 100, 0, mouse_initial_energy = 1000, mouse_max_energy = 1200,
+model = mouseworld.Mouseworld(num_mice, 100, 0, simulation_name, mouse_initial_energy = 10000, mouse_max_energy = 12000,
                  food_amount_range = (20,40), nutritional_value = [1], mouse_reproduction = False, 
-                              brain_iterations_per_step = 10, mousebrain_seed = 5)
+                              brain_iterations_per_step = 10, mousebrain_seed = 8)
 
 # Gather initial randomly distributed data
 # model.initial_datacollector.collect(model,model.schedule)
@@ -11957,7 +11959,7 @@ for i in model.exp_approach_rank[:5] :
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
+<div class="prompt input_prompt">In&nbsp;[17]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> test_veterans_parallel.py
@@ -11980,8 +11982,9 @@ with dview.sync_imports():
     import sys
     import numpy
 dview.push({&quot;Mouseworld&quot;: Mouseworld})
+print(&#39;Defining filenames&#39;)
 
-directory = (&#39;results/%s/veteran_mousebrains&#39;%sys.argv[1])
+directory = (&#39;results/simulation_%s/veteran_mousebrains&#39;%sys.argv[1])
 
 def run_experiment(file) :
 
@@ -12000,10 +12003,11 @@ def run_experiment(file) :
     brain_iterations_per_step = mouse_data[&#39;brain_iterations_per_step&#39;]
     mousebrain_steps = mouse_data[&#39;mousebrain_steps&#39;]
     mousebrain_weights = [mouse_data[&#39;w_search&#39;], mouse_data[&#39;w_approach&#39;], mouse_data[&#39;w_avoid&#39;]]
+    simulation_num = mouse_data[&#39;simulation_num&#39;]
 
     # Build the model
     print(&#39;Building mouseworld&#39;)
-    model = mouseworld.Mouseworld(num_mice, 1, 0, genome_range = genome_range, 
+    model = mouseworld.Mouseworld(num_mice, 1, 0, simulation_num, genome_range = genome_range, 
                                   mouse_position = &#39;in_quadrant&#39;, food_position = (0,0), 
                                   primary_values = [100, 0], secondary_values = [100,0], food_amount_range = (10000,10000), 
                                   nutritional_value = [1], mouse_reproduction = False, 

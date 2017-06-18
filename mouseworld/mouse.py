@@ -147,12 +147,16 @@ class Mouse(Agent):
         else :
             return self.initial_mousebrain_weights
     
-    def store_mousebrain_weights(self) :
-        filename = ('results/veteran_mousebrains/veteran_%i_%i_%i.npz'%(self.mousebrain_steps[0], self.mousebrain_steps[1], self.mousebrain_steps[2]))
+    def store_mousebrain_weights(self,simulation) :
+        directory = ('%s/veteran_mousebrains'%self.model.directory)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+        filename = ('%s/veteran_%i_%i_%i.npz'%(directory, self.mousebrain_steps[0], self.mousebrain_steps[1], self.mousebrain_steps[2]))
         weights = self.get_mousebrain_weights()
         np.savez(filename, genome = self.genome, motor_NN_on = self.motor_NN_on, learning_on = self.learning_on, 
                  seed = self.mousebrain_seed, brain_iterations_per_step = self.brain_iterations_per_step, 
-                 mousebrain_steps = self.mousebrain_steps, w_search=weights[0], w_approach=weights[1], w_avoid=weights[2])
+                 mousebrain_steps = self.mousebrain_steps, w_search=weights[0], w_approach=weights[1], w_avoid=weights[2],
+                simulation_num = self.model.simulation_num)
 #         directory = ('results/veteran_mousebrains/%i'%self.mousebrain_seed)
 #         if not os.path.exists(directory):
 #             os.makedirs(directory)

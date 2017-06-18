@@ -18,7 +18,8 @@ with dview.sync_imports():
     import numpy
 dview.push({"Mouseworld": Mouseworld})
 print('Defining filenames')
-directory = ('results/%s/veteran_mousebrains'%sys.argv[1])
+
+directory = ('results/simulation_%s/veteran_mousebrains'%sys.argv[1])
 
 def run_experiment(file) :
 
@@ -37,10 +38,11 @@ def run_experiment(file) :
     brain_iterations_per_step = mouse_data['brain_iterations_per_step']
     mousebrain_steps = mouse_data['mousebrain_steps']
     mousebrain_weights = [mouse_data['w_search'], mouse_data['w_approach'], mouse_data['w_avoid']]
+    simulation_num = mouse_data['simulation_num']
 
     # Build the model
     print('Building mouseworld')
-    model = mouseworld.Mouseworld(num_mice, 1, 0, genome_range = genome_range, 
+    model = mouseworld.Mouseworld(num_mice, 1, 0, simulation_num, genome_range = genome_range, 
                                   mouse_position = 'in_quadrant', food_position = (0,0), 
                                   primary_values = [100, 0], secondary_values = [100,0], food_amount_range = (10000,10000), 
                                   nutritional_value = [1], mouse_reproduction = False, 
@@ -132,7 +134,7 @@ for exp_data in all_exp_data :
     mousebrain_seed = exp_data[1]
     veteran_results = exp_data[2]
     control_results = exp_data[3]
-    file.write('-----Veteran Mouse : %i-----'%counter)
+    file.write('-----Veteran Mouse : %i-----\n'%counter)
     file.write('experience : %s'%str(mousebrain_steps) + '\t')
     file.write('mousebrain seed : %s' %str(mousebrain_seed) + '\n')
     file.write('veteran results' + '\t')

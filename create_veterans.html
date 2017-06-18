@@ -11959,7 +11959,7 @@ for i in model.exp_approach_rank[:5] :
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[2]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> test_veterans_parallel.py
@@ -12099,7 +12099,7 @@ for exp_data in all_exp_data :
     mousebrain_seed = exp_data[1]
     veteran_results = exp_data[2]
     control_results = exp_data[3]
-    file.write(&#39;-----Veteran Mouse : %i-----&#39;%counter)
+    file.write(&#39;-----Veteran Mouse : %i-----\n&#39;%counter)
     file.write(&#39;experience : %s&#39;%str(mousebrain_steps) + &#39;\t&#39;)
     file.write(&#39;mousebrain seed : %s&#39; %str(mousebrain_seed) + &#39;\n&#39;)
     file.write(&#39;veteran results&#39; + &#39;\t&#39;)

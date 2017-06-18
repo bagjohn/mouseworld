@@ -1,6 +1,7 @@
 
 from mouseworld import mouseworld
 import time
+import sys
 
 simulation_num = sys.argv[1]
 

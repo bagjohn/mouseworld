@@ -1,0 +1,15 @@
+-----Veteran Mouse : 1-----experience : [   7 1149    0]	mousebrain seed : 5
+veteran results	[72, 4.9861111111111107, 66, 25.151515151515152]
+control results	[67, 4.5522388059701493, 70, 22.514285714285716]
+-----Veteran Mouse : 2-----experience : [  2 995   0]	mousebrain seed : 5
+veteran results	[46, 4.4347826086956523, 106, 10.29245283018868]
+control results	[36, 4.1111111111111107, 116, 10.25]
+-----Veteran Mouse : 3-----experience : [  17 1066    0]	mousebrain seed : 5
+veteran results	[70, 5.3571428571428568, 60, 28.416666666666668]
+control results	[70, 5.3857142857142861, 63, 27.682539682539684]
+-----Veteran Mouse : 4-----experience : [  31 1080    0]	mousebrain seed : 5
+veteran results	[39, 3.4358974358974357, 113, 8.4159292035398234]
+control results	[36, 3.3055555555555554, 116, 8.0258620689655178]
+-----Veteran Mouse : 5-----experience : [ 17 988   0]	mousebrain seed : 5
+veteran results	[14, 8.5714285714285712, 138, 16.608695652173914]
+control results	[13, 7.384615384615385, 139, 15.582733812949641]

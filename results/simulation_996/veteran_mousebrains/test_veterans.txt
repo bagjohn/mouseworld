@@ -1,40 +1,40 @@
 -----Veteran Mouse : 1-----
-experience : [   6 3890    0]	mousebrain seed : 8
+num_mice : [0, 0, 152]	experience : [   6 3890    0]	mousebrain seed : 8	brain iterations per step : 100
 veteran results	[20, 6.5999999999999996, 44, 29.65909090909091]
 control results	[28, 2.6071428571428572, 124, 7.580645161290323]
 -----Veteran Mouse : 2-----
-experience : [  80 4442    0]	mousebrain seed : 8
+num_mice : [0, 0, 152]	experience : [  80 4442    0]	mousebrain seed : 8	brain iterations per step : 100
 veteran results	[16, 4.6875, 124, 28.032258064516128]
 control results	[112, 3.3303571428571428, 35, 18.914285714285715]
 -----Veteran Mouse : 3-----
-experience : [   3 4737    0]	mousebrain seed : 8
+num_mice : [0, 0, 152]	experience : [   3 4737    0]	mousebrain seed : 8	brain iterations per step : 100
 veteran results	[17, 10.294117647058824, 3, 37.666666666666664]
 control results	[25, 3.6800000000000002, 126, 9.0555555555555554]
 -----Veteran Mouse : 4-----
-experience : [ 101 3959    0]	mousebrain seed : 8
+num_mice : [0, 0, 152]	experience : [ 101 3959    0]	mousebrain seed : 8	brain iterations per step : 100
 veteran results	[14, 5.9285714285714288, 76, 31.407894736842106]
 control results	[42, 4.8095238095238093, 110, 8.5545454545454547]
 -----Veteran Mouse : 5-----
-experience : [   2 4898    0]	mousebrain seed : 8
+num_mice : [0, 0, 152]	experience : [   2 4898    0]	mousebrain seed : 8	brain iterations per step : 100
 veteran results	[14, 9.5, 0, nan]
 control results	[21, 3.0952380952380953, 130, 9.1538461538461533]
 -----Veteran Mouse : 6-----
-experience : [  70 3460    0]	mousebrain seed : 8
-veteran results	[22, 3.8636363636363638, 91, 29.890109890109891]
-control results	[41, 8.3414634146341466, 111, 7.8558558558558556]
+num_mice : [0, 0, 152]	experience : [  70 3460    0]	mousebrain seed : 8	brain iterations per step : 100
+veteran results	[22, 3.8636363636363638, 93, 29.655913978494624]
+control results	[32, 3.625, 120, 9.1166666666666671]
 -----Veteran Mouse : 7-----
-experience : [  33 9923    0]	mousebrain seed : 8
-veteran results	[30, 9.7666666666666675, 41, 17.487804878048781]
+num_mice : [0, 0, 152]	experience : [  33 9923    0]	mousebrain seed : 8	brain iterations per step : 100
+veteran results	[30, 9.7666666666666675, 37, 16.0]
 control results	[17, 3.4705882352941178, 135, 10.503703703703703]
 -----Veteran Mouse : 8-----
-experience : [  64 6603    0]	mousebrain seed : 8
+num_mice : [0, 0, 152]	experience : [  64 6603    0]	mousebrain seed : 8	brain iterations per step : 100
 veteran results	[18, 9.8333333333333339, 0, nan]
 control results	[16, 3.25, 136, 6.4411764705882355]
 -----Veteran Mouse : 9-----
-experience : [  14 4616    0]	mousebrain seed : 8
+num_mice : [0, 0, 152]	experience : [  14 4616    0]	mousebrain seed : 8	brain iterations per step : 100
 veteran results	[13, 4.5384615384615383, 112, 28.330357142857142]
 control results	[107, 4.2149532710280377, 34, 21.647058823529413]
 -----Veteran Mouse : 10-----
-experience : [ 169 6173    0]	mousebrain seed : 8
+num_mice : [0, 0, 152]	experience : [ 169 6173    0]	mousebrain seed : 8	brain iterations per step : 100
 veteran results	[3, 5.666666666666667, 0, nan]
 control results	[33, 2.4242424242424243, 119, 8.0672268907563023]

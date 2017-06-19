@@ -123,6 +123,7 @@ class Mouse(Agent):
         self.motor_NN_on = motor_NN_on
         self.appraisal_NN_on = appraisal_NN_on
         self.learning_on = learning_on
+        self.mousebrain_steps = [0, 0, 0]
         
         if self.appraisal_NN_on:
             pass
@@ -132,14 +133,13 @@ class Mouse(Agent):
             self.mousebrain = Mousebrain(seed = self.mousebrain_seed)
             self.mousebrain.build(self.input_manager, self.initial_mousebrain_weights)
             self.mousebrain_sim = nengo.Simulator(self.mousebrain, dt=0.001)
-            self.mousebrain_steps = [0, 0, 0]
         else : 
             self.mousebrain = None
             self.mousebrain_sim = None
-            self.mousebrain_steps = [None, None, None]
     
     def get_mousebrain_weights(self) :
-        if self.mousebrain_steps != [0, 0, 0] :
+#         if self.mousebrain_steps not in ([0,0,0],[None, None, None]) :
+        if self.mousebrain_steps != [0,0,0] :
             temp0 = self.mousebrain_sim.data[self.mousebrain.p_approach_weights][-1]
             temp1 = self.mousebrain_sim.data[self.mousebrain.p_avoid_weights][-1]
             temp2 = self.mousebrain_sim.data[self.mousebrain.p_search_weights][-1]

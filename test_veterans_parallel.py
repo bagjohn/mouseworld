@@ -114,7 +114,7 @@ def run_experiment(file) :
     veteran_results = [num_succesful_veteran_trials, mean_time_veteran_success, num_unsuccesful_veteran_trials, mean_time_veteran_failure]
     control_results = [num_succesful_control_trials, mean_time_control_success, num_unsuccesful_control_trials, mean_time_control_failure]
 
-    exp_data = [mousebrain_steps, mousebrain_seed, veteran_results, control_results]
+    exp_data = [mousebrain_steps, mousebrain_seed, brain_iterations_per_step, num_mice, veteran_results, control_results]
     return exp_data
 
 filenames = []
@@ -132,11 +132,15 @@ for exp_data in all_exp_data :
     counter +=1
     mousebrain_steps = exp_data[0]
     mousebrain_seed = exp_data[1]
-    veteran_results = exp_data[2]
-    control_results = exp_data[3]
+    brain_iterations_per_step = exp_data[2] 
+    num_mice = exp_data[3]
+    veteran_results = exp_data[4]
+    control_results = exp_data[5]
     file.write('-----Veteran Mouse : %i-----\n'%counter)
+    file.write('num_mice : %s' %str(num_mice) + '\t')
     file.write('experience : %s'%str(mousebrain_steps) + '\t')
-    file.write('mousebrain seed : %s' %str(mousebrain_seed) + '\n')
+    file.write('mousebrain seed : %s' %str(mousebrain_seed) + '\t')
+    file.write('brain iterations per step : %s' %str(brain_iterations_per_step) + '\n')
     file.write('veteran results' + '\t')
     file.write(str(veteran_results) + '\n')
     file.write('control results' + '\t')

@@ -11748,7 +11748,7 @@ div#notebook {
 
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
+<div class="prompt input_prompt">In&nbsp;[1]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> create_veterans_parallel.py
@@ -11775,7 +11775,8 @@ def run_experiment() :
     # Build the model
     print(&#39;Building mouseworld&#39;)
     model = mouseworld.Mouseworld(num_mice, 100, 0, mouse_initial_energy = 1000, mouse_max_energy = 1200,
-                     food_amount_range = (20,40), nutritional_value = [1], mouse_reproduction = False, brain_iterations_per_step = 10)
+                     food_amount_range = (20,40), nutritional_value = [1], mouse_reproduction = False, 
+                                  brain_iterations_per_step = 10)
 
     # Gather initial randomly distributed data
     # model.initial_datacollector.collect(model,model.schedule)
@@ -11867,10 +11868,24 @@ file.close()
 </div>
 </div>
 
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area"><div class="prompt"></div>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Writing create_veterans_parallel.py
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[5]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> create_veterans.py
@@ -11885,7 +11900,7 @@ simulation_num = sys.argv[1]
 # simulation_num = 999
 
 
-num_mice = [0, 0, 10]
+num_mice = [10, 10, 10]
 
  # Build the model
 print(&#39;Building mouseworld&#39;)
@@ -11931,7 +11946,7 @@ print(&#39;Simulation terminated - No alive mice&#39;)
 print(&#39;Storing mousebrains&#39;)
 # print(model.exp_approach_rank)
 # print(model.exp_approach_rank[:1])
-for i in model.exp_approach_rank[:5] :
+for i in model.exp_approach_rank[:30] :
     i.store_mousebrain_weights()
     
 # # Gather final model and agent data
@@ -11964,7 +11979,7 @@ for i in model.exp_approach_rank[:5] :
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[6]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="o">%%</span><span class="k">writefile</span> test_veterans_parallel.py
@@ -12084,7 +12099,7 @@ def run_experiment(file) :
     veteran_results = [num_succesful_veteran_trials, mean_time_veteran_success, num_unsuccesful_veteran_trials, mean_time_veteran_failure]
     control_results = [num_succesful_control_trials, mean_time_control_success, num_unsuccesful_control_trials, mean_time_control_failure]
 
-    exp_data = [mousebrain_steps, mousebrain_seed, veteran_results, control_results]
+    exp_data = [mousebrain_steps, mousebrain_seed, brain_iterations_per_step, num_mice, veteran_results, control_results]
     return exp_data
 
 filenames = []
@@ -12102,11 +12117,15 @@ for exp_data in all_exp_data :
     counter +=1
     mousebrain_steps = exp_data[0]
     mousebrain_seed = exp_data[1]
-    veteran_results = exp_data[2]
-    control_results = exp_data[3]
+    brain_iterations_per_step = exp_data[2] 
+    num_mice = exp_data[3]
+    veteran_results = exp_data[4]
+    control_results = exp_data[5]
     file.write(&#39;-----Veteran Mouse : %i-----\n&#39;%counter)
     file.write(&#39;experience : %s&#39;%str(mousebrain_steps) + &#39;\t&#39;)
-    file.write(&#39;mousebrain seed : %s&#39; %str(mousebrain_seed) + &#39;\n&#39;)
+    file.write(&#39;mousebrain seed : %s&#39; %str(mousebrain_seed) + &#39;\t&#39;)
+    file.write(&#39;brain iterations per step : %s&#39; %str(brain_iterations_per_step) + &#39;\t&#39;)
+    file.write(&#39;num_mice : %s&#39; %str(num_mice) + &#39;\n&#39;)
     file.write(&#39;veteran results&#39; + &#39;\t&#39;)
     file.write(str(veteran_results) + &#39;\n&#39;)
     file.write(&#39;control results&#39; + &#39;\t&#39;)
@@ -12238,7 +12257,8 @@ control_results = [num_succesful_control_trials, mean_time_control_success, num_
 
 file = open(&#39;results/veteran_mousebrains/test_veterans.txt&#39;,&#39;w&#39;) 
 file.write(&#39;experience : %s&#39;%str(mousebrain_steps) + &#39;\t&#39;)
-file.write(&#39;mousebrain seed : %s&#39; %str(mousebrain_seed) + &#39;\n&#39;)
+file.write(&#39;mousebrain seed : %s&#39; %str(mousebrain_seed) + &#39;\t&#39;)
+file.write(&#39;brain_iterations_per_step : %s&#39; %str(brain_iterations_per_step) + &#39;\n&#39;)
 file.write(&#39;veteran results&#39; + &#39;\t&#39;)
 file.write(str(veteran_results) + &#39;\n&#39;)
 file.write(&#39;control results&#39; + &#39;\t&#39;)

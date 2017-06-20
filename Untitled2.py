@@ -1,6 +1,15 @@
 
 # coding: utf-8
 
+# In[2]:
+
+a = [[3,4],[4,5],[3,2]]
+if a :
+    print('lala')
+else :
+    print('sasa')
+
+
 # In[8]:
 
 import pandas as pd

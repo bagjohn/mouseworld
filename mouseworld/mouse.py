@@ -115,15 +115,20 @@ class Mouse(Agent):
         
         # Mousebrain initialization
         self.initial_mousebrain_weights = initial_mousebrain_weights
-#         self.current_mousebrain_weights = initial_mousebrain_weights
         self.final_mousebrain_weights = None
-        self.num_mousebrain_initialization_steps = 5
+        self.mousebrain_steps = [0, 0, 0]
+    
         self.mousebrain_seed = mousebrain_seed
         self.brain_iterations_per_step = brain_iterations_per_step
         self.motor_NN_on = motor_NN_on
         self.appraisal_NN_on = appraisal_NN_on
         self.learning_on = learning_on
-        self.mousebrain_steps = [0, 0, 0]
+        
+        # TECH : Provide initialization steps to avoid switch artifact of NN.
+        # TECH : Switch from one action to another, therefore from one goal sense to another.
+        # TECH : From inspecting nengo_gui, it takes about 0.05 sec (50 * 0.001) to stabilize during manual switch. 
+        # TECH : So 100 steps should be enough
+        self.num_mousebrain_initialization_steps = 100
         
         if self.appraisal_NN_on:
             pass
@@ -153,10 +158,15 @@ class Mouse(Agent):
             os.makedirs(directory)
         filename = ('%s/veteran_%i_%i_%i.npz'%(directory, self.mousebrain_steps[0], self.mousebrain_steps[1], self.mousebrain_steps[2]))
         weights = self.get_mousebrain_weights()
-        np.savez(filename, genome = self.genome, motor_NN_on = self.motor_NN_on, learning_on = self.learning_on, 
-                 seed = self.mousebrain_seed, brain_iterations_per_step = self.brain_iterations_per_step, 
-                 mousebrain_steps = self.mousebrain_steps, w_search=weights[0], w_approach=weights[1], w_avoid=weights[2],
-                simulation_num = self.model.simulation_num)
+        if weights :
+            np.savez(filename, genome = self.genome, motor_NN_on = self.motor_NN_on, learning_on = self.learning_on, 
+                     seed = self.mousebrain_seed, brain_iterations_per_step = self.brain_iterations_per_step, 
+                     mousebrain_steps = self.mousebrain_steps, w_search=weights[0], w_approach=weights[1], w_avoid=weights[2],
+                    simulation_num = self.model.simulation_num)
+        else :
+            np.savez(filename, genome = self.genome, motor_NN_on = self.motor_NN_on, learning_on = self.learning_on, 
+                     seed = self.mousebrain_seed, brain_iterations_per_step = self.brain_iterations_per_step, 
+                     mousebrain_steps = self.mousebrain_steps, simulation_num = self.model.simulation_num)
 #         directory = ('results/veteran_mousebrains/%i'%self.mousebrain_seed)
 #         if not os.path.exists(directory):
 #             os.makedirs(directory)

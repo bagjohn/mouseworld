@@ -26,18 +26,20 @@ def run_experiment(file) :
     mouse_data = numpy.load(file)
 
     if mouse_data['motor_NN_on'] :
+        mousebrain_weights = [mouse_data['w_search'], mouse_data['w_approach'], mouse_data['w_avoid']]
         if mouse_data['learning_on'] :
             num_mice = [0, 0, 152]
         else :
             num_mice = [0, 152, 0]
     else :
+        mousebrain_weights = None
         num_mice = [152, 0, 0]
     genome = numpy.around(mouse_data['genome'], decimals = 2)
     genome_range = [(x,x) for x in genome]
     mousebrain_seed = mouse_data['seed']
     brain_iterations_per_step = mouse_data['brain_iterations_per_step']
     mousebrain_steps = mouse_data['mousebrain_steps']
-    mousebrain_weights = [mouse_data['w_search'], mouse_data['w_approach'], mouse_data['w_avoid']]
+    
     simulation_num = mouse_data['simulation_num']
 
     # Build the model

@@ -97,6 +97,16 @@ class RandomActivation(BaseScheduler):
     Assumes that all agents have a step(model) method.
 
     """
+    def update_status(self):
+        """ Executes the update_status of all agents, one at a time, in order.
+
+        """
+        #random.shuffle(self.agents)
+        
+        for agent in self.agents[:]:
+            agent.update_status()
+        
+    
     def step(self):
         """ Executes the step of all agents, one at a time, in
         random order.

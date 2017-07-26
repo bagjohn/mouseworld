@@ -1,13 +1,230 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[15]:
 
-a = [[3,4],[4,5],[3,2]]
-if a :
-    print('lala')
+import matplotlib.pyplot as plt
+import numpy as np
+
+def w_grow(w) :
+    w += (1-w)*0.1
+    return w
+w = 0
+y = []
+x = np.arange(100)
+# y = 1 - np.exp(-x/10)
+for i in range(100) :
+    y.append(w)
+    w = w_grow(w)
+
+plt.plot(x, y)  
+plt.show()
+y
+
+
+# In[71]:
+
+import numpy as np
+import random
+
+def generate_genetic_map (num_genes, num_gene_positions, genetic_map_seed) :
+    random.shuffle(x, lambda: genetic_map_seed)
+    return genetic_map
+
+
+
+num_genes = 8
+num_gene_positions = 10
+genetic_map_seed = 0.2
+# genetic_map = generate_genetic_map (num_genes, num_gene_positions, genetic_map_seed)
+b = list(range(num_gene_positions * num_genes))
+random.shuffle(b, lambda: genetic_map_seed)
+c = [b[x:x+num_gene_positions] for x in range(0, len(b),num_gene_positions)]
+# print(c)
+
+rand_str = lambda n: ''.join([random.choice(['0','1']) for i in range(n)])
+# Now to generate a random string of length 10
+d = [rand_str(num_gene_positions * num_genes) for i in range(5)]  
+# print(d)
+# random.choice(['0','1'])
+
+e = list(map(int, d[0]))
+print(e)
+f = []
+# q=[]
+for x in range(len(c)) :
+#     print(c[x])
+    t = [e[i] for i in c[x]]
+#     print(t)
+#     q.append(t)
+    pheno = sum([t[i]*(2**i) for i in range(len(t))])/(2**num_gene_positions)
+#     print(pheno)
+    f.append(pheno)
+print(f)
+# print(f)
+# len(c)
+# [e[i] for i in c[0]]
+
+
+# In[105]:
+
+import numpy as np
+num_sensors = 2
+groups_num = 2
+odor_layers_num = groups_num + 2
+names = ['sasa','sawq', 'zzxx','fdfd']
+# sensor_vector = np.zeros(shape = (odor_layers_num,2), index = )
+# sensor_vector
+# dtype = [('f4',)*num_sensors]*len(names)
+dtype = ('f4',)*num_sensors
+# sensor_vector = [np.array([(np.zeros(num_sensors),name)],dtype = dtype) for name in names]
+np.array([(np.zeros(num_sensors),'fdfd')],dtype = dtype)
+sv = []
+for name in names :
+    
+    sv
+
+
+# In[134]:
+
+import numpy as np
+import pandas as pd
+
+possible_actions = pd.DataFrame([],
+                                                     columns=('Verb', 'Noun_group', 'Value', 'Function', 'Arg_1'))
+possible_actions
+
+
+# In[43]:
+
+import numpy as np
+import collections
+m = ['ko','io','ui','ty','rt','er','ew','qw']
+n = [1,2,3,4,5,6,7,8]
+drives = [1,2,3,4,5,6,7,8]
+mlist = [((m[0],m[1]),5),((m[2],m[3]),3),((m[4],m[5]),2),((m[4],m[5]),2),
+         ((m[0],m[3]),4), ((m[0],m[5]),1),((m[6],m[5]),8),((m[2],m[5]),7),((m[0],m[3]),4),((m[0], m[5]),1)]
+counter = collections.Counter(mlist)
+#print(counter)
+pairs = [pair for pair in counter if counter[pair]> 1]
+print(pairs)
+# # m_names = [x for (x,y) in pairs]
+# v = [-5,-2,-3]
+
+v_pairs = sorted(pairs, key=lambda x: -x[1])
+# v_pairs = [x for (y,x) in sorted(zip(v,pairs))]
+v_pairs = [x for (x,y) in v_pairs]
+print(v_pairs)
+
+
+# while v_pairs :
+#     print(v_pairs[0])
+#     v_pairs = [(z,w) for (z,w) in v_pairs if (z!=v_pairs[0][0] and w!=v_pairs[0][1])]
+    
+# v_pairs[0][0] != v_pairs[1][0] & v_pairs[0][1] != v_pairs[1][1]
+
+#names
+# print(mlist)
+# print(pairs)
+# print(v_pairs)
+# m_names
+#sorted((m[0],m[1]))
+#(m[0],m[1])
+# 'ko'!='ko'
+
+
+# In[75]:
+
+import numpy as np
+
+def mutate(genome) :
+    e = np.random.randint(len(genome),size = 1)  
+    s = list(genome)
+    if s[e] == '1' :
+        s[e] = '0'
+    elif s[e] == '0' :
+        s[e] = '1'
+    genome = ''.join(s)
+    return genome
+
+num_genes = 2
+gene_length = 10
+gene_levels = 2**gene_length
+# genome = [[np.randint(low=low, high=high) for (low, high) in a] for i in range(10)]
+a = np.random.randint(gene_levels, size=num_genes)
+b = ['{0:010b}'.format(x) for x in a]
+c =  ''.join(b)
+print(a)
+print(a/gene_levels)
+print(b)
+print(c)
+len(c)
+d = [c[i:i+gene_length] for i in range(0, len(c), gene_length)]
+e = mutate(c)
+print(e)
+
+
+# In[131]:
+
+import numpy as np
+import random
+
+a = '0000000000000000000000000000'
+b = '1111111111111111111111111111'
+rand_rec = np.random.uniform(low=-1, high=1, size=None)
+
+if abs(rand_rec) < 0.1 :
+    rec_site = np.random.randint(low=1, high=len(a)-1, size=None)
 else :
-    print('sasa')
+    rec_site = 0
+if rand_rec >= 0 :
+    c = a[:rec_site] + b[rec_site:]
+else :
+    c = b[:rec_site] + a[rec_site:]
+    
+print (rand_rec)    
+print(rec_site)  
+print (a)
+print (b)
+print(c)
+
+rand_mut = np.random.uniform(low=0, high=1, size=None)
+if rand_mut < 0.1 :
+    mut_site = np.random.randint(low=1, high=len(c)-1, size=None)
+    
+print (rand_mut)
+# print(mut_site)
+
+
+# In[164]:
+
+import numpy as np
+import random
+import matplotlib.pyplot as plt
+
+s = np.random.poisson(0.1, 10)
+
+c='0111111110'
+d=list(c)
+# count, bins, ignored = plt.hist(s, 5, normed=True)
+# plt.show()
+
+
+for i in range(len(s)) :
+#     mut_sites =
+    if s[i] == 1 :
+        if d[i] == '0' :
+            d[i] = '1'
+        elif d[i] == '1' :
+            d[i] = '0'
+#     print('%i,%s'%(s[i],c[i]))
+    
+e=''.join(d)
+
+print(c)
+print(d)
+print(e)
+print(s)
 
 
 # In[8]:

@@ -2,7 +2,7 @@
 import math
 import ipyparallel
 import itertools
-
+import sys
 # at terminal : ipcluster start -n 4
 
 clients = ipyparallel.Client()
@@ -12,17 +12,18 @@ with dview.sync_imports():
     from mouseworld import mouseworld
     from mouseworld.mouseworld import Mouseworld
     import time
+    import sys
 dview.push({"Mouseworld": Mouseworld})
 
-def run_experiment() :
-#    
-    num_mice = [0, 0, 100]
+def run_experiment(exp_data) :
+    simulation_num = sys.argv[1]
+    num_mice = [10, 10, 10]
 
     # Build the model
     print('Building mouseworld')
-    model = mouseworld.Mouseworld(num_mice, 100, 0, mouse_initial_energy = 1000, mouse_max_energy = 1200,
-                     food_amount_range = (20,40), nutritional_value = [1], mouse_reproduction = False, 
-                                  brain_iterations_per_step = 10)
+    model = mouseworld.Mouseworld(num_mice, 100, 40, simulation_num, mouse_initial_energy = 1000, mouse_max_energy = 1200,
+                     food_amount_range = (20,200), nutritional_value = [1], mouse_reproduction = True, 
+                                  brain_iterations_per_step = 10, mousebrain_seed = 8)
 
     # Gather initial randomly distributed data
     # model.initial_datacollector.collect(model,model.schedule)
@@ -37,57 +38,34 @@ def run_experiment() :
         model.diffuse_odor_layers(model.odor_layers)
 
     counter = 0
-    myrange = 60
+    myrange = 20
     # Run for discrete number of timesteps
-#     print('Simulatimg for %i timesteps'%myrange)
-#     for i in range(myrange) :
-#         c=time.time()
-#         counter += 1
-#         model.step()
-#         d=time.time()
-#         print('sim step : %i in %f'%(counter, d-c))
-#     print('Simulation terminated - Number of time steps reached')
-
-    # Run until all mice perish
-    print('Simulatimg until all mice perish')
-    while model.num_mice > 0 :
+    print('Simulatimg for %i timesteps'%myrange)
+    for i in range(myrange) :
         c=time.time()
         counter += 1
         model.step()
         d=time.time()
         print('sim step : %i in %f'%(counter, d-c))
-    print('Simulation terminated - No alive mice')
+    print('Simulation terminated - Number of time steps reached')
+
+    # Run until all mice perish
+#     print('Simulatimg until all mice perish')
+#     while model.num_mice > 0 :
+#         c=time.time()
+#         counter += 1
+#         model.step()
+#         d=time.time()
+#         print('sim step : %i in %f'%(counter, d-c))
+#     print('Simulation terminated - No alive mice')
         
-    # Gather final model and agent data
-    model.final_datacollector.collect(model,model.all_mice_schedule)
-    # final_model_data = model.final_datacollector.get_model_vars_dataframe()
-    # print(final_model_data)
-
-    final_agent_data = model.final_datacollector.get_agent_vars_dataframe()
-    mouse_statistics = final_agent_data[['first_action_duration', 'first_action_termination']]
-    # mouse_statistics = final_agent_data['action_history']
-    # mouse_statistics = final_agent_data['secondary_values']
-    # mouse_statistics = final_agent_data['sensor_vector']
-
-    mouse_statistics = mouse_statistics.reset_index('Step', drop = True)
-        #mouse_statistics = mouse_statistics.reset_index('AgentID', drop = True)
-    num_trials = len(mouse_statistics.index)
-    # for i in range(num_trials)
-    succesful_trials = mouse_statistics.loc[(mouse_statistics['first_action_termination'] == 'Closure')]
-    unsuccesful_trials = mouse_statistics.loc[(mouse_statistics['first_action_termination'] == 'Failure')]
-    # incomplete_trials = mouse_statistics.loc[(mouse_statistics['first_action_termination'] == 'None')]
-
-    num_succesful_trials = len(succesful_trials.index)
-    num_unsuccesful_trials = len(unsuccesful_trials.index)
-    # num_incomplete_trials = len(incomplete_trials.index)
-
-    #performance = num_succesful_trials / num_trials
-    mean_time_success = succesful_trials['first_action_duration'].mean()
-    mean_time_failure = unsuccesful_trials['first_action_duration'].mean()
-
-    sim_params = [mouse_position, num_mice, myrange]
-    results = [num_succesful_trials, mean_time_success, num_unsuccesful_trials, mean_time_failure]
-    exp_data = [results, sim_params]
+    print('Storing mousebrains')
+# print(model.exp_approach_rank)
+# print(model.exp_approach_rank[:1])
+    for i in model.exp_approach_rank[:30] :
+        i.store_mousebrain_weights()
+    
+#     exp_data = 5
     return exp_data
     # mouse_statistics = [performance,  mean_time]
     #     sensor_vector = final_agent_data['sensor_vector'][0].values[0]
@@ -100,11 +78,8 @@ def run_experiment() :
 #     return (performance,  mean_time)
 #     return (mouse_statistics)
 # print(performance,  mean_time)
-all_exp_data = dview.map_sync(run_experiment, mouse_positions)
-
-file = open('results/check_approach_consistency_001_2.txt','w') 
-for exp_data in all_exp_data :
-    file.write(str(exp_data) + '\n')
-# file.write(str(results) + '\n')
-file.close() 
-# mouse_statistics.to_csv('results/mouse_statistics.csv', sep='\t')
+print('Starting parallel execution')
+e=time.time()
+all_exp_data = dview.map_sync(run_experiment, [5])
+f=time.time()
+print('parallel simulation complete in : %f'%(f-e))

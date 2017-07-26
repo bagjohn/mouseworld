@@ -1,0 +1,7 @@
+#directory <- dirname(sys.frame(1)$ofile)
+#print(directory)
+#setwd(script.dir)
+#print(getwd())
+#initial_genome_distribution = read.csv("./../results/simulation_991/initial_genome_distribution.csv")
+dir <- thisfile()
+print(dir)

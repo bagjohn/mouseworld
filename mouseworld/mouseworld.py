@@ -1,8 +1,8 @@
 
-from mesa import Agent, Model
+from mesa import Model
 #from mesa.time import RandomActivation
 #from mesa.space import ContinuousSpace
-from mesa.datacollection import DataCollector
+#from mesa.datacollection import DataCollector
 
 import itertools
 import numpy as np
@@ -10,6 +10,7 @@ import math
 import pandas as pd
 import random
 import os
+import collections
 from scipy.stats import norm
 
 # from mouseworld.myspace import ContinuousSpace
@@ -26,15 +27,19 @@ from joblib import Parallel, delayed
 import multiprocessing
 
 class Mouseworld(Model):
-    def __init__(self, num_mice, num_food, num_predators, simulation_num = None,
-                 genome_range = [(0,1), (0,1), (0,1), (0,1), (0,1)],
+    def __init__(self, num_mice_wo_MNN = 20, num_mice_w_MNN = 0,num_mice_w_lMNN = 0, 
+                 num_food = 10, num_predators = 5, simulation_num = None,
+                 phenotype_range = [(0,1), (0,1), (0,1), (0,1), (0,1), (0,1), (0,1), (0,1)],
                  mouse_initial_energy = 1000, mouse_max_energy = 1200,
                  mouse_position = 'random', food_position = 'random', predator_position = 'random',
                  primary_values = None, secondary_values = None, 
                  food_amount_range = (20,400), nutritional_value = [-1, 0.7, 1], food_growth_rate = [1],
-                 width = 100, height = 100, mousebrain_inheritance = False, mouse_reproduction = True, 
-                 brain_iterations_per_step = 10, initial_mousebrain_weights = None, mousebrain_seed = None,
-                test_veteran = False):
+                 width = 100, height = 100, mousebrain_inheritance = False, appraisal_knowledge_inheritance = False, 
+                 mouse_reproduction = True, brain_iterations_per_step = 10, initial_mousebrain_weights = None, 
+                 mousebrain_seed = None, test_veteran = False):
+        
+        # This attribute has been added for visualization purposes in order to be compatible with mesa ModularServer
+        self.running = True
         
         # for parallel processing
         self.num_cores = multiprocessing.cpu_count()
@@ -47,12 +52,12 @@ class Mouseworld(Model):
                 os.makedirs(self.directory)
             
         # define model variables from args
-        self.num_mice = sum(num_mice)
+        self.num_mice = num_mice_wo_MNN + num_mice_w_MNN + num_mice_w_lMNN
         self.num_unborn_mice = 0
-        self.genome_range = genome_range
+        self.phenotype_range = phenotype_range
         self.mouse_initial_energy = mouse_initial_energy
         self.mouse_max_energy = mouse_max_energy
-        self.num_genes = len(genome_range)
+        #self.num_genes = len(phenotype_range)
         self.num_food = num_food
         self.num_predators = num_predators
         self.mousebrain_inheritance = mousebrain_inheritance
@@ -65,8 +70,16 @@ class Mouseworld(Model):
         self.space = ContinuousSpace(width, height, True, x_min=0, y_min=0,
             grid_width=width, grid_height=height)
         
+        # define genomic parameters
+        self.num_genes = 8
+        self.num_positions_per_gene = 10
+        self.genetic_map_seed = 0.3
+        self.mutation_rate = 0.01
+        self.recombination_rate = 0.01
+        
         # initialize genome
-        self.initialization_genome = self.initialize_genome()
+        self.initialization_genome = self.initialize_genome(self.num_genes * self.num_positions_per_gene, self.num_mice)
+        self.genetic_map = self.generate_genetic_map(self.num_genes, self.num_positions_per_gene, self.genetic_map_seed)
         
         # initialize positions
         if mouse_position == 'random' :
@@ -88,19 +101,18 @@ class Mouseworld(Model):
             
         # initialize food parameters
         self.food_amount_range = food_amount_range
+        self.food_growth_rate = food_growth_rate
+        
         self.food_odor_strength = [2] #[0.7,1]
         self.food_odor_std = [8]
         self.nutritional_value = nutritional_value #[-1, 0.7, 1]
-        self.food_growth_rate = food_growth_rate
         self.food_params = (self.food_odor_strength, self.nutritional_value, self.food_odor_std, self.food_growth_rate)
         self.food_param_combs = list(itertools.product(*self.food_params))
         self.food_groups_num = len(self.food_param_combs)
         self.food_groups = [('Food_group_%i'%i) for i in range(self.food_groups_num)]
         self.food_layers = [Value_layer('Food_odor_%i'%i, width, height, True) for i in range(self.food_groups_num)]
         self.food_layer_names = [('Food_odor_%i'%i) for i in range(self.food_groups_num)]
-#         for i in range(self.food_groups_num) :
-#             self.food_groups[i] = ('Food_group_%i'%i) 
-#             self.food_layers[i] = ('Food_odor_%i'%i)
+
         
         # initialize predator parameters
         self.predator_odor_strength = [1] # [0.7,1]
@@ -115,15 +127,25 @@ class Mouseworld(Model):
         self.predator_groups = [('Predator_group_%i'%i) for i in range(self.predator_groups_num)]
         self.predator_layers = [Value_layer('Predator_odor_%i'%i, width, height, True) for i in range(self.predator_groups_num)]
         self.predator_layer_names = [('Predator_odor_%i'%i) for i in range(self.predator_groups_num)]
-#         for i in range(self.predator_groups_num) :
-#             self.predator_groups[i] = ('Predator_group_%i'%i)
-#             self.predator_layers[i] = ('Predator_odor_%i'%i)
+
             
         # all agents (food & predator)
         self.groups_num = self.food_groups_num + self.predator_groups_num
         self.groups = self.food_groups + self.predator_groups
-        self.odor_layers = self.food_layers + self.predator_layers
-        self.odor_layer_names = self.food_layer_names + self.predator_layer_names
+        self.group_odor_layers = self.food_layers + self.predator_layers
+        self.group_odor_layer_names = self.food_layer_names + self.predator_layer_names
+        
+        # mating odor
+        self.male_mating_odor_layer = Value_layer('Male_mating_odor', width, height, True)
+        self.female_mating_odor_layer = Value_layer('Female_mating_odor', width, height, True)
+        self.pregnancy_odor_layer = Value_layer('Pregnancy_odor', width, height, True)
+        self.mouse_layers = [self.male_mating_odor_layer, self.female_mating_odor_layer, self.pregnancy_odor_layer]
+        self.mouse_layer_names = [self.male_mating_odor_layer.unique_id, self.female_mating_odor_layer.unique_id,
+                                  self.pregnancy_odor_layer.unique_id]
+        
+        # all odor layers
+        self.odor_layers = self.group_odor_layers + self.mouse_layers
+        self.odor_layer_names = self.group_odor_layer_names + self.mouse_layer_names
 
         # build schedules
         self.schedule = RandomActivation(self)
@@ -140,6 +162,10 @@ class Mouseworld(Model):
         self.exp_search_rank = []
         self.exp_approach_rank = []
         self.exp_avoid_rank = []
+        
+        #initialize pair list
+        self.candidate_pairs = []
+        self.selected_pairs = []
         
         #initialize sensor_vector
 #         self.sensor_num = 2
@@ -167,13 +193,13 @@ class Mouseworld(Model):
         for i in range(self.num_mice):
             temp_genome = self.initialization_genome[i]
             temp_position = self.initial_mouse_positions[i]
-            if i < num_mice[0] :
+            if i < num_mice_wo_MNN :
                 temp = [False, False, False]
-            elif i < (num_mice[0] + num_mice[1]):
+            elif i < (num_mice_wo_MNN + num_mice_w_MNN):
                 temp = [True, False, False]
             else :
                 temp = [True, True, False]
-            mouse = Mouse(self, None, temp_genome, 0, 
+            mouse = Mouse(self, [None,None], temp_genome, [0,0], 
                           motor_NN_on = temp[0], learning_on = temp[1], appraisal_NN_on = temp[2],
                           header = temp_position[1], brain_iterations_per_step = self.brain_iterations_per_step,
                           initial_mousebrain_weights = self.initial_mousebrain_weights, 
@@ -183,7 +209,7 @@ class Mouseworld(Model):
             self.space.place_agent(mouse, temp_position[0])
             
             if test_veteran :
-                mouse = Mouse(self, None, temp_genome, 0, 
+                mouse = Mouse(self, [None,None], temp_genome, [0,0], 
                           motor_NN_on = temp[0], learning_on = temp[1], appraisal_NN_on = temp[2],
                           header = temp_position[1], brain_iterations_per_step = self.brain_iterations_per_step,
                           mousebrain_seed = self.mousebrain_seed, control_population = True)
@@ -203,9 +229,11 @@ class Mouseworld(Model):
 #             self.place_agent_randomly(mouse)   
         
         # Create data collectors        
-        self.initial_datacollector = MyDataCollector(
-            model_reporters={"Initial genome distribution": lambda a: a.initialization_genome})
+#         self.initial_datacollector = MyDataCollector(
+#             model_reporters={"Initial genome distribution": lambda a: a.initialization_genome})
         
+        self.initial_datacollector = MyDataCollector(
+            agent_reporters={"Genome": lambda a: a.genome})
 #         self.datacollector = MyDataCollector(
 #             model_reporters={"Alive_mice": lambda a: a.num_mice, 
 #                              "Unborn_mice": lambda a: a.num_unborn_mice}
@@ -257,6 +285,7 @@ class Mouseworld(Model):
                             "groups_num": lambda a: a.groups_num},
             agent_reporters={"age": lambda a: a.age,
                              "energy": lambda a: a.energy,
+                             "sex": lambda a: a.sex,
                              "generation": lambda a: a.generation,
                              "num_offspring": lambda a: a.num_offspring,
                              "action_history": lambda a: a.action_history,
@@ -338,13 +367,25 @@ class Mouseworld(Model):
         next_id = '%s_%s'%(class_name, ind)
         self.next_ids[class_name] += 1
         return next_id
-        
-    def initialize_genome(self) :
-        genome = [[np.random.uniform(low=low, high=high) for (low, high) in self.genome_range] for i in range(self.num_mice)]
-        genome = np.around(genome, decimals = 2)
-        #print(genome)
+    
+    def generate_genetic_map (self, num_genes, num_positions_per_gene, genetic_map_seed) :
+        positions = list(range(num_genes * num_positions_per_gene))
+        random.shuffle(positions, lambda: genetic_map_seed)
+        genetic_map = [positions[x:x+num_positions_per_gene] for x in range(0, len(positions),num_positions_per_gene)]
+        return genetic_map
+   
+    def initialize_genome (self, genome_length, num_mice) :
+        rand_str = lambda n: ''.join([random.choice(['0','1']) for i in range(n)])
+        # Now to generate a random string of length 10
+        genome = [rand_str(genome_length) for i in range(num_mice)]
         return genome
     
+    def initialize_phenotype(self) :
+        phenotype = [[np.random.uniform(low=low, high=high) for (low, high) in self.phenotype_range] for i in range(self.num_mice)]
+        phenotype = np.around(phenotype, decimals = 2)
+        #print(genome)
+        return phenotype
+
     # Creates 19 * 8 = 152 combinations of position and header in a quadrant of space around (0,0)
     # Then adjusts to num
     def initialize_pos_in_quadrant(self, num) :
@@ -392,22 +433,89 @@ class Mouseworld(Model):
         self.exp_approach_rank = sorted(self.all_mice_schedule.agents, key=lambda x: x.mousebrain_steps[1], reverse=True)
         self.exp_avoid_rank = sorted(self.all_mice_schedule.agents, key=lambda x: x.mousebrain_steps[2], reverse=True)
 
+    def define_pairs(self, candidate_pairs) :
+        selected_pairs = []
+        counter = collections.Counter(candidate_pairs)
+        mutual_pairs = [pair for pair in counter if counter[pair]> 1]
+        sorted_pairs = sorted(mutual_pairs, key=lambda x: -x[1])
+        sorted_pairs = [x for (x,y) in sorted_pairs]
+        while sorted_pairs :
+            selected_pairs.append(sorted_pairs[0])
+            sorted_pairs = [(z,w) for (z,w) in sorted_pairs if (z is not sorted_pairs[0][0] and w is not sorted_pairs[0][1])]
+        return selected_pairs
+    
+    def generate_genome (self, male_genome, female_genome) :
+        # BIO : Recombination might happen at a single site
+        rand_rec = np.random.uniform(low=-1, high=1, size=None)
+        if abs(rand_rec) < self.recombination_rate :
+            rec_site = np.random.randint(low=1, high=len(male_genome)-1, size=None)
+        else :
+            rec_site = 0
+        if rand_rec >= 0 :
+            child_genome = male_genome[:rec_site] + female_genome[rec_site:]
+        else :
+            child_genome = female_genome[:rec_site] + male_genome[rec_site:]
+        # BIO : Mutation might happen at multiple sites (Poisson process)
+        mut_sites = np.random.poisson(self.mutation_rate, len(child_genome))
+        temp=list(child_genome)
+        for i in range(len(mut_sites)) :
+            if mut_sites[i] == 1 :
+                if temp[i] == '0' :
+                    temp[i] = '1'
+                elif temp[i] == '1' :
+                    temp[i] = '0'
+        #     print('%i,%s'%(s[i],c[i]))
+
+        child_genome =''.join(temp)
+        return child_genome
+    
+    def create_offspring (self, selected_pairs) :
+        for pair in selected_pairs :
+            male_genome = pair[0].genome
+            female_genome = pair[1].genome
+            child_genome = self.generate_genome(male_genome, female_genome)
+            
+            # BIO : New unborn mouse creation
+            if self.mousebrain_inheritance :
+            # BIO : Child inherits parent knowledge (TEST)
+                mouse = Mouse(self, [pair[0].unique_id, pair[1].unique_id], child_genome, 
+                              [pair[0].generation + 1, pair[1].generation + 1],pair[1].motor_NN_on, pair[1].learning_on, 
+                              pair[1].appraisal_NN_on, initial_mousebrain_weights = pair[1].get_mousebrain_weights(),
+                             brain_iterations_per_step = pair[1].brain_iterations_per_step)
+            else :
+                mouse = Mouse(self, [pair[0].unique_id, pair[1].unique_id], child_genome, [pair[0].generation + 1, pair[1].generation + 1],
+                              pair[1].motor_NN_on, pair[1].learning_on, pair[1].appraisal_NN_on, initial_mousebrain_weights = None, 
+                              brain_iterations_per_step = pair[1].brain_iterations_per_step)
+            
+            # BIO : Sexual drive drops to 0
+            pair[0].sexual_drive = 0
+            pair[1].sexual_drive = 0
+            
+            # BIO : Mother mouse will conceive
+            pair[1].conceive(mouse)
+            
+            # COUNTER
+            pair[0].offspring.append(mouse)
+            pair[1].offspring.append(mouse)
+            pair[0].num_offspring +=1
+            pair[1].num_offspring +=1
+            
+    
+    
+
     def step(self):
         '''Advance the model by one step.'''
         #self.predator_datacollector.collect(self,self.predator_schedule)
+        self.candidate_pairs = []
         self.food_schedule.step()
         self.predator_schedule.step()
+        self.schedule.update_status()
         #self.diffuse_odor_layers_parallel(self.odor_layers)
         self.diffuse_odor_layers(self.odor_layers)
         self.schedule.step() 
+        self.selected_pairs = self.define_pairs(self.candidate_pairs)
+        self.create_offspring(self.selected_pairs)
         self.update_ranks()
         self.test_datacollector.collect(self, self.schedule)
         self.model_datacollector.collect(self, self.schedule)
         self.mouseworld_date += 1
-
-# class Agent_group :
-    
-#     def __init(self, model, parameters) :
-#         self.model = model
-#         self.parameters = parameters
-#         self.odor
